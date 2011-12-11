@@ -19,6 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
+use \Cake\Core\Configure,
+	\Cake\Utility\Set,
+	\Cake\Utility\String;
 
 /**
  * Provide custom logging and error handling.

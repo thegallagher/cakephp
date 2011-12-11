@@ -22,9 +22,11 @@
 namespace Cake\Routing;
 use \Cake\Core\Configure,
 	\Cake\Core\CakePlugin,
+	\Cake\Controller\Controller,
 	\Cake\Network\CakeRequest,
 	\Cake\Network\CakeResponse,
-	\Cake\Utility\Inflector;
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Dispatcher converts Requests into controller actions.  It uses the dispatched Request
@@ -75,7 +77,7 @@ class Dispatcher {
 		$controller = $this->_getController($request, $response);
 
 		if (!($controller instanceof Controller)) {
-			throw new \Cake\Error\MissingControllerException(array(
+			throw new Error\MissingControllerException(array(
 				'class' => Inflector::camelize($request->params['controller']),
 				'plugin' => empty($request->params['plugin']) ? null : Inflector::camelize($request->params['plugin'])
 			));

@@ -255,7 +255,7 @@ class CakeRequest implements \ArrayAccess {
 			if ($webroot === 'webroot' && $webroot === basename($base)) {
 				$base = dirname($base);
 			}
-			if ($dir === 'app' && $dir === basename($base)) {
+			if ($dir === 'App' && $dir === basename($base)) {
 				$base = dirname($base);
 			}
 

@@ -17,6 +17,9 @@
  */
 use \Cake\Core\Configure,
 	\Cake\Utility\Debugger,
+	\Cake\Cache\Cache,
+	\Cake\Model\ConnectionManager,
+	\Cake\Utility\Validation,
 	\Cake\Error;
 if (Configure::read('debug') == 0):
 	throw new Error\NotFoundException();
@@ -39,13 +42,13 @@ endif;
 </p>
 <p>
 <?php
-	if (version_compare(PHP_VERSION, '5.2.6', '>=')):
+	if (version_compare(PHP_VERSION, '5.3.3', '>=')):
 		echo '<span class="notice success">';
-			echo __d('cake_dev', 'Your version of PHP is 5.2.6 or higher.');
+			echo __d('cake_dev', 'Your version of PHP is 5.3.3 or higher.');
 		echo '</span>';
 	else:
 		echo '<span class="notice">';
-			echo __d('cake_dev', 'Your version of PHP is too low. You need PHP 5.2.6 or higher to use CakePHP.');
+			echo __d('cake_dev', 'Your version of PHP is too low. You need PHP 5.3.3 or higher to use CakePHP.');
 		echo '</span>';
 	endif;
 ?>
@@ -96,7 +99,6 @@ endif;
 </p>
 <?php
 if (isset($filePresent)):
-	App::uses('ConnectionManager', 'Model');
 	try {
 		$connected = ConnectionManager::getDataSource('default');
 	} catch (Exception $connectionError) {
@@ -120,7 +122,6 @@ if (isset($filePresent)):
 </p>
 <?php endif;?>
 <?php
-	App::uses('Validation', 'Utility');
 	if (!Validation::alphaNumeric('cakephp')) {
 		echo '<p><span class="notice">';
 		__d('cake_dev', 'PCRE has not been compiled with Unicode support.');

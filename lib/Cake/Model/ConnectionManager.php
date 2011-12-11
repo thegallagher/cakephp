@@ -19,6 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
+use \Cake\Error;
 
 /**
  * Manages loaded instances of DataSource objects
@@ -241,7 +242,7 @@ class ConnectionManager {
 		if (!empty(self::$config->{$name})) {
 			self::$_connectionsEnum[$name] = self::_connectionData(self::$config->{$name});
 		} else {
-			throw new MissingDatasourceConfigException(array('config' => $name));
+			throw new Error\MissingDatasourceConfigException(array('config' => $name));
 		}
 	}
 
