@@ -17,6 +17,7 @@
  * @since         CakePHP(tm) v 1.2.0.6833
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace {
 
 /**
  * Find position of first occurrence of a case-insensitive string.
@@ -244,6 +245,10 @@ if (!function_exists('mb_encode_mimeheader')) {
 		return Multibyte::mimeEncode($str, $charset, $linefeed);
 	}
 }
+
+}
+
+namespace Cake\I18n {
 
 /**
  * Multibyte handling methods.
@@ -1103,4 +1108,6 @@ class Multibyte {
 		}
 		return false;
 	}
+}
+
 }

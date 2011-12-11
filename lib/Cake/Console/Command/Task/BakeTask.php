@@ -15,8 +15,7 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
+namespace Cake\Console\Command\Task;
 
 /**
  * Base class for Bake Tasks.

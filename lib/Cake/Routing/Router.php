@@ -16,9 +16,11 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('CakeRequest', 'Network');
-App::uses('CakeRoute', 'Routing/Route');
+namespace Cake\Routing;
+use \Cake\Core\Configure,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Routing\Route\CakeRoute;
 
 /**
  * Parses the request URL into controller, action, and parameters.  Uses the connected routes
@@ -157,7 +159,7 @@ class Router {
  *
  * @var string
  */
-    protected static $_routeClass = 'CakeRoute';
+    protected static $_routeClass = '\Cake\Routing\Route\Route';
 
 /**
  * Set the default route class to use or return the current one
@@ -182,7 +184,7 @@ class Router {
  * @throws RouterException
  */
 	protected static function _validateRouteClass($routeClass) {
-		if (!class_exists($routeClass) || !is_subclass_of($routeClass, 'CakeRoute')) {
+		if (!class_exists($routeClass) || !is_subclass_of($routeClass, '\Cake\Routing\Route\Route')) {
 			throw new RouterException(__d('cake_dev', 'Route classes must extend CakeRoute'));
 		}
 		return $routeClass;
@@ -304,7 +306,7 @@ class Router {
 			$routeClass = self::_validateRouteClass($options['routeClass']);
 			unset($options['routeClass']);
 		}
-		if ($routeClass == 'RedirectRoute' && isset($defaults['redirect'])) {
+		if ($routeClass === '\Cake\Routing\Route\RedirectRoute' && isset($defaults['redirect'])) {
 			$defaults = $defaults['redirect'];
 		}
 		self::$routes[] = new $routeClass($route, $defaults, $options);

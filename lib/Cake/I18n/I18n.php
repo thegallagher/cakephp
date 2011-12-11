@@ -16,13 +16,12 @@
  * @since         CakePHP(tm) v 1.2.0.4116
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-/**
- * Included libraries.
- */
-App::uses('CakePlugin', 'Core');
-App::uses('L10n', 'I18n');
-App::uses('Multibyte', 'I18n');
+namespace Cake\I18n;
+use \Cake\Core\Configure,
+	\Cake\Core\CakePlugin,
+	\Cake\Core\App,
+	\Cake\Cache\Cache,
+	\Cake\Utility\Inflector;
 
 if (function_exists('mb_internal_encoding')) {
 	$encoding = Configure::read('App.encoding');

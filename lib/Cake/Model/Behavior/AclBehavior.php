@@ -18,7 +18,7 @@
  * @since         CakePHP v 1.2.0.4487
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('AclNode', 'Model');
+namespace Cake\Model\Behavior;
 
 /**
  * ACL behavior

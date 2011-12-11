@@ -18,6 +18,8 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Controller;
+use \Cake\Routing\Router;
 
 /**
  * Error Handling Controller
@@ -26,7 +28,7 @@
  *
  * @package       Cake.Controller
  */
-class CakeErrorController extends AppController {
+class CakeErrorController extends Controller {
 
 /**
  * Controller name

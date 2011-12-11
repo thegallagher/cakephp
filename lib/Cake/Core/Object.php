@@ -19,8 +19,13 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Set', 'Utility');
+namespace Cake\Core;
+use \Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Routing\Dispatcher,
+	\Cake\Routing\Router,
+	\Cake\Log\CakeLog,
+	\Cake\Utility\Set;
 
 /**
  * Object class provides a few generic methods used in several subclasses.
@@ -74,7 +79,6 @@ class Object {
 		if (empty($url)) {
 			return false;
 		}
-		App::uses('Dispatcher', 'Routing');
 		if (($index = array_search('return', $extra)) !== false) {
 			$extra['return'] = 0;
 			$extra['autoRender'] = 1;
@@ -152,7 +156,6 @@ class Object {
  * @return boolean Success of log write
  */
 	public function log($msg, $type = LOG_ERROR) {
-		App::uses('CakeLog', 'Log');
 		if (!is_string($msg)) {
 			$msg = print_r($msg, true);
 		}

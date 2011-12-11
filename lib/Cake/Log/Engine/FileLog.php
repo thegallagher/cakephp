@@ -16,8 +16,8 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('CakeLogInterface', 'Log');
+namespace Cake\Log\Engine;
+use \Cake\Log\CakeLogInterface;
 
 /**
  * File Storage stream for Logging.  Writes logs to different files

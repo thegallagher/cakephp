@@ -16,6 +16,8 @@
  * @since         CakePHP(tm) v 1.2.0.6001
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Core;
+use \Cake\Cache\Cache;
 
 /**
  * App is responsible for path management, class location and class loading.
@@ -756,7 +758,7 @@ class App {
 	public static function init() {
 		self::$_map += (array)Cache::read('file_map', '_cake_core_');
 		self::$_objects += (array)Cache::read('object_map', '_cake_core_');
-		register_shutdown_function(array('App', 'shutdown'));
+		register_shutdown_function(array('\Cake\Core\App', 'shutdown'));
 	}
 
 /**

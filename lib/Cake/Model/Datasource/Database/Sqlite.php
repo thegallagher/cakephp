@@ -16,9 +16,7 @@
  * @since         CakePHP(tm) v 0.9.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('DboSource', 'Model/Datasource');
-App::uses('String', 'Utility');
+namespace Cake\Model\Datasource\Database;
 
 /**
  * DBO implementation for the SQLite3 DBMS.

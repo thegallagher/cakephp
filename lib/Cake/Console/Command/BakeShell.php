@@ -19,9 +19,7 @@
  * @since         CakePHP(tm) v 1.2.0.5012
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('Model', 'Model');
+namespace Cake\Console\Command;
 
 /**
  * Command-line code generation utility to automate programmer chores.

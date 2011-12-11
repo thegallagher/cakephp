@@ -16,17 +16,15 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-/**
- * Include files
- */
-App::uses('CakeResponse', 'Network');
-App::uses('ClassRegistry', 'Utility');
-App::uses('ComponentCollection', 'Controller');
-App::uses('View', 'View');
-App::uses('CakeEvent', 'Event');
-App::uses('CakeEventListener', 'Event');
-App::uses('CakeEventManager', 'Event');
+namespace Cake\Controller;
+use \Cake\Core\Object,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Utility\Inflector,
+	\Cake\Error,
+	\Cake\Routing\Router,
+	\Cake\View\View,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * Application controller class for organization of business logic.
@@ -194,12 +192,12 @@ class Controller extends Object implements CakeEventListener {
  *
  * @var string
  */
-	public $viewClass = 'View';
+	public $viewClass = '\Cake\View\View';
 
 /**
  * Instance of the View created during rendering. Won't be set until after Controller::render() is called.
  *
- * @var View
+ * @var \Cake\View\View
  */
 	public $View;
 
@@ -326,14 +324,14 @@ class Controller extends Object implements CakeEventListener {
 		$this->Components = new ComponentCollection();
 
 		$childMethods = get_class_methods($this);
-		$parentMethods = get_class_methods('Controller');
+		$parentMethods = get_class_methods('\Cake\Controller\Controller');
 
 		$this->methods = array_diff($childMethods, $parentMethods);
 
-		if ($request instanceof CakeRequest) {
+		if ($request instanceof \Cake\Network\CakeRequest) {
 			$this->setRequest($request);
 		}
-		if ($response instanceof CakeResponse) {
+		if ($response instanceof \Cake\Network\CakeResponse) {
 			$this->response = $response;
 		}
 		parent::__construct();
@@ -444,10 +442,10 @@ class Controller extends Object implements CakeEventListener {
  * - $this->autoRender - To false if $request->params['return'] == 1
  * - $this->passedArgs - The the combined results of params['named'] and params['pass]
  *
- * @param CakeRequest $request
+ * @param \Cake\Network\CakeRequest $request
  * @return void
  */
-	public function setRequest(CakeRequest $request) {
+	public function setRequest(\Cake\Network\CakeRequest $request) {
 		$this->request = $request;
 		$this->plugin = isset($request->params['plugin']) ? Inflector::camelize($request->params['plugin']) : null;
 		$this->view = isset($request->params['action']) ? $request->params['action'] : null;
@@ -471,23 +469,23 @@ class Controller extends Object implements CakeEventListener {
  * @return mixed The resulting response.
  * @throws PrivateActionException, MissingActionException
  */
-	public function invokeAction(CakeRequest $request) {
+	public function invokeAction(\Cake\Network\CakeRequest $request) {
 		try {
-			$method = new ReflectionMethod($this, $request->params['action']);
+			$method = new \ReflectionMethod($this, $request->params['action']);
 
 			if ($this->_isPrivateAction($method, $request)) {
-				throw new PrivateActionException(array(
+				throw new Error\PrivateActionException(array(
 					'controller' => $this->name . "Controller",
 					'action' => $request->params['action']
 				));
 			}
 			return $method->invokeArgs($this, $request->params['pass']);
 
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 			if ($this->scaffold !== false) {
 				return $this->_getScaffold($request);
 			}
-			throw new MissingActionException(array(
+			throw new Error\MissingActionException(array(
 				'controller' => $this->name . "Controller",
 				'action' => $request->params['action']
 			));
@@ -498,11 +496,11 @@ class Controller extends Object implements CakeEventListener {
  * Check if the request's action is marked as private, with an underscore,
  * or if the request is attempting to directly accessing a prefixed action.
  *
- * @param ReflectionMethod $method The method to be invoked.
- * @param CakeRequest $request The request to check.
+ * @param \ReflectionMethod $method The method to be invoked.
+ * @param \Cake\Network\CakeRequest $request The request to check.
  * @return boolean
  */
-	protected function _isPrivateAction(ReflectionMethod $method, CakeRequest $request) {
+	protected function _isPrivateAction(\ReflectionMethod $method, \Cake\Network\CakeRequest $request) {
 		$privateAction = (
 			$method->name[0] === '_' ||
 			!$method->isPublic() ||
@@ -709,7 +707,7 @@ class Controller extends Object implements CakeEventListener {
 			'class' => $plugin . $modelClass, 'alias' => $modelClass, 'id' => $id
 		));
 		if (!$this->{$modelClass}) {
-			throw new MissingModelException($modelClass);
+			throw new Error\MissingModelException($modelClass);
 		}
 		return true;
 	}
@@ -904,12 +902,6 @@ class Controller extends Object implements CakeEventListener {
 		}
 
 		$viewClass = $this->viewClass;
-		if ($this->viewClass != 'View') {
-			list($plugin, $viewClass) = pluginSplit($viewClass, true);
-			$viewClass = $viewClass . 'View';
-			App::uses($viewClass, $plugin . 'View');
-		}
-
 		$View = new $viewClass($this);
 
 		if (!empty($this->uses)) {

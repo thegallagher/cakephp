@@ -16,9 +16,9 @@
  * @since         CakePHP(tm) v 1.1.7.3328
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppHelper', 'View/Helper');
-App::uses('CakeSession', 'Model/Datasource');
+namespace Cake\View\Helper;
+use \Cake\View\Helper,
+	\Cake\Model\Datasource\CakeSession;
 
 /**
  * Session Helper.
@@ -28,7 +28,7 @@ App::uses('CakeSession', 'Model/Datasource');
  * @package       Cake.View.Helper
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/session.html
  */
-class SessionHelper extends AppHelper {
+class SessionHelper extends Helper {
 
 /**
  * Used to read a session values set in a controller for a key or return values for all keys.

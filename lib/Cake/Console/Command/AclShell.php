@@ -15,11 +15,7 @@
  * @since         CakePHP(tm) v 1.2.0.5012
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('DbAcl', 'Model');
+namespace Cake\Console\Command;
 
 /**
  * Shell for ACL management.  This console is known to have issues with zend.ze1_compatibility_mode

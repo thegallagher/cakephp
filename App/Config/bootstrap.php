@@ -22,9 +22,14 @@
  * @since         CakePHP(tm) v 0.10.8.2117
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace App\Config;
+use \Cake\Cache\Cache;
 
 // Setup a 'default' cache configuration for use in the application.
-Cache::config('default', array('engine' => 'File'));
+Cache::config('default', array('engine' => '\Cake\Cache\Engine\FileEngine'));
+
+$loader = new \Cake\Core\ClassLoader('App', dirname(dirname(__DIR__)));
+$loader->register();
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.

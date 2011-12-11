@@ -18,8 +18,7 @@
  * @since         CakePHP(tm) v 0.10.x.1402
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('DataSource', 'Model/Datasource');
+namespace Cake\Model;
 
 /**
  * Manages loaded instances of DataSource objects

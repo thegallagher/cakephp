@@ -16,13 +16,7 @@
  * @since         CakePHP(tm) v 2.0.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Validation', 'Utility');
-App::uses('Multibyte', 'I18n');
-App::uses('AbstractTransport', 'Network/Email');
-App::uses('String', 'Utility');
-App::uses('View', 'View');
-App::import('I18n', 'Multibyte');
+namespace Cake\Network\Email;
 
 /**
  * Cake e-mail class.

@@ -16,8 +16,7 @@
  * @since         CakePHP(tm) v .0.10.0.1233
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('String', 'Utility');
+namespace Cake\Utility;
 
 /**
  * Security Library contains utility methods related to security

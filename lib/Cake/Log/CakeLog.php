@@ -18,6 +18,10 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Log;
+use \Cake\Error\CakeLogException,
+	\Cake\Log\Engine\FileLog;
+
 /**
  * Set up error level constants to be used within the framework if they are not defined within the
  * system.
@@ -35,7 +39,6 @@
 	if (!defined('LOG_INFO')) {
 		define('LOG_INFO', 6);
 	}
-
 
 /**
  * Logs messages to configured Log adapters.  One or more adapters can be configured
@@ -115,9 +118,6 @@ class CakeLog {
  * @throws CakeLogException
  */
 	protected static function _getLogger($loggerName) {
-		list($plugin, $loggerName) = pluginSplit($loggerName, true);
-
-		App::uses($loggerName, $plugin . 'Log/Engine');
 		if (!class_exists($loggerName)) {
 			throw new CakeLogException(__d('cake_dev', 'Could not load class %s', $loggerName));
 		}
@@ -150,7 +150,7 @@ class CakeLog {
  * @return void
  */
 	protected static function _autoConfig() {
-		self::_getLogger('FileLog');
+		self::_getLogger('\Cake\Log\Engine\FileLog');
 		self::$_streams['default'] = new FileLog(array('path' => LOGS));
 	}
 

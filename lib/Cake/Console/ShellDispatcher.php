@@ -15,6 +15,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Console;
 
 /**
  * Shell dispatcher handles dispatching cli commands.
@@ -233,7 +234,7 @@ class ShellDispatcher {
 		$this->_parsePaths($args);
 
 		$defaults = array(
-			'app' => 'app',
+			'app' => 'App',
 			'root' => dirname(dirname(dirname(dirname(__FILE__)))),
 			'working' => null,
 			'webroot' => 'webroot'

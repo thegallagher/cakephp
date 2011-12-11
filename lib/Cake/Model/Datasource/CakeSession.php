@@ -21,9 +21,9 @@
  * @since         CakePHP(tm) v .0.10.0.1222
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Set', 'Utility');
-App::uses('Security', 'Utility');
+namespace Cake\Model\Datasource;
+use \Cake\Core\Configure,
+	\Cake\Utility\Set;
 
 /**
  * Session class for Cake.
@@ -504,21 +504,19 @@ class CakeSession {
 /**
  * Find the handler class and make sure it implements the correct interface.
  *
- * @param string $handler
+ * @param string $class
  * @return void
  * @throws CakeSessionException
  */
-	protected static function _getHandler($handler) {
-		list($plugin, $class) = pluginSplit($handler, true);
-		App::uses($class, $plugin . 'Model/Datasource/Session');
+	protected static function _getHandler($class) {
 		if (!class_exists($class)) {
-			throw new CakeSessionException(__d('cake_dev', 'Could not load %s to handle the session.', $class));
+			throw new Error\CakeSessionException(__d('cake_dev', 'Could not load %s to handle the session.', $class));
 		}
 		$handler = new $class();
 		if ($handler instanceof CakeSessionHandlerInterface) {
 			return $handler;
 		}
-		throw new CakeSessionException(__d('cake_dev', 'Chosen SessionHandler does not implement CakeSessionHandlerInterface it cannot be used with an engine key.'));
+		throw new Error\CakeSessionException(__d('cake_dev', 'Chosen SessionHandler does not implement CakeSessionHandlerInterface it cannot be used with an engine key.'));
 	}
 
 /**

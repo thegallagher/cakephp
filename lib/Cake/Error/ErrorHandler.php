@@ -18,11 +18,10 @@
  * @since         CakePHP(tm) v 0.10.5.1732
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Debugger', 'Utility');
-App::uses('CakeLog', 'Log');
-App::uses('ExceptionRenderer', 'Error');
-App::uses('AppController', 'Controller');
+namespace Cake\Error;
+use \Cake\Core\Configure,
+	\Cake\Utility\Debugger,
+	\Cake\Log\CakeLog;
 
 /**
  *
@@ -103,11 +102,11 @@ class ErrorHandler {
  * This will either use custom exception renderer class if configured,
  * or use the default ExceptionRenderer.
  *
- * @param Exception $exception
+ * @param \Exception $exception
  * @return void
  * @see http://php.net/manual/en/function.set-exception-handler.php
  */
-	public static function handleException(Exception $exception) {
+	public static function handleException(\Exception $exception) {
 		$config = Configure::read('Exception');
 		if (!empty($config['log'])) {
 			$message = sprintf("[%s] %s\n%s",
@@ -118,10 +117,6 @@ class ErrorHandler {
 			CakeLog::write(LOG_ERR, $message);
 		}
 		$renderer = $config['renderer'];
-		if ($renderer !== 'ExceptionRenderer') {
-			list($plugin, $renderer) = pluginSplit($renderer, true);
-			App::uses($renderer, $plugin . 'Error');
-		}
 		try {
 			$error = new $renderer($exception);
 			$error->render();

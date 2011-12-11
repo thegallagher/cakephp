@@ -18,6 +18,9 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace App\Config;
+use \Cake\Core\Configure,
+	\Cake\Cache\Cache;
 
 /**
  * CakePHP Debug Level:
@@ -49,7 +52,7 @@
  * @see ErrorHandler for more information on error handling and configuration.
  */
 	Configure::write('Error', array(
-		'handler' => 'ErrorHandler::handleError',
+		'handler' => '\Cake\Error\ErrorHandler::handleError',
 		'level' => E_ALL & ~E_DEPRECATED,
 		'trace' => true
 	));
@@ -71,8 +74,8 @@
  * @see ErrorHandler for more information on exception handling and configuration.
  */
 	Configure::write('Exception', array(
-		'handler' => 'ErrorHandler::handleException',
-		'renderer' => 'ExceptionRenderer',
+		'handler' => '\Cake\Error\ErrorHandler::handleException',
+		'renderer' => '\Cake\Error\ExceptionRenderer',
 		'log' => true
 	));
 
@@ -297,9 +300,9 @@
  * If running via cli - apc is disabled by default. ensure it's available and enabled in this case
  *
  */
-$engine = 'File';
+$engine = '\Cake\Cache\Engine\FileEngine';
 if (extension_loaded('apc') && function_exists('apc_dec') && (php_sapi_name() !== 'cli' || ini_get('apc.enable_cli'))) {
-	$engine = 'Apc';
+	$engine = '\Cake\Cache\Engine\ApcEngine';
 }
 
 // In development mode, caches should expire quickly.
@@ -319,7 +322,7 @@ Cache::config('_cake_core_', array(
 	'engine' => $engine,
 	'prefix' => $prefix . 'cake_core_',
 	'path' => CACHE . 'persistent' . DS,
-	'serialize' => ($engine === 'File'),
+	'serialize' => ($engine === '\Cake\Cache\Engine\FileEngine'),
 	'duration' => $duration
 ));
 
@@ -331,6 +334,6 @@ Cache::config('_cake_model_', array(
 	'engine' => $engine,
 	'prefix' => $prefix . 'cake_model_',
 	'path' => CACHE . 'models' . DS,
-	'serialize' => ($engine === 'File'),
+	'serialize' => ($engine === '\Cake\Cache\Engine\FileEngine'),
 	'duration' => $duration
 ));

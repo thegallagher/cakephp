@@ -15,15 +15,14 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppModel', 'Model');
+namespace Cake\Model;
 
 /**
  * ACL Node
  *
  * @package       Cake.Model
  */
-class AclNode extends AppModel {
+class AclNode extends Model {
 
 /**
  * Explicitly disable in-memory query caching for ACL models

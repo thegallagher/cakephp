@@ -18,8 +18,12 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Router', 'Routing');
+namespace Cake\View;
+use \Cake\Core\Object,
+	\Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Routing\Router,
+	\Cake\Utility\ObjectCollection;
 
 /**
  * Abstract base class for all other Helpers in CakePHP.

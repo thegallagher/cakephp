@@ -15,9 +15,9 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ObjectCollection', 'Utility');
-App::uses('CakeEventListener', 'Event');
+namespace Cake\View;
+use \Cake\Utility\ObjectCollection,
+	\Cake\Error;
 
 /**
  * Helpers collection is used as a registry for loaded helpers and handles loading
@@ -53,7 +53,7 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  * {{{
  * public $helpers = array(
  *   'Html' => array(
- *     'className' => 'AliasedHtml'
+ *     'className' => '\App\View\Helper\AliasedHtmlHelper'
  *   );
  * );
  * }}}
@@ -66,36 +66,39 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  */
 	public function load($helper, $settings = array()) {
 		if (is_array($settings) && isset($settings['className'])) {
-			$alias = $helper;
-			$helper = $settings['className'];
-		}
-		list($plugin, $name) = pluginSplit($helper, true);
-		if (!isset($alias)) {
-			$alias = $name;
+			$helperClass = $settings['className'];
 		}
 
-		if (isset($this->_loaded[$alias])) {
-			return $this->_loaded[$alias];
+		if (isset($this->_loaded[$helper])) {
+			return $this->_loaded[$helper];
 		}
-		$helperClass = $name . 'Helper';
-		App::uses($helperClass, $plugin . 'View/Helper');
+		if (!isset($helperClass)) {
+			// @todo Test from the real app namespace and plugins
+			$helperClass = '\App\View\Helper\\' . $helper . 'Helper';
+			if (
+				!class_exists('\App\View\Helper\\' . $helper . 'Helper')
+				&& class_exists('\Cake\View\Helper\\' . $helper . 'Helper')
+			) {
+				$helperClass = '\Cake\View\Helper\\' . $helper . 'Helper';
+			}
+		}
 		if (!class_exists($helperClass)) {
-			throw new MissingHelperException(array(
+			throw new Error\MissingHelperException(array(
 				'class' => $helperClass,
 				'plugin' => substr($plugin, 0, -1)
 			));
 		}
-		$this->_loaded[$alias] = new $helperClass($this->_View, $settings);
+		$this->_loaded[$helper] = new $helperClass($this->_View, $settings);
 
 		$vars = array('request', 'theme', 'plugin');
 		foreach ($vars as $var) {
-			$this->_loaded[$alias]->{$var} = $this->_View->{$var};
+			$this->_loaded[$helper]->{$var} = $this->_View->{$var};
 		}
 		$enable = isset($settings['enabled']) ? $settings['enabled'] : true;
 		if ($enable) {
-			$this->enable($alias);
+			$this->enable($helper);
 		}
-		return $this->_loaded[$alias];
+		return $this->_loaded[$helper];
 	}
 
 /**

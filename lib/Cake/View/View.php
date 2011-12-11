@@ -16,13 +16,13 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('HelperCollection', 'View');
-App::uses('AppHelper', 'View/Helper');
-App::uses('Router', 'Routing');
-App::uses('ViewBlock', 'View');
-App::uses('CakeEvent', 'Event');
-App::uses('CakeEventManager', 'Event');
+namespace Cake\View;
+use \Cake\Core\Object,
+	\Cake\Utility\ObjectCollection,
+	\Cake\Utility\Inflector,
+	\Cake\Core\App,
+	\Cake\Routing\Router,
+	\Cake\Error;
 
 /**
  * View, the V in the MVC triad. View interacts with Helpers and view variables passed
@@ -955,7 +955,7 @@ class View extends Object {
 				}
 			}
 		}
-		throw new MissingViewException(array('file' => $defaultPath . $name . $this->ext));
+		throw new Error\MissingViewException(array('file' => $defaultPath . $name . $this->ext));
 	}
 
 /**
@@ -1007,7 +1007,7 @@ class View extends Object {
 				}
 			}
 		}
-		throw new MissingLayoutException(array('file' => $paths[0] . $file . $this->ext));
+		throw new Error\MissingLayoutException(array('file' => $paths[0] . $file . $this->ext));
 	}
 
 

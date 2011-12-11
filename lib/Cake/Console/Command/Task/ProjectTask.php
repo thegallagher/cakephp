@@ -16,12 +16,7 @@
  * @since         CakePHP(tm) v 1.2
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
-App::uses('String', 'Utility');
-App::uses('Security', 'Utility');
+namespace Cake\Console\Command\Task;
 
 /**
  * Task class for creating new project apps and plugins

@@ -17,6 +17,9 @@
  * @since         CakePHP(tm) v 1.2.0.4933
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Cache\Engine;
+use \Cake\Cache\CacheEngine,
+	\Cake\Utility\Inflector;
 
 /**
  * APC storage engine for cache

@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Controller\Component;
 
 /**
  * This component is used to handle automatic model data pagination.  The primary way to use this

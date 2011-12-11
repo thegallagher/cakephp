@@ -18,8 +18,9 @@
  * @since       CakePHP(tm) v 0.10.0.1076
  * @license     MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppHelper', 'View/Helper');
+namespace Cake\View\Helper;
+use \Cake\View\Helper,
+	\Cake\View\View;
 
 /**
  * Form helper library.
@@ -30,7 +31,7 @@ App::uses('AppHelper', 'View/Helper');
  * @property      HtmlHelper $Html
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/form.html
  */
-class FormHelper extends AppHelper {
+class FormHelper extends Helper {
 
 /**
  * Other helpers used by FormHelper

@@ -16,10 +16,7 @@
  * @since         CakePHP(tm) v 1.2
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppHelper', 'View/Helper');
-App::uses('JsBaseEngineHelper', 'View/Helper');
-App::uses('Multibyte', 'I18n');
+namespace Cake\View\Helper;
 
 /**
  * Javascript Generator helper class for easy use of JavaScript.

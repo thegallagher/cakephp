@@ -17,6 +17,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Error;
 
 /**
  * Parent class for all of the HTTP related exceptions in CakePHP.
@@ -26,7 +27,7 @@
  * @package       Cake.Error
  */
 if (!class_exists('HttpException')) {
-	class HttpException extends RuntimeException { }
+	class HttpException extends \RuntimeException { }
 }
 
 /**
@@ -155,7 +156,7 @@ class InternalErrorException extends HttpException {
  *
  * @package       Cake.Error
  */
-class CakeException extends RuntimeException {
+class CakeException extends \RuntimeException {
 /**
  * Array of attributes that are passed in from the constructor, and
  * made available in the view when a development error is displayed.

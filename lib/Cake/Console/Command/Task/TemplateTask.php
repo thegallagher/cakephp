@@ -15,9 +15,7 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('Folder', 'Utility');
+namespace Cake\Console\Command\Task;
 
 /**
  * Template Task can generate templated output Used in other Tasks.

@@ -15,10 +15,9 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ObjectCollection', 'Utility');
-App::uses('Component', 'Controller');
-App::uses('CakeEventListener', 'Event');
+namespace Cake\Controller;
+use \Cake\Utility\ObjectCollection,
+	\Cake\Error;
 
 /**
  * Components collection is used as a registry for loaded components and handles loading
@@ -47,7 +46,7 @@ class ComponentCollection extends ObjectCollection implements CakeEventListener 
 			return;
 		}
 		$this->_Controller = $Controller;
-		$components = ComponentCollection::normalizeObjectArray($Controller->components);
+		$components = static::normalizeObjectArray($Controller->components);
 		foreach ($components as $name => $properties) {
 			$Controller->{$name} = $this->load($properties['class'], $properties['settings']);
 		}
@@ -71,7 +70,7 @@ class ComponentCollection extends ObjectCollection implements CakeEventListener 
  * {{{
  * public $components = array(
  *   'Email' => array(
- *     'className' => 'AliasedEmail'
+ *     'className' => '\App\Controller\Component\AliasedEmailComponent'
  *   );
  * );
  * }}}
@@ -84,29 +83,32 @@ class ComponentCollection extends ObjectCollection implements CakeEventListener 
  */
 	public function load($component, $settings = array()) {
 		if (is_array($settings) && isset($settings['className'])) {
-			$alias = $component;
-			$component = $settings['className'];
+			$componentClass = $settings['className'];
 		}
-		list($plugin, $name) = pluginSplit($component, true);
-		if (!isset($alias)) {
-			$alias = $name;
+		if (isset($this->_loaded[$component])) {
+			return $this->_loaded[$component];
 		}
-		if (isset($this->_loaded[$alias])) {
-			return $this->_loaded[$alias];
+		if (!isset($componentClass)) {
+			// @todo Test from the real app namespace and plugin
+			$componentClass = '\App\Controller\Component\\' . $component . 'Component';
+			if (
+				!class_exists('\App\Controller\Component\\' . $component . 'Component')
+				&& class_exists('\Cake\Controller\Component\\' . $component . 'Component')
+			) {
+				$componentClass = '\Cake\Controller\Component\\' . $component . 'Component';
+			}
 		}
-		$componentClass = $name . 'Component';
-		App::uses($componentClass, $plugin . 'Controller/Component');
 		if (!class_exists($componentClass)) {
-			throw new MissingComponentException(array(
+			throw new Error\MissingComponentException(array(
 				'class' => $componentClass
 			));
 		}
-		$this->_loaded[$alias] = new $componentClass($this, $settings);
+		$this->_loaded[$component] = new $componentClass($this, $settings);
 		$enable = isset($settings['enabled']) ? $settings['enabled'] : true;
 		if ($enable) {
-			$this->enable($alias);
+			$this->enable($component);
 		}
-		return $this->_loaded[$alias];
+		return $this->_loaded[$component];
 	}
 
 /**

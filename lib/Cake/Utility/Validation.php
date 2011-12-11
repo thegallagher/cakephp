@@ -16,11 +16,11 @@
  * @since         CakePHP(tm) v 1.2.0.3830
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Utility;
 
-App::uses('Multibyte', 'I18n');
 // Load multibyte if the extension is missing.
 if (!function_exists('mb_strlen')) {
-	class_exists('Multibyte');
+	class_exists('\Cake\I18n\Multibyte');
 }
 
 /**

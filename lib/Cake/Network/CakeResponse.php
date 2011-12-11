@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Network;
 
 /**
  * CakeResponse is responsible for managing the response text, status and headers of a HTTP response.

@@ -15,10 +15,7 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('BakeTask', 'Console/Command/Task');
-App::uses('ClassRegistry', 'Utility');
+namespace Cake\Console\Command\Task;
 
 /**
  * Task class for creating and updating test files.

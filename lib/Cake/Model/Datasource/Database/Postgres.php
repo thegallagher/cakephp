@@ -16,8 +16,7 @@
  * @since         CakePHP(tm) v 0.9.1.114
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('DboSource', 'Model/Datasource');
+namespace Cake\Model\Datasource\Database;
 
 /**
  * PostgreSQL layer for DBO.

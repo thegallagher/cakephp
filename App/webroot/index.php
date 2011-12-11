@@ -38,7 +38,7 @@
 		define('ROOT', dirname(dirname(dirname(__FILE__))));
 	}
 /**
- * The actual directory name for the "app".
+ * The actual directory name for the "App".
  *
  */
 	if (!defined('APP_DIR')) {
@@ -90,7 +90,10 @@
 		return;
 	}
 
-	App::uses('Dispatcher', 'Routing');
+	use \Cake\Network\CakeRequest,
+		\Cake\Network\CakeResponse,
+		\Cake\Routing\Dispatcher,
+		\Cake\Core\Configure;
 
 	$Dispatcher = new Dispatcher();
 	$Dispatcher->dispatch(new CakeRequest(), new CakeResponse(array('charset' => Configure::read('App.encoding'))));

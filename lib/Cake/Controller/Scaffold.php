@@ -18,7 +18,7 @@
  * @since         Cake v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Scaffold', 'View');
+namespace Cake\Controller;
 
 /**
  * Scaffolding is a set of automatic actions for starting web development work faster.

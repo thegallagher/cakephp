@@ -15,10 +15,12 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+use \Cake\Core\Configure,
+	\Cake\Utility\Debugger,
+	\Cake\Error;
 if (Configure::read('debug') == 0):
-	throw new NotFoundException();
+	throw new Error\NotFoundException();
 endif;
-App::uses('Debugger', 'Utility');
 ?>
 <iframe src="http://cakephp.org/bake-banner" width="830" height="160" style="overflow:hidden; border:none;">
 	<p>For updates and important announcements, visit http://cakefest.org</p>

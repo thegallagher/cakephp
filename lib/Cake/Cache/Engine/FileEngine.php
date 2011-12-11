@@ -19,6 +19,8 @@
  * @since         CakePHP(tm) v 1.2.0.4933
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Cache\Engine;
+use \Cake\Cache\CacheEngine;
 
 /**
  * File Storage engine for cache.  Filestorage is the slowest cache storage
@@ -284,7 +286,7 @@ class FileEngine extends CacheEngine {
  * @return boolean true if the cache key could be set, false otherwise
  */
 	protected function _setKey($key, $createKey = false) {
-		$path = new SplFileInfo($this->settings['path'] . $key);
+		$path = new \SplFileInfo($this->settings['path'] . $key);
 
 		if (!$createKey && !$path->isFile()) {
 			return false;
@@ -314,7 +316,7 @@ class FileEngine extends CacheEngine {
  * @return boolean
  */
 	protected function _active() {
-		$dir = new SplFileInfo($this->settings['path']);
+		$dir = new \SplFileInfo($this->settings['path']);
 		if ($this->_init && !($dir->isDir() && $dir->isWritable())) {
 			$this->_init = false;
 			trigger_error(__d('cake_dev', '%s is not writable', $this->settings['path']), E_USER_WARNING);

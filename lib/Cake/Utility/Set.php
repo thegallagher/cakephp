@@ -16,8 +16,7 @@
  * @since         CakePHP(tm) v 1.2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('String', 'Utility');
+namespace Cake\Utility;
 
 /**
  * Class used for manipulation of arrays.

@@ -16,9 +16,9 @@
  * @since         CakePHP(tm) v 0.10.0.1232
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Component', 'Controller');
-App::uses('CakeSession', 'Model/Datasource');
+namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Model\Datasource\CakeSession;
 
 /**
  * The CakePHP SessionComponent provides a way to persist client data between 

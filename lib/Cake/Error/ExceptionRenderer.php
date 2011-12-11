@@ -19,10 +19,13 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Sanitize', 'Utility');
-App::uses('Router', 'Routing');
-App::uses('CakeResponse', 'Network');
+namespace Cake\Error;
+use \Cake\Routing\Router,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Core\Configure,
+	\Cake\Utility\Inflector,
+	\Cake\Controller\CakeErrorController;
 
 /**
  * Exception Renderer.
@@ -86,9 +89,9 @@ class ExceptionRenderer {
  * If the error is a CakeException it will be converted to either a 400 or a 500
  * code error depending on the code used to construct the error.
  *
- * @param Exception $exception Exception
+ * @param \Exception $exception Exception
  */
-	public function __construct(Exception $exception) {
+	public function __construct(\Exception $exception) {
 		$this->controller = $this->_getController($exception);
 
 		if (method_exists($this->controller, 'apperror')) {
@@ -107,7 +110,7 @@ class ExceptionRenderer {
 			if ($template == 'internalError') {
 				$template = 'error500';
 			}
-		} elseif ($exception instanceof PDOException) {
+		} elseif ($exception instanceof \PDOException) {
 			$method = 'pdoError';
 			$template = 'pdo_error';
 			$code = 500;
@@ -141,14 +144,13 @@ class ExceptionRenderer {
  * @return Controller
  */
 	protected function _getController($exception) {
-		App::uses('CakeErrorController', 'Controller');
 		if (!$request = Router::getRequest(false)) {
 			$request = new CakeRequest();
 		}
 		$response = new CakeResponse(array('charset' => Configure::read('App.encoding')));
 		try {
 			$controller = new CakeErrorController($request, $response);
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$controller = new Controller($request, $response);
 			$controller->viewPath = 'Errors';
 		}

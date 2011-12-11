@@ -15,8 +15,8 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Set', 'Utility');
+namespace Cake\Network;
+use \Cake\Core\Configure;
 
 /**
  * A class that helps wrap Request information and particulars about a single request.
@@ -28,7 +28,7 @@ App::uses('Set', 'Utility');
  *
  * @package       Cake.Network
  */
-class CakeRequest implements ArrayAccess {
+class CakeRequest implements \ArrayAccess {
 /**
  * Array of parameters parsed from the url.
  *

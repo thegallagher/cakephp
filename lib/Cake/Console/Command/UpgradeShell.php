@@ -16,9 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AppShell', 'Console/Command');
-App::uses('Folder', 'Utility');
+namespace Cake\Console\Command;
 
 /**
  * A shell class to help developers upgrade applications to CakePHP 2.0

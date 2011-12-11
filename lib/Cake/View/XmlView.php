@@ -10,9 +10,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('View', 'View');
-App::uses('Xml', 'Utility');
+namespace Cake\View;
 
 /**
  * A view class that is used for creating XML responses.

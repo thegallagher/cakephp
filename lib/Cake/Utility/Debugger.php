@@ -18,9 +18,7 @@
  * @since         CakePHP(tm) v 1.2.4560
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('CakeLog', 'Log');
-App::uses('String', 'Utility');
+namespace Cake\Utility;
 
 /**
  * Provide custom logging and error handling.

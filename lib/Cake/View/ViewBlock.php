@@ -13,6 +13,9 @@
  * @since         CakePHP(tm) v2.1
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\View;
+use \Cake\Error;
+
 /**
  * ViewBlock implements the concept of Blocks or Slots in the View layer.
  * Slots or blocks are combined with extending views and layouts to afford slots
@@ -88,7 +91,7 @@ class ViewBlock {
 	public function append($name, $value = null) {
 		if (isset($value)) {
 			if (!is_string($value)) {
-				throw new CakeException(__d('cake_dev', '$value must be a string.'));
+				throw new Error\CakeException(__d('cake_dev', '$value must be a string.'));
 			}
 			if (!isset($this->_blocks[$name])) {
 				$this->_blocks[$name] = '';
@@ -110,7 +113,7 @@ class ViewBlock {
  */
 	public function set($name, $value) {
 		if (!is_string($value)) {
-			throw new CakeException(__d('cake_dev', 'Blocks can only contain strings.'));
+			throw new Error\CakeException(__d('cake_dev', 'Blocks can only contain strings.'));
 		}
 		$this->_blocks[$name] = $value;
 	}

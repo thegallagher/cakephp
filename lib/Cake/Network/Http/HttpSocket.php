@@ -16,8 +16,7 @@
  * @since         CakePHP(tm) v 1.2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('CakeSocket', 'Network');
-App::uses('Router', 'Routing');
+namespace Cake\Network\Http;
 
 /**
  * Cake network socket connection class.

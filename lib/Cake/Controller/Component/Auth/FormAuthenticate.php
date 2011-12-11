@@ -12,8 +12,7 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('BaseAuthenticate', 'Controller/Component/Auth');
+namespace Cake\Controller\Component\Auth;
 
 /**
  * An authentication adapter for AuthComponent.  Provides the ability to authenticate using POST

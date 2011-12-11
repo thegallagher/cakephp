@@ -19,14 +19,12 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Router', 'Routing');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('Controller', 'Controller');
-App::uses('Scaffold', 'Controller');
-App::uses('View', 'View');
-App::uses('Debugger', 'Utility');
+namespace Cake\Routing;
+use \Cake\Core\Configure,
+	\Cake\Core\CakePlugin,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Utility\Inflector;
 
 /**
  * Dispatcher converts Requests into controller actions.  It uses the dispatched Request
@@ -77,8 +75,8 @@ class Dispatcher {
 		$controller = $this->_getController($request, $response);
 
 		if (!($controller instanceof Controller)) {
-			throw new MissingControllerException(array(
-				'class' => Inflector::camelize($request->params['controller']) . 'Controller',
+			throw new \Cake\Error\MissingControllerException(array(
+				'class' => Inflector::camelize($request->params['controller']),
 				'plugin' => empty($request->params['plugin']) ? null : Inflector::camelize($request->params['plugin'])
 			));
 		}
@@ -157,7 +155,7 @@ class Dispatcher {
 		if (!$ctrlClass) {
 			return false;
 		}
-		$reflection = new ReflectionClass($ctrlClass);
+		$reflection = new \ReflectionClass($ctrlClass);
 		if ($reflection->isAbstract() || $reflection->isInterface()) {
 			return false;
 		}
@@ -180,12 +178,8 @@ class Dispatcher {
 			$controller = Inflector::camelize($request->params['controller']);
 		}
 		if ($pluginPath . $controller) {
-			$class = $controller . 'Controller';
-			App::uses('AppController', 'Controller');
-			App::uses($pluginName . 'AppController', $pluginPath . 'Controller');
-			App::uses($class, $pluginPath . 'Controller');
-			if (class_exists($class)) {
-				return $class;
+			if (class_exists($controller)) {
+				return $controller;
 			}
 		}
 		return false;

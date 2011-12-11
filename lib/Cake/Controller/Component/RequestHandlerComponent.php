@@ -18,8 +18,7 @@
  * @since         CakePHP(tm) v 0.10.4.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Xml', 'Utility');
+namespace Cake\Controller\Component;
 
 /**
  * Request object for handling alternative HTTP requests

@@ -15,13 +15,8 @@
  * @since         CakePHP(tm) v 1.2.0.5012
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('TaskCollection', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('ConsoleInputSubcommand', 'Console');
-App::uses('ConsoleOptionParser', 'Console');
-App::uses('File', 'Utility');
+namespace Cake\Console;
+use \Cake\Core\Configure;
 
 /**
  * Base class for command-line utilities for automating programmer chores.
