@@ -154,8 +154,8 @@ class Folder {
 		$skipHidden = isset($exceptions['.']) || $exceptions === true;
 
 		try {
-			$iterator = new DirectoryIterator($this->path);
-		} catch (Exception $e) {
+			$iterator = new \DirectoryIterator($this->path);
+		} catch (\Exception $e) {
 			return array($dirs, $files);
 		}
 
@@ -428,9 +428,9 @@ class Folder {
 		}
 
 		try {
-			$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::KEY_AS_PATHNAME | RecursiveDirectoryIterator::CURRENT_AS_SELF);
-			$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::SELF_FIRST);
-		} catch (Exception $e) {
+			$directory = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::KEY_AS_PATHNAME | \RecursiveDirectoryIterator::CURRENT_AS_SELF);
+			$iterator = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::SELF_FIRST);
+		} catch (\Exception $e) {
 			if ($type === null) {
 				return array(array(), array());
 			}

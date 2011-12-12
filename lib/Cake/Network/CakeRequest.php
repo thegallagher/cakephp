@@ -16,7 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network;
-use \Cake\Core\Configure;
+use \Cake\Core\Configure,
+	\Cake\Utility\Set;
 
 /**
  * A class that helps wrap Request information and particulars about a single request.
@@ -396,7 +397,7 @@ class CakeRequest implements \ArrayAccess {
 			$type = strtolower(substr($name, 2));
 			return $this->is($type);
 		}
-		throw new CakeException(__d('cake_dev', 'Method %s does not exist', $name));
+		throw new Error\CakeException(__d('cake_dev', 'Method %s does not exist', $name));
 	}
 
 /**

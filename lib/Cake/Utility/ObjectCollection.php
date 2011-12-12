@@ -11,6 +11,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
+use \Cake\Error;
 
 /**
  * Deals with Collections of objects.  Keeping registries of those objects,
@@ -125,7 +126,7 @@ abstract class ObjectCollection {
 		$collected = array();
 		$list = array_keys($this->_enabled);
 		if ($options['modParams'] !== false && !isset($params[$options['modParams']])) {
-			throw new CakeException(__d('cake_dev', 'Cannot use modParams with indexes that do not exist.'));
+			throw new Error\CakeException(__d('cake_dev', 'Cannot use modParams with indexes that do not exist.'));
 		}
 		foreach ($list as $name) {
 			$result = call_user_func_array(array($this->_loaded[$name], $callback), compact('subject') + $params);

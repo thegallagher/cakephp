@@ -22,10 +22,12 @@
 namespace Cake\Routing;
 use \Cake\Core\Configure,
 	\Cake\Core\CakePlugin,
+	\Cake\Core\App,
 	\Cake\Controller\Controller,
 	\Cake\Network\CakeRequest,
 	\Cake\Network\CakeResponse,
 	\Cake\Utility\Inflector,
+	\Cake\View\ThemeView,
 	\Cake\Error;
 
 /**
@@ -216,8 +218,6 @@ class Dispatcher {
 			}
 
 			if (file_exists($filename)) {
-				App::uses('ThemeView', 'View');
-
 				$controller = null;
 				$view = new ThemeView($controller);
 				return $view->renderCache($filename, microtime(true));

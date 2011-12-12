@@ -20,7 +20,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Cache\Engine;
-use \Cake\Cache\CacheEngine;
+use \Cake\Cache\CacheEngine,
+	\Cake\Error;
 
 /**
  * File Storage engine for cache.  Filestorage is the slowest cache storage
@@ -72,7 +73,7 @@ class FileEngine extends CacheEngine {
 	public function init($settings = array()) {
 		parent::init(array_merge(
 			array(
-				'engine' => 'File', 'path' => CACHE, 'prefix' => 'cake_', 'lock' => true,
+				'engine' => __CLASS__, 'path' => CACHE, 'prefix' => 'cake_', 'lock' => true,
 				'serialize' => true, 'isWindows' => false, 'mask' => 0664
 			),
 			$settings
@@ -262,7 +263,7 @@ class FileEngine extends CacheEngine {
  * @throws CacheException
  */
 	public function decrement($key, $offset = 1) {
-		throw new CacheException(__d('cake_dev', 'Files cannot be atomically decremented.'));
+		throw new Error\CacheException(__d('cake_dev', 'Files cannot be atomically decremented.'));
 	}
 
 /**
@@ -274,7 +275,7 @@ class FileEngine extends CacheEngine {
  * @throws CacheException
  */
 	public function increment($key, $offset = 1) {
-		throw new CacheException(__d('cake_dev', 'Files cannot be atomically incremented.'));
+		throw new Error\CacheException(__d('cake_dev', 'Files cannot be atomically incremented.'));
 	}
 
 /**
@@ -295,7 +296,7 @@ class FileEngine extends CacheEngine {
 			$exists = file_exists($path->getPathname());
 			try {
 				$this->_File = $path->openFile('c+');
-			} catch (Exception $e) {
+			} catch (\Exception $e) {
 				trigger_error($e->getMessage(), E_USER_WARNING);
 				return false;
 			}

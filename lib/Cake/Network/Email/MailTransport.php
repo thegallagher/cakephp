@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Email;
+use \Cake\Error;
 
 /**
  * Send mail using mail() function
@@ -43,10 +44,10 @@ class MailTransport extends AbstractTransport {
 		$message = implode($eol, $email->message());
 		if (ini_get('safe_mode') || !isset($this->_config['additionalParameters'])) {
 			if (!@mail($to, $email->subject(), $message, $headers)) {
-				throw new SocketException(__d('cake_dev', 'Could not send email.'));
+				throw new Error\SocketException(__d('cake_dev', 'Could not send email.'));
 			}
 		} elseif (!@mail($to, $email->subject(), $message, $headers, $this->_config['additionalParameters'])) {
-			throw new SocketException(__d('cake_dev', 'Could not send email.'));
+			throw new Error\SocketException(__d('cake_dev', 'Could not send email.'));
 		}
 		return array('headers' => $headers, 'message' => $message);
 	}

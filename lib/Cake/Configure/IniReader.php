@@ -17,6 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Configure;
+use \Cake\Utility\Set,
+	\Cake\Error;
 
 /**
  * Ini file configuration parser.  Since IniReader uses parse_ini_file underneath,
@@ -93,7 +95,7 @@ class IniReader implements ConfigReaderInterface {
 		if (!file_exists($filename)) {
 			$filename .= '.ini';
 			if (!file_exists($filename)) {
-				throw new ConfigureException(__d('cake_dev', 'Could not load configuration files: %s or %s', substr($filename, 0, -4), $filename));
+				throw new Error\ConfigureException(__d('cake_dev', 'Could not load configuration files: %s or %s', substr($filename, 0, -4), $filename));
 			}
 		}
 		$contents = parse_ini_file($filename, true);

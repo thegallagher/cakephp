@@ -20,7 +20,8 @@ namespace Cake\Routing;
 use \Cake\Core\Configure,
 	\Cake\Network\CakeRequest,
 	\Cake\Network\CakeResponse,
-	\Cake\Routing\Route\CakeRoute;
+	\Cake\Routing\Route\CakeRoute,
+	\Cake\Utility\Set;
 
 /**
  * Parses the request URL into controller, action, and parameters.  Uses the connected routes
@@ -346,8 +347,7 @@ class Router {
  * @return array Array of routes
  */
 	public static function redirect($route, $url, $options = array()) {
-		App::uses('RedirectRoute', 'Routing/Route');
-		$options['routeClass'] = 'RedirectRoute';
+		$options['routeClass'] = '\Cake\Routing\Route\RedirectRoute';
 		if (is_string($url)) {
 			$url = array('redirect' => $url);
 		}

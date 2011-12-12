@@ -18,6 +18,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace {
+use \Cake\I18n\Multibyte;
 
 /**
  * Find position of first occurrence of a case-insensitive string.
@@ -249,6 +250,7 @@ if (!function_exists('mb_encode_mimeheader')) {
 }
 
 namespace Cake\I18n {
+use \Cake\Configure\PhpReader;
 
 /**
  * Multibyte handling methods.
@@ -1068,7 +1070,6 @@ class Multibyte {
 				return null;
 			}
 			if (!Configure::configured('_cake_core_')) {
-				App::uses('PhpReader', 'Configure');
 				Configure::config('_cake_core_', new PhpReader(CAKE . 'Config' . DS));
 			}
 			Configure::load('unicode' . DS . 'casefolding' . DS . $range, '_cake_core_');

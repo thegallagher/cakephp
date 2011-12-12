@@ -25,6 +25,7 @@ use \Cake\Routing\Router,
 	\Cake\Network\CakeResponse,
 	\Cake\Core\Configure,
 	\Cake\Utility\Inflector,
+	\Cake\Controller\Controller,
 	\Cake\Controller\CakeErrorController;
 
 /**
@@ -171,7 +172,7 @@ class ExceptionRenderer {
 /**
  * Generic handler for the internal framework errors CakePHP can generate.
  *
- * @param CakeException $error
+ * @param \Cake\CakeException $error
  * @return void
  */
 	protected function _cakeError(CakeException $error) {
@@ -190,7 +191,7 @@ class ExceptionRenderer {
 			$this->_outputMessage($this->template);
 		} catch (MissingViewException $e) {
 			$this->_outputMessage('error500');
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->_outputMessageSafe('error500');
 		}
 	}
@@ -220,7 +221,7 @@ class ExceptionRenderer {
 /**
  * Convenience method to display a 500 page.
  *
- * @param Exception $error
+ * @param \Exception $error
  * @return void
  */
 	public function error500($error) {
@@ -243,10 +244,10 @@ class ExceptionRenderer {
 /**
  * Convenience method to display a PDOException.
  *
- * @param PDOException $error
+ * @param \PDOException $error
  * @return void
  */
-	public function pdoError(PDOException $error) {
+	public function pdoError(\PDOException $error) {
 		$url = $this->controller->request->here();
 		$code = 500;
 		$this->controller->response->statusCode($code);

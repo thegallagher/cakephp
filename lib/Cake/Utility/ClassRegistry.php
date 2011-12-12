@@ -19,6 +19,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
+use \Cake\Model\ConnectionManager,
+	\Cake\Error;
 
 /**
  * Class Collections.
@@ -134,9 +136,9 @@ class ClassRegistry {
 				App::uses($class, $pluginPath . 'Model');
 
 				if (class_exists($class) || interface_exists($class)) {
-					$reflection = new ReflectionClass($class);
+					$reflection = new \ReflectionClass($class);
 					if ($reflection->isAbstract() || $reflection->isInterface()) {
-						throw new CakeException(__d('cake_dev', 'Cannot create instance of %s, as it is abstract or is an interface', $class));
+						throw new Error\CakeException(__d('cake_dev', 'Cannot create instance of %s, as it is abstract or is an interface', $class));
 					}
 					$testing = isset($settings['testing']) ? $settings['testing'] : false;
 					if ($testing) {
@@ -158,7 +160,7 @@ class ClassRegistry {
 						$instance = $reflection->newInstance();
 					}
 					if ($strict) {
-						$instance = ($instance instanceof Model) ? $instance : null;
+						$instance = ($instance instanceof \Cake\Model\Model) ? $instance : null;
 					}
 				}
 				if (!isset($instance)) {

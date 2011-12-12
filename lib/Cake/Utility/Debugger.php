@@ -20,8 +20,7 @@
  */
 namespace Cake\Utility;
 use \Cake\Core\Configure,
-	\Cake\Utility\Set,
-	\Cake\Utility\String;
+	\Cake\Error;
 
 /**
  * Provide custom logging and error handling.
@@ -576,7 +575,7 @@ class Debugger {
 			return $self->_outputFormat;
 		}
 		if ($format !== false && !isset($self->_templates[$format])) {
-			throw new CakeException(__d('cake_dev', 'Invalid Debugger output format.'));
+			throw new Error\CakeException(__d('cake_dev', 'Invalid Debugger output format.'));
 		}
 		$self->_outputFormat = $format;
 	}

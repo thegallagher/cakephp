@@ -17,6 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Configure;
+use \Cake\Core\App,
+	\Cake\Error;
 
 /**
  * PHP Reader allows Configure to load configuration values from
@@ -61,7 +63,7 @@ class PhpReader implements ConfigReaderInterface {
  */
 	public function read($key) {
 		if (strpos($key, '..') !== false) {
-			throw new ConfigureException(__d('cake_dev', 'Cannot load configuration files with ../ in them.'));
+			throw new Error\ConfigureException(__d('cake_dev', 'Cannot load configuration files with ../ in them.'));
 		}
 		if (substr($key, -4) === '.php') {
 			$key = substr($key, 0, -4);
@@ -81,7 +83,7 @@ class PhpReader implements ConfigReaderInterface {
 		}
 		include $file;
 		if (!isset($config)) {
-			throw new ConfigureException(
+			throw new Error\ConfigureException(
 				sprintf(__d('cake_dev', 'No variable $config found in %s.php'), $file)
 			);
 		}

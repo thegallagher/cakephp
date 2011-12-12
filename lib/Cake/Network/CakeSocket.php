@@ -17,6 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network;
+use \Cake\Utility\Validation,
+	\Cake\Error;
 
 /**
  * Cake network socket connection class.
@@ -112,7 +114,7 @@ class CakeSocket {
 
 		if (!empty($errNum) || !empty($errStr)) {
 			$this->setLastError($errNum, $errStr);
-			throw new SocketException($errStr, $errNum);
+			throw new Error\SocketException($errStr, $errNum);
 		}
 
 		$this->connected = is_resource($this->connection);

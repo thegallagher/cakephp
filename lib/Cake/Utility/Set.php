@@ -576,7 +576,7 @@ class Set {
 			return $data;
 		}
 		if (is_object($data)) {
-			if (!($data instanceof ArrayAccess || $data instanceof Traversable)) {
+			if (!($data instanceof \ArrayAccess || $data instanceof \Traversable)) {
 				$data = get_object_vars($data);
 			}
 		}
@@ -900,7 +900,7 @@ class Set {
 		}
 
 		if (is_object($data)) {
-			if (!($data instanceof ArrayAccess || $data instanceof Traversable)) {
+			if (!($data instanceof \ArrayAccess || $data instanceof \Traversable)) {
 				$data = get_object_vars($data);
 			}
 		}
@@ -957,7 +957,7 @@ class Set {
  */
 	public static function reverse($object) {
 		$out = array();
-		if ($object instanceof SimpleXMLElement) {
+		if ($object instanceof \SimpleXMLElement) {
 			return Xml::toArray($object);
 		} else if (is_object($object)) {
 			$keys = get_object_vars($object);

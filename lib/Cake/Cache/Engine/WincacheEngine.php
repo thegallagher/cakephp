@@ -19,6 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Cache\Engine;
+use \Cake\Cache\CacheEngine;
 
 /**
  * Wincache storage engine for cache
@@ -39,7 +40,7 @@ class WincacheEngine extends CacheEngine {
  */
 	public function init($settings = array()) {
 		parent::init(array_merge(array(
-			'engine' => 'Wincache',
+			'engine' => __CLASS__,
 			'prefix' => Inflector::slug(APP_DIR) . '_'),
 		$settings));
 		return function_exists('wincache_ucache_info');

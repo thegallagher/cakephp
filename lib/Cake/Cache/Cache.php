@@ -19,7 +19,8 @@
  */
 namespace Cake\Cache;
 use \Cake\Core\Configure,
-	\Cake\Utility\Inflector;
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Cache provides a consistent interface to Caching in your application. It allows you
@@ -32,7 +33,7 @@ use \Cake\Core\Configure,
  *
  * {{{
  *	Cache::config('shared', array(
- *		'engine' => 'Apc',
+ *		'engine' => '\Cake\Cache\Engine\ApcEngine',
  *		'prefix' => 'my_app_'
  *  ));
  * }}}
@@ -158,7 +159,7 @@ class Cache {
 			return false;
 		}
 		if (!is_subclass_of($cacheClass, '\Cake\Cache\CacheEngine')) {
-			throw new \Cake\Error\CacheException(__d('cake_dev', 'Cache engines must use \Cake\Cache\CacheEngine as a base class.'));
+			throw new Error\CacheException(__d('cake_dev', 'Cache engines must use \Cake\Cache\CacheEngine as a base class.'));
 		}
 		self::$_engines[$name] = new $cacheClass();
 		if (self::$_engines[$name]->init($config)) {
