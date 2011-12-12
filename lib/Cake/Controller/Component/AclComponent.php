@@ -19,6 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Core\Object,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\Set,
+	\Cake\Error;
 
 /**
  * Access Control List factory class.
@@ -68,7 +75,7 @@ class AclComponent extends Component {
 				list($plugin, $name) = pluginSplit($name);
 				$name .= 'Component';
 			} else {
-				throw new CakeException(__d('cake_dev', 'Could not find %s.', $name));
+				throw new Error\CakeException(__d('cake_dev', 'Could not find %s.', $name));
 			}
 		}
 		$this->adapter($name);
@@ -92,7 +99,7 @@ class AclComponent extends Component {
 				$adapter = new $adapter();
 			}
 			if (!$adapter instanceof AclInterface) {
-				throw new CakeException(__d('cake_dev', 'AclComponent adapters must implement AclInterface'));
+				throw new Error\CakeException(__d('cake_dev', 'AclComponent adapters must implement AclInterface'));
 			}
 			$this->_Instance = $adapter;
 			$this->_Instance->initialize($this);

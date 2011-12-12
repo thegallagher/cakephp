@@ -19,6 +19,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Routing\Router,
+	\Cake\Core\Configure,
+	\Cake\Utility\Xml,
+	\Cake\Error;
 
 /**
  * Request object for handling alternative HTTP requests
@@ -716,7 +722,7 @@ class RequestHandlerComponent extends Component {
  */
 	public function addInputType($type, $handler) {
 		if (!is_array($handler) || !isset($handler[0]) || !is_callable($handler[0])) {
-			throw new CakeException(__d('cake_dev', 'You must give a handler callback.'));
+			throw new Error\CakeException(__d('cake_dev', 'You must give a handler callback.'));
 		}
 		$this->_inputTypeMap[$type] = $handler;
 	}

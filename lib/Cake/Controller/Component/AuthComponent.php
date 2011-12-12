@@ -19,6 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Routing\Router,
+	\Cake\Utility\Debugger,
+	\Cake\Utility\Set,
+	\Cake\Core\Configure,
+	\Cake\Error;
 
 /**
  * Authentication control component class
@@ -397,10 +404,10 @@ class AuthComponent extends Component {
 			$className = $class . 'Authorize';
 			App::uses($className, $plugin . 'Controller/Component/Auth');
 			if (!class_exists($className)) {
-				throw new CakeException(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
+				throw new Error\CakeException(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
 			}
 			if (!method_exists($className, 'authorize')) {
-				throw new CakeException(__d('cake_dev', 'Authorization objects must implement an authorize method.'));
+				throw new Error\CakeException(__d('cake_dev', 'Authorization objects must implement an authorize method.'));
 			}
 			$settings = array_merge($global, (array)$settings);
 			$this->_authorizeObjects[] = new $className($this->_Collection, $settings);
@@ -655,10 +662,10 @@ class AuthComponent extends Component {
 			$className = $class . 'Authenticate';
 			App::uses($className, $plugin . 'Controller/Component/Auth');
 			if (!class_exists($className)) {
-				throw new CakeException(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
+				throw new Error\CakeException(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
 			}
 			if (!method_exists($className, 'authenticate')) {
-				throw new CakeException(__d('cake_dev', 'Authentication objects must implement an authenticate method.'));
+				throw new Error\CakeException(__d('cake_dev', 'Authentication objects must implement an authenticate method.'));
 			}
 			$settings = array_merge($global, (array)$settings);
 			$this->_authenticateObjects[] = new $className($this->_Collection, $settings);

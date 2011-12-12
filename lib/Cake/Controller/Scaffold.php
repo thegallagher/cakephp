@@ -19,6 +19,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller;
+use \Cake\Network\CakeRequest,
+	\Cake\Core\Configure,
+	\Cake\Model\ConnectionManager,
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Scaffolding is a set of automatic actions for starting web development work faster.
@@ -119,7 +124,7 @@ class Scaffold {
 		$this->modelKey = $controller->modelKey;
 
 		if (!is_object($this->controller->{$this->modelClass})) {
-			throw new MissingModelException($this->modelClass);
+			throw new Error\MissingModelException($this->modelClass);
 		}
 
 		$this->ScaffoldModel = $this->controller->{$this->modelClass};
@@ -163,7 +168,7 @@ class Scaffold {
 				$this->ScaffoldModel->id = $request->params['pass'][0];
 			}
 			if (!$this->ScaffoldModel->exists()) {
-				throw new NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelKey)));
+				throw new Error\NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelKey)));
 			}
 			$this->ScaffoldModel->recursive = 1;
 			$this->controller->request->data = $this->ScaffoldModel->read();
@@ -230,7 +235,7 @@ class Scaffold {
 					$this->ScaffoldModel->id = $request['pass'][0];
 				}
 				if (!$this->ScaffoldModel->exists()) {
-					throw new NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelKey)));
+					throw new Error\NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelKey)));
 				}
 			}
 
@@ -292,7 +297,7 @@ class Scaffold {
 	protected function _scaffoldDelete(CakeRequest $request) {
 		if ($this->controller->beforeScaffold('delete')) {
 			if (!$request->is('post')) {
-				throw new MethodNotAllowedException();
+				throw new Error\MethodNotAllowedException();
 			}
 			$id = false;
 			if (isset($request->params['pass'][0])) {
@@ -300,7 +305,7 @@ class Scaffold {
 			}
 			$this->ScaffoldModel->id = $id;
 			if (!$this->ScaffoldModel->exists()) {
-				throw new NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelClass)));
+				throw new Error\NotFoundException(__d('cake', 'Invalid %s', Inflector::humanize($this->modelClass)));
 			}
 			if ($this->ScaffoldModel->delete()) {
 				$message = __d('cake', 'The %1$s with id: %2$d has been deleted.', Inflector::humanize($this->modelClass), $id);
@@ -400,13 +405,13 @@ class Scaffold {
 					break;
 				}
 			} else {
-				throw new MissingActionException(array(
+				throw new Error\MissingActionException(array(
 					'controller' => $this->controller->name,
 					'action' => $request->action
 				));
 			}
 		} else {
-			throw new MissingDatabaseException(array('connection' => $this->ScaffoldModel->useDbConfig));
+			throw new Error\MissingDatabaseException(array('connection' => $this->ScaffoldModel->useDbConfig));
 		}
 	}
 

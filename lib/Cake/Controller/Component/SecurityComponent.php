@@ -17,6 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Network\CakeRequest,
+	\Cake\Utility\Security,
+	\Cake\Error;
+
 
 /**
  * The Security Component creates an easy way to integrate tighter security in 
@@ -306,7 +312,7 @@ class SecurityComponent extends Component {
  */
 	public function blackHole($controller, $error = '') {
 		if ($this->blackHoleCallback == null) {
-			throw new BadRequestException(__d('cake_dev', 'The request has been black-holed'));
+			throw new Error\BadRequestException(__d('cake_dev', 'The request has been black-holed'));
 		} else {
 			return $this->_callback($controller, $this->blackHoleCallback, array($error));
 		}

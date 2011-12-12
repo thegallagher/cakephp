@@ -17,6 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
+use \Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Utility\Set,
+	\Cake\Error;
 
 /**
  * This component is used to handle automatic model data pagination.  The primary way to use this
@@ -118,7 +122,7 @@ class PaginatorComponent extends Component {
 		$object = $this->_getObject($object);
 
 		if (!is_object($object)) {
-			throw new MissingModelException($object);
+			throw new Error\MissingModelException($object);
 		}
 
 		$options = $this->mergeOptions($object->alias);

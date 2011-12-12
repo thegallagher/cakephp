@@ -328,10 +328,10 @@ class Controller extends Object implements CakeEventListener {
 
 		$this->methods = array_diff($childMethods, $parentMethods);
 
-		if ($request instanceof \Cake\Network\CakeRequest) {
+		if ($request instanceof CakeRequest) {
 			$this->setRequest($request);
 		}
-		if ($response instanceof \Cake\Network\CakeResponse) {
+		if ($response instanceof CakeResponse) {
 			$this->response = $response;
 		}
 		parent::__construct();
@@ -445,7 +445,7 @@ class Controller extends Object implements CakeEventListener {
  * @param \Cake\Network\CakeRequest $request
  * @return void
  */
-	public function setRequest(\Cake\Network\CakeRequest $request) {
+	public function setRequest(CakeRequest $request) {
 		$this->request = $request;
 		$this->plugin = isset($request->params['plugin']) ? Inflector::camelize($request->params['plugin']) : null;
 		$this->view = isset($request->params['action']) ? $request->params['action'] : null;
@@ -469,7 +469,7 @@ class Controller extends Object implements CakeEventListener {
  * @return mixed The resulting response.
  * @throws PrivateActionException, MissingActionException
  */
-	public function invokeAction(\Cake\Network\CakeRequest $request) {
+	public function invokeAction(CakeRequest $request) {
 		try {
 			$method = new \ReflectionMethod($this, $request->params['action']);
 
@@ -500,7 +500,7 @@ class Controller extends Object implements CakeEventListener {
  * @param \Cake\Network\CakeRequest $request The request to check.
  * @return boolean
  */
-	protected function _isPrivateAction(\ReflectionMethod $method, \Cake\Network\CakeRequest $request) {
+	protected function _isPrivateAction(\ReflectionMethod $method, CakeRequest $request) {
 		$privateAction = (
 			$method->name[0] === '_' ||
 			!$method->isPublic() ||

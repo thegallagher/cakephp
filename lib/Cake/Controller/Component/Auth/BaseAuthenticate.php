@@ -13,6 +13,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component\Auth;
+use \Cake\Controller\ComponentCollection,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Utility\Security;
 
 /**
  * Base Authentication class with common methods and properties.

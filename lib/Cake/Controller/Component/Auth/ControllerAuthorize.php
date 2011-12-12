@@ -13,6 +13,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component\Auth;
+use \Cake\Controller\ComponentCollection,
+	\Cake\Network\CakeRequest,
+	\Cake\Error;
 
 /**
  * An authorization adapter for AuthComponent.  Provides the ability to authorize using a controller callback.
@@ -46,7 +49,7 @@ class ControllerAuthorize extends BaseAuthorize {
 	public function controller($controller = null) {
 		if ($controller) {
 			if (!method_exists($controller, 'isAuthorized')) {
-				throw new CakeException(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
+				throw new Error\CakeException(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
 			}
 		}
 		return parent::controller($controller);

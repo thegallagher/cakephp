@@ -13,6 +13,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component\Auth;
+use \Cake\Controller\ComponentCollection,
+	\Cake\Controller\Controller,
+	\Cake\Network\CakeRequest,
+	\Cake\Network\CakeResponse,
+	\Cake\Utility\Set,
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Abstract base authorization adapter for AuthComponent.
@@ -91,7 +98,7 @@ abstract class BaseAuthorize {
 	public function controller($controller = null) {
 		if ($controller) {
 			if (!$controller instanceof Controller) {
-				throw new CakeException(__d('cake_dev', '$controller needs to be an instance of Controller'));
+				throw new Error\CakeException(__d('cake_dev', '$controller needs to be an instance of Controller'));
 			}
 			$this->_Controller = $controller;
 			return true;
