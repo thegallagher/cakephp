@@ -112,7 +112,7 @@ class SmtpTransport extends AbstractTransport {
 			try {
 				$this->_smtpSend("HELO {$host}", '250');
 			} catch (Error\SocketException $e2) {
-				throw new SocketException(__d('cake_dev', 'SMTP server did not accept the connection.'));
+				throw new Error\SocketException(__d('cake_dev', 'SMTP server did not accept the connection.'));
 			}
 		}
 	}

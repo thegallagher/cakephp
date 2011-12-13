@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
+use \Cake\View\Helper;
 
 /**
  * Javascript Generator helper class for easy use of JavaScript.
@@ -28,7 +29,7 @@ namespace Cake\View\Helper;
  * @property      HtmlHelper $Html
  * @property      FormHelper $Form
  */
-class JsHelper extends AppHelper {
+class JsHelper extends Helper {
 
 /**
  * Whether or not you want scripts to be buffered or output.

@@ -171,7 +171,7 @@ class ConnectionManager {
 
 		App::uses($conn['classname'], $plugin . 'Model/Datasource' . $package);
 		if (!class_exists($conn['classname'])) {
-			throw new MissingDatasourceException(array(
+			throw new Error\MissingDatasourceException(array(
 				'class' => $conn['classname'],
 				'plugin' => substr($plugin, 0, -1)
 			));

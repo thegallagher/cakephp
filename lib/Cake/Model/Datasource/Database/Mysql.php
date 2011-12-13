@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
+use \Cake\Model\Datasource\DboSource,
+	\Cake\Error,
+	\PDO;
 
 /**
  * MySQL DBO driver object
@@ -158,8 +161,8 @@ class Mysql extends DboSource {
 				$flags
 			);
 			$this->connected = true;
-		} catch (PDOException $e) {
-			throw new MissingConnectionException(array('class' => $e->getMessage()));
+		} catch (\PDOException $e) {
+			throw new Error\MissingConnectionException(array('class' => $e->getMessage()));
 		}
 
 		$this->_useAlias = (bool)version_compare($this->getVersion(), "4.1", ">=");
@@ -305,7 +308,7 @@ class Mysql extends DboSource {
 		$fields = false;
 		$cols = $this->_execute('SHOW FULL COLUMNS FROM ' . $table);
 		if (!$cols) {
-			throw new CakeException(__d('cake_dev', 'Could not describe table for %s', $table));
+			throw new Error\CakeException(__d('cake_dev', 'Could not describe table for %s', $table));
 		}
 
 		while ($column = $cols->fetch(PDO::FETCH_OBJ)) {

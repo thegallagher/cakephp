@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
+use \Cake\Model\Datasource\DboSource,
+	\Cake\Error,
+	\PDO;
 
 /**
  * DBO implementation for the SQLite3 DBMS.
@@ -110,7 +113,7 @@ class Sqlite extends DboSource {
 		try {
 			$this->_connection = new PDO('sqlite:' . $config['database'], null, null, $flags);
 			$this->connected = true;
-		} catch(PDOException $e) {
+		} catch (\PDOException $e) {
 			throw new MissingConnectionException(array('class' => $e->getMessage()));
 		}
 		return $this->connected;
@@ -310,7 +313,7 @@ class Sqlite extends DboSource {
 				if (!empty($metaData['sqlite:decl_type'])) {
 					$metaType = trim($metaData['sqlite:decl_type']);
 				}
-			} catch (Exception $e) {}
+			} catch (\Exception $e) {}
 
 			if (strpos($columnName, '.')) {
 				$parts = explode('.', $columnName);

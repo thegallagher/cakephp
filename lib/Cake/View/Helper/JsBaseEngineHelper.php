@@ -17,6 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
+use \Cake\View\Helper,
+	\Cake\I18n\Multibyte;
 
 /**
  * JsEngineBaseClass
@@ -25,7 +27,7 @@ namespace Cake\View\Helper;
  *
  * @package       Cake.View.Helper
  */
-abstract class JsBaseEngineHelper extends AppHelper {
+abstract class JsBaseEngineHelper extends Helper {
 
 /**
  * The js snippet for the current selection.

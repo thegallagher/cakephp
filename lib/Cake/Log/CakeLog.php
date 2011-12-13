@@ -19,7 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Log;
-use \Cake\Error\CakeLogException,
+use \Cake\Error,
 	\Cake\Log\Engine\FileLog;
 
 /**
@@ -94,14 +94,14 @@ class CakeLog {
  */
 	public static function config($key, $config) {
 		if (empty($config['engine'])) {
-			throw new CakeLogException(__d('cake_dev', 'Missing logger classname'));
+			throw new Error\CakeLogException(__d('cake_dev', 'Missing logger classname'));
 		}
 		$loggerName = $config['engine'];
 		unset($config['engine']);
 		$className = self::_getLogger($loggerName);
 		$logger = new $className($config);
 		if (!$logger instanceof CakeLogInterface) {
-			throw new CakeLogException(sprintf(
+			throw new Error\CakeLogException(sprintf(
 				__d('cake_dev', 'logger class %s does not implement a write method.'), $loggerName
 			));
 		}
@@ -119,7 +119,7 @@ class CakeLog {
  */
 	protected static function _getLogger($loggerName) {
 		if (!class_exists($loggerName)) {
-			throw new CakeLogException(__d('cake_dev', 'Could not load class %s', $loggerName));
+			throw new Error\CakeLogException(__d('cake_dev', 'Could not load class %s', $loggerName));
 		}
 		return $loggerName;
 	}

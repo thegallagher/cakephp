@@ -11,6 +11,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
+use \Cake\Network\CakeResponse;
 
 /**
  * A view class that is used for JSON responses.

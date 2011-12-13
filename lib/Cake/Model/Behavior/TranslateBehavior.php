@@ -17,6 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Behavior;
+use \Cake\Model\ModelBehavior,
+	\Cake\Model\ConnectionManager,
+	\Cake\I18n\I18n,
+	\Cake\Core\Configure,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * Translate behavior
@@ -113,7 +118,7 @@ class TranslateBehavior extends ModelBehavior {
 		} else {
 			$tablePrefix = $db->config['prefix'];
 		}
-		$joinTable = new StdClass();
+		$joinTable = new \StdClass();
 		$joinTable->tablePrefix = $tablePrefix;
 		$joinTable->table = $RuntimeModel->table;
 		$joinTable->schemaName = $RuntimeModel->getDataSource()->getSchemaName();

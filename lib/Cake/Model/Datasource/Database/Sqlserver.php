@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
+use \Cake\Model\Datasource\DboSource,
+	\Cake\Error,
+	\PDO;
 
 /**
  * Dbo driver for SQLServer
@@ -145,8 +148,8 @@ class Sqlserver extends DboSource {
 				$flags
 			);
 			$this->connected = true;
-		} catch (PDOException $e) {
-			throw new MissingConnectionException(array('class' => $e->getMessage()));
+		} catch (\PDOException $e) {
+			throw new Error\MissingConnectionException(array('class' => $e->getMessage()));
 		}
 
 		$this->_version = $this->_connection->getAttribute(PDO::ATTR_SERVER_VERSION);

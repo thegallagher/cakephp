@@ -19,6 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
+use \Cake\Core\Configure,
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * ScaffoldView provides specific view file loading features for scaffolded views.
@@ -84,6 +87,6 @@ class ScaffoldView extends ThemeView {
 			return CAKE . 'View' . DS . 'Errors' . DS . 'scaffold_error.ctp';
 		}
 
-		throw new MissingViewException($paths[0] . $name . $this->ext);
+		throw new Error\MissingViewException($paths[0] . $name . $this->ext);
 	}
 }

@@ -22,6 +22,7 @@ namespace Cake\View;
 use \Cake\Core\Object,
 	\Cake\Core\App,
 	\Cake\Core\Configure,
+	\Cake\Core\CakePlugin,
 	\Cake\Routing\Router,
 	\Cake\Utility\ObjectCollection;
 

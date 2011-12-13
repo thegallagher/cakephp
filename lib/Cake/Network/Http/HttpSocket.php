@@ -601,10 +601,10 @@ class HttpSocket extends CakeSocket {
 		App::uses($authClass, $plugin. 'Network/Http');
 
 		if (!class_exists($authClass)) {
-			throw new SocketException(__d('cake_dev', 'Unknown authentication method for proxy.'));
+			throw new Error\SocketException(__d('cake_dev', 'Unknown authentication method for proxy.'));
 		}
 		if (!method_exists($authClass, 'proxyAuthentication')) {
-			throw new SocketException(sprintf(__d('cake_dev', 'The %s do not support proxy authentication.'), $authClass));
+			throw new Error\SocketException(sprintf(__d('cake_dev', 'The %s do not support proxy authentication.'), $authClass));
 		}
 		call_user_func_array("$authClass::proxyAuthentication", array($this, &$this->_proxy));
 	}

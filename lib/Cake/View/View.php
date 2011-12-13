@@ -18,10 +18,11 @@
  */
 namespace Cake\View;
 use \Cake\Core\Object,
+	\Cake\Core\App,
 	\Cake\Utility\ObjectCollection,
 	\Cake\Utility\Inflector,
-	\Cake\Core\App,
 	\Cake\Routing\Router,
+	\Cake\Cache\Cache,
 	\Cake\Error;
 
 /**

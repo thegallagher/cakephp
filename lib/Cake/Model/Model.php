@@ -19,6 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
+use \Cake\Core\Object,
+	\Cake\Core\Configure,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\Xml,
+	\Cake\Utility\Set,
+	\Cake\Error;
 
 /**
  * Object-relational mapper.
@@ -1077,7 +1084,7 @@ class Model extends Object implements CakeEventListener {
 		if (method_exists($db, 'listSources')) {
 			$sources = $db->listSources();
 			if (is_array($sources) && !in_array(strtolower($this->tablePrefix . $tableName), array_map('strtolower', $sources))) {
-				throw new MissingTableException(array(
+				throw new Error\MissingTableException(array(
 					'table' => $this->tablePrefix . $tableName,
 					'class' => $this->alias,
 					'ds' => $this->useDbConfig,
@@ -1109,7 +1116,7 @@ class Model extends Object implements CakeEventListener {
 			return;
 		}
 		if (is_object($one)) {
-			if ($one instanceof SimpleXMLElement || $one instanceof DOMNode) {
+			if ($one instanceof \SimpleXMLElement || $one instanceof \DOMNode) {
 				$one = $this->_normalizeXmlData(Xml::toArray($one));
 			} else {
 				$one = Set::reverse($one);
@@ -3280,7 +3287,7 @@ class Model extends Object implements CakeEventListener {
 		$this->schemaName = $db->getSchemaName();
 
 		if (empty($db) || !is_object($db)) {
-			throw new MissingConnectionException(array('class' => $this->name));
+			throw new Error\MissingConnectionException(array('class' => $this->name));
 		}
 	}
 

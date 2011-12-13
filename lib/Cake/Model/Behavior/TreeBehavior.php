@@ -19,6 +19,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Behavior;
+use \Cake\Model\ModelBehavior,
+	\Cake\Model\ConnectionManager;
 
 /**
  * Tree Behavior.

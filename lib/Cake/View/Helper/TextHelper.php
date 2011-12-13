@@ -19,6 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
+use \Cake\View\Helper;
 
 /**
  * Text helper library.
@@ -29,7 +30,7 @@ namespace Cake\View\Helper;
  * @property      HtmlHelper $Html
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/text.html
  */
-class TextHelper extends AppHelper {
+class TextHelper extends Helper {
 
 /**
  * helpers

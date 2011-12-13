@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
+use \Cake\View\Helper,
+	\Cake\I18n\Multibyte,
+	\Cake\Core\Configure;
 
 /**
  * Time Helper class for easy use of time data.
@@ -26,7 +29,7 @@ namespace Cake\View\Helper;
  * @package       Cake.View.Helper
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/time.html
  */
-class TimeHelper extends AppHelper {
+class TimeHelper extends Helper {
 
 /**
  * The format to use when formatting a time using `TimeHelper::nice()`

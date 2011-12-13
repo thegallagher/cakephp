@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
+use \Cake\Network\CakeResponse,
+	\Cake\Core\Configure,
+	\Cake\Error;
 
 /**
  * Media View provides a custom view implementation for sending files to visitors.  Its great
@@ -102,9 +105,9 @@ class MediaView extends View {
 
 		if (!is_file($path)) {
 			if (Configure::read('debug')) {
-				throw new NotFoundException(sprintf('The requested file %s was not found', $path));
+				throw new Error\NotFoundException(sprintf('The requested file %s was not found', $path));
 			}
-			throw new NotFoundException('The requested file was not found');
+			throw new Error\NotFoundException('The requested file was not found');
 		}
 
 		if (is_array($mimeType)) {

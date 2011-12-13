@@ -20,7 +20,12 @@
  */
 namespace Cake\View\Helper;
 use \Cake\View\Helper,
-	\Cake\View\View;
+	\Cake\View\View,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\Security,
+	\Cake\Utility\Set,
+	\Cake\Error;
 
 /**
  * Form helper library.
@@ -1440,7 +1445,7 @@ class FormHelper extends Helper {
 	public function __call($method, $params) {
 		$options = array();
 		if (empty($params)) {
-			throw new CakeException(__d('cake_dev', 'Missing field name for FormHelper::%s', $method));
+			throw new Error\CakeException(__d('cake_dev', 'Missing field name for FormHelper::%s', $method));
 		}
 		if (isset($params[1])) {
 			$options = $params[1];

@@ -17,6 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
+use \Cake\Core\Object,
+	\Cake\Core\Configure,
+	\Cake\Core\CakePlugin,
+	\Cake\Core\App,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector;
 
 /**
  * Base Class for Schema management
@@ -381,7 +387,7 @@ class CakeSchema extends Object {
 		}
 		$out .= "}\n";
 
-		$file = new SplFileObject($path . DS . $file, 'w+');
+		$file = new \SplFileObject($path . DS . $file, 'w+');
 		$content = "<?php\n{$out}";
 		if ($file->fwrite($content)) {
 			return $content;

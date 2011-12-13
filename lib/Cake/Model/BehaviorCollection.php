@@ -19,6 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
+use \Cake\Utility\ObjectCollection,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Error;
 
 /**
  * Model behavior collection class.
@@ -117,7 +120,7 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 
 		App::uses($class, $plugin . 'Model/Behavior');
 		if (!class_exists($class)) {
-			throw new MissingBehaviorException(array(
+			throw new Error\MissingBehaviorException(array(
 				'class' => $class,
 				'plugin' => substr($plugin, 0, -1)
 			));

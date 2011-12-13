@@ -17,6 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource;
+use \Cake\Core\Configure,
+	\Cake\Model\ConnectionManager,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Set,
+	\Cake\Cache\Cache,
+	\PDO,
+	\Cake\Error;
 
 /**
  * DboSource
@@ -233,7 +241,7 @@ class DboSource extends DataSource {
 		parent::__construct($config);
 		$this->fullDebug = Configure::read('debug') > 1;
 		if (!$this->enabled()) {
-			throw new MissingConnectionException(array(
+			throw new Error\MissingConnectionException(array(
 				'class' => get_class($this)
 			));
 		}
@@ -262,7 +270,7 @@ class DboSource extends DataSource {
  * @return boolean True if the database could be disconnected, else false
  */
 	public function disconnect() {
-		if ($this->_result instanceof PDOStatement) {
+		if ($this->_result instanceof \PDOStatement) {
 			$this->_result->closeCursor();
 		}
 		unset($this->_connection);
@@ -442,7 +450,7 @@ class DboSource extends DataSource {
 				}
 			}
 			return $query;
-		} catch (PDOException $e) {
+		} catch (\PDOException $e) {
 			if (isset($query->queryString)) {
 				$e->queryString = $query->queryString;
 			} else {
@@ -458,7 +466,7 @@ class DboSource extends DataSource {
  * @param PDOStatement $query the query to extract the error from if any
  * @return string Error message with error number
  */
-	public function lastError(PDOStatement $query = null) {
+	public function lastError(\PDOStatement $query = null) {
 		if ($query) {
 			$error = $query->errorInfo();
 		} else {

@@ -17,6 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
+use \Cake\Model\Datasource\DboSource,
+	\Cake\Error,
+	\PDO;
 
 /**
  * PostgreSQL layer for DBO.
@@ -130,8 +133,8 @@ class Postgres extends DboSource {
 			if (!empty($config['schema'])) {
 				 $this->_execute('SET search_path TO ' . $config['schema']);
 			}
-		} catch (PDOException $e) {
-			throw new MissingConnectionException(array('class' => $e->getMessage()));
+		} catch (\PDOException $e) {
+			throw new Error\MissingConnectionException(array('class' => $e->getMessage()));
 		}
 
 		return $this->connected;
