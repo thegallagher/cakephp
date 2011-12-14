@@ -46,6 +46,7 @@ class CakePlugin {
  * 	`CakePlugin::load('DebugKit', array('bootstrap' => false, 'routes' => true))` will load routes.php file but not bootstrap.php
  * 	`CakePlugin::load('DebugKit', array('bootstrap' => array('config1', 'config2')))` will load config1.php and config2.php files
  *	`CakePlugin::load('DebugKit', array('bootstrap' => 'aCallableMethod'))` will run the aCallableMethod function to initialize it
+ *	`CakePlugin::load('DebugKit', array('namespace' => 'Cake\DebugKit'))` will load files on APP/Plugin/Cake/DebugKit/Controller/...
  *
  * Bootstrap initialization functions can be expressed as a PHP callback type, including closures. Callbacks will receive two
  * parameters (plugin name, plugin configuration)
@@ -77,7 +78,7 @@ class CakePlugin {
 			}
 			return;
 		}
-		$config += array('bootstrap' => false, 'routes' => false);
+		$config += array('bootstrap' => false, 'routes' => false, 'namespace' => $plugin);
 		if (empty($config['path'])) {
 			foreach (App::path('plugins') as $path) {
 				if (is_dir($path . $plugin)) {
@@ -99,6 +100,8 @@ class CakePlugin {
 		if (empty(self::$_plugins[$plugin]['path'])) {
 			throw new Error\MissingPluginException(array('plugin' => $plugin));
 		}
+		$loader = new ClassLoader($plugin, dirname(self::$_plugins[$plugin]['path']));
+		$loader->register();
 		if (!empty(self::$_plugins[$plugin]['bootstrap'])) {
 			self::bootstrap($plugin);
 		}
@@ -145,6 +148,20 @@ class CakePlugin {
 			throw new Error\MissingPluginException(array('plugin' => $plugin));
 		}
 		return self::$_plugins[$plugin]['path'];
+	}
+
+/**
+ * Return the namespace for a plugin
+ *
+ * @param string $plugin name of the plugin in CamelCase format
+ * @return string namespace to the plugin
+ * @throws MissingPluginException if the namespace for plugin was not found or plugin has not been loaded
+ */
+	public static function getNamespace($plugin) {
+		if (empty(self::$_plugins[$plugin])) {
+			throw new Error\MissingPluginException(array('plugin' => $plugin));
+		}
+		return self::$_plugins[$plugin]['namespace'];
 	}
 
 /**

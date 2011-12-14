@@ -17,6 +17,7 @@
  */
 namespace Cake\View;
 use \Cake\Utility\ObjectCollection,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -65,26 +66,18 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  * @throws MissingHelperException when the helper could not be found
  */
 	public function load($helper, $settings = array()) {
-		if (is_array($settings) && isset($settings['className'])) {
-			$helperClass = $settings['className'];
-		}
-
 		if (isset($this->_loaded[$helper])) {
 			return $this->_loaded[$helper];
 		}
-		if (!isset($helperClass)) {
-			// @todo Test from the real app namespace and plugins
-			$helperClass = '\App\View\Helper\\' . $helper . 'Helper';
-			if (
-				!class_exists('\App\View\Helper\\' . $helper . 'Helper')
-				&& class_exists('\Cake\View\Helper\\' . $helper . 'Helper')
-			) {
-				$helperClass = '\Cake\View\Helper\\' . $helper . 'Helper';
-			}
+		if (is_array($settings) && isset($settings['className'])) {
+			$helperClass = $settings['className'];
 		}
-		if (!class_exists($helperClass)) {
+		if (!isset($helperClass)) {
+			$helperClass = App::classname($helper, 'View/Helper', 'Helper');
+		}
+		if (!$helperClass) {
 			throw new Error\MissingHelperException(array(
-				'class' => $helperClass,
+				'class' => $helper,
 				'plugin' => substr($plugin, 0, -1)
 			));
 		}

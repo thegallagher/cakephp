@@ -205,6 +205,52 @@ class App {
 	public static $bootstrapping = false;
 
 /**
+ * Return the classname namespaced. This method check if the class is defined on the
+ * application/plugin, otherwise try to load from the CakePHP core
+ *
+ * @param string $class Classname
+ * @param strign $type Type of class
+ * @param string $suffix Classname suffix
+ * @return boolean|string False if the class is not found or namespaced classname
+ */
+	public static function classname($class, $type = '', $suffix = '') {
+		if (strpos($class, '\\') !== false) {
+			return $class;
+		}
+
+		list($plugin, $name) = pluginSplit($class);
+		$checkCore = true;
+		if ($plugin) {
+			$base = CakePlugin::getNamespace($plugin);
+			$checkCore = false;
+		} else {
+			$base = Configure::read('App.namespace');
+		}
+		$base = rtrim($base, '\\');
+
+		if ($type === 'Lib') {
+			$fullname = '\\' . $name . $suffix;
+			if (class_exists($base . $fullname)) {
+				return $base . $fullname;
+			}
+		}
+		$fullname = '\\' . str_replace('/', '\\', $type) . '\\' . $name . $suffix;
+		if (class_exists($base . $fullname)) {
+			return $base . $fullname;
+		}
+
+		if ($checkCore) {
+			if ($type === 'Lib') {
+				$fullname = '\\' . $name . $suffix;
+			}
+			if (class_exists('Cake' . $fullname)) {
+				return 'Cake' . $fullname;
+			}
+		}
+		return false;
+	}
+
+/**
  * Used to read information stored path
  *
  * Usage:

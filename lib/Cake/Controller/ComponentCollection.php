@@ -17,6 +17,7 @@
  */
 namespace Cake\Controller;
 use \Cake\Utility\ObjectCollection,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -82,25 +83,18 @@ class ComponentCollection extends ObjectCollection implements CakeEventListener 
  * @throws MissingComponentException when the component could not be found
  */
 	public function load($component, $settings = array()) {
-		if (is_array($settings) && isset($settings['className'])) {
-			$componentClass = $settings['className'];
-		}
 		if (isset($this->_loaded[$component])) {
 			return $this->_loaded[$component];
 		}
-		if (!isset($componentClass)) {
-			// @todo Test from the real app namespace and plugin
-			$componentClass = '\App\Controller\Component\\' . $component . 'Component';
-			if (
-				!class_exists('\App\Controller\Component\\' . $component . 'Component')
-				&& class_exists('\Cake\Controller\Component\\' . $component . 'Component')
-			) {
-				$componentClass = '\Cake\Controller\Component\\' . $component . 'Component';
-			}
+		if (is_array($settings) && isset($settings['className'])) {
+			$componentClass = $settings['className'];
 		}
-		if (!class_exists($componentClass)) {
+		if (!isset($componentClass)) {
+			$componentClass = App::classname($component, 'Controller/Component', 'Component');
+		}
+		if (!$componentClass) {
 			throw new Error\MissingComponentException(array(
-				'class' => $componentClass
+				'class' => $component
 			));
 		}
 		$this->_loaded[$component] = new $componentClass($this, $settings);

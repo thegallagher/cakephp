@@ -80,6 +80,11 @@ use \Cake\Core\Configure,
 	));
 
 /**
+ * Application namespace
+ */
+	Configure::write('App.namespace', 'App');
+
+/**
  * Application wide charset encoding
  */
 	Configure::write('App.encoding', 'UTF-8');
