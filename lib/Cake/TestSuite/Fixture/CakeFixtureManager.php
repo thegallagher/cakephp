@@ -16,9 +16,12 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ConnectionManager', 'Model');
-App::uses('ClassRegistry', 'Utility');
+namespace Cake\TestSuite\Fixture;
+use \Cake\Model\ConnectionManager,
+	\Cake\Core\CakePlugin,
+	\Cake\TestSuite\CakeTestCase,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector;
 
 /**
  * A factory class to manage the life cycle of test fixtures
@@ -242,7 +245,7 @@ class CakeFixtureManager {
 			$fixture->truncate($db);
 			$fixture->insert($db);
 		} else {
-			throw new UnexpectedValueException(__d('cake_dev', 'Referenced fixture class %s not found', $name));
+			throw new \UnexpectedValueException(__d('cake_dev', 'Referenced fixture class %s not found', $name));
 		}
 	}
 

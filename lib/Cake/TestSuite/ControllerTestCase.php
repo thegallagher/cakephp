@@ -16,13 +16,13 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Dispatcher', 'Routing');
-App::uses('CakeTestCase', 'TestSuite');
-App::uses('Router', 'Routing');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-App::uses('Helper', 'View');
+namespace Cake\TestSuite;
+use \Cake\Routing\Dispatcher,
+	\Cake\Routing\Router,
+	\Cake\View\Helper,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Error;
 
 /**
  * ControllerTestDispatcher class
@@ -260,7 +260,7 @@ abstract class ControllerTestCase extends CakeTestCase {
 			$params['requested'] = 1;
 		}
 		$Dispatch->testController = $this->controller;
-		$Dispatch->response = $this->getMock('CakeResponse', array('send'));
+		$Dispatch->response = $this->getMock('\Cake\Network\CakeResponse', array('send'));
 		$this->result = $Dispatch->dispatch($request, $Dispatch->response, $params);
 		$this->controller = $Dispatch->testController;
 		$this->vars = $this->controller->viewVars;
@@ -349,7 +349,7 @@ abstract class ControllerTestCase extends CakeTestCase {
 			$componentClass = $name . 'Component';
 			App::uses($componentClass, $plugin . 'Controller/Component');
 			if (!class_exists($componentClass)) {
-				throw new MissingComponentException(array(
+				throw new Error\MissingComponentException(array(
 					'class' => $componentClass
 				));
 			}

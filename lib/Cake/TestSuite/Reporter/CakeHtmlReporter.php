@@ -15,7 +15,10 @@
  * @since         CakePHP(tm) v 1.2.0.4433
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('CakeBaseReporter', 'TestSuite/Reporter');
+namespace Cake\TestSuite\Reporter;
+use \Cake\Core\App,
+	\Cake\TestSuite\Coverage\HtmlCoverageReport,
+	\Cake\Utility\Inflector;
 
 /**
  * CakeHtmlReporter Reports Results of TestSuites and Test Cases
@@ -160,8 +163,6 @@ class CakeHtmlReporter extends CakeBaseReporter {
  * @return void
  */
 	public function paintCoverage(array $coverage) {
-		App::uses('HtmlCoverageReport', 'TestSuite/Coverage');
-
 		$reporter = new HtmlCoverageReport($coverage, $this);
 		echo $reporter->report();
 	}
@@ -321,7 +322,7 @@ class CakeHtmlReporter extends CakeBaseReporter {
  * @param Exception $e Exception to get a stack trace for.
  * @return string Generated stack trace.
  */
-	protected function _getStackTrace(Exception $e) {
+	protected function _getStackTrace(\Exception $e) {
 		$trace = $e->getTrace();
 		$out = array();
 		foreach ($trace as $frame) {
@@ -341,7 +342,7 @@ class CakeHtmlReporter extends CakeBaseReporter {
  *
  * @param  PHPUnit_Framework_TestSuite $suite
  */
-	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
+	public function startTestSuite(\PHPUnit_Framework_TestSuite $suite) {
 		if (!$this->_headerSent) {
 			echo $this->paintHeader();
 		}

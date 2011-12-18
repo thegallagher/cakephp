@@ -12,8 +12,11 @@
  * @since         CakePHP(tm) v 1.2.0.4667
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('CakeSchema', 'Model');
+namespace Cake\TestSuite\Fixture;
+use \Cake\Model\CakeSchema,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * CakeTestFixture is responsible for building and destroying tables to be used 
@@ -70,7 +73,7 @@ class CakeTestFixture {
 		if (!empty($this->useDbConfig)) {
 			$connection = $this->useDbConfig;
 			if (strpos($connection, 'test') !== 0) {
-				throw new CakeException(__d('cake_dev', 'Invalid datasource %s for object %s', $connection, $this->name));
+				throw new Error\CakeException(__d('cake_dev', 'Invalid datasource %s for object %s', $connection, $this->name));
 			}
 		}
 		$this->Schema = new CakeSchema(array('name' => 'TestSuite', 'connection' => $connection));
@@ -93,7 +96,7 @@ class CakeTestFixture {
 				list($plugin, $modelClass) = pluginSplit($import['model'], true);
 				App::uses($modelClass, $plugin . 'Model');
 				if (!class_exists($modelClass)) {
-					throw new MissingModelException(array('class' => $modelClass));
+					throw new Error\MissingModelException(array('class' => $modelClass));
 				}
 				$model = new $modelClass(null, null, $import['connection']);
 				$db = $model->getDataSource();
@@ -204,10 +207,9 @@ class CakeTestFixture {
 		}
 		$this->Schema->build(array($this->table => $this->fields));
 		try {
-
 			$db->execute($db->dropSchema($this->Schema), array('log' => false));
 			$this->created = array_diff($this->created, array($db->configKeyName));;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			return false;
 		}
 		return true;

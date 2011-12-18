@@ -17,6 +17,10 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\TestSuite\Coverage;
+use \Cake\TestSuite\Reporter\CakeBaseReporter,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector;
 
 /**
  * Abstract class for common CoverageReport methods.

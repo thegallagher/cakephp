@@ -16,15 +16,18 @@
  * @since         CakePHP(tm) v 1.2.0.4667
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('CakeFixtureManager', 'TestSuite/Fixture');
-App::uses('CakeTestFixture', 'TestSuite/Fixture');
+namespace Cake\TestSuite;
+use \Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Routing\Router,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * CakeTestCase class
  *
  * @package       Cake.TestSuite
  */
-abstract class CakeTestCase extends PHPUnit_Framework_TestCase {
+abstract class CakeTestCase extends \PHPUnit_Framework_TestCase {
 
 /**
  * The class responsible for managing the creation, loading and removing of fixtures
@@ -71,7 +74,7 @@ abstract class CakeTestCase extends PHPUnit_Framework_TestCase {
 * @return PHPUnit_Framework_TestResult
 * @throws InvalidArgumentException
 */
-	public function run(PHPUnit_Framework_TestResult $result = NULL) {
+	public function run(\PHPUnit_Framework_TestResult $result = NULL) {
 		if (!empty($this->fixtureManager)) {
 			$this->fixtureManager->load($this);
 		}
@@ -184,7 +187,7 @@ abstract class CakeTestCase extends PHPUnit_Framework_TestCase {
  */
 	public function loadFixtures() {
 		if (empty($this->fixtureManager)) {
-			throw new Exception(__d('cake_dev', 'No fixture manager to load the test fixture'));
+			throw new \Exception(__d('cake_dev', 'No fixture manager to load the test fixture'));
 		}
 		$args = func_get_args();
 		foreach ($args as $class) {

@@ -15,6 +15,9 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\TestSuite;
+use \Cake\Core\App;
+
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 /**
@@ -22,7 +25,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  *
  * @package       Cake.TestSuite
  */
-class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
+class CakeTestRunner extends \PHPUnit_TextUI_TestRunner {
 /**
  * Lets us pass in some options needed for cake's webrunner.
  *
@@ -40,7 +43,7 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
  * @param array $arguments
  * @return void
  */
-	public function doRun(PHPUnit_Framework_Test $suite, array $arguments = array()) {
+	public function doRun(\PHPUnit_Framework_Test $suite, array $arguments = array()) {
 		if (isset($arguments['printer'])) {
 			self::$versionStringPrinted = true;
 		}
@@ -64,13 +67,13 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
  * @return PHPUnit_Framework_TestResult
  */
 	protected function createTestResult() {
-		$result = new PHPUnit_Framework_TestResult;
+		$result = new \PHPUnit_Framework_TestResult;
 		if (!empty($this->_params['codeCoverage'])) {
 			if (method_exists($result, 'collectCodeCoverageInformation')) {
 				$result->collectCodeCoverageInformation(true);
 			}
 			if (method_exists($result, 'setCodeCoverage')) {
-				$result->setCodeCoverage(new PHP_CodeCoverage());
+				$result->setCodeCoverage(new \PHP_CodeCoverage());
 			}
 		}
 		return $result;
@@ -83,16 +86,13 @@ class CakeTestRunner extends PHPUnit_TextUI_TestRunner {
  */
 	protected function _getFixtureManager($arguments) {
 		if (isset($arguments['fixtureManager'])) {
-			App::uses($arguments['fixtureManager'], 'TestSuite');
-			if (class_exists($arguments['fixtureManager'])) {
-				return new $arguments['fixtureManager'];
+			$class = App::classname($arguments['fixtureManager'], 'TestSuite/Fixture');
+			if (class_exists($class)) {
+				return new $class;
 			}
-			throw new RuntimeException(__d('cake_dev', 'Could not find fixture manager %s.', $arguments['fixtureManager']));
+			throw new \RuntimeException(__d('cake_dev', 'Could not find fixture manager %s.', $arguments['fixtureManager']));
 		}
-		App::uses('AppFixtureManager', 'TestSuite');
-		if (class_exists('AppFixtureManager')) {
-			return new AppFixtureManager();
-		}
-		return new CakeFixtureManager();
+		$class = App::classname('FixtureManager', 'TestSuite/Fixture');
+		return new $class();
 	}
 }

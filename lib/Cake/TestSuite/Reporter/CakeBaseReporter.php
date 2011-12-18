@@ -15,6 +15,9 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\TestSuite\Reporter;
+use \Cake\TestSuite\CakeTestLoader;
+
 require_once 'PHPUnit/TextUI/ResultPrinter.php';
 
 /**
@@ -22,7 +25,7 @@ require_once 'PHPUnit/TextUI/ResultPrinter.php';
  *
  * @package       Cake.TestSuite.Reporter
  */
-class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
+class CakeBaseReporter extends \PHPUnit_TextUI_ResultPrinter {
 
 	protected $_headerSent = false;
 
@@ -121,11 +124,11 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
 		return '';
 	}
 
-	public function printResult(PHPUnit_Framework_TestResult $result) {
+	public function printResult(\PHPUnit_Framework_TestResult $result) {
 		$this->paintFooter($result);
 	}
 
-	public function paintResult(PHPUnit_Framework_TestResult $result) {
+	public function paintResult(\PHPUnit_Framework_TestResult $result) {
 		$this->paintFooter($result);
 	}
 
@@ -136,7 +139,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
 * @param  Exception              $e
 * @param  float                  $time
 */
-	public function addError(PHPUnit_Framework_Test $test, Exception $e, $time) {
+	public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
 		$this->paintException($e, $test);
 	}
 
@@ -147,7 +150,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
 * @param  PHPUnit_Framework_AssertionFailedError $e
 * @param  float $time
 */
-	public function addFailure(PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time) {
+	public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time) {
 		$this->paintFail($e, $test);
 	}
 
@@ -158,7 +161,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
 * @param  Exception $e
 * @param  float $time
 */
-	public function addIncompleteTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+	public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
 		$this->paintSkip($e, $test);
 	}
 
@@ -169,7 +172,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
 * @param  Exception $e
 * @param  float $time
 */
-	public function addSkippedTest(PHPUnit_Framework_Test $test, Exception $e, $time) {
+	public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time) {
 		$this->paintSkip($e, $test);
 	}
 
@@ -178,7 +181,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @param  PHPUnit_Framework_TestSuite $suite
  */
-	public function startTestSuite(PHPUnit_Framework_TestSuite $suite) {
+	public function startTestSuite(\PHPUnit_Framework_TestSuite $suite) {
 		if (!$this->_headerSent) {
 			echo $this->paintHeader();
 		}
@@ -190,7 +193,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @param  PHPUnit_Framework_TestSuite $suite
  */
-	public function endTestSuite(PHPUnit_Framework_TestSuite $suite) {
+	public function endTestSuite(\PHPUnit_Framework_TestSuite $suite) {
 	}
 
 /**
@@ -198,7 +201,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  *
  * @param  PHPUnit_Framework_Test $test
  */
-	public function startTest(PHPUnit_Framework_Test $test) {
+	public function startTest(\PHPUnit_Framework_Test $test) {
 	}
 
 /**
@@ -207,7 +210,7 @@ class CakeBaseReporter extends PHPUnit_TextUI_ResultPrinter {
  * @param  PHPUnit_Framework_Test $test
  * @param  float $time
  */
-	public function endTest(PHPUnit_Framework_Test $test, $time) {
+	public function endTest(\PHPUnit_Framework_Test $test, $time) {
 		$this->numAssertions += $test->getNumAssertions();
 		$this->paintPass($test, $time);
 	}
