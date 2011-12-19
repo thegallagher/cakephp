@@ -31,9 +31,6 @@ use \Cake\Core\App,
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => '\Cake\Cache\Engine\FileEngine'));
 
-$loader = new \Cake\Core\ClassLoader('App', dirname(dirname(__DIR__)));
-$loader->register();
-
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
  *

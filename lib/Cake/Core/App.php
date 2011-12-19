@@ -803,6 +803,9 @@ class App {
  * @return void
  */
 	public static function init() {
+		$loader = new ClassLoader(Configure::read('App.namespace'), dirname(APP));
+		$loader->register();
+
 		self::$_map += (array)Cache::read('file_map', '_cake_core_');
 		self::$_objects += (array)Cache::read('object_map', '_cake_core_');
 		register_shutdown_function(array('\Cake\Core\App', 'shutdown'));
