@@ -21,12 +21,12 @@
  */
 namespace Cake\Error;
 use \Cake\Routing\Router,
-	\Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse,
+	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Core\Configure,
 	\Cake\Utility\Inflector,
 	\Cake\Controller\Controller,
-	\Cake\Controller\CakeErrorController;
+	\Cake\Controller\ErrorController;
 
 /**
  * Exception Renderer.
@@ -138,7 +138,7 @@ class ExceptionRenderer {
 /**
  * Get the controller instance to handle the exception.
  * Override this method in subclasses to customize the controller used.
- * This method returns the built in `CakeErrorController` normally, or if an error is repeated
+ * This method returns the built in `ErrorController` normally, or if an error is repeated
  * a bare controller will be used.
  *
  * @param Exception $exception The exception to get a controller for.
@@ -146,11 +146,11 @@ class ExceptionRenderer {
  */
 	protected function _getController($exception) {
 		if (!$request = Router::getRequest(false)) {
-			$request = new CakeRequest();
+			$request = new Request();
 		}
-		$response = new CakeResponse(array('charset' => Configure::read('App.encoding')));
+		$response = new Response(array('charset' => Configure::read('App.encoding')));
 		try {
-			$controller = new CakeErrorController($request, $response);
+			$controller = new ErrorController($request, $response);
 		} catch (\Exception $e) {
 			$controller = new Controller($request, $response);
 			$controller->viewPath = 'Errors';

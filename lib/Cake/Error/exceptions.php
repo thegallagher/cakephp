@@ -403,20 +403,20 @@ class CacheException extends CakeException { }
 class RouterException extends CakeException { }
 
 /**
- * Exception class for CakeLog.  This exception will be thrown from CakeLog when it
+ * Exception class for Log.  This exception will be thrown from Log when it
  * encounters an error.
  *
  * @package       Cake.Error
  */
-class CakeLogException extends CakeException { }
+class LogException extends CakeException { }
 
 /**
- * Exception class for CakeSession.  This exception will be thrown from CakeSession when it
+ * Exception class for \Cake\Model\Datasource\Session.  This exception will be thrown from \Cake\Model\Datasource\Session when it
  * encounters an error.
  *
  * @package       Cake.Error
  */
-class CakeSessionException extends CakeException { }
+class SessionException extends CakeException { }
 
 /**
  * Exception class for Configure.  This exception will be thrown from Configure when it
@@ -427,7 +427,7 @@ class CakeSessionException extends CakeException { }
 class ConfigureException extends CakeException { }
 
 /**
- * Exception class for Socket. This exception will be thrown from CakeSocket, CakeEmail, HttpSocket
+ * Exception class for Socket. This exception will be thrown from Socket, Email, HttpSocket
  * SmtpTransport, MailTransport and HttpResponse when it encounters an error.
  *
  * @package       Cake.Error

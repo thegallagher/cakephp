@@ -194,11 +194,11 @@ class View extends Object {
 	public $uuids = array();
 
 /**
- * An instance of a CakeRequest object that contains information about the current request.
+ * An instance of a \Cake\Network\Request object that contains information about the current request.
  * This object contains all the information about a request and several methods for reading
  * additional information about the request.
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request;
 

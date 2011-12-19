@@ -21,11 +21,11 @@
  */
 namespace Cake\Routing;
 use \Cake\Core\Configure,
-	\Cake\Core\CakePlugin,
+	\Cake\Core\Plugin,
 	\Cake\Core\App,
 	\Cake\Controller\Controller,
-	\Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse,
+	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Utility\Inflector,
 	\Cake\View\ThemeView,
 	\Cake\Error;
@@ -62,14 +62,14 @@ class Dispatcher {
  * If no controller of given name can be found, invoke() will throw an exception.
  * If the controller is found, and the action is not found an exception will be thrown.
  *
- * @param CakeRequest $request Request object to dispatch.
- * @param CakeResponse $response Response object to put the results of the dispatch into.
+ * @param \Cake\Network\Request $request Request object to dispatch.
+ * @param \Cake\Network\Response $response Response object to put the results of the dispatch into.
  * @param array $additionalParams Settings array ("bare", "return") which is melded with the GET and POST params
  * @return boolean Success
  * @throws MissingControllerException, MissingActionException, PrivateActionException if any of those error states
  *    are encountered.
  */
-	public function dispatch(CakeRequest $request, CakeResponse $response, $additionalParams = array()) {
+	public function dispatch(Request $request, Response $response, $additionalParams = array()) {
 		if ($this->asset($request->url, $response) || $this->cached($request->here())) {
 			return;
 		}
@@ -94,17 +94,17 @@ class Dispatcher {
  * Otherwise the return value of the controller action are returned.
  *
  * @param Controller $controller Controller to invoke
- * @param CakeRequest $request The request object to invoke the controller for.
- * @param CakeResponse $response The response object to receive the output
+ * @param \Cake\Network\Request $request The request object to invoke the controller for.
+ * @param \Cake\Network\Response $response The response object to receive the output
  * @return void
  */
-	protected function _invoke(Controller $controller, CakeRequest $request, CakeResponse $response) {
+	protected function _invoke(Controller $controller, Request $request, Response $response) {
 		$controller->constructClasses();
 		$controller->startupProcess();
 
 		$render = true;
 		$result = $controller->invokeAction($request);
-		if ($result instanceof CakeResponse) {
+		if ($result instanceof Response) {
 			$render = false;
 			$response = $result;
 		}
@@ -126,12 +126,12 @@ class Dispatcher {
  * Applies Routing and additionalParameters to the request to be dispatched.
  * If Routes have not been loaded they will be loaded, and app/Config/routes.php will be run.
  *
- * @param CakeRequest $request CakeRequest object to mine for parameter information.
+ * @param \Cake\Network\Request $request \Cake\Network\Request object to mine for parameter information.
  * @param array $additionalParams An array of additional parameters to set to the request.
  *   Useful when Object::requestAction() is involved
- * @return CakeRequest The request object with routing params set.
+ * @return \Cake\Network\Request The request object with routing params set.
  */
-	public function parseParams(CakeRequest $request, $additionalParams = array()) {
+	public function parseParams(Request $request, $additionalParams = array()) {
 		if (count(Router::$routes) == 0) {
 			$namedExpressions = Router::getNamedExpressions();
 			extract($namedExpressions);
@@ -150,8 +150,8 @@ class Dispatcher {
 /**
  * Get controller to use, either plugin controller or application controller
  *
- * @param CakeRequest $request Request object
- * @param CakeResponse $response Response for the controller.
+ * @param \Cake\Network\Request $request Request object
+ * @param \Cake\Network\Response $response Response for the controller.
  * @return mixed name of controller if not loaded, or object if loaded
  */
 	protected function _getController($request, $response) {
@@ -169,7 +169,7 @@ class Dispatcher {
 /**
  * Load controller and return controller classname
  *
- * @param CakeRequest $request
+ * @param \Cake\Network\Request $request
  * @return string|bool Name of controller class name
  */
 	protected function _loadController($request) {
@@ -230,10 +230,10 @@ class Dispatcher {
  * Checks if a requested asset exists and sends it to the browser
  *
  * @param string $url Requested URL
- * @param CakeResponse $response The response object to put the file contents in.
+ * @param \Cake\Network\Response $response The response object to put the file contents in.
  * @return boolean True on success if the asset file was found and sent
  */
-	public function asset($url, CakeResponse $response) {
+	public function asset($url, Response $response) {
 		if (strpos($url, '..') !== false || strpos($url, '.') === false) {
 			return false;
 		}
@@ -272,10 +272,10 @@ class Dispatcher {
 			}
 		} else {
 			$plugin = Inflector::camelize($parts[0]);
-			if (CakePlugin::loaded($plugin)) {
+			if (Plugin::loaded($plugin)) {
 				unset($parts[0]);
 				$fileFragment = urldecode(implode(DS, $parts));
-				$pluginWebroot = CakePlugin::path($plugin) . 'webroot' . DS;
+				$pluginWebroot = Plugin::path($plugin) . 'webroot' . DS;
 				if (file_exists($pluginWebroot . $fileFragment)) {
 					$assetFile = $pluginWebroot . $fileFragment;
 				}
@@ -292,12 +292,12 @@ class Dispatcher {
 /**
  * Sends an asset file to the client
  *
- * @param CakeResponse $response The response object to use.
+ * @param \Cake\Network\Response $response The response object to use.
  * @param string $assetFile Path to the asset file in the file system
  * @param string $ext The extension of the file to determine its mime type
  * @return void
  */
-	protected function _deliverAsset(CakeResponse $response, $assetFile, $ext) {
+	protected function _deliverAsset(Response $response, $assetFile, $ext) {
 		ob_start();
 		$compressionEnabled = Configure::read('Asset.compress') && $response->compress();
 		if ($response->type($ext) == $ext) {

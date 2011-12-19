@@ -32,7 +32,7 @@ class AllConsoleLibsTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All console lib classes');
+		$suite = new TestSuite('All console lib classes');
 
 		$path = CORE_TEST_CASES . DS . 'Console';
 		foreach (new DirectoryIterator(dirname(__FILE__)) as $file) {

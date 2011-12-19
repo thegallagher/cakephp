@@ -24,7 +24,7 @@ use \Cake\Routing\Router,
  *
  * @package Cake.Routing.Route
  */
-class CakeRoute {
+class Route {
 
 /**
  * An array of named segments in a Route.

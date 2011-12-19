@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeHtmlReporter
+ * HtmlReporter
  *
  * PHP 5
  *
@@ -21,12 +21,12 @@ use \Cake\Core\App,
 	\Cake\Utility\Inflector;
 
 /**
- * CakeHtmlReporter Reports Results of TestSuites and Test Cases
+ * HtmlReporter Reports Results of TestSuites and Test Cases
  * in an HTML format / context.
  *
  * @package       Cake.TestSuite.Reporter
  */
-class CakeHtmlReporter extends CakeBaseReporter {
+class HtmlReporter extends BaseReporter {
 
 /**
  * Paints the top of the web page setting the

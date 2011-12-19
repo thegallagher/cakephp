@@ -468,7 +468,7 @@ class Mysql extends DboSource {
 /**
  * Generate a MySQL Alter Table syntax for the given Schema comparison
  *
- * @param array $compare Result of a CakeSchema::compare()
+ * @param array $compare Result of a \Cake\Model\Schema::compare()
  * @param string $table
  * @return array Array of alter statements to make.
  */
@@ -529,12 +529,12 @@ class Mysql extends DboSource {
 /**
  * Generate a MySQL "drop table" statement for the given Schema object
  *
- * @param CakeSchema $schema An instance of a subclass of CakeSchema
+ * @param \Cake\Model\Schema $schema An instance of a subclass of \Cake\Model\Schema
  * @param string $table Optional.  If specified only the table name given will be generated.
  *                      Otherwise, all tables defined in the schema are generated.
  * @return string
  */
-	public function dropSchema(CakeSchema $schema, $table = null) {
+	public function dropSchema(Schema $schema, $table = null) {
 		$out = '';
 		foreach ($schema->tables as $curTable => $columns) {
 			if (!$table || $table === $curTable) {

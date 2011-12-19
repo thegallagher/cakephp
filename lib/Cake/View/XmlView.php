@@ -11,7 +11,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Network\CakeResponse,
+use \Cake\Network\Response,
 	\Cake\Utility\Xml;
 
 /**
@@ -66,7 +66,7 @@ class XmlView extends View {
 	public function __construct($controller) {
 		parent::__construct($controller);
 
-		if (isset($controller->response) && $controller->response instanceof CakeResponse) {
+		if (isset($controller->response) && $controller->response instanceof Response) {
 			$controller->response->type('xml');
 		}
 	}

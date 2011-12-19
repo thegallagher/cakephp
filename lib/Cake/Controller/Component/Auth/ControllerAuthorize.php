@@ -14,7 +14,7 @@
  */
 namespace Cake\Controller\Component\Auth;
 use \Cake\Controller\ComponentCollection,
-	\Cake\Network\CakeRequest,
+	\Cake\Network\Request,
 	\Cake\Error;
 
 /**
@@ -59,10 +59,10 @@ class ControllerAuthorize extends BaseAuthorize {
  * Checks user authorization using a controller callback.
  *
  * @param array $user Active user data
- * @param CakeRequest $request
+ * @param \Cake\Network\Request $request
  * @return boolean
  */
-	public function authorize($user, CakeRequest $request) {
+	public function authorize($user, Request $request) {
 		return (bool) $this->_Controller->isAuthorized($user);
 	}
 

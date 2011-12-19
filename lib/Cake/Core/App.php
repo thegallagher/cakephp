@@ -221,7 +221,7 @@ class App {
 		list($plugin, $name) = pluginSplit($class);
 		$checkCore = true;
 		if ($plugin) {
-			$base = CakePlugin::getNamespace($plugin);
+			$base = Plugin::getNamespace($plugin);
 			$checkCore = false;
 		} else {
 			$base = Configure::read('App.namespace');
@@ -404,7 +404,7 @@ class App {
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/app.html#App::pluginPath
  */
 	public static function pluginPath($plugin) {
-		return CakePlugin::path($plugin);
+		return Plugin::path($plugin);
 	}
 
 /**
@@ -664,7 +664,7 @@ class App {
 		}
 		list($plugin, $name) = pluginSplit($name);
 		if (!empty($plugin)) {
-			if (!CakePlugin::loaded($plugin)) {
+			if (!Plugin::loaded($plugin)) {
 				return false;
 			}
 		}

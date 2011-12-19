@@ -21,7 +21,10 @@
 namespace Cake\Controller\Component;
 use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
+	\Cake\Model\Datasource\Session,
 	\Cake\Routing\Router,
+	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Utility\Debugger,
 	\Cake\Utility\Set,
 	\Cake\Core\Configure,
@@ -221,14 +224,14 @@ class AuthComponent extends Component {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request;
 
 /**
  * Response object
  *
- * @var CakeResponse
+ * @var \Cake\Network\Response
  */
 	public $response;
 
@@ -359,7 +362,7 @@ class AuthComponent extends Component {
  * be authorized for the request.
  *
  * @param mixed $user The user to check the authorization of. If empty the user in the session will be used.
- * @param CakeRequest $request The request to authenticate for.  If empty, the current request will be used.
+ * @param \Cake\Network\Request $request The request to authenticate for.  If empty, the current request will be used.
  * @return boolean True if $user is authorized, otherwise false
  */
 	public function isAuthorized($user = null, $request = null) {
@@ -553,13 +556,13 @@ class AuthComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/authentication.html#accessing-the-logged-in-user
  */
 	public static function user($key = null) {
-		if (empty(self::$_user) && !CakeSession::check(self::$sessionKey)) {
+		if (empty(self::$_user) && !Session::check(self::$sessionKey)) {
 			return null;
 		}
 		if (!empty(self::$_user)) {
 			$user = self::$_user;
 		} else {
-			$user = CakeSession::read(self::$sessionKey);
+			$user = Session::read(self::$sessionKey);
 		}
 		if ($key === null) {
 			return $user;
@@ -623,11 +626,11 @@ class AuthComponent extends Component {
  * Use the configured authentication adapters, and attempt to identify the user
  * by credentials contained in $request.
  *
- * @param CakeRequest $request The request that contains authentication data.
- * @param CakeResponse $response The response
+ * @param \Cake\Network\Request $request The request that contains authentication data.
+ * @param \Cake\Network\Response $response The response
  * @return array User record data, or false, if the user could not be identified.
  */
-	public function identify(CakeRequest $request, CakeResponse $response) {
+	public function identify(Request $request, Response $response) {
 		if (empty($this->_authenticateObjects)) {
 			$this->constructAuthenticate();
 		}

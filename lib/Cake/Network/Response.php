@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeResponse
+ * Cake Response
  *
  * PHP 5
  *
@@ -20,14 +20,14 @@ namespace Cake\Network;
 use \Cake\Error;
 
 /**
- * CakeResponse is responsible for managing the response text, status and headers of a HTTP response.
+ * Cake Response is responsible for managing the response text, status and headers of a HTTP response.
  *
  * By default controllers will use this class to render their response. If you are going to use
  * a custom response class it should subclass this object in order to ensure compatibility.
  *
  * @package       Cake.Network
  */
-class CakeResponse {
+class Response {
 
 /**
  * Holds HTTP response statuses

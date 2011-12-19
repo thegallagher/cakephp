@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Http;
-use \Cake\Network\CakeSocket,
+use \Cake\Network\Socket,
 	\Cake\Utility\Set,
 	\Cake\Utility\Inflector,
 	\Cake\Error;
@@ -30,7 +30,7 @@ use \Cake\Network\CakeSocket,
  *
  * @package       Cake.Network.Http
  */
-class HttpSocket extends CakeSocket {
+class HttpSocket extends Socket {
 
 /**
  * When one activates the $quirksMode by setting it to true, all checks meant to

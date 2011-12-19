@@ -19,7 +19,7 @@ namespace Cake\Routing\Route;
  *
  * @package Cake.Routing.Route
  */
-class PluginShortRoute extends CakeRoute {
+class PluginShortRoute extends Route {
 
 /**
  * Parses a string url into an array. If a plugin key is found, it will be copied to the

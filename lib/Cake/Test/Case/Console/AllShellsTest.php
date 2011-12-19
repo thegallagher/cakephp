@@ -32,7 +32,7 @@ class AllShellsTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All shell classes');
+		$suite = new TestSuite('All shell classes');
 
 		$path = CORE_TEST_CASES . DS . 'Console' . DS . 'Command' . DS;
 

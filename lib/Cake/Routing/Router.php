@@ -18,9 +18,9 @@
  */
 namespace Cake\Routing;
 use \Cake\Core\Configure,
-	\Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse,
-	\Cake\Routing\Route\CakeRoute,
+	\Cake\Network\Request,
+	\Cake\Network\Response,
+	\Cake\Routing\Route\Route,
 	\Cake\Utility\Set;
 
 /**
@@ -582,17 +582,17 @@ class Router {
  * Nested requests will create a stack of requests.  You can remove requests using
  * Router::popRequest().  This is done automatically when using Object::requestAction().
  *
- * Will accept either a CakeRequest object or an array of arrays. Support for
+ * Will accept either a \Cake\Network\Request object or an array of arrays. Support for
  * accepting arrays may be removed in the future.
  *
- * @param CakeRequest|array $request Parameters and path information or a CakeRequest object.
+ * @param \Cake\Network\Request|array $request Parameters and path information or a \Cake\Network\Request object.
  * @return void
  */
 	public static function setRequestInfo($request) {
-		if ($request instanceof CakeRequest) {
+		if ($request instanceof Request) {
 			self::$_requests[] = $request;
 		} else {
-			$requestObj = new CakeRequest();
+			$requestObj = new Request();
 			$request += array(array(), array());
 			$request[0] += array('controller' => false, 'action' => false, 'plugin' => null);
 			$requestObj->addParams($request[0])->addPaths($request[1]);
@@ -603,7 +603,7 @@ class Router {
 /**
  * Pops a request off of the request stack.  Used when doing requestAction
  *
- * @return CakeRequest The request removed from the stack.
+ * @return \Cake\Network\Request The request removed from the stack.
  * @see Router::setRequestInfo()
  * @see Object::requestAction()
  */
@@ -615,7 +615,7 @@ class Router {
  * Get the either the current request object, or the first one.
  *
  * @param boolean $current Whether you want the request from the top of the stack or the first one.
- * @return CakeRequest or null.
+ * @return \Cake\Network\Request or null.
  */
 	public static function getRequest($current = false) {
 		if ($current) {
@@ -977,13 +977,13 @@ class Router {
  * This will strip out 'autoRender', 'bare', 'requested', and 'return' param names as those
  * are used for CakePHP internals and should not normally be part of an output url.
  *
- * @param CakeRequest|array $params The params array or CakeRequest object that needs to be reversed.
+ * @param \Cake\Network\Request|array $params The params array or \Cake\Network\Request object that needs to be reversed.
  * @param boolean $full Set to true to include the full url including the protocol when reversing
  *     the url.
  * @return string The string that is the reversed result of the array
  */
 	public static function reverse($params, $full = false) {
-		if ($params instanceof CakeRequest) {
+		if ($params instanceof Request) {
 			$url = $params->query;
 			$params = $params->params;
 		} else {
@@ -1039,7 +1039,7 @@ class Router {
 /**
  * Returns the route matching the current request URL.
  *
- * @return CakeRoute Matching route object.
+ * @return \Cake\Routing\Route\Route Matching route object.
  */
 	public static function &requestRoute() {
 		return self::$_currentRoute[0];
@@ -1048,7 +1048,7 @@ class Router {
 /**
  * Returns the route matching the current request (useful for requestAction traces)
  *
- * @return CakeRoute Matching route object.
+ * @return \Cake\Routing\Route\Route Matching route object.
  */
 	public static function &currentRoute() {
 		return self::$_currentRoute[count(self::$_currentRoute) - 1];

@@ -2231,7 +2231,7 @@ class RouterTest extends CakeTestCase {
  * @return void
  */
 	public function testUsingCustomRouteClass() {
-		$mock = $this->getMock('CakeRoute', array(), array(), 'MockConnectedRoute', false);
+		$mock = $this->getMock('\Cake\Routing\Route\Route', array(), array(), 'MockConnectedRoute', false);
 		$routes = Router::connect(
 			'/:slug',
 			array('controller' => 'posts', 'action' => 'view'),
@@ -2247,7 +2247,7 @@ class RouterTest extends CakeTestCase {
 	}
 
 /**
- * test that route classes must extend CakeRoute
+ * test that route classes must extend \Cake\Routing\Route\Route
  *
  * @expectedException RouterException
  * @return void
@@ -2422,7 +2422,7 @@ class RouterTest extends CakeTestCase {
 	public function testUrlFullUrlReturnFromRoute() {
 		$url = 'http://example.com/posts/view/1';
 
-		$this->getMock('CakeRoute', array(), array('/'), 'MockReturnRoute');
+		$this->getMock('\Cake\Routing\Route\Route', array(), array('/'), 'MockReturnRoute');
 		$routes = Router::connect('/:controller/:action', array(), array('routeClass' => 'MockReturnRoute'));
 		$routes[0]->expects($this->any())->method('match')
 			->will($this->returnValue($url));
@@ -2456,7 +2456,7 @@ class RouterTest extends CakeTestCase {
  * @return void
  */
 	public function testPatternOnAction() {
-		$route = new CakeRoute(
+		$route = new Route(
 			'/blog/:action/*',
 			array('controller' => 'blog_posts'),
 			array('action' => 'other|actions')

@@ -25,7 +25,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  *
  * @package       Cake.TestSuite
  */
-class CakeTestRunner extends \PHPUnit_TextUI_TestRunner {
+class TestRunner extends \PHPUnit_TextUI_TestRunner {
 /**
  * Lets us pass in some options needed for cake's webrunner.
  *
@@ -50,7 +50,7 @@ class CakeTestRunner extends \PHPUnit_TextUI_TestRunner {
 
 		$fixture = $this->_getFixtureManager($arguments);
 		foreach ($suite->getIterator() as $test) {
-			if ($test instanceof CakeTestCase) {
+			if ($test instanceof TestCase) {
 				$fixture->fixturize($test);
 				$test->fixtureManager = $fixture;
 			}

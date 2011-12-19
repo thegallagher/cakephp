@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Log\Engine;
-use \Cake\Log\CakeLogInterface;
+use \Cake\Log\LogInterface;
 
 /**
  * File Storage stream for Logging.  Writes logs to different files
@@ -25,7 +25,7 @@ use \Cake\Log\CakeLogInterface;
  *
  * @package       Cake.Log.Engine
  */
-class FileLog implements CakeLogInterface {
+class FileLog implements LogInterface {
 
 /**
  * Path to save log files on.

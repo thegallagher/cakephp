@@ -29,10 +29,10 @@ class MailTransport extends AbstractTransport {
 /**
  * Send mail
  *
- * @param CakeEmail $email CakeEmail
+ * @param \Cake\Network\Email\Email $email Cake Email
  * @return array
  */
-	public function send(CakeEmail $email) {
+	public function send(Email $email) {
 		$eol = PHP_EOL;
 		if (isset($this->_config['eol'])) {
 			$eol = $this->_config['eol'];

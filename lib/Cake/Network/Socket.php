@@ -27,7 +27,7 @@ use \Cake\Utility\Validation,
  *
  * @package       Cake.Network
  */
-class CakeSocket {
+class Socket {
 
 /**
  * Object description
@@ -64,7 +64,7 @@ class CakeSocket {
 	public $connection = null;
 
 /**
- * This boolean contains the current state of the CakeSocket class
+ * This boolean contains the current state of the Socket class
  *
  * @var boolean
  */
@@ -81,7 +81,7 @@ class CakeSocket {
  * Constructor.
  *
  * @param array $config Socket configuration, which will be merged with the base configuration
- * @see CakeSocket::$_baseConfig
+ * @see Socket::$_baseConfig
  */
 	public function __construct($config = array()) {
 		$this->config = array_merge($this->_baseConfig, $config);

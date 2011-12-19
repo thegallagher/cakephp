@@ -32,7 +32,7 @@ class AllConsoleTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All console classes');
+		$suite = new TestSuite('All console classes');
 
 		$path = CORE_TEST_CASES . DS . 'Console' . DS;
 

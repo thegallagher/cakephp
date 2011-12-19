@@ -21,7 +21,7 @@
 use \Cake\Core\Configure,
 	\Cake\Utility\Debugger,
 	\Cake\I18n\I18n,
-	\Cake\Log\CakeLog;
+	\Cake\Log\Log;
 
 /**
  * Basic defines for timing functions.
@@ -715,7 +715,7 @@ function __c($msg, $category, $args = null) {
 function LogError($message) {
 	$bad = array("\n", "\r", "\t");
 	$good = ' ';
-	CakeLog::write('error', str_replace($bad, $good, $message));
+	Log::write('error', str_replace($bad, $good, $message));
 }
 
 /**

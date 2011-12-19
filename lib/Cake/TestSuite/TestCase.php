@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeTestCase file
+ * Cake TestCase file
  *
  * PHP 5
  *
@@ -23,16 +23,16 @@ use \Cake\Core\App,
 	\Cake\Utility\ClassRegistry;
 
 /**
- * CakeTestCase class
+ * Cake TestCase class
  *
  * @package       Cake.TestSuite
  */
-abstract class CakeTestCase extends \PHPUnit_Framework_TestCase {
+abstract class TestCase extends \PHPUnit_Framework_TestCase {
 
 /**
  * The class responsible for managing the creation, loading and removing of fixtures
  *
- * @var CakeFixtureManager
+ * @var \Cake\TestSuite\Fixture\FixtureManager
  */
 	public $fixtureManager = null;
 
@@ -183,7 +183,7 @@ abstract class CakeTestCase extends \PHPUnit_Framework_TestCase {
  * @param string $fixture Each parameter is a model name that corresponds to a
  *                        fixture, i.e. 'Post', 'Author', etc.
  * @return void
- * @see CakeTestCase::$autoFixtures
+ * @see \Cake\TestSuite\TestCase::$autoFixtures
  */
 	public function loadFixtures() {
 		if (empty($this->fixtureManager)) {

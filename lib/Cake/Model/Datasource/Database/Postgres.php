@@ -468,7 +468,7 @@ class Postgres extends DboSource {
 /**
  * Alter the Schema of a table.
  *
- * @param array $compare Results of CakeSchema::compare()
+ * @param array $compare Results of \Cake\Model\Schema::compare()
  * @param string $table name of the table
  * @return array
  */

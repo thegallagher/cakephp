@@ -188,7 +188,7 @@ class Debugger {
  */
 	public static function log($var, $level = LOG_DEBUG) {
 		$source = self::trace(array('start' => 1)) . "\n";
-		CakeLog::write($level, "\n" . $source . self::exportVar($var));
+		Log::write($level, "\n" . $source . self::exportVar($var));
 	}
 
 /**

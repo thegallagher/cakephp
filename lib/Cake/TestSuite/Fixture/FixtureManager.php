@@ -18,8 +18,8 @@
  */
 namespace Cake\TestSuite\Fixture;
 use \Cake\Model\ConnectionManager,
-	\Cake\Core\CakePlugin,
-	\Cake\TestSuite\CakeTestCase,
+	\Cake\Core\Plugin,
+	\Cake\TestSuite\TestCase,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector;
 
@@ -28,7 +28,7 @@ use \Cake\Model\ConnectionManager,
  *
  * @package       Cake.TestSuite.Fixture
  */
-class CakeFixtureManager {
+class FixtureManager {
 
 /**
  * Was this class already initialized?
@@ -61,7 +61,7 @@ class CakeFixtureManager {
 /**
  * Inspects the test to look for unloaded fixtures and loads them
  *
- * @param CakeTestCase $test the test case to inspect
+ * @param \Cake\TestSuite\TestCase $test the test case to inspect
  * @return void
  */
 	public function fixturize($test) {
@@ -124,7 +124,7 @@ class CakeFixtureManager {
 				$pluginName = $parts[1];
 				$fixture = $parts[2];
 				$fixturePaths = array(
-					CakePlugin::path(Inflector::camelize($pluginName)) . 'Test' . DS . 'Fixture',
+					Plugin::path(Inflector::camelize($pluginName)) . 'Test' . DS . 'Fixture',
 					TESTS . 'Fixture'
 				);
 			} else {
@@ -151,7 +151,7 @@ class CakeFixtureManager {
 /**
  * Runs the drop and create commands on the fixtures if necessary.
  *
- * @param CakeTestFixture $fixture the fixture object to create
+ * @param \Cake\TestSuite\Fixture\TestFixture $fixture the fixture object to create
  * @param DataSource $db the datasource instance to use
  * @param boolean $drop whether drop the fixture if it is already created or not
  * @return void
@@ -182,10 +182,10 @@ class CakeFixtureManager {
 /**
  * Crates the fixtures tables and inserts data on them
  *
- * @param CakeTestCase $test the test to inspect for fixture loading
+ * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture loading
  * @return void
  */
-	public function load(CakeTestCase $test) {
+	public function load(TestCase $test) {
 		if (empty($test->fixtures)) {
 			return;
 		}
@@ -209,10 +209,10 @@ class CakeFixtureManager {
 /**
  * Truncates the fixtures tables
  *
- * @param CakeTestCase $test the test to inspect for fixture unloading
+ * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
  * @return void
  */
-	public function unload(CakeTestCase $test) {
+	public function unload(TestCase $test) {
 		$fixtures = !empty($test->fixtures) ? $test->fixtures : array();
 		foreach (array_reverse($fixtures) as $f) {
 			if (isset($this->_loaded[$f])) {
@@ -230,7 +230,7 @@ class CakeFixtureManager {
 /**
  * Truncates the fixtures tables
  *
- * @param CakeTestCase $test the test to inspect for fixture unloading
+ * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
  * @return void
  * @throws UnexpectedValueException if $name is not a previously loaded class
  */

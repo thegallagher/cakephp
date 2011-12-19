@@ -24,7 +24,7 @@ use \Cake\Utility\Folder;
  *
  * @package       Cake.TestSuite
  */
-class CakeTestSuite extends \PHPUnit_Framework_TestSuite {
+class TestSuite extends \PHPUnit_Framework_TestSuite {
 
 /**
  * Adds all the files in a directory to the test suite. Does not recurse through directories.

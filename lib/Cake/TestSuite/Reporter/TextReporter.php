@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeTextReporter contains reporting features used for plain text based output
+ * TextReporter contains reporting features used for plain text based output
  *
  * PHP 5
  *
@@ -20,11 +20,11 @@ use \Cake\TestSuite\Coverage\TextCoverageReport,
 	\Cake\Utility\Inflector;
 
 /**
- * CakeTextReporter contains reporting features used for plain text based output
+ * TextReporter contains reporting features used for plain text based output
  *
  * @package       Cake.TestSuite.Reporter
  */
-class CakeTextReporter extends CakeBaseReporter {
+class TextReporter extends BaseReporter {
 
 /**
  * Sets the text/plain header if the test is not a CLI test.

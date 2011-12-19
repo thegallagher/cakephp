@@ -16,6 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Core\Plugin;
 
 /**
  * Provides a very basic 'interactive' console for CakePHP apps.
@@ -345,7 +346,7 @@ class ConsoleShell extends AppShell {
 		if (!@include(APP . 'Config' . DS . 'routes.php')) {
 			return false;
 		}
-		CakePlugin::routes();
+		Plugin::routes();
 
 		Router::parse('/');
 

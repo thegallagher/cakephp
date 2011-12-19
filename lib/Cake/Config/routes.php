@@ -48,7 +48,7 @@ use \Cake\Routing\Router;
  */
 	$prefixes = Router::prefixes();
 
-	if ($plugins = \Cake\Core\CakePlugin::loaded()) {
+	if ($plugins = \Cake\Core\Plugin::loaded()) {
 		App::uses('PluginShortRoute', 'Routing/Route');
 		foreach ($plugins as $key => $value) {
 			$plugins[$key] = Inflector::underscore($value);

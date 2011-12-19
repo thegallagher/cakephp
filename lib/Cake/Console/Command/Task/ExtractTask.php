@@ -117,10 +117,10 @@ class ExtractTask extends AppShell {
 			$this->_paths = explode(',', $this->params['paths']);
 		} else if (isset($this->params['plugin'])) {
 			$plugin = Inflector::camelize($this->params['plugin']);
-			if (!CakePlugin::loaded($plugin)) {
-				CakePlugin::load($plugin);
+			if (!Plugin::loaded($plugin)) {
+				Plugin::load($plugin);
 			}
-			$this->_paths = array(CakePlugin::path($plugin));
+			$this->_paths = array(Plugin::path($plugin));
 			$this->params['plugin'] = $plugin;
 		} else {
 			$defaultPath = APP;

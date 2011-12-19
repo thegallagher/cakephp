@@ -27,7 +27,7 @@ require_once 'PHPUnit/TextUI/Command.php';
  *
  * @package       Cake.TestSuite
  */
-class CakeTestSuiteCommand extends \PHPUnit_TextUI_Command {
+class TestSuiteCommand extends \PHPUnit_TextUI_Command {
 
 /**
  * Construct method
@@ -123,10 +123,10 @@ class CakeTestSuiteCommand extends \PHPUnit_TextUI_Command {
  * Create a runner for the command.
  *
  * @param $loader The loader to be used for the test run.
- * @return CakeTestRunner
+ * @return TestRunner
  */
 	public function getRunner($loader) {
- 		return new CakeTestRunner($loader, $this->_params);
+ 		return new TestRunner($loader, $this->_params);
 	}
 
 /**

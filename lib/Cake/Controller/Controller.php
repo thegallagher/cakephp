@@ -18,8 +18,8 @@
  */
 namespace Cake\Controller;
 use \Cake\Core\Object,
-	\Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse,
+	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Utility\Inflector,
 	\Cake\Error,
 	\Cake\Routing\Router,
@@ -93,18 +93,18 @@ class Controller extends Object implements CakeEventListener {
 	public $helpers = array('Session', 'Html', 'Form');
 
 /**
- * An instance of a CakeRequest object that contains information about the current request.
+ * An instance of a \Cake\Network\Request object that contains information about the current request.
  * This object contains all the information about a request and several methods for reading
  * additional information about the request.
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request;
 
 /**
- * An instance of a CakeResponse object that contains information about the impending response
+ * An instance of a Response object that contains information about the impending response
  *
- * @var CakeResponse
+ * @var \Cake\Network\Response
  */
 	public $response;
 
@@ -113,7 +113,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @var string
  */
-	protected $_responseClass = 'CakeResponse';
+	protected $_responseClass = '\Cake\Network\Response';
 
 /**
  * The name of the views subfolder containing views for this controller.
@@ -306,9 +306,9 @@ class Controller extends Object implements CakeEventListener {
 /**
  * Constructor.
  *
- * @param CakeRequest $request Request object for this controller. Can be null for testing,
+ * @param \Cake\Network\Request $request Request object for this controller. Can be null for testing,
  *  but expect that features that use the request parameters will not work.
- * @param CakeResponse $response Response object for this controller.
+ * @param \Cake\Network\Response $response Response object for this controller.
  */
 	public function __construct($request = null, $response = null) {
 		if ($this->name === null) {
@@ -328,10 +328,10 @@ class Controller extends Object implements CakeEventListener {
 
 		$this->methods = array_diff($childMethods, $parentMethods);
 
-		if ($request instanceof CakeRequest) {
+		if ($request instanceof Request) {
 			$this->setRequest($request);
 		}
-		if ($response instanceof CakeResponse) {
+		if ($response instanceof Response) {
 			$this->response = $response;
 		}
 		parent::__construct();
@@ -442,10 +442,10 @@ class Controller extends Object implements CakeEventListener {
  * - $this->autoRender - To false if $request->params['return'] == 1
  * - $this->passedArgs - The the combined results of params['named'] and params['pass]
  *
- * @param \Cake\Network\CakeRequest $request
+ * @param \Cake\Network\Request $request
  * @return void
  */
-	public function setRequest(CakeRequest $request) {
+	public function setRequest(Request $request) {
 		$this->request = $request;
 		$this->plugin = isset($request->params['plugin']) ? Inflector::camelize($request->params['plugin']) : null;
 		$this->view = isset($request->params['action']) ? $request->params['action'] : null;
@@ -465,11 +465,11 @@ class Controller extends Object implements CakeEventListener {
  * Dispatches the controller action.  Checks that the action
  * exists and isn't private.
  *
- * @param CakeRequest $request
+ * @param \Cake\Network\Request $request
  * @return mixed The resulting response.
  * @throws PrivateActionException, MissingActionException
  */
-	public function invokeAction(CakeRequest $request) {
+	public function invokeAction(Request $request) {
 		try {
 			$method = new \ReflectionMethod($this, $request->params['action']);
 
@@ -497,10 +497,10 @@ class Controller extends Object implements CakeEventListener {
  * or if the request is attempting to directly accessing a prefixed action.
  *
  * @param \ReflectionMethod $method The method to be invoked.
- * @param \Cake\Network\CakeRequest $request The request to check.
+ * @param \Cake\Network\Request $request The request to check.
  * @return boolean
  */
-	protected function _isPrivateAction(\ReflectionMethod $method, CakeRequest $request) {
+	protected function _isPrivateAction(\ReflectionMethod $method, Request $request) {
 		$privateAction = (
 			$method->name[0] === '_' ||
 			!$method->isPublic() ||
@@ -520,10 +520,10 @@ class Controller extends Object implements CakeEventListener {
 /**
  * Returns a scaffold object to use for dynamically scaffolded controllers.
  *
- * @param CakeRequest $request
+ * @param \Cake\Network\Request $request
  * @return Scaffold
  */
-	protected function _getScaffold(CakeRequest $request) {
+	protected function _getScaffold(Request $request) {
 		return new Scaffold($this, $request);
 	}
 
@@ -675,7 +675,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @return mixed Associative array of the HTTP codes as keys, and the message
  *    strings as values, or null of the given $code does not exist.
- * @deprecated Use CakeResponse::httpCodes();
+ * @deprecated Use \Cake\Network\Response::httpCodes();
  */
 	public function httpCodes($code = null) {
 		return $this->response->httpCodes($code);
@@ -788,11 +788,11 @@ class Controller extends Object implements CakeEventListener {
 	}
 
 /**
- * Convenience and object wrapper method for CakeResponse::header().
+ * Convenience and object wrapper method for \Cake\Network\Response::header().
  *
  * @param string $status The header message that is being set.
  * @return void
- * @deprecated Use CakeResponse::header()
+ * @deprecated Use \Cake\Network\Response::header()
  */
 	public function header($status) {
 		$this->response->header($status);
@@ -890,7 +890,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @param string $view View to use for rendering
  * @param string $layout Layout to use
- * @return CakeResponse A response object containing the rendered view.
+ * @return \Cake\Network\Response A response object containing the rendered view.
  * @link http://book.cakephp.org/2.0/en/controllers.html#Controller::render
  */
 	public function render($view = null, $layout = null) {
@@ -955,7 +955,7 @@ class Controller extends Object implements CakeEventListener {
  *
  * @return void
  * @link http://book.cakephp.org/2.0/en/controllers.html#Controller::disableCache
- * @deprecated Use CakeResponse::disableCache()
+ * @deprecated Use \Cake\Network\Response::disableCache()
  */
 	public function disableCache() {
 		$this->response->disableCache();

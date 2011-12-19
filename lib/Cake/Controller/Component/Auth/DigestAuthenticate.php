@@ -14,8 +14,8 @@
  */
 namespace Cake\Controller\Component\Auth;
 use \Cake\Controller\ComponentCollection,
-	\Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse;
+	\Cake\Network\Request,
+	\Cake\Network\Response;
 
 /**
  * Digest Authentication adapter for AuthComponent.
@@ -107,11 +107,11 @@ class DigestAuthenticate extends BaseAuthenticate {
  * Authenticate a user using Digest HTTP auth.  Will use the configured User model and attempt a
  * login using Digest HTTP auth.
  *
- * @param CakeRequest $request The request to authenticate with.
- * @param CakeResponse $response The response to add headers to.
+ * @param \Cake\Network\Request $request The request to authenticate with.
+ * @param \Cake\Network\Response $response The response to add headers to.
  * @return mixed Either false on failure, or an array of user data on success.
  */
-	public function authenticate(CakeRequest $request, CakeResponse $response) {
+	public function authenticate(Request $request, Response $response) {
 		$user = $this->getUser($request);
 
 		if (empty($user)) {
@@ -126,7 +126,7 @@ class DigestAuthenticate extends BaseAuthenticate {
 /**
  * Get a user based on information in the request.  Used by cookie-less auth for stateless clients.
  *
- * @param CakeRequest $request Request object.
+ * @param \Cake\Network\Request $request Request object.
  * @return mixed Either false or an array of user information
  */
 	public function getUser($request) {

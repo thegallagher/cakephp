@@ -19,7 +19,7 @@
 namespace Cake\Controller\Component;
 use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
-	\Cake\Network\CakeRequest,
+	\Cake\Network\Request,
 	\Cake\Utility\Security,
 	\Cake\Error;
 
@@ -197,7 +197,7 @@ class SecurityComponent extends Component {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request;
 
@@ -499,10 +499,10 @@ class SecurityComponent extends Component {
 /**
  * Manually add CSRF token information into the provided request object.
  *
- * @param CakeRequest $request The request object to add into.
+ * @param \Cake\Network\Request $request The request object to add into.
  * @return boolean
  */
-	public function generateToken(CakeRequest $request) {
+	public function generateToken(Request $request) {
 		if (isset($request->params['requested']) && $request->params['requested'] === 1) {
 			if ($this->Session->check('_Token')) {
 				$request->params['_Token'] = $this->Session->read('_Token');

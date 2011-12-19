@@ -105,9 +105,9 @@ class UpgradeShell extends AppShell {
 		}
 		$patterns = array(
 			array(
-				'*TestCase extends CakeTestCase to *Test extends CakeTestCase',
-				'/([a-zA-Z]*Test)Case extends CakeTestCase/',
-				'\1 extends CakeTestCase'
+				'*TestCase extends \Cake\TestSuite\TestCase to *Test extends \Cake\TestSuite\TestCase',
+				'/([a-zA-Z]*Test)Case extends \Cake\TestSuite\TestCase/',
+				'\1 extends \Cake\TestSuite\TestCase'
 			),
 		);
 
@@ -180,7 +180,7 @@ class UpgradeShell extends AppShell {
 			'models',
 			'Model',
 			'tests',
-			'Test' => array('regex' => '@class (\S*Test) extends CakeTestCase@'),
+			'Test' => array('regex' => '@class (\S*Test) extends \\Cake\\TestSuite\\TestCase@'),
 			'views',
 			'View',
 			'vendors/shells',
@@ -338,7 +338,7 @@ class UpgradeShell extends AppShell {
 	}
 
 /**
- * Update the properties moved to CakeRequest.
+ * Update the properties moved to \Cake\Network\Request.
  *
  * @return void
  */

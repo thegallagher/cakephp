@@ -16,7 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Core\Configure;
+use \Cake\Core\Configure,
+	\Cake\Core\Plugin;
 
 /**
  * Base class for command-line utilities for automating programmer chores.
@@ -801,8 +802,8 @@ class Shell extends Object {
  * @return string $path path to the correct plugin.
  */
 	protected function _pluginPath($pluginName) {
-		if (CakePlugin::loaded($pluginName)) {
-			return CakePlugin::path($pluginName);
+		if (Plugin::loaded($pluginName)) {
+			return Plugin::path($pluginName);
 		}
 		return current(App::path('plugins')) . $pluginName . DS;
 	}

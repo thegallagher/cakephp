@@ -23,7 +23,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace App\Config;
-use \Cake\Cache\Cache;
+use \Cake\Core\App,
+	\Cake\Core\Plugin,
+	\Cake\Cache\Cache,
+	\Cake\Utility\Inflector;
 
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => '\Cake\Cache\Engine\FileEngine'));
@@ -61,10 +64,10 @@ $loader->register();
 
 /**
  * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
- * Uncomment one of the lines below, as you need. make sure you read the documentation on CakePlugin to use more
+ * Uncomment one of the lines below, as you need. make sure you read the documentation on Plugin to use more
  * advanced ways of loading plugins
  *
- * CakePlugin::loadAll(); // Loads all plugins at once
- * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
+ * Plugin::loadAll(); // Loads all plugins at once
+ * Plugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */

@@ -18,6 +18,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\TestSuite\TestLoader,
+	\Cake\TestSuite\TestSuiteCommand;
 
 /**
  * Provides a CakePHP wrapper around PHPUnit.
@@ -165,10 +167,10 @@ class TestShell extends Shell {
  * @throws Exception
  */
 	public function initialize() {
-		$this->_dispatcher = new CakeTestSuiteDispatcher();
+		$this->_dispatcher = new TestSuiteDispatcher();
 		$sucess = $this->_dispatcher->loadTestFramework();
 		if (!$sucess) {
-			throw new Exception(__d('cake_dev', 'Please install PHPUnit framework <info>(http://www.phpunit.de)</info>'));
+			throw new \Exception(__d('cake_dev', 'Please install PHPUnit framework <info>(http://www.phpunit.de)</info>'));
 		}
 	}
 
@@ -267,7 +269,7 @@ class TestShell extends Shell {
 		restore_error_handler();
 		restore_error_handler();
 
-		$testCli = new CakeTestSuiteCommand('CakeTestLoader', $runnerArgs);
+		$testCli = new TestSuiteCommand('\Cake\TestSuite\TestLoader', $runnerArgs);
 		$testCli->run($options);
 	}
 
@@ -278,7 +280,7 @@ class TestShell extends Shell {
  */
 	public function available() {
 		$params = $this->_parseArgs();
-		$testCases = CakeTestLoader::generateTestList($params);
+		$testCases = TestLoader::generateTestList($params);
 		$app = $params['app'];
 		$plugin = $params['plugin'];
 

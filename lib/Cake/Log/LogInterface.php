@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeLogInterface
+ * LogInterface
  *
  * PHP 5
  *
@@ -19,12 +19,12 @@
 namespace Cake\Log;
 
 /**
- * CakeLogStreamInterface is the interface that should be implemented
+ * LogStreamInterface is the interface that should be implemented
  * by all classes that are going to be used as Log streams.
  *
  * @package       Cake.Log
  */
-interface CakeLogInterface {
+interface LogInterface {
 /**
  * Write method to handle writes being made to the Logger
  *

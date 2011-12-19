@@ -20,11 +20,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Core;
-use \Cake\Network\CakeRequest,
-	\Cake\Network\CakeResponse,
+use \Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Routing\Dispatcher,
 	\Cake\Routing\Router,
-	\Cake\Log\CakeLog,
+	\Cake\Log\Log,
 	\Cake\Utility\Set;
 
 /**
@@ -92,18 +92,18 @@ class Object {
 		unset($extra['data']);
 
 		if (is_string($url)) {
-			$request = new CakeRequest($url);
+			$request = new Request($url);
 		} elseif (is_array($url)) {
 			$params = $url + array('pass' => array(), 'named' => array(), 'base' => false);
 			$params = array_merge($params, $extra);
-			$request = new CakeRequest(Router::reverse($params), false);
+			$request = new Request(Router::reverse($params), false);
 		}
 		if (isset($data)) {
 			$request->data = $data;
 		}
 
 		$dispatcher = new Dispatcher();
-		$result = $dispatcher->dispatch($request, new CakeResponse(), $extra);
+		$result = $dispatcher->dispatch($request, new Response(), $extra);
 		Router::popRequest();
 		return $result;
 	}
@@ -148,7 +148,7 @@ class Object {
 	}
 
 /**
- * Convenience method to write a message to CakeLog.  See CakeLog::write()
+ * Convenience method to write a message to Log. See Log::write()
  * for more information on writing to logs.
  *
  * @param string $msg Log message
@@ -159,7 +159,7 @@ class Object {
 		if (!is_string($msg)) {
 			$msg = print_r($msg, true);
 		}
-		return CakeLog::write($type, $msg);
+		return Log::write($type, $msg);
 	}
 
 /**

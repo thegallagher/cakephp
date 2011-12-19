@@ -21,7 +21,7 @@
 namespace Cake\Error;
 use \Cake\Core\Configure,
 	\Cake\Utility\Debugger,
-	\Cake\Log\CakeLog;
+	\Cake\Log\Log;
 
 /**
  *
@@ -68,13 +68,13 @@ use \Cake\Core\Configure,
  *
  * Using the built-in exception handling, you can log all the exceptions
  * that are dealt with by ErrorHandler by setting `Exception.log` to true in your core.php.
- * Enabling this will log every exception to CakeLog and the configured loggers.
+ * Enabling this will log every exception to Log and the configured loggers.
  *
  * ### PHP errors
  *
  * Error handler also provides the built in features for handling php errors (trigger_error).
  * While in debug mode, errors will be output to the screen using debugger.  While in production mode,
- * errors will be logged to CakeLog.  You can control which errors are logged by setting
+ * errors will be logged to Log.  You can control which errors are logged by setting
  * `Error.level` in your core.php.
  *
  * #### Logging errors
@@ -114,7 +114,7 @@ class ErrorHandler {
 				$exception->getMessage(),
 				$exception->getTraceAsString()
 			);
-			CakeLog::write(LOG_ERR, $message);
+			Log::write(LOG_ERR, $message);
 		}
 		$renderer = $config['renderer'];
 		try {
@@ -135,7 +135,7 @@ class ErrorHandler {
 /**
  * Set as the default error handler by CakePHP. Use Configure::write('Error.handler', $callback), to use your own
  * error handling methods.  This function will use Debugger to display errors when debug > 0.  And
- * will log errors to CakeLog, when debug == 0.
+ * will log errors to Log, when debug == 0.
  *
  * You can use Configure::write('Error.level', $value); to set what type of errors will be handled here.
  * Stack traces for errors can be enabled with Configure::write('Error.trace', true);
@@ -174,7 +174,7 @@ class ErrorHandler {
 				$trace = Debugger::trace(array('start' => 1, 'format' => 'log'));
 				$message .= "\nTrace:\n" . $trace . "\n";
 			}
-			return CakeLog::write($log, $message);
+			return Log::write($log, $message);
 		}
 	}
 

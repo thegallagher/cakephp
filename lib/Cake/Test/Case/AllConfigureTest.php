@@ -32,7 +32,7 @@ class AllConfigureTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All Configure related tests');
+		$suite = new TestSuite('All Configure related tests');
 
 		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Configure');
 		return $suite;

@@ -34,7 +34,7 @@ class SchemaShell extends AppShell {
 /**
  * Schema class being used.
  *
- * @var CakeSchema
+ * @var \Cake\Model\Schema
  */
 	public $Schema;
 
@@ -99,7 +99,7 @@ class SchemaShell extends AppShell {
 				$name = $plugin;
 			}
 		}
-		$this->Schema = new CakeSchema(compact('name', 'path', 'file', 'connection', 'plugin'));
+		$this->Schema = new Schema(compact('name', 'path', 'file', 'connection', 'plugin'));
 	}
 
 /**
@@ -305,7 +305,7 @@ class SchemaShell extends AppShell {
  * Create database from Schema object
  * Should be called via the run method
  *
- * @param CakeSchema $Schema
+ * @param \Cake\Model\Schema $Schema
  * @param string $table
  * @return void
  */
@@ -350,7 +350,7 @@ class SchemaShell extends AppShell {
  * Update database with Schema object
  * Should be called via the run method
  *
- * @param CakeSchema $Schema
+ * @param \Cake\Model\Schema $Schema
  * @param string $table
  * @return void
  */
@@ -396,7 +396,7 @@ class SchemaShell extends AppShell {
  *
  * @param array $contents
  * @param string $event
- * @param CakeSchema $Schema
+ * @param \Cake\Model\Schema $Schema
  * @return void
  */
 	protected function _run($contents, $event, &$Schema) {

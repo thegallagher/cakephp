@@ -40,7 +40,7 @@ use \Cake\Core\Configure,
 /**
  * Configure the Error handler used to handle errors for your application.  By default
  * ErrorHandler::handleError() is used.  It will display errors using Debugger, when debug > 0
- * and log errors with CakeLog when debug = 0.
+ * and log errors with Cake Log when debug = 0.
  *
  * Options:
  *

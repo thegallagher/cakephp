@@ -18,7 +18,7 @@ class FixturizedTestCase extends CakeTestCase {
  * @return void
  */
 	public function testFixturePresent() {
-		$this->assertInstanceOf('CakeFixtureManager', $this->fixtureManager);
+		$this->assertInstanceOf('\Cake\TestSuite\Fixture\FixtureManager', $this->fixtureManager);
 	}
 
 /**

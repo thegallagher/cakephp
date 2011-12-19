@@ -22,7 +22,7 @@ namespace Cake\View;
 use \Cake\Core\Object,
 	\Cake\Core\App,
 	\Cake\Core\Configure,
-	\Cake\Core\CakePlugin,
+	\Cake\Core\Plugin,
 	\Cake\Routing\Router,
 	\Cake\Utility\ObjectCollection;
 
@@ -58,7 +58,7 @@ class Helper extends Object {
 /**
  * Request object
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request = null;
 
@@ -289,9 +289,9 @@ class Helper extends Object {
 				return $path . '?' . @filemtime($themePath);
 			} else {
 				$plugin = Inflector::camelize($segments[0]);
-				if (CakePlugin::loaded($plugin)) {
+				if (Plugin::loaded($plugin)) {
 					unset($segments[0]);
-					$pluginPath = CakePlugin::path($plugin) . 'webroot' . DS . implode(DS, $segments);
+					$pluginPath = Plugin::path($plugin) . 'webroot' . DS . implode(DS, $segments);
 					return $path . '?' . @filemtime($pluginPath);
 				}
 			}

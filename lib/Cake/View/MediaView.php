@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Network\CakeResponse,
+use \Cake\Network\Response,
 	\Cake\Core\Configure,
 	\Cake\Error;
 
@@ -34,7 +34,7 @@ use \Cake\Network\CakeResponse,
  * - `download` Set to true to set a `Content-Disposition` header.  This is ideal for file downloads.
  * - `extension` The extension of the file being served.  This is used to set the mimetype
  * - `path` The absolute path, including the trailing / on the server's filesystem to `id`.
- * - `mimeType` The mime type of the file if CakeResponse doesn't know about it.
+ * - `mimeType` The mime type of the file if Response doesn't know about it.
  *
  * ### Usage
  *
@@ -67,7 +67,7 @@ class MediaView extends View {
 /**
  * Reference to the Response object responsible for sending the headers
  *
- * @var CakeResponse
+ * @var \Cake\Network\Response
  */
 	public $response = null;
 
@@ -81,7 +81,7 @@ class MediaView extends View {
 		if (is_object($controller) && isset($controller->response)) {
 			$this->response = $controller->response;
 		} else {
-			$this->response = new CakeResponse;
+			$this->response = new Response();
 		}
 	}
 

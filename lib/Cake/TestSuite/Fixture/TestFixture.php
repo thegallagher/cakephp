@@ -13,18 +13,18 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite\Fixture;
-use \Cake\Model\CakeSchema,
+use \Cake\Model\Schema,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector,
 	\Cake\Error;
 
 /**
- * CakeTestFixture is responsible for building and destroying tables to be used 
+ * TestFixture is responsible for building and destroying tables to be used 
  * during testing.
  *
  * @package       Cake.TestSuite.Fixture
  */
-class CakeTestFixture {
+class TestFixture {
 
 /**
  * Name of the object
@@ -76,7 +76,7 @@ class CakeTestFixture {
 				throw new Error\CakeException(__d('cake_dev', 'Invalid datasource %s for object %s', $connection, $this->name));
 			}
 		}
-		$this->Schema = new CakeSchema(array('name' => 'TestSuite', 'connection' => $connection));
+		$this->Schema = new Schema(array('name' => 'TestSuite', 'connection' => $connection));
 		$this->init();
 	}
 

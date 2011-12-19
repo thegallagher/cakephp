@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Email;
-use \Cake\Log\CakeLog,
+use \Cake\Log\Log,
 	\Cake\Utility\Validation,
 	\Cake\Error;
 
@@ -29,7 +29,7 @@ use \Cake\Log\CakeLog,
  *
  * @package       Cake.Network.Email
  */
-class CakeEmail {
+class Email {
 /**
  * Default X-Mailer
  *
@@ -399,7 +399,7 @@ class CakeEmail {
  *
  * @param mixed $email String with email, Array with email as key, name as value or email as value (without name)
  * @param string $name
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  */
 	public function addTo($email, $name = null) {
 		return $this->_addEmail('_to', $email, $name);
@@ -424,7 +424,7 @@ class CakeEmail {
  *
  * @param mixed $email String with email, Array with email as key, name as value or email as value (without name)
  * @param string $name
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  */
 	public function addCc($email, $name = null) {
 		return $this->_addEmail('_cc', $email, $name);
@@ -449,7 +449,7 @@ class CakeEmail {
  *
  * @param mixed $email String with email, Array with email as key, name as value or email as value (without name)
  * @param string $name
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  */
 	public function addBcc($email, $name = null) {
 		return $this->_addEmail('_bcc', $email, $name);
@@ -461,7 +461,7 @@ class CakeEmail {
  * @param string $varName
  * @param mixed $email
  * @param mixed $name
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  * @throws SocketException
  */
 	protected function _setEmail($varName, $email, $name) {
@@ -496,7 +496,7 @@ class CakeEmail {
  * @param mixed $email
  * @param string $name
  * @param string $throwMessage
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  * @throws SocketException
  */
 	protected function _setEmailSingle($varName, $email, $name, $throwMessage) {
@@ -515,7 +515,7 @@ class CakeEmail {
  * @param string $varName
  * @param mixed $email
  * @param mixed $name
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  * @throws SocketException
  */
 	protected function _addEmail($varName, $email, $name) {
@@ -561,7 +561,7 @@ class CakeEmail {
  * Sets headers for the message
  *
  * @param array $headers Associative array containing headers to be set.
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  * @throws SocketException
  */
 	public function setHeaders($headers) {
@@ -788,7 +788,7 @@ class CakeEmail {
 /**
  * Return the transport class
  *
- * @return CakeEmail
+ * @return \Cake\Network\Email\Email
  * @throws SocketException
  */
 	public function transportClass() {
@@ -895,7 +895,7 @@ class CakeEmail {
  * Add attachments
  *
  * @param mixed $attachments String with the filename or array with filenames
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  * @throws SocketException
  */
 	public function addAttachments($attachments) {
@@ -967,20 +967,20 @@ class CakeEmail {
 			if ($this->_config['log'] !== true) {
 				$level = $this->_config['log'];
 			}
-			CakeLog::write($level, PHP_EOL . $contents['headers'] . PHP_EOL . $contents['message']);
+			Log::write($level, PHP_EOL . $contents['headers'] . PHP_EOL . $contents['message']);
 		}
 		return $contents;
 	}
 
 /**
- * Static method to fast create an instance of CakeEmail
+ * Static method to fast create an instance of \Cake\Network\Email\Email
  *
- * @param mixed $to Address to send (see CakeEmail::to()). If null, will try to use 'to' from transport config
+ * @param mixed $to Address to send (see \Cake\Network\Email\Email::to()). If null, will try to use 'to' from transport config
  * @param mixed $subject String of subject or null to use 'subject' from transport config
  * @param mixed $message String with message or array with variables to be used in render
  * @param mixed $transportConfig String to use config from EmailConfig or array with configs
  * @param boolean $send Send the email or just return the instance pre-configured
- * @return CakeEmail Instance of CakeEmail
+ * @return \Cake\Network\Email\Email Instance of \Cake\Network\Email\Email
  * @throws SocketException
  */
 	public static function deliver($to = null, $subject = null, $message = null, $transportConfig = 'fast', $send = true) {
@@ -1009,7 +1009,6 @@ class CakeEmail {
 /**
  * Apply the config to an instance
  *
- * @param CakeEmail $obj CakeEmail
  * @param array $config
  * @return void
  */
@@ -1064,7 +1063,7 @@ class CakeEmail {
 /**
  * Reset all EmailComponent internal variables to be able to send out a new email.
  *
- * @return CakeEmail $this
+ * @return \Cake\Network\Email\Email $this
  */
 	public function reset() {
 		$this->_to = array();

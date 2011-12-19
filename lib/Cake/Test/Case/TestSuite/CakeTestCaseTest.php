@@ -157,7 +157,7 @@ class CakeTestCaseTest extends CakeTestCase {
  */
 	public function testLoadFixtures() {
 		$test = new FixturizedTestCase('testFixturePresent');
-		$manager = $this->getMock('CakeFixtureManager');
+		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('load');
@@ -176,7 +176,7 @@ class CakeTestCaseTest extends CakeTestCase {
 	public function testLoadFixturesOnDemand() {
 		$test = new FixturizedTestCase('testFixtureLoadOnDemand');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('CakeFixtureManager');
+		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('loadSingle');
@@ -192,7 +192,7 @@ class CakeTestCaseTest extends CakeTestCase {
 	public function testUnoadFixturesAfterFailure() {
 		$test = new FixturizedTestCase('testFixtureLoadOnDemand');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('CakeFixtureManager');
+		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('loadSingle');
@@ -208,7 +208,7 @@ class CakeTestCaseTest extends CakeTestCase {
 	public function testThrowException() {
 		$test = new FixturizedTestCase('testThrowException');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('CakeFixtureManager');
+		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('unload');

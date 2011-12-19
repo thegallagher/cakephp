@@ -80,7 +80,7 @@ class ConsoleErrorHandler {
 		$stderr->write(__d('cake_console', "<error>%s Error:</error> %s\n", $name, $message));
 
 		if (Configure::read('debug') == 0) {
-			CakeLog::write($log, $message);
+			Log::write($log, $message);
 		}
 	}
 

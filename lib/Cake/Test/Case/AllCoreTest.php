@@ -32,7 +32,7 @@ class AllCoreTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All Core class tests');
+		$suite = new TestSuite('All Core class tests');
 
 		$suite->addTestDirectory(CORE_TEST_CASES . DS . 'Core');
 		return $suite;

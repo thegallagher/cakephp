@@ -14,7 +14,7 @@
  */
 namespace Cake\Routing\Route;
 use \Cake\Routing\Router,
-	\Cake\Network\CakeResponse;
+	\Cake\Network\Response;
 
 /**
  * Redirect route will perform an immediate redirect. Redirect routes
@@ -23,12 +23,12 @@ use \Cake\Routing\Router,
  *
  * @package Cake.Routing.Route
  */
-class RedirectRoute extends CakeRoute {
+class RedirectRoute extends Route {
 
 /**
- * A CakeResponse object
+ * A Response object
  *
- * @var CakeResponse
+ * @var \Cake\Network\Response
  */
 	public $response = null;
 
@@ -71,7 +71,7 @@ class RedirectRoute extends CakeRoute {
 			return false;
 		}
 		if (!$this->response) {
-			$this->response = new CakeResponse();
+			$this->response = new Response();
 		}
 		$redirect = $this->redirect;
 		if (count($this->redirect) == 1 && !isset($this->redirect['controller'])) {

@@ -18,7 +18,7 @@
  */
 namespace Cake\I18n;
 use \Cake\Core\Configure,
-	\Cake\Core\CakePlugin,
+	\Cake\Core\Plugin,
 	\Cake\Core\App,
 	\Cake\Cache\Cache,
 	\Cake\Utility\Inflector;
@@ -301,13 +301,13 @@ class I18n {
 		$core = true;
 		$merge = array();
 		$searchPaths = App::path('locales');
-		$plugins = CakePlugin::loaded();
+		$plugins = Plugin::loaded();
 
 		if (!empty($plugins)) {
 			foreach ($plugins as $plugin) {
 				$pluginDomain = Inflector::underscore($plugin);
 				if ($pluginDomain === $domain) {
-					$searchPaths[] = CakePlugin::path($plugin) . 'Locale' . DS;
+					$searchPaths[] = Plugin::path($plugin) . 'Locale' . DS;
 					$searchPaths = array_reverse($searchPaths);
 					break;
 				}

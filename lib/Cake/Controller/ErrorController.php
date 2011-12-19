@@ -28,7 +28,7 @@ use \Cake\Routing\Router;
  *
  * @package       Cake.Controller
  */
-class CakeErrorController extends Controller {
+class ErrorController extends Controller {
 
 /**
  * Controller name
@@ -47,8 +47,8 @@ class CakeErrorController extends Controller {
 /**
  * __construct
  *
- * @param CakeRequest $request
- * @param CakeResponse $response
+ * @param \Cake\Network\Request $request
+ * @param \Cake\Network\Response $response
  */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);

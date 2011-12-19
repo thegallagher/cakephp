@@ -33,7 +33,7 @@ use \Cake\Core\Configure,
  *
  * @package       Cake.Model.Datasource
  */
-class CakeSession {
+class Session {
 
 /**
  * True if the Session is still valid
@@ -117,7 +117,7 @@ class CakeSession {
  * This feature is only used when `Session.autoRegenerate` is set to true.
  *
  * @var integer
- * @see CakeSession::_checkValid()
+ * @see \Cake\Model\Datasource\Session::_checkValid()
  */
 	public static $requestCountdown = 10;
 
@@ -317,7 +317,7 @@ class CakeSession {
 
 /**
  * Tests that the user agent is valid and that the session hasn't 'timed out'.
- * Since timeouts are implemented in CakeSession it checks the current self::$time
+ * Since timeouts are implemented in Session it checks the current self::$time
  * against the time the session is set to expire.  The User agent is only checked
  * if Session.checkAgent == true.
  *
@@ -443,7 +443,7 @@ class CakeSession {
  * Sessions can be configured with a few shortcut names as well as have any number of ini settings declared.
  *
  * @return void
- * @throws CakeSessionException Throws exceptions when ini_set() fails.
+ * @throws \Cake\Error\SessionException Throws exceptions when ini_set() fails.
  */
 	protected static function _configureSession() {
 		$sessionConfig = Configure::read('Session');
@@ -475,7 +475,7 @@ class CakeSession {
 			if (!empty($sessionConfig['ini']) && is_array($sessionConfig['ini'])) {
 				foreach ($sessionConfig['ini'] as $setting => $value) {
 					if (ini_set($setting, $value) === false) {
-						throw new CakeSessionException(sprintf(
+						throw new Error\SessionException(sprintf(
 							__d('cake_dev', 'Unable to configure the session, setting %s failed.'),
 							$setting
 						));
@@ -506,17 +506,17 @@ class CakeSession {
  *
  * @param string $class
  * @return void
- * @throws CakeSessionException
+ * @throws \Cake\Error\SessionException
  */
 	protected static function _getHandler($class) {
 		if (!class_exists($class)) {
-			throw new Error\CakeSessionException(__d('cake_dev', 'Could not load %s to handle the session.', $class));
+			throw new Error\SessionException(__d('cake_dev', 'Could not load %s to handle the session.', $class));
 		}
 		$handler = new $class();
-		if ($handler instanceof CakeSessionHandlerInterface) {
+		if ($handler instanceof SessionHandlerInterface) {
 			return $handler;
 		}
-		throw new Error\CakeSessionException(__d('cake_dev', 'Chosen SessionHandler does not implement CakeSessionHandlerInterface it cannot be used with an engine key.'));
+		throw new Error\SessionException(__d('cake_dev', 'Chosen SessionHandler does not implement SessionHandlerInterface it cannot be used with an engine key.'));
 	}
 
 /**

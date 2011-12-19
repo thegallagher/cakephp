@@ -42,7 +42,7 @@ use \Cake\Error,
 
 /**
  * Logs messages to configured Log adapters.  One or more adapters can be configured
- * using CakeLogs's methods.  If you don't configure any adapters, and write to the logs
+ * using Logs's methods.  If you don't configure any adapters, and write to the logs
  * a default FileLog will be autoconfigured for you.
  *
  * ### Configuring Log adapters
@@ -50,17 +50,17 @@ use \Cake\Error,
  * You can configure log adapters in your applications `bootstrap.php` file.  A sample configuration
  * would look like:
  *
- * `CakeLog::config('my_log', array('engine' => 'FileLog'));`
+ * `Log::config('my_log', array('engine' => 'FileLog'));`
  *
- * See the documentation on CakeLog::config() for more detail.
+ * See the documentation on Log::config() for more detail.
  *
  * ### Writing to the log
  *
- * You write to the logs using CakeLog::write().  See its documentation for more information.
+ * You write to the logs using Log::write().  See its documentation for more information.
  *
  * @package       Cake.Log
  */
-class CakeLog {
+class Log {
 
 /**
  * An array of connected streams.
@@ -71,13 +71,13 @@ class CakeLog {
 	protected static $_streams = array();
 
 /**
- * Configure and add a new logging stream to CakeLog
+ * Configure and add a new logging stream to Log
  * You can use add loggers from app/Log/Engine use app.loggername, or any plugin/Log/Engine using plugin.loggername.
  *
  * ### Usage:
  *
  * {{{
- * CakeLog::config('second_file', array(
+ * Log::config('second_file', array(
  * 		'engine' => 'FileLog',
  * 		'path' => '/var/logs/my_app/'
  * ));
@@ -85,23 +85,23 @@ class CakeLog {
  *
  * Will configure a FileLog instance to use the specified path.  All options that are not `engine`
  * are passed onto the logging adapter, and handled there.  Any class can be configured as a logging
- * adapter as long as it implements the methods in CakeLogInterface.
+ * adapter as long as it implements the methods in LogInterface.
  *
  * @param string $key The keyname for this logger, used to remove the logger later.
  * @param array $config Array of configuration information for the logger
  * @return boolean success of configuration.
- * @throws CakeLogException
+ * @throws \Cake\Error\LogException
  */
 	public static function config($key, $config) {
 		if (empty($config['engine'])) {
-			throw new Error\CakeLogException(__d('cake_dev', 'Missing logger classname'));
+			throw new Error\LogException(__d('cake_dev', 'Missing logger classname'));
 		}
 		$loggerName = $config['engine'];
 		unset($config['engine']);
 		$className = self::_getLogger($loggerName);
 		$logger = new $className($config);
-		if (!$logger instanceof CakeLogInterface) {
-			throw new Error\CakeLogException(sprintf(
+		if (!$logger instanceof LogInterface) {
+			throw new Error\LogException(sprintf(
 				__d('cake_dev', 'logger class %s does not implement a write method.'), $loggerName
 			));
 		}
@@ -115,11 +115,11 @@ class CakeLog {
  *
  * @param string $loggerName the plugin.className of the logger class you want to build.
  * @return mixed boolean false on any failures, string of classname to use if search was successful.
- * @throws CakeLogException
+ * @throws \Cake\Error\LogException
  */
 	protected static function _getLogger($loggerName) {
 		if (!class_exists($loggerName)) {
-			throw new Error\CakeLogException(__d('cake_dev', 'Could not load class %s', $loggerName));
+			throw new Error\LogException(__d('cake_dev', 'Could not load class %s', $loggerName));
 		}
 		return $loggerName;
 	}
@@ -172,7 +172,7 @@ class CakeLog {
  *
  * Write a message to the 'warning' log:
  *
- * `CakeLog::write('warning', 'Stuff is broken here');`
+ * `Log::write('warning', 'Stuff is broken here');`
  *
  * @param string $type Type of message being written
  * @param string $message Message content to log

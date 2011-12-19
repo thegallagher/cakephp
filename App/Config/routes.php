@@ -22,7 +22,7 @@
  */
 namespace App\Config;
 use \Cake\Routing\Router,
-	\Cake\Core\CakePlugin;
+	\Cake\Core\Plugin;
 
 /**
  * Here, we are connecting '/' (base path) to controller called 'Pages',
@@ -36,10 +36,10 @@ use \Cake\Routing\Router,
 	Router::connect('/pages/*', array('controller' => '\App\Controller\PagesController', 'action' => 'display'));
 
 /**
- * Load all plugin routes.  See the CakePlugin documentation on 
+ * Load all plugin routes.  See the Plugin documentation on 
  * how to customize the loading of plugin routes.
  */
-	CakePlugin::routes();
+	Plugin::routes();
 
 /**
  * Load the CakePHP default routes. Remove this if you do not want to use

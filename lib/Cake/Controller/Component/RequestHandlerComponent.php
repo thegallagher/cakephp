@@ -57,14 +57,14 @@ class RequestHandlerComponent extends Component {
 /**
  * Holds the reference to Controller::$request
  *
- * @var CakeRequest
+ * @var \Cake\Network\Request
  */
 	public $request;
 
 /**
  * Holds the reference to Controller::$response
  *
- * @var CakeResponse
+ * @var \Cake\Network\Response
  */
 	public $response;
 
@@ -431,7 +431,7 @@ class RequestHandlerComponent extends Component {
 /**
  * Determines which content types the client accepts.  Acceptance is based on
  * the file extension parsed by the Router (if present), and by the HTTP_ACCEPT
- * header. Unlike CakeRequest::accepts() this method deals entirely with mapped content types.
+ * header. Unlike \Cake\Network\Request::accepts() this method deals entirely with mapped content types.
  *
  * Usage:
  *
@@ -617,7 +617,7 @@ class RequestHandlerComponent extends Component {
 
 /**
  * Sets the response header based on type map index name.  This wraps several methods
- * available on CakeResponse. It also allows you to use Content-Type aliases.
+ * available on \Cake\Network\Response. It also allows you to use Content-Type aliases.
  *
  * @param mixed $type Friendly type name, i.e. 'html' or 'xml', or a full content-type,
  *    like 'application/x-shockwave'.

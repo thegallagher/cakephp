@@ -19,7 +19,7 @@
  * @package Cake.TestSuite
  */
 namespace Cake\TestSuite;
-use \Cake\Core\CakePlugin,
+use \Cake\Core\Plugin,
 	\Cake\Error;
 
 /**
@@ -29,7 +29,7 @@ use \Cake\Core\CakePlugin,
  *
  * @package Cake.TestSuite
  */
-class CakeTestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
+class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 
 /**
  * Load a file and find the first test case / suite in that file.
@@ -65,13 +65,13 @@ class CakeTestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 		if (!empty($params['core'])) {
 			$result = CORE_TEST_CASES;
 		} else if (!empty($params['plugin'])) {
-			if (!CakePlugin::loaded($params['plugin'])) {
+			if (!Plugin::loaded($params['plugin'])) {
 				try {
-					CakePlugin::load($params['plugin']);
-					$result = CakePlugin::path($params['plugin']) . 'Test' . DS . 'Case';
+					Plugin::load($params['plugin']);
+					$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
 				} catch (Error\MissingPluginException $e) {}
 			} else {
-				$result = CakePlugin::path($params['plugin']) . 'Test' . DS . 'Case';
+				$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
 			}
 		} elseif (!empty($params['app'])) {
 			$result = APP_TEST_CASES;

@@ -32,7 +32,7 @@ class AllRoutingTest extends PHPUnit_Framework_TestSuite {
  * @return void
  */
 	public static function suite() {
-		$suite = new CakeTestSuite('All Routing class tests');
+		$suite = new TestSuite('All Routing class tests');
 
 		$libs = CORE_TEST_CASES . DS;
 

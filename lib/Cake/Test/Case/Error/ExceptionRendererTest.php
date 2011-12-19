@@ -258,7 +258,7 @@ class ExceptionRendererTest extends CakeTestCase {
 		$exception = new NotFoundException('Page not found');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 
-		$this->assertInstanceOf('CakeErrorController', $ExceptionRenderer->controller);
+		$this->assertInstanceOf('\Cake\Controller\ErrorController', $ExceptionRenderer->controller);
 		$this->assertEquals('error400', $ExceptionRenderer->method);
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}
@@ -273,7 +273,7 @@ class ExceptionRendererTest extends CakeTestCase {
 		$exception = new MissingActionException('Page not found');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 
-		$this->assertInstanceOf('CakeErrorController', $ExceptionRenderer->controller);
+		$this->assertInstanceOf('\Cake\Controller\ErrorController', $ExceptionRenderer->controller);
 		$this->assertEquals('error400', $ExceptionRenderer->method);
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}

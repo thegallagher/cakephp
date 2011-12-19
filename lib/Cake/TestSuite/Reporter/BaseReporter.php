@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeBaseReporter contains common functionality to all cake test suite reporters.
+ * BaseReporter contains common functionality to all cake test suite reporters.
  *
  * PHP 5
  *
@@ -16,16 +16,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite\Reporter;
-use \Cake\TestSuite\CakeTestLoader;
+use \Cake\TestSuite\TestLoader;
 
 require_once 'PHPUnit/TextUI/ResultPrinter.php';
 
 /**
- * CakeBaseReporter contains common reporting features used in the CakePHP Test suite
+ * BaseReporter contains common reporting features used in the CakePHP Test suite
  *
  * @package       Cake.TestSuite.Reporter
  */
-class CakeBaseReporter extends \PHPUnit_TextUI_ResultPrinter {
+class BaseReporter extends \PHPUnit_TextUI_ResultPrinter {
 
 	protected $_headerSent = false;
 
@@ -78,7 +78,7 @@ class CakeBaseReporter extends \PHPUnit_TextUI_ResultPrinter {
  * @return mixed
  */
 	public function testCaseList() {
-		$testList = CakeTestLoader::generateTestList($this->params);
+		$testList = TestLoader::generateTestList($this->params);
 		return $testList;
 	}
 

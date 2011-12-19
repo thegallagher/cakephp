@@ -20,7 +20,7 @@ namespace Cake\Controller\Component;
 use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Core\Configure,
-	\Cake\Network\Email\CakeEmail;
+	\Cake\Network\Email\Email;
 
 /**
  * EmailComponent
@@ -31,7 +31,7 @@ use \Cake\Controller\Component,
  * @package       Cake.Controller.Component
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/email.html
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/email.html
- * @deprecated Use Network/CakeEmail
+ * @deprecated Use \Cake\Network\Email\Email
  */
 class EmailComponent extends Component {
 

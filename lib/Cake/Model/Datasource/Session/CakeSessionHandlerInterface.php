@@ -12,6 +12,7 @@
  * @since         CakePHP(tm) v 2.1
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Model\Datasource\Session;
 
 /**
  * Interface for Session handlers.  Custom session handler classes should implement
@@ -19,7 +20,7 @@
  *
  * @package       Cake.Model.Datasource.Session
  */
-interface CakeSessionHandlerInterface {
+interface SessionHandlerInterface {
 /**
  * Method called on open of a session.
  *

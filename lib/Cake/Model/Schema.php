@@ -19,7 +19,7 @@
 namespace Cake\Model;
 use \Cake\Core\Object,
 	\Cake\Core\Configure,
-	\Cake\Core\CakePlugin,
+	\Cake\Core\Plugin,
 	\Cake\Core\App,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector;
@@ -29,7 +29,7 @@ use \Cake\Core\Object,
  *
  * @package       Cake.Model
  */
-class CakeSchema extends Object {
+class Schema extends Object {
 
 /**
  * Name of the schema
@@ -127,7 +127,7 @@ class CakeSchema extends Object {
 		if (file_exists($this->path . DS . $file) && is_file($this->path . DS . $file)) {
 			$this->file = $file;
 		} elseif (!empty($this->plugin)) {
-			$this->path = CakePlugin::path($this->plugin) . 'Config' . DS . 'Schema';
+			$this->path = Plugin::path($this->plugin) . 'Config' . DS . 'Schema';
 		}
 	}
 
@@ -360,7 +360,7 @@ class CakeSchema extends Object {
 			get_object_vars($this), $options
 		));
 
-		$out = "class {$name}Schema extends CakeSchema {\n\n";
+		$out = "class {$name}Schema extends Schema {\n\n";
 
 		if ($path !== $this->path) {
 			$out .= "\tpublic \$path = '{$path}';\n\n";

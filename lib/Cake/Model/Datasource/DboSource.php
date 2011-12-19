@@ -2826,13 +2826,13 @@ class DboSource extends DataSource {
 /**
  * Generate a database-native schema for the given Schema object
  *
- * @param Model $schema An instance of a subclass of CakeSchema
+ * @param Model $schema An instance of a subclass of \Cake\Model\Schema
  * @param string $tableName Optional.  If specified only the table name given will be generated.
  *   Otherwise, all tables defined in the schema are generated.
  * @return string
  */
 	public function createSchema($schema, $tableName = null) {
-		if (!is_a($schema, 'CakeSchema')) {
+		if (!is_a($schema, '\Cake\Model\Schema')) {
 			trigger_error(__d('cake_dev', 'Invalid schema object'), E_USER_WARNING);
 			return null;
 		}
@@ -2875,7 +2875,7 @@ class DboSource extends DataSource {
 	}
 
 /**
- * Generate a alter syntax from	CakeSchema::compare()
+ * Generate a alter syntax from	\Cake\Model\Schema::compare()
  *
  * @param mixed $compare
  * @param string $table
@@ -2888,12 +2888,12 @@ class DboSource extends DataSource {
 /**
  * Generate a "drop table" statement for the given Schema object
  *
- * @param CakeSchema $schema An instance of a subclass of CakeSchema
+ * @param \Cake\Model\Schema $schema An instance of a subclass of \Cake\Model\Schema
  * @param string $table Optional.  If specified only the table name given will be generated.
  *   Otherwise, all tables defined in the schema are generated.
  * @return string
  */
-	public function dropSchema(CakeSchema $schema, $table = null) {
+	public function dropSchema(Schema $schema, $table = null) {
 		$out = '';
 
 		foreach ($schema->tables as $curTable => $columns) {
