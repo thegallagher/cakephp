@@ -16,6 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
+use \Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Shell dispatcher handles dispatching cli commands.
@@ -101,7 +105,7 @@ class ShellDispatcher {
 	protected function _initEnvironment() {
 		if (!$this->_bootstrap()) {
 			$message = "Unable to load CakePHP core.\nMake sure " . DS . 'lib' . DS . 'Cake exists in ' . CAKE_CORE_INCLUDE_PATH;
-			throw new CakeException($message);
+			throw new Error\CakeException($message);
 		}
 
 		if (!isset($this->args[0]) || !isset($this->params['working'])) {
@@ -109,7 +113,7 @@ class ShellDispatcher {
 				"Please make sure that " . DS . 'lib' . DS . 'Cake' . DS . "Console is in your system path,\n" .
 				"and check the cookbook for the correct usage of this command.\n" .
 				"(http://book.cakephp.org/)";
-			throw new CakeException($message);
+			throw new Error\CakeException($message);
 		}
 
 		$this->shiftArgs();
@@ -192,7 +196,7 @@ class ShellDispatcher {
 				return $Shell->main();
 			}
 		}
-		throw new MissingShellMethodException(array('shell' => $shell, 'method' => $arg));
+		throw new Error\MissingShellMethodException(array('shell' => $shell, 'method' => $arg));
 	}
 
 /**
@@ -215,7 +219,7 @@ class ShellDispatcher {
 		App::uses($class, $plugin . 'Console/Command');
 
 		if (!class_exists($class)) {
-			throw new MissingShellException(array(
+			throw new Error\MissingShellException(array(
 				'class' => $class
 			));
 		}

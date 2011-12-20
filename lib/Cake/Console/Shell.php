@@ -17,7 +17,11 @@
  */
 namespace Cake\Console;
 use \Cake\Core\Configure,
-	\Cake\Core\Plugin;
+	\Cake\Core\Plugin,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Error;
 
 /**
  * Base class for command-line utilities for automating programmer chores.
@@ -229,7 +233,6 @@ class Shell extends Object {
 		if ($this->uses === null || $this->uses === false) {
 			return;
 		}
-		App::uses('ClassRegistry', 'Utility');
 
 		if ($this->uses !== true && !empty($this->uses)) {
 			$uses = is_array($this->uses) ? $this->uses : array($this->uses);
@@ -285,7 +288,7 @@ class Shell extends Object {
  */
 	public function hasMethod($name) {
 		try {
-			$method = new ReflectionMethod($this, $name);
+			$method = new \ReflectionMethod($this, $name);
 			if (!$method->isPublic() || substr($name, 0, 1) === '_') {
 				return false;
 			}
@@ -293,7 +296,7 @@ class Shell extends Object {
 				return false;
 			}
 			return true;
-		} catch (ReflectionException $e) {
+		} catch (\ReflectionException $e) {
 			return false;
 		}
 	}
@@ -360,7 +363,7 @@ class Shell extends Object {
 		try {
 			$this->OptionParser = $this->getOptionParser();
 			list($this->params, $this->args) = $this->OptionParser->parse($argv, $command);
-		} catch (ConsoleException $e) {
+		} catch (Error\ConsoleException $e) {
 			$this->out($this->OptionParser->help($command));
 			return false;
 		}

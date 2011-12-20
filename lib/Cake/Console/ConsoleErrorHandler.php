@@ -16,6 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
+use \Cake\Error\ErrorHandler,
+	\Cake\Core\Configure;
 
 /**
  * Error Handler for Cake console. Does simple printing of the
@@ -50,7 +52,7 @@ class ConsoleErrorHandler {
  * @param Exception $exception The exception to handle
  * @return void
  */
-	public function handleException(Exception $exception) {
+	public function handleException(\Exception $exception) {
 		$stderr = self::getStderr();
 		$stderr->write(__d('cake_console', "<error>Error:</error> %s\n%s",
 			$exception->getMessage(),

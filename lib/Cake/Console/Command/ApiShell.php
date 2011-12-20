@@ -18,6 +18,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Console\Shell,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector;
 
 /**
  * API shell to show method signatures of CakePHP core classes.
@@ -26,7 +29,7 @@ namespace Cake\Console\Command;
  *
  * @package       Cake.Console.Command
  */
-class ApiShell extends AppShell {
+class ApiShell extends Shell {
 
 /**
  * Map between short name for paths and real paths.

@@ -16,13 +16,15 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+use \Cake\Console\Shell,
+	\Cake\Model\ConnectionManager;
 
 /**
  * Task class for creating and updating the database configuration file.
  *
  * @package       Cake.Console.Command.Task
  */
-class DbConfigTask extends AppShell {
+class DbConfigTask extends Shell {
 
 /**
  * path to CONFIG directory
@@ -353,7 +355,6 @@ class DbConfigTask extends AppShell {
  * @return void
  */
 	public function getConfig() {
-		App::uses('ConnectionManager', 'Model');
 		$configs = ConnectionManager::enumConnectionObjects();
 
 		$useDbConfig = key($configs);

@@ -16,14 +16,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Core\Plugin;
+use \Cake\Console\Shell,
+	\Cake\Core\Plugin,
+	\Cake\Routing\Dispatcher,
+	\Cake\Routing\Router;
 
 /**
  * Provides a very basic 'interactive' console for CakePHP apps.
  *
  * @package       Cake.Console.Command
  */
-class ConsoleShell extends AppShell {
+class ConsoleShell extends Shell {
 
 /**
  * Available binding types
@@ -52,7 +55,6 @@ class ConsoleShell extends AppShell {
  * @return void
  */
 	public function initialize() {
-		App::uses('Dispatcher', 'Routing');
 		$this->Dispatcher = new Dispatcher();
 		$this->models = App::objects('Model');
 

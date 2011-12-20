@@ -16,13 +16,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+use \Cake\Console\Shell,
+	\Cake\Core\Plugin,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\Folder;
 
 /**
  * Language string extractor
  *
  * @package       Cake.Console.Command.Task
  */
-class ExtractTask extends AppShell {
+class ExtractTask extends Shell {
 
 /**
  * Paths to use when looking for strings

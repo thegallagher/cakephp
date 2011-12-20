@@ -16,13 +16,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Console\Shell;
 
 /**
  * Shell for I18N management.
  *
  * @package       Cake.Console.Command
  */
-class I18nShell extends AppShell {
+class I18nShell extends Shell {
 
 /**
  * Contains database source to use

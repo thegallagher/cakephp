@@ -17,7 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Core\App,
+use \Cake\Console\Shell,
+	\Cake\Core\App,
 	\Cake\Core\Plugin,
 	\Cake\Utility\Inflector;
 
@@ -26,7 +27,7 @@ use \Cake\Core\App,
  *
  * @package       Cake.Console.Command
  */
-class CommandListShell extends AppShell {
+class CommandListShell extends Shell {
 
 /**
  * startup

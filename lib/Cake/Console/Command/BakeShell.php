@@ -20,6 +20,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Console\Shell,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector;
 
 /**
  * Command-line code generation utility to automate programmer chores.
@@ -31,7 +34,7 @@ namespace Cake\Console\Command;
  * @package       Cake.Console.Command
  * @link          http://book.cakephp.org/2.0/en/console-and-shells/code-generation-with-bake.html
  */
-class BakeShell extends AppShell {
+class BakeShell extends Shell {
 
 /**
  * Contains tasks to load and instantiate

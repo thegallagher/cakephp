@@ -16,6 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+use \Cake\Core\App,
+	\Cake\Model\Model,
+	\Cake\Model\ConnectionManager,
+	\Cake\Utility\Inflector;
 
 /**
  * Task class for creating and updating model files.
@@ -213,7 +217,7 @@ class ModelTask extends BakeTask {
 		try {
 			$fields = $tempModel->schema(true);
 			$knownToExist = true;
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$fields = array($tempModel->primaryKey);
 		}
 		if (!array_key_exists('id', $fields)) {

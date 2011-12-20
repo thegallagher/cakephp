@@ -17,13 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+use \Cake\Console\Shell,
+	\Cake\Core\Configure,
+	\Cake\Utility\File,
+	\Cake\Utility\Folder;
 
 /**
  * Task class for creating new project apps and plugins
  *
  * @package       Cake.Console.Command.Task
  */
-class ProjectTask extends AppShell {
+class ProjectTask extends Shell {
 
 /**
  * configs path (used in testing).

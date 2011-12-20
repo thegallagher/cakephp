@@ -17,13 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Console\Shell,
+	\Cake\Core\App,
+	\Cake\Utility\Folder,
+	\Cake\Utility\Inflector;
 
 /**
  * A shell class to help developers upgrade applications to CakePHP 2.0
  *
  * @package       Cake.Console.Command
  */
-class UpgradeShell extends AppShell {
+class UpgradeShell extends Shell {
 
 /**
  * Files
@@ -741,9 +745,9 @@ class UpgradeShell extends AppShell {
 				continue;
 			}
 			$Iterator = new RegexIterator(
-				new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)),
+				new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($path)),
 				'/^.+\.(' . $extensions . ')$/i',
-				RegexIterator::MATCH
+				\RegexIterator::MATCH
 			);
 			foreach ($Iterator as $file) {
 				if ($file->isFile()) {

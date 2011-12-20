@@ -19,6 +19,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+use \Cake\Console\Shell,
+	\Cake\Core\Configure,
+	\Cake\Model\Schema,
+	\Cake\Model\ConnectionManager,
+	\Cake\Utility\File,
+	\Cake\Utility\Inflector;
 
 /**
  * Schema is a command-line database management utility for automating programmer chores.
@@ -29,7 +35,7 @@ namespace Cake\Console\Command;
  * @package       Cake.Console.Command
  * @link          http://book.cakephp.org/2.0/en/console-and-shells/schema-management-and-migrations.html
  */
-class SchemaShell extends AppShell {
+class SchemaShell extends Shell {
 
 /**
  * Schema class being used.

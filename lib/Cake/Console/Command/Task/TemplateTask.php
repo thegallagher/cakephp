@@ -16,6 +16,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+use \Cake\Console\Shell,
+	\Cake\Core\App,
+	\Cake\Utility\Folder;
 
 /**
  * Template Task can generate templated output Used in other Tasks.
@@ -23,7 +26,7 @@ namespace Cake\Console\Command\Task;
  *
  * @package       Cake.Console.Command.Task
  */
-class TemplateTask extends AppShell {
+class TemplateTask extends Shell {
 
 /**
  * variables to add to template scope
