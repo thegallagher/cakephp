@@ -20,6 +20,7 @@
  */
 namespace Cake\Utility;
 use \Cake\Core\Configure,
+	\Cake\Log\Log,
 	\Cake\Error;
 
 /**
@@ -567,7 +568,7 @@ class Debugger {
  * @param string $format The format you want errors to be output as.
  *   Leave null to get the current format.
  * @return mixed Returns null when setting.  Returns the current format when getting.
- * @throws CakeException when choosing a format that doesn't exist.
+ * @throws \Cake\Error\Exception when choosing a format that doesn't exist.
  */
 	public static function outputAs($format = null) {
 		$self = Debugger::getInstance();
@@ -575,7 +576,7 @@ class Debugger {
 			return $self->_outputFormat;
 		}
 		if ($format !== false && !isset($self->_templates[$format])) {
-			throw new Error\CakeException(__d('cake_dev', 'Invalid Debugger output format.'));
+			throw new Error\Exception(__d('cake_dev', 'Invalid Debugger output format.'));
 		}
 		$self->_outputFormat = $format;
 	}

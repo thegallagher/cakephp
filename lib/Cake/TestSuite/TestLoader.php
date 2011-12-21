@@ -68,10 +68,10 @@ class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 			if (!Plugin::loaded($params['plugin'])) {
 				try {
 					Plugin::load($params['plugin']);
-					$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
+					$result = Plugin::path($params['plugin']) . 'Test' . DS . 'TestCase';
 				} catch (Error\MissingPluginException $e) {}
 			} else {
-				$result = Plugin::path($params['plugin']) . 'Test' . DS . 'Case';
+				$result = Plugin::path($params['plugin']) . 'Test' . DS . 'TestCase';
 			}
 		} elseif (!empty($params['app'])) {
 			$result = APP_TEST_CASES;

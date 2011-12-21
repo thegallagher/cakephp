@@ -1440,12 +1440,12 @@ class FormHelper extends Helper {
  * @param string $method Method name / input type to make.
  * @param array $params Parameters for the method call
  * @return string Formatted input method.
- * @throws CakeException When there are no params for the method call.
+ * @throws \Cake\Error\Exception When there are no params for the method call.
  */
 	public function __call($method, $params) {
 		$options = array();
 		if (empty($params)) {
-			throw new Error\CakeException(__d('cake_dev', 'Missing field name for FormHelper::%s', $method));
+			throw new Error\Exception(__d('cake_dev', 'Missing field name for FormHelper::%s', $method));
 		}
 		if (isset($params[1])) {
 			$options = $params[1];

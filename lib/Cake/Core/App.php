@@ -508,7 +508,7 @@ class App {
 
 			foreach ((array)$path as $dir) {
 				if ($dir != APP && is_dir($dir)) {
-					$files = new RegexIterator(new DirectoryIterator($dir), $extension);
+					$files = new \RegexIterator(new \DirectoryIterator($dir), $extension);
 					foreach ($files as $file) {
 						$fileName = basename($file);
 						if (!$file->isDot() && $fileName[0] !== '.') {

@@ -73,7 +73,7 @@ class TestFixture {
 		if (!empty($this->useDbConfig)) {
 			$connection = $this->useDbConfig;
 			if (strpos($connection, 'test') !== 0) {
-				throw new Error\CakeException(__d('cake_dev', 'Invalid datasource %s for object %s', $connection, $this->name));
+				throw new Error\Exception(__d('cake_dev', 'Invalid datasource %s for object %s', $connection, $this->name));
 			}
 		}
 		$this->Schema = new Schema(array('name' => 'TestSuite', 'connection' => $connection));

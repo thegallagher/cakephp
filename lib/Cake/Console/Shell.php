@@ -19,6 +19,7 @@ namespace Cake\Console;
 use \Cake\Core\Configure,
 	\Cake\Core\Plugin,
 	\Cake\Core\App,
+	\Cake\Core\Object,
 	\Cake\Utility\Inflector,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Error;

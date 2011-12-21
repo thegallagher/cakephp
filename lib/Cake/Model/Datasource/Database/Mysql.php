@@ -18,6 +18,8 @@
  */
 namespace Cake\Model\Datasource\Database;
 use \Cake\Model\Datasource\DboSource,
+	\Cake\Model\Model,
+	\Cake\Model\Schema,
 	\Cake\Error,
 	\PDO;
 
@@ -296,7 +298,7 @@ class Mysql extends DboSource {
  *
  * @param Model|string $model Name of database table to inspect or model instance
  * @return array Fields in table. Keys are name and type
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function describe($model) {
 		$cache = parent::describe($model);
@@ -308,7 +310,7 @@ class Mysql extends DboSource {
 		$fields = false;
 		$cols = $this->_execute('SHOW FULL COLUMNS FROM ' . $table);
 		if (!$cols) {
-			throw new Error\CakeException(__d('cake_dev', 'Could not describe table for %s', $table));
+			throw new Error\Exception(__d('cake_dev', 'Could not describe table for %s', $table));
 		}
 
 		while ($column = $cols->fetch(PDO::FETCH_OBJ)) {

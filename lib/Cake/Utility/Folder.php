@@ -559,9 +559,9 @@ class Folder {
 		$path = Folder::slashTerm($path);
 		if (is_dir($path)) {
 			try {
-				$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::CURRENT_AS_SELF);
-				$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
-			} catch (Exception $e) {
+				$directory = new \RecursiveDirectoryIterator($path, \RecursiveDirectoryIterator::CURRENT_AS_SELF);
+				$iterator = new \RecursiveIteratorIterator($directory, \RecursiveIteratorIterator::CHILD_FIRST);
+			} catch (\Exception $e) {
 				return false;
 			}
 

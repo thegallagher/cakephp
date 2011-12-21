@@ -22,7 +22,8 @@ use \Cake\Core\Object,
 	\Cake\Core\Plugin,
 	\Cake\Core\App,
 	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector;
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Base Class for Schema management
@@ -253,7 +254,7 @@ class Schema extends Object {
 
 				try {
 					$Object = ClassRegistry::init(array('class' => $model, 'ds' => $connection));
-				} catch (CakeException $e) {
+				} catch (Error\Exception $e) {
 					continue;
 				}
 

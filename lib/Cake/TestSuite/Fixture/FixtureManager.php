@@ -19,6 +19,8 @@
 namespace Cake\TestSuite\Fixture;
 use \Cake\Model\ConnectionManager,
 	\Cake\Core\Plugin,
+	\Cake\Core\Configure,
+	\Cake\Core\App,
 	\Cake\TestSuite\TestCase,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector;
@@ -112,38 +114,24 @@ class FixtureManager {
 			}
 
 			if (strpos($fixture, 'core.') === 0) {
-				$fixture = substr($fixture, strlen('core.'));
-				$fixturePaths[] = CAKE . 'Test' . DS . 'Fixture';
+				$base = substr($fixture, strlen('core.'));
 			} elseif (strpos($fixture, 'app.') === 0) {
-				$fixture = substr($fixture, strlen('app.'));
-				$fixturePaths = array(
-					TESTS . 'Fixture'
-				);
+				$base = substr($fixture, strlen('app.'));
 			} elseif (strpos($fixture, 'plugin.') === 0) {
-				$parts = explode('.', $fixture, 3);
-				$pluginName = $parts[1];
-				$fixture = $parts[2];
-				$fixturePaths = array(
-					Plugin::path(Inflector::camelize($pluginName)) . 'Test' . DS . 'Fixture',
-					TESTS . 'Fixture'
-				);
+				$base = substr($fixture, strlen('plugin.'));
 			} else {
-				$fixturePaths = array(
-					TESTS . 'Fixture',
-					CAKE  . 'Test' . DS . 'Fixture'
-				);
+				$base = $fixture;
 			}
+			list($plugin, $className) = pluginSplit($base);
+			if ($plugin) {
+				$plugin = Inflector::camelize($plugin) . '.';
+			}
+			$className = $plugin . Inflector::camelize($className);
+			$className = App::classname($className, 'Test/Fixture', 'Fixture');
 
-			foreach ($fixturePaths as $path) {
-				$className = Inflector::camelize($fixture);
-				if (is_readable($path . DS . $className . 'Fixture.php')) {
-					$fixtureFile = $path . DS . $className . 'Fixture.php';
-					require_once($fixtureFile);
-					$fixtureClass = $className . 'Fixture';
-					$this->_loaded[$fixtureIndex] = new $fixtureClass();
-					$this->_fixtureMap[$fixtureClass] = $this->_loaded[$fixtureIndex];
-					break;
-				}
+			if ($className) {
+				$this->_loaded[$fixture] = new $className();
+				$this->_fixtureMap[$className] = $this->_loaded[$fixture];
 			}
 		}
 	}

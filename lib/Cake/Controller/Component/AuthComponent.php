@@ -389,7 +389,7 @@ class AuthComponent extends Component {
  * Loads the authorization objects configured.
  *
  * @return mixed Either null when authorize is empty, or the loaded authorization objects.
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function constructAuthorize() {
 		if (empty($this->authorize)) {
@@ -407,10 +407,10 @@ class AuthComponent extends Component {
 			$className = $class . 'Authorize';
 			App::uses($className, $plugin . 'Controller/Component/Auth');
 			if (!class_exists($className)) {
-				throw new Error\CakeException(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
+				throw new Error\Exception(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
 			}
 			if (!method_exists($className, 'authorize')) {
-				throw new Error\CakeException(__d('cake_dev', 'Authorization objects must implement an authorize method.'));
+				throw new Error\Exception(__d('cake_dev', 'Authorization objects must implement an authorize method.'));
 			}
 			$settings = array_merge($global, (array)$settings);
 			$this->_authorizeObjects[] = new $className($this->_Collection, $settings);
@@ -647,7 +647,7 @@ class AuthComponent extends Component {
  * loads the configured authentication objects.
  *
  * @return mixed either null on empty authenticate value, or an array of loaded objects.
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function constructAuthenticate() {
 		if (empty($this->authenticate)) {
@@ -665,10 +665,10 @@ class AuthComponent extends Component {
 			$className = $class . 'Authenticate';
 			App::uses($className, $plugin . 'Controller/Component/Auth');
 			if (!class_exists($className)) {
-				throw new Error\CakeException(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
+				throw new Error\Exception(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
 			}
 			if (!method_exists($className, 'authenticate')) {
-				throw new Error\CakeException(__d('cake_dev', 'Authentication objects must implement an authenticate method.'));
+				throw new Error\Exception(__d('cake_dev', 'Authentication objects must implement an authenticate method.'));
 			}
 			$settings = array_merge($global, (array)$settings);
 			$this->_authenticateObjects[] = new $className($this->_Collection, $settings);

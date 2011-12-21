@@ -390,14 +390,14 @@ class Request implements \ArrayAccess {
  * @param string $name The method called
  * @param array $params Array of parameters for the method call
  * @return mixed
- * @throws CakeException when an invalid method is called.
+ * @throws \Cake\Error\Exception when an invalid method is called.
  */
 	public function __call($name, $params) {
 		if (strpos($name, 'is') === 0) {
 			$type = strtolower(substr($name, 2));
 			return $this->is($type);
 		}
-		throw new Error\CakeException(__d('cake_dev', 'Method %s does not exist', $name));
+		throw new Error\Exception(__d('cake_dev', 'Method %s does not exist', $name));
 	}
 
 /**

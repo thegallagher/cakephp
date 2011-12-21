@@ -20,8 +20,8 @@ namespace Cake\TestSuite;
 use \Cake\Core\App,
 	\Cake\Error;
 
-define('CORE_TEST_CASES', CAKE . 'Test' . DS . 'Case');
-define('APP_TEST_CASES', TESTS . 'Case');
+define('CORE_TEST_CASES', CAKE . 'Test' . DS . 'TestCase');
+define('APP_TEST_CASES', TESTS . 'TestCase');
 
 /**
  * TestSuiteDispatcher handles web requests to the test suite and runs the correct action.

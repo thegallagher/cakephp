@@ -18,7 +18,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\TestSuite\TestLoader,
+use \Cake\Console\Shell,
+	\Cake\TestSuite\TestLoader,
 	\Cake\TestSuite\TestSuiteCommand,
 	\Cake\TestSuite\TestSuiteDispatcher,
 	\Cake\Console\ConsoleOptionParser,

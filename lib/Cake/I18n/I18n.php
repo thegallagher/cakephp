@@ -21,6 +21,7 @@ use \Cake\Core\Configure,
 	\Cake\Core\Plugin,
 	\Cake\Core\App,
 	\Cake\Cache\Cache,
+	\Cake\Utility\Set,
 	\Cake\Utility\Inflector;
 
 if (function_exists('mb_internal_encoding')) {

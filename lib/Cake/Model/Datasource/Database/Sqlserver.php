@@ -199,7 +199,7 @@ class Sqlserver extends DboSource {
  *
  * @param Model|string $model Model object to describe, or a string table name.
  * @return array Fields in table. Keys are name and type
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function describe($model) {
 		$cache = parent::describe($model);
@@ -221,7 +221,7 @@ class Sqlserver extends DboSource {
 			WHERE TABLE_NAME = '" . $table . "'"
 		);
 		if (!$cols) {
-			throw new CakeException(__d('cake_dev', 'Could not describe table for %s', $table));
+			throw new Error\Exception(__d('cake_dev', 'Could not describe table for %s', $table));
 		}
 
 		while ($column = $cols->fetch(PDO::FETCH_OBJ)) {

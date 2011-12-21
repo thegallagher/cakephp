@@ -516,14 +516,14 @@ class Response {
  *
  * @param integer $code
  * @return integer current status code
- * @throws CakeException When an unknown status code is reached.
+ * @throws \Cake\Error\Exception When an unknown status code is reached.
  */
 	public function statusCode($code = null) {
 		if (is_null($code)) {
 			return $this->_status;
 		}
 		if (!isset($this->_statusCodes[$code])) {
-			throw new Error\CakeException(__d('cake_dev', 'Unknown status code'));
+			throw new Error\Exception(__d('cake_dev', 'Unknown status code'));
 		}
 		return $this->_status = $code;
 	}

@@ -87,7 +87,7 @@ class PaginatorHelper extends Helper {
  *
  * @param View $View the view object the helper is attached to.
  * @param array $settings Array of settings.
- * @throws CakeException When the AjaxProvider helper does not implement a link method.
+ * @throws \Cake\Error\Exception When the AjaxProvider helper does not implement a link method.
  */
 	public function __construct(View $View, $settings = array()) {
 		$ajaxProvider = isset($settings['ajax']) ? $settings['ajax'] : 'Js';
@@ -96,7 +96,7 @@ class PaginatorHelper extends Helper {
 		App::uses($ajaxProvider . 'Helper', 'View/Helper');
 		$classname = $ajaxProvider . 'Helper';
 		if (!class_exists($classname) || !method_exists($classname, 'link')) {
-			throw new Error\CakeException(sprintf(
+			throw new Error\Exception(sprintf(
 				__d('cake_dev', '%s does not implement a link() method, it is incompatible with PaginatorHelper'), $classname
 			));
 		}

@@ -100,12 +100,12 @@ class ShellDispatcher {
  * Defines current working environment.
  *
  * @return void
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	protected function _initEnvironment() {
 		if (!$this->_bootstrap()) {
 			$message = "Unable to load CakePHP core.\nMake sure " . DS . 'lib' . DS . 'Cake exists in ' . CAKE_CORE_INCLUDE_PATH;
-			throw new Error\CakeException($message);
+			throw new Error\Exception($message);
 		}
 
 		if (!isset($this->args[0]) || !isset($this->params['working'])) {
@@ -113,7 +113,7 @@ class ShellDispatcher {
 				"Please make sure that " . DS . 'lib' . DS . 'Cake' . DS . "Console is in your system path,\n" .
 				"and check the cookbook for the correct usage of this command.\n" .
 				"(http://book.cakephp.org/)";
-			throw new Error\CakeException($message);
+			throw new Error\Exception($message);
 		}
 
 		$this->shiftArgs();
@@ -209,14 +209,14 @@ class ShellDispatcher {
  * @throws MissingShellException when errors are encountered.
  */
 	protected function _getShell($shell) {
-		list($plugin, $shell) = pluginSplit($shell, true);
+		list($plugin, $shell) = pluginSplit($shell);
 
 		$plugin = Inflector::camelize($plugin);
-		$class = Inflector::camelize($shell) . 'Shell';
-
-		App::uses('Shell', 'Console');
-		App::uses('AppShell', 'Console/Command');
-		App::uses($class, $plugin . 'Console/Command');
+		$class = Inflector::camelize($shell);
+		if ($plugin) {
+			$class = $plugin . '.' . $class;
+		}
+		$class = App::classname($class, 'Console/Command', 'Shell');
 
 		if (!class_exists($class)) {
 			throw new Error\MissingShellException(array(

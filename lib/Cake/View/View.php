@@ -437,7 +437,7 @@ class View extends Object {
  * @param string $view Name of view file to use
  * @param string $layout Layout to use.
  * @return string Rendered Element
- * @throws CakeException if there is an error in the view.
+ * @throws \Cake\Error\Exception if there is an error in the view.
  */
 	public function render($view = null, $layout = null) {
 		if ($this->hasRendered) {
@@ -486,7 +486,7 @@ class View extends Object {
  * @param string $content Content to render in a view, wrapped by the surrounding layout.
  * @param string $layout Layout name
  * @return mixed Rendered output, or false on error
- * @throws CakeException if there is an error in the view.
+ * @throws \Cake\Error\Exception if there is an error in the view.
  */
 	public function renderLayout($content, $layout = null) {
 		$layoutFileName = $this->_getLayoutFileName($layout);
@@ -616,7 +616,7 @@ class View extends Object {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws CakeException when you use non-string values.
+ * @throws \Cake\Error\Exception when you use non-string values.
  * @see ViewBlock::append()
  */
 	public function append($name, $value = null) {
@@ -630,7 +630,7 @@ class View extends Object {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws CakeException when you use non-string values.
+ * @throws \Cake\Error\Exception when you use non-string values.
  * @see ViewBlock::assign()
  */
 	public function assign($name, $value) {
@@ -837,7 +837,7 @@ class View extends Object {
  * @param string $viewFile Filename of the view
  * @param array $data Data to include in rendered view. If empty the current View::$viewVars will be used.
  * @return string Rendered output
- * @throws CakeException when a block is left open.
+ * @throws \Cake\Error\Exception when a block is left open.
  */
 	protected function _render($viewFile, $data = array()) {
 		if (empty($data)) {

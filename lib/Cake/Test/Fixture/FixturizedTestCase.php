@@ -1,10 +1,16 @@
 <?php
+
+namespace Cake\Test\Fixture;
+use \Cake\TestSuite\TestCase;
+
 /**
  * This class helps in testing the life-cycle of fixtures inside a CakeTestCase
  *
  * @package       Cake.Test.Fixture
  */
-class FixturizedTestCase extends CakeTestCase {
+namespace Cake\Test\Fixture;
+use \Cake\TestSuite\Fixture\TestFixture;
+class FixturizedTestCase extends TestCase {
 
 /**
  * Fixtures to use in this thes
@@ -54,6 +60,6 @@ class FixturizedTestCase extends CakeTestCase {
  * @return void
  */
 	public function testThrowException() {
-		throw new Exception();
+		throw new \Exception();
 	}
 }

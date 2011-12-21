@@ -93,12 +93,12 @@ abstract class BaseAuthorize {
  *
  * @param mixed $controller null to get, a controller to set.
  * @return mixed
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function controller($controller = null) {
 		if ($controller) {
 			if (!$controller instanceof Controller) {
-				throw new Error\CakeException(__d('cake_dev', '$controller needs to be an instance of Controller'));
+				throw new Error\Exception(__d('cake_dev', '$controller needs to be an instance of Controller'));
 			}
 			$this->_Controller = $controller;
 			return true;

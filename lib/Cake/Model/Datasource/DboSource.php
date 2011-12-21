@@ -19,6 +19,8 @@
 namespace Cake\Model\Datasource;
 use \Cake\Core\Configure,
 	\Cake\Model\ConnectionManager,
+	\Cake\Model\Schema,
+	\Cake\Model\Model,
 	\Cake\Utility\Inflector,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Set,
@@ -1156,7 +1158,7 @@ class DboSource extends DataSource {
 	public function queryAssociation($model, &$linkModel, $type, $association, $assocData, &$queryData, $external = false, &$resultSet, $recursive, $stack) {
 		if ($query = $this->generateAssociationQuery($model, $linkModel, $type, $association, $assocData, $queryData, $external, $resultSet)) {
 			if (!is_array($resultSet)) {
-				throw new CakeException(__d('cake_dev', 'Error in Model %s', get_class($model)));
+				throw new Error\Exception(__d('cake_dev', 'Error in Model %s', get_class($model)));
 			}
 			if ($type === 'hasMany' && empty($assocData['limit']) && !empty($assocData['foreignKey'])) {
 				$ins = $fetch = array();

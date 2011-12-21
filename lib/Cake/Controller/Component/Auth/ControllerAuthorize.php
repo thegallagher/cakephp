@@ -44,12 +44,12 @@ class ControllerAuthorize extends BaseAuthorize {
  *
  * @param mixed $controller null to get, a controller to set.
  * @return mixed
- * @throws CakeException
+ * @throws \Cake\Error\Exception
  */
 	public function controller($controller = null) {
 		if ($controller) {
 			if (!method_exists($controller, 'isAuthorized')) {
-				throw new Error\CakeException(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
+				throw new Error\Exception(__d('cake_dev', '$controller does not implement an isAuthorized() method.'));
 			}
 		}
 		return parent::controller($controller);
