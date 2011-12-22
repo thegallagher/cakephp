@@ -16,15 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('File', 'Utility');
-App::uses('Folder', 'Utility');
+namespace Cake\Test\TestCase\Utility;
+use \Cake\TestSuite\TestCase,
+	\Cake\Utility\File,
+	\Cake\Utility\Folder;
 
 /**
  * FileTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class FileTest extends CakeTestCase {
+class FileTest extends TestCase {
 
 /**
  * File property
@@ -111,7 +113,7 @@ class FileTest extends CakeTestCase {
 		$this->assertEquals($expecting, $result);
 
 		$result = $this->File->Folder();
-		$this->assertInstanceOf('Folder', $result);
+		$this->assertInstanceOf('\Cake\Utility\Folder', $result);
 
 		$this->skipIf(DIRECTORY_SEPARATOR === '\\', 'File permissions tests not supported on Windows.');
 

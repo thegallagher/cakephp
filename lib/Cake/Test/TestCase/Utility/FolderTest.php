@@ -16,15 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Folder', 'Utility');
-App::uses('File', 'Utility');
+namespace Cake\Test\TestCase\Utility;
+use \Cake\TestSuite\TestCase,
+	\Cake\Utility\File,
+	\Cake\Utility\Folder;
 
 /**
  * FolderTest class
  *
  * @package       Cake.Test.Case.Utility
  */
-class FolderTest extends CakeTestCase {
+class FolderTest extends TestCase {
 
 	protected static $_tmp = array();
 
@@ -177,7 +179,7 @@ class FolderTest extends CakeTestCase {
 			$Folder = new Folder($path);
 			$result = $Folder->create($path . DS . 'two' . DS . 'three');
 			$this->assertFalse($result);
-		} catch (PHPUnit_Framework_Error $e) {
+		} catch (\PHPUnit_Framework_Error $e) {
 			$this->assertTrue(true);
 		}
 

@@ -16,7 +16,10 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Validation', 'Utility');
+namespace Cake\Test\TestCase\Utility;
+use \Cake\TestSuite\TestCase,
+	\Cake\Core\Configure,
+	\Cake\Utility\Validation;
 
 /**
  * CustomValidator class
@@ -88,7 +91,7 @@ class TestDeValidation {
  *
  * @package       Cake.Test.Case.Utility
  */
-class ValidationTest extends CakeTestCase {
+class ValidationTest extends TestCase {
 
 /**
  * setUp method

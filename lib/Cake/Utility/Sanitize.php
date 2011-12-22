@@ -19,9 +19,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
-use \Cake\Model\ConnectionManager;
-
-App::import('Model', 'ConnectionManager');
+use \Cake\Model\ConnectionManager,
+	\Cake\Core\Configure;
 
 /**
  * Data Sanitization.

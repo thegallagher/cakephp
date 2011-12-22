@@ -69,7 +69,7 @@ class Set {
 				$var[$k] = Set::filter($v);
 			}
 		}
-		return array_filter($var, array('Set', '_filter'));
+		return array_filter($var, array(__CLASS__, '_filter'));
 	}
 
 /**
@@ -147,7 +147,7 @@ class Set {
  */
 	protected static function _map(&$array, $class, $primary = false) {
 		if ($class === true) {
-			$out = new stdClass;
+			$out = new \stdClass;
 		} else {
 			$out = new $class;
 		}
