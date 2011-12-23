@@ -16,14 +16,19 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Controller', 'Controller');
-App::uses('Helper', 'View');
-App::uses('AppHelper', 'View/Helper');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('ClassRegistry', 'Utility');
-App::uses('Folder', 'Utility');
+namespace Cake\Test\TestCase\View\Helper;
+use \Cake\TestSuite\TestCase,
+	\Cake\Model\Model,
+	\Cake\Controller\Controller,
+	\Cake\View\View,
+	\Cake\View\Helper\FormHelper,
+	\Cake\View\Helper\HtmlHelper,
+	\Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Network\Request,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\File,
+	\Cake\Utility\Folder;
 
 if (!defined('FULL_BASE_URL')) {
 	define('FULL_BASE_URL', 'http://cakephp.org');
@@ -114,7 +119,7 @@ class Html5TestHelper extends TestHtmlHelper {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class HtmlHelperTest extends CakeTestCase {
+class HtmlHelperTest extends TestCase {
 
 /**
  * Regexp for CDATA start block
@@ -144,9 +149,9 @@ class HtmlHelperTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->View = $this->getMock('View', array('append'), array(new TheHtmlTestController()));
+		$this->View = $this->getMock('Cake\View\View', array('append'), array(new TheHtmlTestController()));
 		$this->Html = new TestHtmlHelper($this->View);
-		$this->Html->request = new CakeRequest(null, false);
+		$this->Html->request = new Request(null, false);
 		$this->Html->request->webroot = '';
 
 		Configure::write('Asset.timestamp', false);
@@ -1545,7 +1550,7 @@ class HtmlHelperTest extends CakeTestCase {
  * testLoadConfigWrongFile method
  *
  * @return void
- * @expectedException ConfigureException
+ * @expectedException \Cake\Error\ConfigureException
  */
 	public function testLoadConfigWrongFile() {
 		$result = $this->Html->loadConfig('wrong_file');
@@ -1555,7 +1560,7 @@ class HtmlHelperTest extends CakeTestCase {
  * testLoadConfigWrongReader method
  *
  * @return void
- * @expectedException ConfigureException
+ * @expectedException \Cake\Error\ConfigureException
  */
 	public function testLoadConfigWrongReader() {
 		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Config'. DS;

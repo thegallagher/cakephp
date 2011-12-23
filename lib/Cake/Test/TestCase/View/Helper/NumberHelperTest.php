@@ -16,16 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('View', 'View');
-App::uses('NumberHelper', 'View/Helper');
+namespace Cake\Test\TestCase\View\Helper;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\Helper\NumberHelper,
+	\Cake\View\View;
 
 /**
  * NumberHelperTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class NumberHelperTest extends CakeTestCase {
+class NumberHelperTest extends TestCase {
 
 /**
  * helper property
@@ -41,7 +42,7 @@ class NumberHelperTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$view = $this->getMock('View', array(), array(), '', false);
+		$view = $this->getMock('Cake\View\View', array(), array(), '', false);
 		$this->Number = new NumberHelper($view);
 	}
 

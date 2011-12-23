@@ -1,5 +1,5 @@
 <?php
 
-class TestPluginAppHelper extends AppHelper {
+class TestPluginAppHelper extends \Cake\View\Helper {
 
 }

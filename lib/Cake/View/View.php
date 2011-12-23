@@ -19,6 +19,7 @@
 namespace Cake\View;
 use \Cake\Core\Object,
 	\Cake\Core\App,
+	\Cake\Core\Configure,
 	\Cake\Utility\ObjectCollection,
 	\Cake\Utility\Inflector,
 	\Cake\Routing\Router,

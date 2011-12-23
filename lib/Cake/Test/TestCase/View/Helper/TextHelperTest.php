@@ -16,16 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('View', 'View');
-App::uses('TextHelper', 'View/Helper');
+namespace Cake\Test\TestCase\View\Helper;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\Helper\TextHelper,
+	\Cake\View\View;
 
 /**
  * TextHelperTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class TextHelperTest extends CakeTestCase {
+class TextHelperTest extends TestCase {
 
 /**
  * setUp method

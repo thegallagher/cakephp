@@ -117,7 +117,7 @@ class ControllerTestCaseTest extends TestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		), App::RESET);
 		Plugin::loadAll();
-		$this->Case = $this->getMockForAbstractClass('ControllerTestCase');
+		$this->Case = $this->getMockForAbstractClass('Cake\TestSuite\ControllerTestCase');
 		Router::reload();
 	}
 

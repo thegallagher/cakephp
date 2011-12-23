@@ -8,8 +8,6 @@ use \Cake\TestSuite\TestCase;
  *
  * @package       Cake.Test.Fixture
  */
-namespace Cake\Test\Fixture;
-use \Cake\TestSuite\Fixture\TestFixture;
 class AssertTagsTestCase extends TestCase {
 
 /**

@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeTestFixture file
+ * TestFixture file
  *
  * PHP 5
  *
@@ -24,7 +24,7 @@ use \Cake\TestSuite\Fixture\TestFixture,
 	\Cake\Utility\ClassRegistry;
 
 /**
- * CakeTestFixtureTestFixture class
+ * TestFixtureTestFixture class
  *
  * @package       Cake.Test.Case.TestSuite
  */
@@ -115,11 +115,11 @@ class StringsTestFixture extends TestFixture {
 
 
 /**
- * CakeTestFixtureImportFixture class
+ * TestFixtureImportFixture class
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestFixtureImportFixture extends TestFixture {
+class TestFixtureImportFixture extends TestFixture {
 
 /**
  * Name property
@@ -137,11 +137,11 @@ class CakeTestFixtureImportFixture extends TestFixture {
 }
 
 /**
- * CakeTestFixtureDefaultImportFixture class
+ * TestFixtureDefaultImportFixture class
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestFixtureDefaultImportFixture extends TestFixture {
+class TestFixtureDefaultImportFixture extends TestFixture {
 
 /**
  * Name property
@@ -172,11 +172,11 @@ class FixturePrefixTest extends Model {
 
 
 /**
- * Test case for CakeTestFixture
+ * Test case for TestFixture
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestFixtureTest extends TestCase {
+class TestFixtureTest extends TestCase {
 
 /**
  * setUp method

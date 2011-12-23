@@ -16,13 +16,16 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('View', 'View');
-App::uses('Helper', 'View');
-App::uses('Controller', 'Controller');
-App::uses('CacheHelper', 'View/Helper');
-App::uses('ErrorHandler', 'Error');
-
+namespace Cake\Test\TestCase\View;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\View,
+	\Cake\View\Helper,
+	\Cake\Controller\Controller,
+	\Cake\Cache\Cache,
+	\Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Core\Plugin,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * ViewPostsController class
@@ -237,7 +240,7 @@ class TestAfterHelper extends Helper {
  *
  * @package       Cake.Test.Case.View
  */
-class ViewTest extends CakeTestCase {
+class ViewTest extends TestCase {
 
 /**
  * Fixtures used in this test.
@@ -254,7 +257,7 @@ class ViewTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$request = $this->getMock('CakeRequest');
+		$request = $this->getMock('Cake\Network\Request');
 		$this->Controller = new Controller($request);
 		$this->PostsController = new ViewPostsController($request);
 		$this->PostsController->viewPath = 'Posts';
@@ -274,7 +277,7 @@ class ViewTest extends CakeTestCase {
 		), true);
 		App::objects('plugins', null, false);
 
-		CakePlugin::load(array('TestPlugin', 'TestPlugin', 'PluginJs'));
+		Plugin::load(array('TestPlugin', 'TestPlugin', 'PluginJs'));
 		Configure::write('debug', 2);
 
 		CakePlugin::loadAll();
@@ -288,7 +291,7 @@ class ViewTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->View);
 		unset($this->PostsController);
 		unset($this->Controller);
@@ -347,11 +350,11 @@ class ViewTest extends CakeTestCase {
 
 		$View = new TestView($this->Controller);
 
-		$expected = CakePlugin::path('TestPlugin') . 'View' . DS .'Tests' . DS .'index.ctp';
+		$expected = Plugin::path('TestPlugin') . 'View' . DS .'Tests' . DS .'index.ctp';
 		$result = $View->getViewFileName('index');
 		$this->assertEquals($expected, $result);
 
-		$expected = CakePlugin::path('TestPlugin') . 'View' . DS . 'Layouts' . DS .'default.ctp';
+		$expected = Plugin::path('TestPlugin') . 'View' . DS . 'Layouts' . DS .'default.ctp';
 		$result = $View->getLayoutFileName();
 		$this->assertEquals($expected, $result);
 	}
@@ -399,7 +402,7 @@ class ViewTest extends CakeTestCase {
 		$this->assertEquals($paths, $expected);
 
 		$paths = $View->paths('TestPlugin');
-		$pluginPath = CakePlugin::path('TestPlugin');
+		$pluginPath = Plugin::path('TestPlugin');
 		$expected = array(
 			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Plugin' . DS . 'TestPlugin' . DS,
 			$pluginPath . 'View' . DS,
@@ -427,7 +430,7 @@ class ViewTest extends CakeTestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
 		));
 
-		$pluginPath = CakePlugin::path('TestPlugin');
+		$pluginPath = Plugin::path('TestPlugin');
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS .'TestPlugin' . DS . 'View' . DS .'Tests' . DS .'index.ctp';
 		$result = $View->getViewFileName('index');
 		$this->assertEquals($expected, $result);
@@ -533,7 +536,7 @@ class ViewTest extends CakeTestCase {
 /**
  * testMissingView method
  *
- * @expectedException MissingViewException
+ * @expectedException \Cake\Error\MissingViewException
  * @return void
  */
 	public function testMissingView() {
@@ -566,7 +569,7 @@ class ViewTest extends CakeTestCase {
 /**
  * testMissingLayout method
  *
- * @expectedException MissingLayoutException
+ * @expectedException \Cake\Error\MissingLayoutException
  * @return void
  */
 	public function testMissingLayout() {
@@ -1189,7 +1192,7 @@ class ViewTest extends CakeTestCase {
 /**
  * testBadExt method
  *
- * @expectedException MissingViewException
+ * @expectedException \Cake\Error\MissingViewException
  * @return void
  */
 	public function testBadExt() {
@@ -1216,7 +1219,7 @@ class ViewTest extends CakeTestCase {
 /**
  * testAltBadExt method
  *
- * @expectedException MissingViewException
+ * @expectedException \Cake\Error\MissingViewException
  * @return void
  */
 	public function testAltBadExt() {

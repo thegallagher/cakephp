@@ -19,7 +19,9 @@
 namespace Cake\View\Helper;
 use \Cake\View\Helper,
 	\Cake\View\View,
+	\Cake\Core\App,
 	\Cake\Core\Configure,
+	\Cake\Utility\Inflector,
 	\Cake\Error;
 
 /**
@@ -1066,9 +1068,8 @@ class HtmlHelper extends Helper {
 			throw new Error\ConfigureException(__d('cake_dev', 'Cannot load the configuration file. Wrong "configFile" configuration.'));
 		}
 
-		$readerClass = Inflector::camelize($reader) . 'Reader';
-		App::uses($readerClass, 'Configure');
-		if (!class_exists($readerClass)) {
+		$readerClass = App::classname(Inflector::camelize($reader), 'Configure', 'Reader');
+		if (!$readerClass) {
 			throw new Error\ConfigureException(__d('cake_dev', 'Cannot load the configuration file. Unknown reader.'));
 		}
 

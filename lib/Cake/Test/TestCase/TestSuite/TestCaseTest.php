@@ -1,8 +1,8 @@
 <?php
 /**
- * CakeTestCaseTest file
+ * TestCaseTest file
  *
- * Test Case for CakeTestCase class
+ * Test Case for TestCase class
  *
  * PHP version 5
  *
@@ -21,15 +21,15 @@
 namespace Cake\Test\TestCase\TestSuite;
 use \Cake\TestSuite\TestCase,
 	\Cake\Controller\Controller,
-	\Cake\TestSuite\Reporter\HtmlReporter,
+	\Cake\Test\Fixture\AssertTagsTestCase,
 	\Cake\Test\Fixture\FixturizedTestCase;
 
 /**
- * CakeTestCaseTest
+ * TestCaseTest
  *
  * @package       Cake.Test.Case.TestSuite
  */
-class CakeTestCaseTest extends TestCase {
+class TestCaseTest extends TestCase {
 
 /**
  * setUp
@@ -38,7 +38,7 @@ class CakeTestCaseTest extends TestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Reporter = $this->getMock('\Cake\TestSuite\Reporter\HtmlReporter');
+		$this->Reporter = $this->getMock('Cake\TestSuite\Reporter\HtmlReporter');
 	}
 
 /**
@@ -223,7 +223,7 @@ class CakeTestCaseTest extends TestCase {
 	}
 
 /**
- * Test that CakeTestCase::setUp() backs up values.
+ * Test that TestCase::setUp() backs up values.
  *
  * @return void
  */

@@ -16,10 +16,13 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('View', 'View');
-App::uses('ThemeView', 'View');
-App::uses('Controller', 'Controller');
-
+namespace Cake\Test\TestCase\View;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\ThemeView,
+	\Cake\Controller\Controller,
+	\Cake\Network\Request,
+	\Cake\Core\App,
+	\Cake\Core\Plugin;
 
 /**
  * ThemePosts2Controller class
@@ -95,7 +98,7 @@ class TestTheme2View extends ThemeView {
  *
  * @package       Cake.Test.Case.View
  */
-class ThemeViewTest extends CakeTestCase {
+class ThemeViewTest extends TestCase {
 
 /**
  * setUp method
@@ -104,7 +107,7 @@ class ThemeViewTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$request = new CakeRequest('posts/index');
+		$request = new Request('posts/index');
 		$this->Controller = new Controller($request);
 		$this->PostsController = new ThemePosts2Controller($request);
 		$this->PostsController->viewPath = 'posts';
@@ -115,7 +118,7 @@ class ThemeViewTest extends CakeTestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
 		));
 		App::objects('plugins', null, false);
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 	}
 
 /**
@@ -128,7 +131,7 @@ class ThemeViewTest extends CakeTestCase {
 		unset($this->ThemeView);
 		unset($this->PostsController);
 		unset($this->Controller);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -197,7 +200,7 @@ class ThemeViewTest extends CakeTestCase {
 /**
  * testMissingView method
  *
- * @expectedException MissingViewException
+ * @expectedException \Cake\Error\MissingViewException
  * @return void
  */
 	public function testMissingView() {
@@ -220,7 +223,7 @@ class ThemeViewTest extends CakeTestCase {
 /**
  * testMissingLayout method
  *
- * @expectedException MissingLayoutException
+ * @expectedException \Cake\Error\MissingLayoutException
  * @return void
  */
 	public function testMissingLayout() {

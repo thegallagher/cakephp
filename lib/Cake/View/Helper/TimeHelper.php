@@ -18,6 +18,7 @@
  */
 namespace Cake\View\Helper;
 use \Cake\View\Helper,
+	\Cake\View\View,
 	\Cake\I18n\Multibyte,
 	\Cake\Core\Configure;
 

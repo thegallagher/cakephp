@@ -16,15 +16,19 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('TimeHelper', 'View/Helper');
-App::uses('View', 'View');
+namespace Cake\Test\TestCase\View\Helper;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\Helper\TimeHelper,
+	\Cake\View\View,
+	\Cake\Core\App,
+	\Cake\Core\Configure;
 
 /**
  * TimeHelperTest class
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class TimeHelperTest extends CakeTestCase {
+class TimeHelperTest extends TestCase {
 
 /**
  * setUp method
@@ -412,8 +416,8 @@ class TimeHelperTest extends CakeTestCase {
 		if (!$this->skipIf(!class_exists('DateTimeZone'), '%s DateTimeZone class not available.')) {
 			$timezones = array('Europe/London', 'Europe/Brussels', 'UTC', 'America/Denver', 'America/Caracas', 'Asia/Kathmandu');
 			foreach ($timezones as $timezone) {
-				$yourTimezone = new DateTimeZone($timezone);
-				$yourTime = new DateTime('now', $yourTimezone);
+				$yourTimezone = new \DateTimeZone($timezone);
+				$yourTime = new \DateTime('now', $yourTimezone);
 				$userOffset = $yourTimezone->getOffset($yourTime) / HOUR;
 				$this->assertEquals($yourTime->format('r'), $this->Time->toRss(time(), $userOffset));
 			}
@@ -615,8 +619,8 @@ class TimeHelperTest extends CakeTestCase {
  * @return void
  */
 	public function testUserOffset() {
-		$timezoneServer = new DateTimeZone(date_default_timezone_get());
-		$timeServer = new DateTime('now', $timezoneServer);
+		$timezoneServer = new \DateTimeZone(date_default_timezone_get());
+		$timeServer = new \DateTime('now', $timezoneServer);
 		$yourTimezone = $timezoneServer->getOffset($timeServer) / HOUR;
 
 		$expected = time();

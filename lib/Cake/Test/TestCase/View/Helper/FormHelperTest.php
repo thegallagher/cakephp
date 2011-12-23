@@ -16,15 +16,20 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('ClassRegistry', 'Utility');
-App::uses('Controller', 'Controller');
-App::uses('View', 'View');
-App::uses('Model', 'Model');
-App::uses('Security', 'Utility');
-App::uses('CakeRequest', 'Network');
-App::uses('HtmlHelper', 'View/Helper');
-App::uses('FormHelper', 'View/Helper');
-App::uses('Router', 'Routing');
+namespace Cake\Test\TestCase\View\Helper;
+use \Cake\TestSuite\TestCase,
+	\Cake\TestSuite\Fixture\TestModel,
+	\Cake\Controller\Controller,
+	\Cake\Model\Model,
+	\Cake\View\View,
+	\Cake\View\Helper\FormHelper,
+	\Cake\View\Helper\HtmlHelper,
+	\Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Routing\Router,
+	\Cake\Network\Request,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Security;
 
 /**
  * ContactTestController class
@@ -55,7 +60,7 @@ class ContactTestController extends Controller {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class Contact extends CakeTestModel {
+class Contact extends TestModel {
 
 /**
  * primaryKey property
@@ -146,7 +151,7 @@ class Contact extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class ContactTagsContact extends CakeTestModel {
+class ContactTagsContact extends TestModel {
 
 /**
  * useTable property
@@ -253,7 +258,7 @@ class ContactTag extends Model {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class UserForm extends CakeTestModel {
+class UserForm extends TestModel {
 
 /**
  * useTable property
@@ -308,7 +313,7 @@ class UserForm extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class OpenidUrl extends CakeTestModel {
+class OpenidUrl extends TestModel {
 
 /**
  * useTable property
@@ -377,7 +382,7 @@ class OpenidUrl extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class ValidateUser extends CakeTestModel {
+class ValidateUser extends TestModel {
 
 /**
  * primaryKey property
@@ -440,7 +445,7 @@ class ValidateUser extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class ValidateProfile extends CakeTestModel {
+class ValidateProfile extends TestModel {
 
 /**
  * primaryKey property
@@ -513,7 +518,7 @@ class ValidateProfile extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class ValidateItem extends CakeTestModel {
+class ValidateItem extends TestModel {
 
 /**
  * primaryKey property
@@ -576,7 +581,7 @@ class ValidateItem extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class TestMail extends CakeTestModel {
+class TestMail extends TestModel {
 
 /**
  * primaryKey property
@@ -606,7 +611,7 @@ class TestMail extends CakeTestModel {
  * @package	   cake
  * @package       Cake.Test.Case.View.Helper
  */
-class FormHelperTest extends CakeTestCase {
+class FormHelperTest extends TestCase {
 
 /**
  * Fixtures to be used
@@ -636,7 +641,7 @@ class FormHelperTest extends CakeTestCase {
 
 		$this->Form = new FormHelper($this->View);
 		$this->Form->Html = new HtmlHelper($this->View);
-		$this->Form->request = new CakeRequest('contacts/add', false);
+		$this->Form->request = new Request('contacts/add', false);
 		$this->Form->request->here = '/contacts/add';
 		$this->Form->request['action'] = 'add';
 		$this->Form->request->webroot = '';

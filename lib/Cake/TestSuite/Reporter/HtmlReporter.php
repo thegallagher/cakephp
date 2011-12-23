@@ -253,7 +253,7 @@ class HtmlReporter extends BaseReporter {
  * @param float $time time spent to run the test method
  * @return void
  */
-	public function paintPass(PHPUnit_Framework_Test $test, $time = null) {
+	public function paintPass(\PHPUnit_Framework_Test $test, $time = null) {
 		if (isset($this->params['showPasses']) && $this->params['showPasses']) {
 			echo "<li class='pass'>\n";
 			echo "<span>Passed</span> ";

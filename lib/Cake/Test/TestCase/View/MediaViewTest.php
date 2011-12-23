@@ -16,17 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Controller', 'Controller');
-App::uses('MediaView', 'View');
-App::uses('CakeResponse', 'Network');
+namespace Cake\Test\TestCase\View;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\MediaView,
+	\Cake\Controller\Controller;
 
 /**
  * MediaViewTest class
  *
  * @package       Cake.Test.Case.View
  */
-class MediaViewTest extends CakeTestCase {
+class MediaViewTest extends TestCase {
 
 /**
  * setUp method
@@ -36,8 +36,8 @@ class MediaViewTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$controller = new Controller();
-		$this->MediaView = $this->getMock('MediaView', array('_isActive', '_clearBuffer', '_flushBuffer'));
-		$this->MediaView->response = $this->getMock('CakeResponse');
+		$this->MediaView = $this->getMock('Cake\View\MediaView', array('_isActive', '_clearBuffer', '_flushBuffer'));
+		$this->MediaView->response = $this->getMock('Cake\Network\Response');
 	}
 
 /**
@@ -53,7 +53,7 @@ class MediaViewTest extends CakeTestCase {
 /**
  * tests that rendering a file that does not exists throws an exception
  *
- * @expectedException NotFoundException
+ * @expectedException \Cake\Error\NotFoundException
  * @return void
  */
 	public function testRenderNotFound() {

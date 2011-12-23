@@ -16,11 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('View', 'View');
-App::uses('Helper', 'View');
-App::uses('Model', 'Model');
-App::uses('Router', 'Routing');
+namespace Cake\Test\TestCase\View;
+use \Cake\TestSuite\TestCase,
+	\Cake\View\Helper,
+	\Cake\View\View,
+	\Cake\Model\Model,
+	\Cake\Routing\Router,
+	\Cake\Network\Request,
+	\Cake\Core\Plugin,
+	\Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * HelperTestPost class
@@ -180,7 +186,7 @@ class TestHelper extends Helper {
  *
  * @package       Cake.Test.Case.View
  */
-class HelperTest extends CakeTestCase {
+class HelperTest extends TestCase {
 
 /**
  * setUp method
@@ -193,7 +199,7 @@ class HelperTest extends CakeTestCase {
 		$null = null;
 		$this->View = new View($null);
 		$this->Helper = new Helper($this->View);
-		$this->Helper->request = new CakeRequest(null, false);
+		$this->Helper->request = new Request(null, false);
 
 		ClassRegistry::addObject('HelperTestPost', new HelperTestPost());
 		ClassRegistry::addObject('HelperTestComment', new HelperTestComment());
@@ -206,7 +212,7 @@ class HelperTest extends CakeTestCase {
  * @return void
  */
 	public function tearDown() {
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->Helper, $this->View);
 		ClassRegistry::flush();
 	}
@@ -601,7 +607,7 @@ class HelperTest extends CakeTestCase {
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS),
 		));
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 
 		$result = $this->Helper->assetTimestamp('/test_plugin/css/test_plugin_asset.css');
 		$this->assertRegExp('#/test_plugin/css/test_plugin_asset.css\?[0-9]+$#', $result, 'Missing timestamp plugin');
@@ -840,7 +846,7 @@ class HelperTest extends CakeTestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		));
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 		$Helper = new TestHelper($this->View);
 		$this->assertInstanceOf('OtherHelperHelper', $Helper->OtherHelper);
 		$this->assertInstanceOf('HtmlHelper', $Helper->Html);

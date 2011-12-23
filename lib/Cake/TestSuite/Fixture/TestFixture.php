@@ -14,8 +14,11 @@
  */
 namespace Cake\TestSuite\Fixture;
 use \Cake\Model\Schema,
+	\Cake\Model\Model,
+	\Cake\Model\ConnectionManager,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -93,8 +96,7 @@ class TestFixture {
 
 			$this->Schema->connection = $import['connection'];
 			if (isset($import['model'])) {
-				list($plugin, $modelClass) = pluginSplit($import['model'], true);
-				App::uses($modelClass, $plugin . 'Model');
+				$modelClass = App::classname($import['model'], 'Model');
 				if (!class_exists($modelClass)) {
 					throw new Error\MissingModelException(array('class' => $modelClass));
 				}

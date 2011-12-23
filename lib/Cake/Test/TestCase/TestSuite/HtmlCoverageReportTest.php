@@ -19,6 +19,7 @@
 namespace Cake\Test\TestCase\TestSuite;
 use \Cake\TestSuite\TestCase,
 	\Cake\TestSuite\Coverage\HtmlCoverageReport,
+	\Cake\TestSuite\Reporter\BaseReporter,
 	\Cake\Core\App,
 	\Cake\Core\Plugin;
 
@@ -34,7 +35,7 @@ class HtmlCoverageReportTest extends TestCase {
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Plugin::loadAll();
-		$reporter = new CakeBaseReporter();
+		$reporter = new BaseReporter();
 		$reporter->params = array('app' => false, 'plugin' => false, 'group' => false);
 		$coverage = array();
 		$this->Coverage = new HtmlCoverageReport($coverage, $reporter);
@@ -101,16 +102,16 @@ class HtmlCoverageReportTest extends TestCase {
 			'line 10',
 		);
 		$coverage = array(
-			1 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
+			1 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
 			2 => -2,
-			3 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
-			4 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
+			3 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
+			4 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
 			5 => -1,
-			6 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
-			7 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
-			8 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff')),
+			6 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
+			7 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
+			8 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')),
 			9 => -1,
-			10 => array(array('id' => 'HtmlCoverageReportTest::testGenerateDiff'))
+			10 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'))
 		);
 		$result = $this->Coverage->generateDiff('myfile.php', $file, $coverage);
 		$this->assertRegExp('/myfile\.php Code coverage\: \d+\.?\d*\%/', $result);
@@ -149,16 +150,16 @@ class HtmlCoverageReportTest extends TestCase {
 			'line 10',
 		);
 		$coverage = array(
-			1 => array('HtmlCoverageReportTest::testGenerateDiff'),
+			1 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
 			2 => null,
-			3 => array('HtmlCoverageReportTest::testGenerateDiff'),
-			4 => array('HtmlCoverageReportTest::testGenerateDiff'),
+			3 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
+			4 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
 			5 => array(),
-			6 => array('HtmlCoverageReportTest::testGenerateDiff'),
-			7 => array('HtmlCoverageReportTest::testGenerateDiff'),
-			8 => array('HtmlCoverageReportTest::testGenerateDiff'),
+			6 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
+			7 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
+			8 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff'),
 			9 => array(),
-			10 => array('HtmlCoverageReportTest::testSomething', 'HtmlCoverageReportTest::testGenerateDiff')
+			10 => array(__NAMESPACE__ . '\HtmlCoverageReportTest::testSomething', __NAMESPACE__ . '\HtmlCoverageReportTest::testGenerateDiff')
 		);
 
 		$result = $this->Coverage->generateDiff('myfile.php', $file, $coverage);
@@ -193,10 +194,10 @@ class HtmlCoverageReportTest extends TestCase {
 		);
 
 		$coverage = array(
-			1 => array(array('id' => 'HtmlCoverageReportTest::testAwesomeness')),
+			1 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testAwesomeness')),
 			2 => -2,
-			3 => array(array('id' => 'HtmlCoverageReportTest::testCakeIsSuperior')),
-			4 => array(array('id' => 'HtmlCoverageReportTest::testOther')),
+			3 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testCakeIsSuperior')),
+			4 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testOther')),
 			5 => -1
 		);
 
@@ -204,15 +205,15 @@ class HtmlCoverageReportTest extends TestCase {
 		$result = $this->Coverage->generateDiff('myfile.php', $file, $coverage);
 
 		$this->assertTrue(
-			strpos($result, "title=\"Covered by:\nHtmlCoverageReportTest::testAwesomeness\n\"><span class=\"line-num\">1") !== false,
+			strpos($result, "title=\"Covered by:\n" . __NAMESPACE__ . "\HtmlCoverageReportTest::testAwesomeness\n\"><span class=\"line-num\">1") !== false,
 			'Missing method coverage for line 1'
 		);
 		$this->assertTrue(
-			strpos($result, "title=\"Covered by:\nHtmlCoverageReportTest::testCakeIsSuperior\n\"><span class=\"line-num\">3") !== false,
+			strpos($result, "title=\"Covered by:\n" . __NAMESPACE__ . "\HtmlCoverageReportTest::testCakeIsSuperior\n\"><span class=\"line-num\">3") !== false,
 			'Missing method coverage for line 3'
 		);
 		$this->assertTrue(
-			strpos($result, "title=\"Covered by:\nHtmlCoverageReportTest::testOther\n\"><span class=\"line-num\">4") !== false,
+			strpos($result, "title=\"Covered by:\n" . __NAMESPACE__ . "\HtmlCoverageReportTest::testOther\n\"><span class=\"line-num\">4") !== false,
 			'Missing method coverage for line 4'
 		);
 		$this->assertTrue(

@@ -18,6 +18,7 @@
 namespace Cake\View;
 use \Cake\Utility\ObjectCollection,
 	\Cake\Core\App,
+	\Cake\View\View,
 	\Cake\Error;
 
 /**
@@ -70,7 +71,7 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
 			return $this->_loaded[$helper];
 		}
 		if (is_array($settings) && isset($settings['className'])) {
-			$helperClass = $settings['className'];
+			$helperClass = App::classname($settings['className'], 'View/Helper', 'Helper');
 		}
 		if (!isset($helperClass)) {
 			$helperClass = App::classname($helper, 'View/Helper', 'Helper');

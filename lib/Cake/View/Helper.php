@@ -24,6 +24,9 @@ use \Cake\Core\Object,
 	\Cake\Core\Configure,
 	\Cake\Core\Plugin,
 	\Cake\Routing\Router,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Inflector,
+	\Cake\Utility\Set,
 	\Cake\Utility\ObjectCollection;
 
 /**
@@ -546,7 +549,7 @@ class Helper extends Object {
 
 		$entity = $this->entity();
 		$model = array_shift($entity);
-		$dom = $model . join('', array_map(array('Inflector', 'camelize'), $entity));
+		$dom = $model . join('', array_map(array('Cake\Utility\Inflector', 'camelize'), $entity));
 
 		if (is_array($options) && !array_key_exists($id, $options)) {
 			$options[$id] = $dom;

@@ -22,6 +22,7 @@ use \Cake\Routing\Dispatcher,
 	\Cake\View\Helper,
 	\Cake\Utility\Inflector,
 	\Cake\Utility\ClassRegistry,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -300,7 +301,7 @@ abstract class ControllerTestCase extends TestCase {
 		}
 		App::uses($controller . 'Controller', $plugin . 'Controller');
 		if (!class_exists($controller.'Controller')) {
-			throw new MissingControllerException(array(
+			throw new Error\MissingControllerException(array(
 				'class' => $controller . 'Controller',
 				'plugin' => substr($plugin, 0, -1)
 			));

@@ -25,6 +25,7 @@ use \Cake\View\Helper,
 	\Cake\Utility\Inflector,
 	\Cake\Utility\Security,
 	\Cake\Utility\Set,
+	\Cake\Core\Configure,
 	\Cake\Error;
 
 /**

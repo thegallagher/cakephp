@@ -18,7 +18,9 @@
  */
 namespace Cake\View\Helper;
 use \Cake\View\Helper,
+	\Cake\View\View,
 	\Cake\Utility\Inflector,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -93,9 +95,9 @@ class PaginatorHelper extends Helper {
 		$ajaxProvider = isset($settings['ajax']) ? $settings['ajax'] : 'Js';
 		$this->helpers[] = $ajaxProvider;
 		$this->_ajaxHelperClass = $ajaxProvider;
-		App::uses($ajaxProvider . 'Helper', 'View/Helper');
-		$classname = $ajaxProvider . 'Helper';
-		if (!class_exists($classname) || !method_exists($classname, 'link')) {
+
+		$classname = App::classname($ajaxProvider, 'View/Helper', 'Helper');
+		if (!$classname || !method_exists($classname, 'link')) {
 			throw new Error\Exception(sprintf(
 				__d('cake_dev', '%s does not implement a link() method, it is incompatible with PaginatorHelper'), $classname
 			));
