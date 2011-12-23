@@ -182,7 +182,8 @@ class Dispatcher {
 			$controller = Inflector::camelize($request->params['controller']);
 		}
 		if ($pluginPath . $controller) {
-			if (class_exists($controller)) {
+			$controller = App::classname($pluginPath . $controller, 'Controller', 'Controller');
+			if ($controller) {
 				return $controller;
 			}
 		}

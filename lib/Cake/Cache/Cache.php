@@ -19,6 +19,7 @@
  */
 namespace Cake\Cache;
 use \Cake\Core\Configure,
+	\Cake\Core\App,
 	\Cake\Utility\Inflector,
 	\Cake\Error;
 
@@ -154,8 +155,8 @@ class Cache {
 	protected static function _buildEngine($name) {
 		$config = self::$_config[$name];
 
-		$cacheClass = $config['engine'];
-		if (!class_exists($cacheClass)) {
+		$cacheClass = App::classname($config['engine'], 'Cache/Engine', 'Engine');
+		if (!$cacheClass) {
 			return false;
 		}
 		if (!is_subclass_of($cacheClass, '\Cake\Cache\CacheEngine')) {

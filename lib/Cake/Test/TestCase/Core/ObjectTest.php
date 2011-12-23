@@ -16,18 +16,22 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Object', 'Core');
-App::uses('Router', 'Routing');
-App::uses('Controller', 'Controller');
-App::uses('Model', 'Model');
+namespace Cake\Test\TestCase\Core;
+use \Cake\TestSuite\TestCase,
+	\Cake\TestSuite\Fixture\TestModel,
+	\Cake\Core\Object,
+	\Cake\Core\App,
+	\Cake\Core\Plugin,
+	\Cake\Routing\Router,
+	\Cake\Controller\Controller,
+	\Cake\Model\Model;
 
 /**
  * RequestActionPost class
  *
  * @package       Cake.Test.Case.Core
  */
-class RequestActionPost extends CakeTestModel {
+class RequestActionPost extends TestModel {
 
 /**
  * name property
@@ -274,7 +278,7 @@ class TestObject extends Object {
  *
  * @package       Cake.Test.Case.Core
  */
-class ObjectTestModel extends CakeTestModel {
+class ObjectTestModel extends TestModel {
 	public $useTable = false;
 	public $name = 'ObjectTestModel';
 }
@@ -284,7 +288,7 @@ class ObjectTestModel extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Core
  */
-class ObjectTest extends CakeTestCase {
+class ObjectTest extends TestCase {
 
 /**
  * fixtures
@@ -309,7 +313,7 @@ class ObjectTest extends CakeTestCase {
  */
 	public function tearDown() {
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 		unset($this->object);
 	}
 
@@ -370,7 +374,7 @@ class ObjectTest extends CakeTestCase {
  */
 	public function testToString() {
 		$result = strtolower($this->object->toString());
-		$this->assertEquals($result, 'testobject');
+		$this->assertEquals($result, strtolower(__NAMESPACE__) . '\testobject');
 	}
 
 /**
@@ -490,7 +494,7 @@ class ObjectTest extends CakeTestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
 		), true);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		Router::reload();
 
 		$result = $this->object->requestAction('/test_plugin/tests/index', array('return'));
@@ -530,7 +534,7 @@ class ObjectTest extends CakeTestCase {
 			'controllers' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin'. DS)
 		), true);
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 
 		$result = $this->object->requestAction(
 			array('controller' => 'request_action', 'action' => 'test_request_action')

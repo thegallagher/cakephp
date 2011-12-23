@@ -16,9 +16,11 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('IniReader', 'Configure');
+namespace Cake\Test\TestCase\Configure;
+use \Cake\TestSuite\TestCase,
+	\Cake\Configure\IniReader;
 
-class IniReaderTest extends CakeTestCase {
+class IniReaderTest extends TestCase {
 
 /**
  * The test file that will be read.

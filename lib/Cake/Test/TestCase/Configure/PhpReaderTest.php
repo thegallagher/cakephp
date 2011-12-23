@@ -16,9 +16,13 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('PhpReader', 'Configure');
+namespace Cake\Test\TestCase\Configure;
+use \Cake\TestSuite\TestCase,
+	\Cake\Core\App,
+	\Cake\Core\Plugin,
+	\Cake\Configure\PhpReader;
 
-class PhpReaderTest extends CakeTestCase {
+class PhpReaderTest extends TestCase {
 /**
  * setup
  *
@@ -47,7 +51,7 @@ class PhpReaderTest extends CakeTestCase {
 /**
  * Test an exception is thrown by reading files that don't exist.
  *
- * @expectedException ConfigureException
+ * @expectedException \Cake\Error\ConfigureException
  * @return void
  */
 	public function testReadWithNonExistantFile() {
@@ -69,7 +73,7 @@ class PhpReaderTest extends CakeTestCase {
 /**
  * test reading keys with ../ doesn't work
  *
- * @expectedException ConfigureException
+ * @expectedException \Cake\Error\ConfigureException
  * @return void
  */
 	public function testReadWithDots() {
@@ -86,13 +90,13 @@ class PhpReaderTest extends CakeTestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), true);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$reader = new PhpReader($this->path);
 		$result = $reader->read('TestPlugin.load');
 		$this->assertTrue(isset($result['plugin_load']));
 
 		$result = $reader->read('TestPlugin.load.php');
 		$this->assertTrue(isset($result['plugin_load']));
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 }

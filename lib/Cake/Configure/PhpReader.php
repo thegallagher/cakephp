@@ -18,6 +18,7 @@
  */
 namespace Cake\Configure;
 use \Cake\Core\App,
+	\Cake\Core\ConfigReaderInterface,
 	\Cake\Error;
 
 /**
@@ -78,7 +79,7 @@ class PhpReader implements ConfigReaderInterface {
 		$file .= '.php';
 		if (!is_file($file)) {
 			if (!is_file(substr($file, 0, -4))) {
-				throw new ConfigureException(__d('cake_dev', 'Could not load configuration files: %s or %s', $file, substr($file, 0, -4)));
+				throw new Error\ConfigureException(__d('cake_dev', 'Could not load configuration files: %s or %s', $file, substr($file, 0, -4)));
 			}
 		}
 		include $file;

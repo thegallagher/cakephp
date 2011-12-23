@@ -17,7 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Core;
-use \Cake\Cache\Cache;
+use \Cake\Cache\Cache,
+	\Cake\Utility\Set,
+	\Cake\Configure\PhpReader;
 
 /**
  * Configuration class. Used for managing runtime configuration information.
@@ -271,7 +273,6 @@ class Configure {
 	public static function load($key, $config = 'default', $merge = true) {
 		if (!isset(self::$_readers[$config])) {
 			if ($config === 'default') {
-				App::uses('PhpReader', 'Configure');
 				self::$_readers[$config] = new PhpReader();
 			} else {
 				return false;

@@ -19,6 +19,7 @@
  */
 namespace Cake\Cache\Engine;
 use \Cake\Cache\CacheEngine,
+	\Cake\Utility\Inflector,
 	\Cake\Error;
 
 /**

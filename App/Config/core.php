@@ -305,9 +305,9 @@ use \Cake\Core\Configure,
  * If running via cli - apc is disabled by default. ensure it's available and enabled in this case
  *
  */
-$engine = '\Cake\Cache\Engine\FileEngine';
+$engine = 'File';
 if (extension_loaded('apc') && function_exists('apc_dec') && (php_sapi_name() !== 'cli' || ini_get('apc.enable_cli'))) {
-	$engine = '\Cake\Cache\Engine\ApcEngine';
+	$engine = 'Apc';
 }
 
 // In development mode, caches should expire quickly.
@@ -327,7 +327,7 @@ Cache::config('_cake_core_', array(
 	'engine' => $engine,
 	'prefix' => $prefix . 'cake_core_',
 	'path' => CACHE . 'persistent' . DS,
-	'serialize' => ($engine === '\Cake\Cache\Engine\FileEngine'),
+	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));
 
@@ -339,6 +339,6 @@ Cache::config('_cake_model_', array(
 	'engine' => $engine,
 	'prefix' => $prefix . 'cake_model_',
 	'path' => CACHE . 'models' . DS,
-	'serialize' => ($engine === '\Cake\Cache\Engine\FileEngine'),
+	'serialize' => ($engine === 'File'),
 	'duration' => $duration
 ));

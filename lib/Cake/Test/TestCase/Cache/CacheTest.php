@@ -16,15 +16,19 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Cache', 'Cache');
+namespace Cake\Test\TestCase\Cache;
+use \Cake\TestSuite\TestCase,
+	\Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Core\Plugin,
+	\Cake\Cache\Cache;
 
 /**
  * CacheTest class
  *
  * @package       Cake.Test.Case.Cache
  */
-class CacheTest extends CakeTestCase {
+class CacheTest extends TestCase {
 
 /**
  * setUp method
@@ -89,7 +93,7 @@ class CacheTest extends CakeTestCase {
 			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), true);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$settings = array('engine' => 'TestAppCache', 'path' => TMP, 'prefix' => 'cake_test_');
 		$result = Cache::config('libEngine', $settings);
@@ -103,7 +107,7 @@ class CacheTest extends CakeTestCase {
 		Cache::drop('pluginLibEngine');
 
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
@@ -142,13 +146,13 @@ class CacheTest extends CakeTestCase {
 /**
  * test that trying to configure classes that don't extend CacheEngine fail.
  *
- * @expectedException CacheException
+ * @expectedException \Cake\Error\CacheException
  * @return void
  */
 	public function testAttemptingToConfigureANonCacheEngineClass() {
 		$this->getMock('StdClass', array(), array(), 'RubbishEngine');
 		Cache::config('Garbage', array(
-			'engine' => 'Rubbish'
+			'engine' => __NAMESPACE__ . '\Rubbish'
 		));
 	}
 
