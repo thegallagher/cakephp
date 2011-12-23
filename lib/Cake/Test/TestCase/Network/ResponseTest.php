@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeResponse Test case file.
+ * Response Test case file.
  *
  * PHP 5
  *
@@ -16,10 +16,11 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('CakeResponse', 'Network');
-App::uses('CakeRequest', 'Network');
+namespace Cake\Test\TestCase\Network;
+use \Cake\TestSuite\TestCase,
+	\Cake\Network\Response;
 
-class CakeResponseTest extends CakeTestCase {
+class ResponseTest extends TestCase {
 
 /**
  * Setup for tests
@@ -44,7 +45,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testConstruct() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertNull($response->body());
 		$this->assertEquals($response->charset(), 'UTF-8');
 		$this->assertEquals($response->type(), 'text/html');
@@ -56,7 +57,7 @@ class CakeResponseTest extends CakeTestCase {
 			'type' => 'mp3',
 			'status' => '203'
 		);
-		$response = new CakeResponse($options);
+		$response = new Response($options);
 		$this->assertEquals($response->body(), 'This is the body');
 		$this->assertEquals($response->charset(), 'my-custom-charset');
 		$this->assertEquals($response->type(), 'audio/mpeg');
@@ -68,7 +69,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testBody() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertNull($response->body());
 		$response->body('Response body');
 		$this->assertEquals($response->body(), 'Response body');
@@ -80,7 +81,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testCharset() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertEquals($response->charset(), 'UTF-8');
 		$response->charset('iso-8859-1');
 		$this->assertEquals($response->charset(), 'iso-8859-1');
@@ -93,7 +94,7 @@ class CakeResponseTest extends CakeTestCase {
 * @expectedException \Cake\Error\Exception
 */
 	public function testStatusCode() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertEquals($response->statusCode(), 200);
 		$response->statusCode(404);
 		$this->assertEquals($response->statusCode(), 404);
@@ -108,7 +109,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testType() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertEquals($response->type(), 'text/html');
 		$response->type('pdf');
 		$this->assertEquals($response->type(), 'application/pdf');
@@ -129,7 +130,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testHeader() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$headers = array();
 		$this->assertEquals($response->header(), $headers);
 
@@ -173,7 +174,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testSend() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->header(array(
 			'Content-Language' => 'es',
 			'WWW-Authenticate' => 'Negotiate'
@@ -198,7 +199,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testSendChangingContentYype() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->type('mp3');
 		$response->body('the response body');
 		$response->expects($this->once())->method('_sendContent')->with('the response body');
@@ -216,7 +217,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testSendChangingContentType() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->type('mp3');
 		$response->body('the response body');
 		$response->expects($this->once())->method('_sendContent')->with('the response body');
@@ -234,7 +235,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testSendWithLocation() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->header('Location', 'http://www.example.com');
 		$response->expects($this->at(0))
 			->method('_sendHeader')->with('HTTP/1.1 302 Found');
@@ -250,7 +251,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testDisableCache() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$expected = array(
 			'Expires' => 'Mon, 26 Jul 1997 05:00:00 GMT',
 			'Last-Modified' => gmdate("D, d M Y H:i:s") . " GMT",
@@ -265,7 +266,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testCache() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$since = time();
 		$time = new DateTime('+1 day', new DateTimeZone('UTC'));
 		$response->expires('+1 day');
@@ -278,7 +279,7 @@ class CakeResponseTest extends CakeTestCase {
 		$response->cache($since);
 		$this->assertEquals($response->header(), $expected);
 
-		$response = new CakeResponse();
+		$response = new Response();
 		$since = time();
 		$time = '+5 day';
 		$expected = array(
@@ -290,7 +291,7 @@ class CakeResponseTest extends CakeTestCase {
 		$response->cache($since, $time);
 		$this->assertEquals($response->header(), $expected);
 
-		$response = new CakeResponse();
+		$response = new Response();
 		$since = time();
 		$time = time();
 		$expected = array(
@@ -313,7 +314,7 @@ class CakeResponseTest extends CakeTestCase {
 			$this->markTestSkipped('The response compression can only be tested in cli.');
 		}
 
-		$response = new CakeResponse();
+		$response = new Response();
 		if (ini_get("zlib.output_compression") === '1' || !extension_loaded("zlib")) {
 			$this->assertFalse($response->compress());
 			$this->markTestSkipped('Is not possible to test output compression');
@@ -336,7 +337,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testHttpCodes() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$result = $response->httpCodes();
 		$this->assertEquals(count($result), 39);
 
@@ -372,7 +373,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testDownload() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$expected = array(
 			'Content-Disposition' => 'attachment; filename="myfile.mp3"'
 		);
@@ -385,7 +386,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testMapType() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$this->assertEquals('wav', $response->mapType('audio/x-wav'));
 		$this->assertEquals('pdf', $response->mapType('application/pdf'));
 		$this->assertEquals('xml', $response->mapType('text/xml'));
@@ -401,7 +402,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testOutputCompressed() {
-		$response = new CakeResponse();
+		$response = new Response();
 
 		$_SERVER['HTTP_ACCEPT_ENCODING'] = 'gzip';
 		$result = $response->outputCompressed();
@@ -438,7 +439,7 @@ class CakeResponseTest extends CakeTestCase {
 *
 */
 	public function testSendContentLength() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->body('the response body');
 		$response->expects($this->once())->method('_sendContent')->with('the response body');
 		$response->expects($this->at(0))
@@ -449,7 +450,7 @@ class CakeResponseTest extends CakeTestCase {
 			->method('_sendHeader')->with('Content-Length', strlen('the response body'));
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$body = '長い長い長いSubjectの場合はfoldingするのが正しいんだけどいったいどうなるんだろう？';
 		$response->body($body);
 		$response->expects($this->once())->method('_sendContent')->with($body);
@@ -461,7 +462,7 @@ class CakeResponseTest extends CakeTestCase {
 			->method('_sendHeader')->with('Content-Length', 116);
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent', 'outputCompressed'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent', 'outputCompressed'));
 		$body = '長い長い長いSubjectの場合はfoldingするのが正しいんだけどいったいどうなるんだろう？';
 		$response->body($body);
 		$response->expects($this->once())->method('outputCompressed')->will($this->returnValue(true));
@@ -469,7 +470,7 @@ class CakeResponseTest extends CakeTestCase {
 		$response->expects($this->exactly(2))->method('_sendHeader');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent', 'outputCompressed'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent', 'outputCompressed'));
 		$body = 'hwy';
 		$response->body($body);
 		$response->header('Content-Length', 1);
@@ -479,7 +480,7 @@ class CakeResponseTest extends CakeTestCase {
 				->method('_sendHeader')->with('Content-Length', 1);
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$body = 'content';
 		$response->statusCode(301);
 		$response->body($body);
@@ -488,10 +489,10 @@ class CakeResponseTest extends CakeTestCase {
 		$response->send();
 
 		ob_start();
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$goofyOutput = 'I am goofily sending output in the controller';
 		echo $goofyOutput;
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$body = '長い長い長いSubjectの場合はfoldingするのが正しいんだけどいったいどうなるんだろう？';
 		$response->body($body);
 		$response->expects($this->once())->method('_sendContent')->with($body);

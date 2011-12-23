@@ -16,9 +16,11 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('HttpSocket', 'Network/Http');
-App::uses('HttpResponse', 'Network/Http');
+namespace Cake\Test\TestCase\Network\Http;
+use \Cake\TestSuite\TestCase,
+	\Cake\Network\Http\HttpSocket,
+	\Cake\Network\Http\HttpResponse,
+	\Cake\Utility\Set;
 
 /**
  * TestAuthentication class
@@ -171,7 +173,7 @@ class TestHttpSocket extends HttpSocket {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class HttpSocketTest extends CakeTestCase {
+class HttpSocketTest extends TestCase {
 
 /**
  * Socket property
@@ -194,12 +196,12 @@ class HttpSocketTest extends CakeTestCase {
  */
 	public function setUp() {
 		if (!class_exists('MockHttpSocket')) {
-			$this->getMock('TestHttpSocket', array('read', 'write', 'connect'), array(), 'MockHttpSocket');
-			$this->getMock('TestHttpSocket', array('read', 'write', 'connect', 'request'), array(), 'MockHttpSocketRequests');
+			$this->getMock(__NAMESPACE__ . '\TestHttpSocket', array('read', 'write', 'connect'), array(), 'MockHttpSocket');
+			$this->getMock(__NAMESPACE__ . '\TestHttpSocket', array('read', 'write', 'connect', 'request'), array(), 'MockHttpSocketRequests');
 		}
 
-		$this->Socket = new MockHttpSocket();
-		$this->RequestSocket = new MockHttpSocketRequests();
+		$this->Socket = new \MockHttpSocket();
+		$this->RequestSocket = new \MockHttpSocketRequests();
 	}
 
 /**
@@ -575,7 +577,7 @@ class HttpSocketTest extends CakeTestCase {
 /**
  * The "*" asterisk character is only allowed for the following methods: OPTIONS.
  *
- * @expectedException SocketException
+ * @expectedException \Cake\Error\SocketException
  * @return void
  */
 	public function testRequestNotAllowedUri() {
@@ -642,7 +644,7 @@ class HttpSocketTest extends CakeTestCase {
 				)
 			)
 		);
-		$http = new MockHttpSocketRequests($request);
+		$http = new \MockHttpSocketRequests($request);
 
 		$expected = array('method' => 'GET', 'uri' => '/_test');
 		$http->expects($this->at(0))->method('request')->with($expected);
@@ -733,9 +735,9 @@ class HttpSocketTest extends CakeTestCase {
 		$this->Socket->expects($this->at(1))->method('read')->will($this->returnValue($serverResponse));
 		$this->Socket->expects($this->at(2))->method('read')->will($this->returnValue(false));
 
-		$this->Socket->responseClass = 'CustomResponse';
+		$this->Socket->responseClass = __NAMESPACE__ . '\CustomResponse';
 		$response = $this->Socket->request('http://www.cakephp.org/');
-		$this->assertInstanceOf('CustomResponse', $response);
+		$this->assertInstanceOf(__NAMESPACE__ . '\CustomResponse', $response);
 		$this->assertEquals($response->first10, 'HTTP/1.x 2');
 	}
  
@@ -960,7 +962,7 @@ class HttpSocketTest extends CakeTestCase {
  * @return void
  */
 	public function testAuth() {
-		$socket = new MockHttpSocket();
+		$socket = new \MockHttpSocket();
 		$socket->get('http://mark:secret@example.com/test');
 		$this->assertTrue(strpos($socket->request['header'], 'Authorization: Basic bWFyazpzZWNyZXQ=') !== false);
 
@@ -979,7 +981,7 @@ class HttpSocketTest extends CakeTestCase {
  * @return void
  */
 	public function testConsecutiveGetResetsAuthCredentials() {
-		$socket = new MockHttpSocket();
+		$socket = new \MockHttpSocket();
 		$socket->get('http://mark:secret@example.com/test');
 		$this->assertEquals($socket->request['uri']['user'], 'mark');
 		$this->assertEquals($socket->request['uri']['pass'], 'secret');
@@ -1119,7 +1121,7 @@ class HttpSocketTest extends CakeTestCase {
 /**
  * testBadBuildRequestLine method
  *
- * @expectedException SocketException
+ * @expectedException \Cake\Error\SocketException
  * @return void
  */
 	public function testBadBuildRequestLine() {
@@ -1129,7 +1131,7 @@ class HttpSocketTest extends CakeTestCase {
 /**
  * testBadBuildRequestLine2 method
  *
- * @expectedException SocketException
+ * @expectedException \Cake\Error\SocketException
  * @return void
  */
 	public function testBadBuildRequestLine2() {
@@ -1543,7 +1545,7 @@ class HttpSocketTest extends CakeTestCase {
 	public function testReset() {
 		$this->Socket->reset();
 
-		$initialState = get_class_vars('HttpSocket');
+		$initialState = get_class_vars('Cake\Network\Http\HttpSocket');
 		foreach ($initialState as $property => $value) {
 			$this->Socket->{$property} = 'Overwritten';
 		}
@@ -1567,7 +1569,7 @@ class HttpSocketTest extends CakeTestCase {
 		$this->Socket->reset();
 
 		$partialResetProperties = array('request', 'response');
-		$initialState = get_class_vars('HttpSocket');
+		$initialState = get_class_vars('Cake\Network\Http\HttpSocket');
 
 		foreach ($initialState as $property => $value) {
 			$this->Socket->{$property} = 'Overwritten';

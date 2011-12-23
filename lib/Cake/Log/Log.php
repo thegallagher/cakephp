@@ -20,7 +20,8 @@
  */
 namespace Cake\Log;
 use \Cake\Error,
-	\Cake\Log\Engine\FileLog;
+	\Cake\Log\Engine\FileLog,
+	\Cake\Core\App;
 
 /**
  * Set up error level constants to be used within the framework if they are not defined within the
@@ -118,7 +119,8 @@ class Log {
  * @throws \Cake\Error\LogException
  */
 	protected static function _getLogger($loggerName) {
-		if (!class_exists($loggerName)) {
+		$loggerName = App::classname($loggerName, 'Log/Engine');
+		if (!$loggerName) {
 			throw new Error\LogException(__d('cake_dev', 'Could not load class %s', $loggerName));
 		}
 		return $loggerName;

@@ -19,6 +19,9 @@
 namespace Cake\Network\Email;
 use \Cake\Log\Log,
 	\Cake\Utility\Validation,
+	\Cake\Utility\String,
+	\Cake\Core\Configure,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -795,11 +798,9 @@ class Email {
 		if ($this->_transportClass) {
 			return $this->_transportClass;
 		}
-		list($plugin, $transportClassname) = pluginSplit($this->_transportName, true);
-		$transportClassname .= 'Transport';
-		App::uses($transportClassname, $plugin . 'Network/Email');
-		if (!class_exists($transportClassname)) {
-			throw new Error\SocketException(__d('cake_dev', 'Class "%s" not found.', $transportClassname));
+		$transportClassname = App::classname($this->_transportName, 'Network/Email', 'Transport');
+		if (!$transportClassname) {
+			throw new Error\SocketException(__d('cake_dev', 'Class "%s" not found.', $this->_transportName));
 		} elseif (!method_exists($transportClassname, 'send')) {
 			throw new Error\SocketException(__d('cake_dev', 'The "%s" do not have send method.', $transportClassname));
 		}

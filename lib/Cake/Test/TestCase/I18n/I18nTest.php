@@ -16,14 +16,20 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('I18n', 'I18n');
+namespace Cake\Test\TestCase\I18n;
+use \Cake\TestSuite\TestCase,
+	\Cake\I18n\I18n,
+	\Cake\Cache\Cache,
+	\Cake\Core\App,
+	\Cake\Core\Configure,
+	\Cake\Core\Plugin;
 
 /**
  * I18nTest class
  *
  * @package       Cake.Test.Case.I18n
  */
-class I18nTest extends CakeTestCase {
+class I18nTest extends TestCase {
 
 /**
  * setUp method
@@ -36,7 +42,7 @@ class I18nTest extends CakeTestCase {
 			'locales' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Locale' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), true);
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 	}
 
 /**
@@ -47,7 +53,7 @@ class I18nTest extends CakeTestCase {
 	public function tearDown() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

@@ -16,8 +16,10 @@
  * @since         CakePHP(tm) v 1.2.0.4206
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('HttpResponse', 'Network/Http');
+namespace Cake\Test\TestCase\Network\Http;
+use \Cake\TestSuite\TestCase,
+	\Cake\Network\Http\HttpSocket,
+	\Cake\Network\Http\HttpResponse;
 
 /**
  * TestHttpResponse class
@@ -84,7 +86,7 @@ class TestHttpResponse extends HttpResponse {
  *
  * @package       Cake.Test.Case.Network.Http
  */
-class HttpResponseTest extends CakeTestCase {
+class HttpResponseTest extends TestCase {
 /**
  * This function sets up a HttpResponse
  *
@@ -329,7 +331,7 @@ class HttpResponseTest extends CakeTestCase {
  * testInvalidParseResponseData
  *
  * @dataProvider invalidParseResponseDataProvider
- * @expectedException SocketException
+ * @expectedException \Cake\Error\SocketException
  * return void
  */
 	public function testInvalidParseResponseData($value) {
@@ -428,7 +430,7 @@ class HttpResponseTest extends CakeTestCase {
 /**
  * testDecodeChunkedBodyError method
  *
- * @expectedException SocketException
+ * @expectedException \Cake\Error\SocketException
  * @return void
  */
 	public function testDecodeChunkedBodyError() {

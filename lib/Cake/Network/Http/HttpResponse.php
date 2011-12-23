@@ -25,7 +25,7 @@ use \Cake\Utility\Inflector,
  *
  * @package       Cake.Network.Http
  */
-class HttpResponse implements ArrayAccess {
+class HttpResponse implements \ArrayAccess {
 
 /**
  * Body content

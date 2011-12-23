@@ -1,6 +1,6 @@
 <?php
 /**
- * CakeLogTest file
+ * LogTest file
  *
  * PHP 5
  *
@@ -16,16 +16,19 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('CakeLog', 'Log');
-App::uses('FileLog', 'Log/Engine');
+namespace Cake\Test\TestSuite\Log;
+use \Cake\TestSuite\TestCase,
+	\Cake\Log\Log,
+	\Cake\Log\Engine\FileLog,
+	\Cake\Core\App,
+	\Cake\Core\Plugin;
 
 /**
- * CakeLogTest class
+ * LogTest class
  *
  * @package       Cake.Test.Case.Log
  */
-class CakeLogTest extends CakeTestCase {
+class LogTest extends TestCase {
 
 /**
  * Start test callback, clears all streams enabled.
@@ -34,9 +37,9 @@ class CakeLogTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$streams = CakeLog::configured();
+		$streams = Log::configured();
 		foreach ($streams as $stream) {
-			CakeLog::drop($stream);
+			Log::drop($stream);
 		}
 	}
 
@@ -50,46 +53,46 @@ class CakeLogTest extends CakeTestCase {
 			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		), true);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
-		$result = CakeLog::config('libtest', array(
+		$result = Log::config('libtest', array(
 			'engine' => 'TestAppLog'
 		));
 		$this->assertTrue($result);
-		$this->assertEquals(CakeLog::configured(), array('libtest'));
+		$this->assertEquals(Log::configured(), array('libtest'));
 
-		$result = CakeLog::config('plugintest', array(
+		$result = Log::config('plugintest', array(
 			'engine' => 'TestPlugin.TestPluginLog'
 		));
 		$this->assertTrue($result);
-		$this->assertEquals(CakeLog::configured(), array('libtest', 'plugintest'));
+		$this->assertEquals(Log::configured(), array('libtest', 'plugintest'));
 
 		App::build();
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**
  * test all the errors from failed logger imports
  *
- * @expectedException CakeLogException
+ * @expectedException \Cake\Error\LogException
  * @return void
  */
 	public function testImportingLoggerFailure() {
-		CakeLog::config('fail', array());
+		Log::config('fail', array());
 	}
 
 /**
  * test that loggers have to implement the correct interface.
  *
- * @expectedException CakeLogException
+ * @expectedException \Cake\Error\LogException
  * @return void
  */
 	public function testNotImplementingInterface() {
-		CakeLog::config('fail', array('engine' => 'stdClass'));
+		Log::config('fail', array('engine' => 'stdClass'));
 	}
 
 /**
- * Test that CakeLog autoconfigures itself to use a FileLogger with the LOGS dir.
+ * Test that Log autoconfigures itself to use a FileLogger with the LOGS dir.
  * When no streams are there.
  *
  * @return void
@@ -98,10 +101,10 @@ class CakeLogTest extends CakeTestCase {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
 		}
-		CakeLog::write(LOG_WARNING, 'Test warning');
+		Log::write(LOG_WARNING, 'Test warning');
 		$this->assertTrue(file_exists(LOGS . 'error.log'));
 
-		$result = CakeLog::configured();
+		$result = Log::configured();
 		$this->assertEquals($result, array('default'));
 		unlink(LOGS . 'error.log');
 	}
@@ -112,17 +115,17 @@ class CakeLogTest extends CakeTestCase {
  * @return void
  */
 	public function testConfig() {
-		CakeLog::config('file', array(
+		Log::config('file', array(
 			'engine' => 'FileLog',
 			'path' => LOGS
 		));
-		$result = CakeLog::configured();
+		$result = Log::configured();
 		$this->assertEquals($result, array('file'));
 
 		if (file_exists(LOGS . 'error.log')) {
 			@unlink(LOGS . 'error.log');
 		}
-		CakeLog::write(LOG_WARNING, 'Test warning');
+		Log::write(LOG_WARNING, 'Test warning');
 		$this->assertTrue(file_exists(LOGS . 'error.log'));
 
 		$result = file_get_contents(LOGS . 'error.log');
@@ -136,15 +139,15 @@ class CakeLogTest extends CakeTestCase {
  * @return void
  **/
 	public function testDrop() {
-		CakeLog::config('file', array(
+		Log::config('file', array(
 			'engine' => 'FileLog',
 			'path' => LOGS
 		));
-		$result = CakeLog::configured();
+		$result = Log::configured();
 		$this->assertEquals($result, array('file'));
 
-		CakeLog::drop('file');
-		$result = CakeLog::configured();
+		Log::drop('file');
+		$result = Log::configured();
 		$this->assertEquals($result, array());
 	}
 
@@ -157,13 +160,13 @@ class CakeLogTest extends CakeTestCase {
 		if (file_exists(LOGS . 'error.log')) {
 			unlink(LOGS . 'error.log');
 		}
-		$result = CakeLog::write(LOG_WARNING, 'Test warning');
+		$result = Log::write(LOG_WARNING, 'Test warning');
 		$this->assertTrue($result);
 		$this->assertTrue(file_exists(LOGS . 'error.log'));
 		unlink(LOGS . 'error.log');
 
-		CakeLog::write(LOG_WARNING, 'Test warning 1');
-		CakeLog::write(LOG_WARNING, 'Test warning 2');
+		Log::write(LOG_WARNING, 'Test warning 1');
+		Log::write(LOG_WARNING, 'Test warning 2');
 		$result = file_get_contents(LOGS . 'error.log');
 		$this->assertRegExp('/^2[0-9]{3}-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+ Warning: Test warning 1/', $result);
 		$this->assertRegExp('/2[0-9]{3}-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+ Warning: Test warning 2$/', $result);

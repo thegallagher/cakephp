@@ -20,6 +20,7 @@ namespace Cake\Network\Http;
 use \Cake\Network\Socket,
 	\Cake\Utility\Set,
 	\Cake\Utility\Inflector,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -392,12 +393,10 @@ class HttpSocket extends Socket {
 			$this->disconnect();
 		}
 
-		list($plugin, $responseClass) = pluginSplit($this->responseClass, true);
-		App::uses($this->responseClass, $plugin . 'Network/Http');
-		if (!class_exists($responseClass)) {
+		$responseClass = App::classname($this->responseClass, 'Network/Http');
+		if (!$responseClass) {
 			throw new Error\SocketException(__d('cake_dev', 'Class %s not found.', $this->responseClass));
 		}
-		$responseClass = $this->responseClass;
 		$this->response = new $responseClass($response);
 		if (!empty($this->response->cookies)) {
 			if (!isset($this->config['request']['cookies'][$Host])) {
@@ -567,11 +566,9 @@ class HttpSocket extends Socket {
 			return;
 		}
 		$method = key($this->_auth);
-		list($plugin, $authClass) = pluginSplit($method, true);
-		$authClass = Inflector::camelize($authClass) . 'Authentication';
-		App::uses($authClass, $plugin . 'Network/Http');
 
-		if (!class_exists($authClass)) {
+		$authClass = App::classname($method, 'Network/Http', 'Authentication');
+		if (!$authClass) {
 			throw new Error\SocketException(__d('cake_dev', 'Unknown authentication method.'));
 		}
 		if (!method_exists($authClass, 'authentication')) {
@@ -596,11 +593,9 @@ class HttpSocket extends Socket {
 		if (empty($this->_proxy['method']) || !isset($this->_proxy['user'], $this->_proxy['pass'])) {
 			return;
 		}
-		list($plugin, $authClass) = pluginSplit($this->_proxy['method'], true);
-		$authClass = Inflector::camelize($authClass) . 'Authentication';
-		App::uses($authClass, $plugin. 'Network/Http');
 
-		if (!class_exists($authClass)) {
+		$authClass = App::classname($this->_proxy['method'], 'Network/Http', 'Authentication');
+		if (!$authClass) {
 			throw new Error\SocketException(__d('cake_dev', 'Unknown authentication method for proxy.'));
 		}
 		if (!method_exists($authClass, 'proxyAuthentication')) {

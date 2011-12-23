@@ -20,6 +20,7 @@
  */
 namespace Cake\Error;
 use \Cake\Core\Configure,
+	\Cake\Core\App,
 	\Cake\Utility\Debugger,
 	\Cake\Log\Log;
 
@@ -116,11 +117,14 @@ class ErrorHandler {
 			);
 			Log::write(LOG_ERR, $message);
 		}
-		$renderer = $config['renderer'];
+		$renderer = App::classname($config['renderer'], 'Error');
 		try {
+			if (!$renderer) {
+				throw new \Exception("{$config['renderer']} is an invalid class.");
+			}
 			$error = new $renderer($exception);
 			$error->render();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			set_error_handler(Configure::read('Error.handler')); // Should be using configured ErrorHandler
 			Configure::write('Error.trace', false); // trace is useless here since it's internal
 			$message = sprintf("[%s] %s\n%s", // Keeping same message format
