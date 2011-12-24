@@ -21,6 +21,7 @@
  */
 namespace Cake\Console\Command;
 use \Cake\Console\Shell,
+	\Cake\Model\Model,
 	\Cake\Core\App,
 	\Cake\Utility\Inflector;
 

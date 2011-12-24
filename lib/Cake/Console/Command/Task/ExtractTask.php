@@ -18,8 +18,10 @@
 namespace Cake\Console\Command\Task;
 use \Cake\Console\Shell,
 	\Cake\Core\Plugin,
+	\Cake\Core\App,
 	\Cake\Utility\Inflector,
-	\Cake\Utility\Folder;
+	\Cake\Utility\Folder,
+	\Cake\Utility\File;
 
 /**
  * Language string extractor
@@ -356,7 +358,7 @@ class ExtractTask extends Shell {
 
 		foreach ($models as $model) {
 			App::uses($model, $plugin . 'Model');
-			$reflection = new ReflectionClass($model);
+			$reflection = new \ReflectionClass($model);
 			if (!$reflection->isSubClassOf('Model')) {
 				continue;
 			}

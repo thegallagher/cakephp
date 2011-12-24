@@ -18,18 +18,13 @@
  * @since         CakePHP v 1.2.0.7726
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ViewTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('ProjectTask', 'Console/Command/Task');
-App::uses('DbConfigTask', 'Console/Command/Task');
-App::uses('Model', 'Model');
-App::uses('Controller', 'Controller');
+namespace Cake\Test\TestCase\Console\Command\Task;
+use \Cake\TestSuite\TestCase,
+	\Cake\Console\Command\Task\ViewTask,
+	\Cake\Console\Command\Task\TemplateTask,
+	\Cake\Model\Model,
+	\Cake\Controller\Controller,
+	\Cake\Core\Configure;
 
 /**
  * Test View Task Comment Model
@@ -198,7 +193,7 @@ class ViewTaskArticlesController extends Controller {
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ViewTaskTest extends CakeTestCase {
+class ViewTaskTest extends TestCase {
 
 /**
  * Fixtures
@@ -216,17 +211,17 @@ class ViewTaskTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
-		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
+		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
+		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
 
-		$this->Task = $this->getMock('ViewTask',
+		$this->Task = $this->getMock('Cake\Console\Command\Task\ViewTask',
 			array('in', 'err', 'createFile', '_stop'),
 			array($out, $out, $in)
 		);
 		$this->Task->Template = new TemplateTask($out, $out, $in);
-		$this->Task->Controller = $this->getMock('ControllerTask', array(), array($out, $out, $in));
-		$this->Task->Project = $this->getMock('ProjectTask', array(), array($out, $out, $in));
-		$this->Task->DbConfig = $this->getMock('DbConfigTask', array(), array($out, $out, $in));
+		$this->Task->Controller = $this->getMock('Cake\Console\Command\Task\ControllerTask', array(), array($out, $out, $in));
+		$this->Task->Project = $this->getMock('Cake\Console\Command\Task\ProjectTask', array(), array($out, $out, $in));
+		$this->Task->DbConfig = $this->getMock('Cake\Console\Command\Task\DbConfigTask', array(), array($out, $out, $in));
 
 		$this->Task->path = TMP;
 		$this->Task->Template->params['theme'] = 'default';

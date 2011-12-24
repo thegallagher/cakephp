@@ -19,6 +19,9 @@
 namespace Cake\Console\Command\Task;
 use \Cake\Console\Shell,
 	\Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Utility\String,
+	\Cake\Utility\Security,
 	\Cake\Utility\File,
 	\Cake\Utility\Folder;
 
@@ -287,7 +290,6 @@ class ProjectTask extends Shell {
 		$File = new File($path . 'Config' . DS . 'core.php');
 		$contents = $File->read();
 		if (preg_match('/([\s]*Configure::write\(\'Security.cipherSeed\',[\s\'A-z0-9]*\);)/', $contents, $match)) {
-			App::uses('Security', 'Utility');
 			$string = substr(bin2hex(Security::generateAuthKey()), 0, 30);
 			$result = str_replace($match[0], "\t" . 'Configure::write(\'Security.cipherSeed\', \'' . $string . '\');', $contents);
 			if ($File->write($result)) {

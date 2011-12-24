@@ -363,7 +363,7 @@ class TestShell extends Shell {
 				$testCase = substr($file, 0, -8);
 				$testCase = str_replace(DS, '/', $testCase);
 
-				if ($testCase = preg_replace('@.*Test\/Case\/@', '', $testCase)) {
+				if ($testCase = preg_replace('@.*Test\/TestCase\/@', '', $testCase)) {
 
 					if ($category === 'core') {
 						$testCase = str_replace('lib/Cake', '', $testCase);
@@ -383,7 +383,7 @@ class TestShell extends Shell {
 			$testCase = str_replace(DS, '/', $file);
 			$testCase = preg_replace('@.*lib/Cake/@', '', $file);
 			$testCase[0] = strtoupper($testCase[0]);
-			$testFile = CAKE . 'Test/Case/' . $testCase . 'Test.php';
+			$testFile = CAKE . 'Test/TestCase/' . $testCase . 'Test.php';
 
 			if (!file_exists($testFile) && $throwOnMissingFile) {
 				throw new \Exception(__d('cake_dev', 'Test case %s not found', $testFile));
@@ -393,11 +393,11 @@ class TestShell extends Shell {
 		}
 
 		if ($category === 'app') {
-			$testFile = str_replace(APP, APP . 'Test/Case/', $file) . 'Test.php';
+			$testFile = str_replace(APP, APP . 'Test/TestCase/', $file) . 'Test.php';
 		} else {
 			$testFile = preg_replace(
 				"@((?:plugins|Plugin)[\\/]{$category}[\\/])(.*)$@",
-				'\1Test/Case/\2Test.php',
+				'\1Test/TestCase/\2Test.php',
 				$file
 			);
 		}
@@ -408,7 +408,7 @@ class TestShell extends Shell {
 
 		$testCase = substr($testFile, 0, -8);
 		$testCase = str_replace(DS, '/', $testCase);
-		$testCase = preg_replace('@.*Test/Case/@', '', $testCase);
+		$testCase = preg_replace('@.*Test/TestCase/@', '', $testCase);
 
 		return $testCase;
 	}

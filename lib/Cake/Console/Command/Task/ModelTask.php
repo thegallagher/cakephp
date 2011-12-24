@@ -17,8 +17,10 @@
  */
 namespace Cake\Console\Command\Task;
 use \Cake\Core\App,
+	\Cake\Console\Shell,
 	\Cake\Model\Model,
 	\Cake\Model\ConnectionManager,
+	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector;
 
 /**

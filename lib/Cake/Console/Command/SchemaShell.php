@@ -24,6 +24,7 @@ use \Cake\Console\Shell,
 	\Cake\Model\Schema,
 	\Cake\Model\ConnectionManager,
 	\Cake\Utility\File,
+	\Cake\Utility\Folder,
 	\Cake\Utility\Inflector;
 
 /**

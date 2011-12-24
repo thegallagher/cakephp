@@ -18,10 +18,13 @@
  * @since         CakePHP v 1.2.0.7726
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('Folder', 'Utility');
+namespace Cake\Test\TestCase\Console;
+use \Cake\TestSuite\TestCase,
+	\Cake\Console\Shell,
+	\Cake\Core\App,
+	\Cake\Core\Plugin,
+	\Cake\Utility\Folder,
+	\Cake\Utility\Set;
 
 /**
  * ShellTestShell class
@@ -102,7 +105,7 @@ class TestBananaTask extends Shell {
  *
  * @package       Cake.Test.Case.Console.Command
  */
-class ShellTest extends CakeTestCase {
+class ShellTest extends TestCase {
 
 /**
  * Fixtures used in this test case
@@ -122,9 +125,9 @@ class ShellTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$output = $this->getMock('ConsoleOutput', array(), array(), '', false);
-		$error = $this->getMock('ConsoleOutput', array(), array(), '', false);
-		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
+		$output = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
+		$error = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
+		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
 		$this->Shell = new ShellTestShell($output, $error, $in);
 
 		if (is_dir(TMP . 'shell_test')) {
@@ -140,9 +143,9 @@ class ShellTest extends CakeTestCase {
  */
 	public function testConstruct() {
 		$this->assertEquals($this->Shell->name, 'ShellTestShell');
-		$this->assertInstanceOf('ConsoleInput', $this->Shell->stdin);
-		$this->assertInstanceOf('ConsoleOutput', $this->Shell->stdout);
-		$this->assertInstanceOf('ConsoleOutput', $this->Shell->stderr);
+		$this->assertInstanceOf('Cake\Console\ConsoleInput', $this->Shell->stdin);
+		$this->assertInstanceOf('Cake\Console\ConsoleOutput', $this->Shell->stdout);
+		$this->assertInstanceOf('Cake\Console\ConsoleOutput', $this->Shell->stderr);
 	}
 
 /**
@@ -175,14 +178,14 @@ class ShellTest extends CakeTestCase {
 			'models' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
 		), true);
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Shell->uses = array('TestPlugin.TestPluginPost');
 		$this->Shell->initialize();
 
 		$this->assertTrue(isset($this->Shell->TestPluginPost));
 		$this->assertInstanceOf('TestPluginPost', $this->Shell->TestPluginPost);
 		$this->assertEquals($this->Shell->modelClass, 'TestPluginPost');
-		CakePlugin::unload('TestPlugin');
+		Plugin::unload('TestPlugin');
 
 		$this->Shell->uses = array('Comment');
 		$this->Shell->initialize();
@@ -718,8 +721,8 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandMain() {
-		$methods = get_class_methods('Shell');
-		$Mock = $this->getMock('Shell', array('main', 'startup'), array(), '', false);
+		$methods = get_class_methods('Cake\Console\Shell');
+		$Mock = $this->getMock('Cake\Console\Shell', array('main', 'startup'), array(), '', false);
 
 		$Mock->expects($this->once())->method('main')->will($this->returnValue(true));
 		$result = $Mock->runCommand(null, array());
@@ -732,8 +735,8 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandWithMethod() {
-		$methods = get_class_methods('Shell');
-		$Mock = $this->getMock('Shell', array('hit_me', 'startup'), array(), '', false);
+		$methods = get_class_methods('Cake\Console\Shell');
+		$Mock = $this->getMock('Cake\Console\Shell', array('hit_me', 'startup'), array(), '', false);
 
 		$Mock->expects($this->once())->method('hit_me')->will($this->returnValue(true));
 		$result = $Mock->runCommand('hit_me', array());
@@ -746,8 +749,8 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandBaseclassMethod() {
-		$Mock = $this->getMock('Shell', array('startup', 'getOptionParser', 'out'), array(), '', false);
-		$Parser = $this->getMock('ConsoleOptionParser', array(), array(), '', false);
+		$Mock = $this->getMock('Cake\Console\Shell', array('startup', 'getOptionParser', 'out'), array(), '', false);
+		$Parser = $this->getMock('Cake\Console\ConsoleOptionParser', array(), array(), '', false);
 
 		$Parser->expects($this->once())->method('help');
 		$Mock->expects($this->once())->method('getOptionParser')
@@ -764,9 +767,9 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandMissingMethod() {
-		$methods = get_class_methods('Shell');
+		$methods = get_class_methods('Cake\Console\Shell');
 		$Mock = $this->getMock('Shell', array('startup', 'getOptionParser', 'out'), array(), '', false);
-		$Parser = $this->getMock('ConsoleOptionParser', array(), array(), '', false);
+		$Parser = $this->getMock('Cake\Console\ConsoleOptionParser', array(), array(), '', false);
 
 		$Parser->expects($this->once())->method('help');
 		$Mock->expects($this->never())->method('idontexist');
@@ -785,13 +788,13 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandTriggeringHelp() {
-		$Parser = $this->getMock('ConsoleOptionParser', array(), array(), '', false);
+		$Parser = $this->getMock('Cake\Console\ConsoleOptionParser', array(), array(), '', false);
 		$Parser->expects($this->once())->method('parse')
 			->with(array('--help'))
 			->will($this->returnValue(array(array('help' => true), array())));
 		$Parser->expects($this->once())->method('help');
 
-		$Shell = $this->getMock('Shell', array('getOptionParser', 'out', 'startup', '_welcome'), array(), '', false);
+		$Shell = $this->getMock('Cake\Console\Shell', array('getOptionParser', 'out', 'startup', '_welcome'), array(), '', false);
 		$Shell->expects($this->once())->method('getOptionParser')
 			->will($this->returnValue($Parser));
 		$Shell->expects($this->once())->method('out');
@@ -805,8 +808,8 @@ class ShellTest extends CakeTestCase {
  * @return void
  */
 	public function testRunCommandHittingTask() {
-		$Shell = $this->getMock('Shell', array('hasTask', 'startup'), array(), '', false);
-		$task = $this->getMock('Shell', array('execute', 'runCommand'), array(), '', false);
+		$Shell = $this->getMock('Cake\Console\Shell', array('hasTask', 'startup'), array(), '', false);
+		$task = $this->getMock('Cake\Console\Shell', array('execute', 'runCommand'), array(), '', false);
 		$task->expects($this->any())
 			->method('runCommand')
 			->with('execute', array('one', 'value'));

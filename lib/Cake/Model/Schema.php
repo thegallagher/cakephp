@@ -309,7 +309,8 @@ class Schema extends Object {
 					}
 					$table = $this->_noPrefixTable($prefix, $table);
 				}
-				$Object = new AppModel(array(
+				$modelClass = App::classname('Model', 'Model');
+				$Object = new $modelClass(array(
 					'name' => Inflector::classify($table), 'table' => $table, 'ds' => $connection
 				));
 

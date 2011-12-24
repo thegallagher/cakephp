@@ -16,18 +16,15 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ShellDispatcher', 'Console');
-App::uses('Shell', 'Console');
-App::uses('CakeSchema', 'Model');
-App::uses('ClassRegistry', 'Utility');
-App::uses('Helper', 'View/Helper');
-App::uses('ProjectTask', 'Console/Command/Task');
-App::uses('ControllerTask', 'Console/Command/Task');
-App::uses('ModelTask', 'Console/Command/Task');
-App::uses('TemplateTask', 'Console/Command/Task');
-App::uses('TestTask', 'Console/Command/Task');
-App::uses('Model', 'Model');
+namespace Cake\Test\TestCase\Console\Command\Task;
+use \Cake\TestSuite\TestCase,
+	\Cake\Console\Command\Task\ControllerTask,
+	\Cake\Console\Command\Task\TemplateTask,
+	\Cake\Console\Shell,
+	\Cake\Model\Model,
+	\Cake\Model\Schema,
+	\Cake\View\Helper;
+	\Cake\Utility\ClassRegistry;
 
 App::uses('BakeArticle', 'Model');
 App::uses('BakeComment', 'Model');
@@ -49,7 +46,7 @@ if (!$imported) {
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ControllerTaskTest extends CakeTestCase {
+class ControllerTaskTest extends TestCase {
 
 /**
  * fixtures
@@ -65,9 +62,9 @@ class ControllerTaskTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
-		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
-		$this->Task = $this->getMock('ControllerTask',
+		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
+		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
+		$this->Task = $this->getMock('Cake\Console\Command\Task\ControllerTask',
 			array('in', 'out', 'err', 'hr', 'createFile', '_stop', '_checkUnitTest'),
 			array($out, $out, $in)
 		);
@@ -75,15 +72,15 @@ class ControllerTaskTest extends CakeTestCase {
 		$this->Task->Template = new TemplateTask($out, $out, $in);
 		$this->Task->Template->params['theme'] = 'default';
 
-		$this->Task->Model = $this->getMock('ModelTask',
+		$this->Task->Model = $this->getMock('Cake\Console\Command\Task\ModelTask',
 			array('in', 'out', 'err', 'createFile', '_stop', '_checkUnitTest'),
 			array($out, $out, $in)
 		);
-		$this->Task->Project = $this->getMock('ProjectTask',
+		$this->Task->Project = $this->getMock('Cake\Console\Command\Task\ProjectTask',
 			array('in', 'out', 'err', 'createFile', '_stop', '_checkUnitTest', 'getPrefix'),
 			array($out, $out, $in)
 		);
-		$this->Task->Test = $this->getMock('TestTask', array(), array($out, $out, $in));
+		$this->Task->Test = $this->getMock('Cake\Console\Command\Task\TestTask', array(), array($out, $out, $in));
 	}
 
 /**

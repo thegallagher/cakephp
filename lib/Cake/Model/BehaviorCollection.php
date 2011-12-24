@@ -21,6 +21,7 @@
 namespace Cake\Model;
 use \Cake\Utility\ObjectCollection,
 	\Cake\Utility\ClassRegistry,
+	\Cake\Core\App,
 	\Cake\Error;
 
 /**
@@ -115,13 +116,10 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 		if (!isset($alias)) {
 			$alias = $name;
 		}
-
-		$class = $name . 'Behavior';
-
-		App::uses($class, $plugin . 'Model/Behavior');
-		if (!class_exists($class)) {
+		$class = App::classname($behavior, 'Model/Behavior', 'Behavior');
+		if (!$class) {
 			throw new Error\MissingBehaviorException(array(
-				'class' => $class,
+				'class' => $name . 'Behavior',
 				'plugin' => substr($plugin, 0, -1)
 			));
 		}
@@ -152,7 +150,8 @@ class BehaviorCollection extends ObjectCollection implements CakeEventListener {
 			$this->_mappedMethods[$method] = array($alias, $methodAlias);
 		}
 		$methods = get_class_methods($this->_loaded[$alias]);
-		$parentMethods = array_flip(get_class_methods('ModelBehavior'));
+		$x = new \Cake\Model\ModelBehavior();
+		$parentMethods = array_flip(get_class_methods('Cake\Model\ModelBehavior'));
 		$callbacks = array(
 			'setup', 'cleanup', 'beforeFind', 'afterFind', 'beforeSave', 'afterSave',
 			'beforeDelete', 'afterDelete', 'onError'

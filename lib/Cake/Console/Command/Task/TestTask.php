@@ -19,6 +19,7 @@ namespace Cake\Console\Command\Task;
 use \Cake\Core\App,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector,
+	\Cake\Console\Shell,
 	\Cake\Error;
 
 /**

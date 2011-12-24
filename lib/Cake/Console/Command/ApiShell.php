@@ -209,7 +209,7 @@ class ApiShell extends Shell {
 			}
 		}
 
-		$reflection = new ReflectionClass($class);
+		$reflection = new \ReflectionClass($class);
 
 		foreach ($reflection->getMethods() as $method) {
 			if (!$method->isPublic() || strpos($method->getName(), '_') === 0) {

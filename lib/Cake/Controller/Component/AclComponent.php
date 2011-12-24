@@ -22,6 +22,9 @@ namespace Cake\Controller\Component;
 use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Core\Object,
+	\Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Configure\IniReader,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Inflector,
 	\Cake\Utility\Set,
@@ -271,7 +274,6 @@ class DbAcl extends Object implements AclInterface {
  */
 	public function __construct() {
 		parent::__construct();
-		App::uses('AclNode', 'Model');
 		$this->Aro = ClassRegistry::init(array('class' => 'Aro', 'alias' => 'Aro'));
 		$this->Aco = ClassRegistry::init(array('class' => 'Aco', 'alias' => 'Aco'));
 	}
@@ -660,7 +662,6 @@ class IniAcl extends Object implements AclInterface {
  * @return array INI section structure
  */
 	public function readConfigFile($filename) {
-		App::uses('IniReader', 'Configure');
 		$iniFile = new IniReader(dirname($filename) . DS);
 		return $iniFile->read(basename($filename));
 	}

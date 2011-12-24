@@ -18,21 +18,19 @@
  * @since         CakePHP v 1.3.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('ShellDispatcher', 'Console');
-App::uses('ConsoleOutput', 'Console');
-App::uses('ConsoleInput', 'Console');
-App::uses('Shell', 'Console');
-App::uses('ProjectTask', 'Console/Command/Task');
-App::uses('Folder', 'Utility');
-App::uses('File', 'Utility');
+namespace Cake\Test\TestCase\Console\Command\Task;
+use \Cake\TestSuite\TestCase,
+	\Cake\Console\Command\Task\ProjectTask,
+	\Cake\Core\Configure,
+	\Cake\Utility\File,
+	\Cake\Utility\Folder;
 
 /**
  * ProjectTask Test class
  *
  * @package       Cake.Test.Case.Console.Command.Task
  */
-class ProjectTaskTest extends CakeTestCase {
+class ProjectTaskTest extends TestCase {
 
 /**
  * setUp method
@@ -41,10 +39,10 @@ class ProjectTaskTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$out = $this->getMock('ConsoleOutput', array(), array(), '', false);
-		$in = $this->getMock('ConsoleInput', array(), array(), '', false);
+		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
+		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
 
-		$this->Task = $this->getMock('ProjectTask',
+		$this->Task = $this->getMock('Cake\Console\Command\Task\ProjectTask',
 			array('in', 'err', 'createFile', '_stop'),
 			array($out, $out, $in)
 		);
