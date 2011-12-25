@@ -16,22 +16,20 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Test\TestCase\Controller\Component\Auth;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\Component\Auth\BasicAuthenticate,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Security;
 
-App::uses('AuthComponent', 'Controller/Component');
-App::uses('BasicAuthenticate', 'Controller/Component/Auth');
-App::uses('AppModel', 'Model');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-
-
-require_once  CAKE . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'models.php';
+require_once  CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
 
 /**
  * Test case for BasicAuthentication
  *
  * @package       Cake.Test.Case.Controller.Component.Auth
  */
-class BasicAuthenticateTest extends CakeTestCase {
+class BasicAuthenticateTest extends TestCase {
 
 	public $fixtures = array('core.user', 'core.auth_user');
 
@@ -42,7 +40,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->Collection = $this->getMock('ComponentCollection');
+		$this->Collection = $this->getMock('Cake\Controller\ComponentCollection');
 		$this->auth = new BasicAuthenticate($this->Collection, array(
 			'fields' => array('username' => 'user', 'password' => 'password'),
 			'userModel' => 'User',
@@ -54,7 +52,7 @@ class BasicAuthenticateTest extends CakeTestCase {
 		$User = ClassRegistry::init('User');
 		$User->updateAll(array('password' => $User->getDataSource()->value($password)));
 		$this->server = $_SERVER;
-		$this->response = $this->getMock('CakeResponse');
+		$this->response = $this->getMock('Cake\Network\Response');
 	}
 
 /**
@@ -88,7 +86,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoData() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 
 		$this->response->expects($this->once())
 			->method('header')
@@ -103,7 +101,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoUsername() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$_SERVER['PHP_AUTH_PW'] = 'foobar';
 
 		$this->response->expects($this->once())
@@ -119,7 +117,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateNoPassword() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$_SERVER['PHP_AUTH_USER'] = 'mariano';
 		$_SERVER['PHP_AUTH_PW'] = null;
 
@@ -136,7 +134,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateInjection() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_USER'] = '> 1';
@@ -151,7 +149,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateChallenge() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$this->response->expects($this->at(0))
@@ -171,7 +169,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthenticateSuccess() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_USER'] = 'mariano';
@@ -194,7 +192,7 @@ class BasicAuthenticateTest extends CakeTestCase {
  */
 	public function testAuthenticateFailReChallenge() {
 		$this->auth->settings['scope'] = array('user' => 'nate');
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array('pass' => array(), 'named' => array()));
 
 		$_SERVER['PHP_AUTH_USER'] = 'mariano';

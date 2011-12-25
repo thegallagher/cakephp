@@ -16,16 +16,18 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AclComponent', 'Controller/Component');
-class_exists('AclComponent');
+namespace Cake\Test\TestCase\Controller\Component;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\Component\AclComponent,
+	\Cake\Controller\Component\IniAcl;
+class_exists('Cake\Controller\Component\AclComponent');
 
 /**
  * Test case for the IniAcl implementation
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class IniAclTest extends CakeTestCase {
+class IniAclTest extends TestCase {
 
 /**
  * testIniCheck method

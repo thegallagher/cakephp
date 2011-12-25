@@ -18,7 +18,11 @@
  * @since         CakePHP(tm) v 1.2.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Controller', 'Controller');
+namespace Cake\Test\TestCase\Controller;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\ControllerMergeVars,
+	\Cake\Controller\Controller,
+	\Cake\Core\Object;
 
 /**
  * Test case AppController
@@ -138,7 +142,7 @@ class MergePostsController extends MergeVarPluginAppController {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ControllerMergeVarsTest extends CakeTestCase {
+class ControllerMergeVarsTest extends TestCase {
 
 /**
  * test that component settings are not duplicated when merging component settings

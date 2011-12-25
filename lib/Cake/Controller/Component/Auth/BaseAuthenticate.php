@@ -15,6 +15,7 @@
 namespace Cake\Controller\Component\Auth;
 use \Cake\Controller\ComponentCollection,
 	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Set,
 	\Cake\Network\Request,
 	\Cake\Network\Response,
 	\Cake\Utility\Security;

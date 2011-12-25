@@ -16,11 +16,17 @@
  * @since         CakePHP(tm) v 1.2.0.5347
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Controller', 'Controller');
-App::uses('AuthComponent', 'Controller/Component');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('FormAuthenticate', 'Controller/Component/Auth');
+namespace Cake\Test\TestCase\Controller\Component;
+use \Cake\TestSuite\TestCase,
+	\Cake\TestSuite\Fixture\TestModel,
+	\Cake\Controller\Component\AuthComponent,
+	\Cake\Controller\Controller,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Core\Configure,
+	\Cake\Network\Request,
+	\Cake\Routing\Router,
+	\Cake\Utility\ClassRegistry,
+	\Cake\Utility\Security;
 
 /**
 * TestAuthComponent class
@@ -58,7 +64,7 @@ class TestAuthComponent extends AuthComponent {
 * @package       Cake.Test.Case.Controller.Component
 * @package       Cake.Test.Case.Controller.Component
 */
-class AuthUser extends CakeTestModel {
+class AuthUser extends TestModel {
 
 /**
  * name property
@@ -277,7 +283,7 @@ class AjaxAuthController extends Controller {
 * @package       Cake.Test.Case.Controller.Component
 * @package       Cake.Test.Case.Controller.Component
 */
-class AuthComponentTest extends CakeTestCase {
+class AuthComponentTest extends TestCase {
 
 /**
  * name property
@@ -313,15 +319,15 @@ class AuthComponentTest extends CakeTestCase {
 		Configure::write('Security.salt', 'YJfIxfs2guVoUubWDYhG93b0qyJfIxfs2guwvniR2G0FgaC9mi');
 		Configure::write('Security.cipherSeed', 770011223369876);
 
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 
-		$this->Controller = new AuthTestController($request, $this->getMock('CakeResponse'));
+		$this->Controller = new AuthTestController($request, $this->getMock('Cake\Network\Response'));
 
 		$collection = new ComponentCollection();
 		$collection->init($this->Controller);
 		$this->Auth = new TestAuthComponent($collection);
 		$this->Auth->request = $request;
-		$this->Auth->response = $this->getMock('CakeResponse');
+		$this->Auth->response = $this->getMock('Cake\Network\Response');
 
 		$this->Controller->Components->init($this->Controller);
 
@@ -384,13 +390,13 @@ class AuthComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testLogin() {
-		$this->getMock('FormAuthenticate', array(), array(), 'AuthLoginFormAuthenticate', false);
+		$this->getMock('Cake\Controller\Component\Auth\FormAuthenticate', array(), array(), 'AuthLoginFormAuthenticate', false);
 		$this->Auth->authenticate = array(
 			'AuthLoginForm' => array(
 				'userModel' => 'AuthUser'
 			)
 		);
-		$this->Auth->Session = $this->getMock('SessionComponent', array('renew'), array(), '', false);
+		$this->Auth->Session = $this->getMock('Cake\Controller\Component\SessionComponent', array('renew'), array(), '', false);
 
 		$mocks = $this->Auth->constructAuthenticate();
 		$this->mockObjects[] = $mocks[0];
@@ -853,7 +859,7 @@ class AuthComponentTest extends CakeTestCase {
 		$_SERVER['HTTP_REFERER'] = 'http://webmail.example.com/view/message';
 		$this->Auth->Session->delete('Auth');
 		$url = '/posts/edit/1';
-		$this->Auth->request = $this->Controller->request = new CakeRequest($url);
+		$this->Auth->request = $this->Controller->request = new Request($url);
 		$this->Auth->request->addParams(Router::parse($url));
 		$this->Auth->request->url = $this->Auth->request->here = Router::normalize($url);
 		$this->Auth->initialize($this->Controller);
@@ -866,7 +872,7 @@ class AuthComponentTest extends CakeTestCase {
 		$_SERVER['HTTP_REFERER'] = 'http://webmail.example.com/view/message';
 		$this->Auth->Session->delete('Auth');
 		$url = '/AuthTest/login';
-		$this->Auth->request = $this->Controller->request = new CakeRequest($url);
+		$this->Auth->request = $this->Controller->request = new Request($url);
 		$this->Auth->request->addParams(Router::parse($url));
 		$this->Auth->request->url = Router::normalize($url);
 		$this->Auth->initialize($this->Controller);
@@ -888,7 +894,7 @@ class AuthComponentTest extends CakeTestCase {
 		$controller->methods = array('login');
 
 		$url = '/AuthTest/login';
-		$this->Auth->request = $controller->request = new CakeRequest($url);
+		$this->Auth->request = $controller->request = new Request($url);
 		$this->Auth->request->addParams(Router::parse($url));
 		$this->Auth->loginAction = array('controller' => 'AuthTest', 'action' => 'login');
 		$this->Auth->authorize = array('Controller');
@@ -957,7 +963,7 @@ class AuthComponentTest extends CakeTestCase {
 
 		ob_start();
 		$Dispatcher = new Dispatcher();
-		$Dispatcher->dispatch(new CakeRequest('/ajax_auth/add'), new CakeResponse(), array('return' => 1));
+		$Dispatcher->dispatch(new Request('/ajax_auth/add'), new CakeResponse(), array('return' => 1));
 		$result = ob_get_clean();
 
 		$this->assertEquals("Ajax!\nthis is the test element", str_replace("\r\n", "\n", $result));
@@ -1042,7 +1048,7 @@ class AuthComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testComponentSettings() {
-		$request = new CakeRequest(null, false);
+		$request = new Request(null, false);
 		$this->Controller = new AuthTestController($request, $this->getMock('CakeResponse'));
 
 		$this->Controller->components = array(
@@ -1119,7 +1125,7 @@ class AuthComponentTest extends CakeTestCase {
  */
 	public function testLoginWithRequestData() {
 		$this->getMock('FormAuthenticate', array(), array(), 'RequestLoginMockAuthenticate', false);
-		$request = new CakeRequest('users/login', false);
+		$request = new Request('users/login', false);
 		$user = array('username' => 'mark', 'role' => 'admin');
 
 		$this->Auth->request = $request;

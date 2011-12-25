@@ -16,10 +16,15 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('AclComponent', 'Controller/Component');
-App::uses('AclNode', 'Model');
-class_exists('AclComponent');
+namespace Cake\Test\TestCase\Controller\Component;
+use \Cake\TestSuite\TestCase,
+	\Cake\TestSuite\Fixture\TestModel,
+	\Cake\Controller\Component\AclComponent,
+	\Cake\Controller\Component\DbAcl,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Model\AclNode,
+	\Cake\Core\Configure;
+class_exists('Cake\Controller\Component\AclComponent');
 
 /**
  * AclNodeTwoTestBase class
@@ -106,7 +111,7 @@ class AcoTwoTest extends AclNodeTwoTestBase {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class PermissionTwoTest extends CakeTestModel {
+class PermissionTwoTest extends TestModel {
 
 /**
  * name property
@@ -169,7 +174,7 @@ class DbAclTwoTest extends DbAcl {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class DbAclTest extends CakeTestCase {
+class DbAclTest extends TestCase {
 /**
  * fixtures property
  *
@@ -184,7 +189,7 @@ class DbAclTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		Configure::write('Acl.classname', 'DbAclTwoTest');
+		Configure::write('Acl.classname', __NAMESPACE__ . '\DbAclTwoTest');
 		Configure::write('Acl.database', 'test');
 		$Collection = new ComponentCollection();
 		$this->Acl = new AclComponent($Collection);

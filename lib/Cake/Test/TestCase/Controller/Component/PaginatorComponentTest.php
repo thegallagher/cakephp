@@ -18,11 +18,13 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Controller', 'Controller');
-App::uses('PaginatorComponent', 'Controller/Component');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
+namespace Cake\Test\TestCase\Controller\Component;
+use \Cake\TestSuite\TestCase,
+	\Cake\TestSuite\Fixture\TestModel,
+	\Cake\Controller\Component\PaginatorComponent,
+	\Cake\Controller\Controller,
+	\Cake\Network\Request,
+	\Cake\Utility\Set;
 
 /**
  * PaginatorTestController class
@@ -57,7 +59,7 @@ class PaginatorTestController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class PaginatorControllerPost extends CakeTestModel {
+class PaginatorControllerPost extends TestModel {
 
 /**
  * name property
@@ -126,7 +128,7 @@ class PaginatorControllerPost extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class ControllerPaginateModel extends CakeTestModel {
+class ControllerPaginateModel extends TestModel {
 
 /**
  * name property
@@ -166,7 +168,7 @@ class ControllerPaginateModel extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class PaginatorControllerComment extends CakeTestModel {
+class PaginatorControllerComment extends TestModel {
 
 /**
  * name property
@@ -195,7 +197,7 @@ class PaginatorControllerComment extends CakeTestModel {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class PaginatorAuthor extends CakeTestModel {
+class PaginatorAuthor extends TestModel {
 
 /**
  * name property
@@ -229,7 +231,7 @@ class PaginatorAuthor extends CakeTestModel {
 
 }
 
-class PaginatorComponentTest extends CakeTestCase {
+class PaginatorComponentTest extends TestCase {
 
 /**
  * fixtures property
@@ -245,12 +247,12 @@ class PaginatorComponentTest extends CakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->request = new CakeRequest('controller_posts/index');
+		$this->request = new Request('controller_posts/index');
 		$this->request->params['pass'] = $this->request->params['named'] = array();
 		$this->Controller = new Controller($this->request);
-		$this->Paginator = new PaginatorComponent($this->getMock('ComponentCollection'), array());
+		$this->Paginator = new PaginatorComponent($this->getMock('Cake\Controller\ComponentCollection'), array());
 		$this->Paginator->Controller = $this->Controller;
-		$this->Controller->Post = $this->getMock('Model');
+		$this->Controller->Post = $this->getMock('Cake\Model\Model');
 		$this->Controller->Post->alias = 'Post';
 	}
 
@@ -702,7 +704,7 @@ class PaginatorComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testValidateSortInvalidDirection() {
-		$model = $this->getMock('Model');
+		$model = $this->getMock('Cake\Model\Model');
 		$model->alias = 'model';
 		$model->expects($this->any())->method('hasField')->will($this->returnValue(true));
 
@@ -718,7 +720,7 @@ class PaginatorComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testValidateSortWhitelistFailure() {
-		$model = $this->getMock('Model');
+		$model = $this->getMock('Cake\Model\Model');
 		$model->alias = 'model';
 		$model->expects($this->any())->method('hasField')->will($this->returnValue(true));
 
@@ -734,7 +736,7 @@ class PaginatorComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testValidateSortVirtualField() {
-		$model = $this->getMock('Model');
+		$model = $this->getMock('Cake\Model\Model');
 		$model->alias = 'model';
 
 		$model->expects($this->at(0))
@@ -759,7 +761,7 @@ class PaginatorComponentTest extends CakeTestCase {
  * @return void
  */
 	public function testValidateSortMultiple() {
-		$model = $this->getMock('Model');
+		$model = $this->getMock('Cake\Model\Model');
 		$model->alias = 'model';
 		$model->expects($this->any())->method('hasField')->will($this->returnValue(true));
 

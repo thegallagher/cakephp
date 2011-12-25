@@ -16,8 +16,14 @@
  * @since         CakePHP(tm) v 1.2.0.5436
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Controller', 'Controller');
-App::uses('SessionComponent', 'Controller/Component');
+namespace Cake\Test\TestCase\Controller\Component;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\Component\SessionComponent,
+	\Cake\Controller\Controller,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Model\Datasource\Session,
+	\Cake\Core\Configure,
+	\Cake\Core\Object;
 
 /**
  * SessionTestController class
@@ -72,7 +78,7 @@ class OrangeSessionTestController extends Controller {
  *
  * @package       Cake.Test.Case.Controller.Component
  */
-class SessionComponentTest extends CakeTestCase {
+class SessionComponentTest extends TestCase {
 
 	protected static $_sessionBackup;
 
@@ -124,7 +130,7 @@ class SessionComponentTest extends CakeTestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		CakeSession::destroy();
+		Session::destroy();
 	}
 
 /**

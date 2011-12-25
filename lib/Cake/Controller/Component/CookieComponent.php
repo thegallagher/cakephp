@@ -19,6 +19,7 @@
 namespace Cake\Controller\Component;
 use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
+	\Cake\Core\Configure,
 	\Cake\Utility\Set,
 	\Cake\Utility\Security;
 

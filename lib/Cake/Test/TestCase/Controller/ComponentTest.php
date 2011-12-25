@@ -16,9 +16,13 @@
  * @since         CakePHP(tm) v 1.2.0.5436
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-App::uses('Controller', 'Controller');
-App::uses('Component', 'Controller');
+namespace Cake\Test\TestCase\Controller;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\Controller,
+	\Cake\Controller\Component,
+	\Cake\Controller\ComponentCollection,
+	\Cake\Core\App,
+	\Cake\Utility\ClassRegistry;
 
 /**
  * ParamTestComponent
@@ -209,7 +213,7 @@ class SomethingWithEmailComponent extends Component {
  *
  * @package       Cake.Test.Case.Controller
  */
-class ComponentTest extends CakeTestCase {
+class ComponentTest extends TestCase {
 
 /**
  * setUp method
@@ -242,7 +246,7 @@ class ComponentTest extends CakeTestCase {
 		$Collection = new ComponentCollection();
 		$Component = new AppleComponent($Collection);
 
-		$this->assertInstanceOf('OrangeComponent', $Component->Orange, 'class is wrong');
+		$this->assertInstanceOf(__NAMESPACE__ . '\OrangeComponent', $Component->Orange, 'class is wrong');
 	}
 
 /**

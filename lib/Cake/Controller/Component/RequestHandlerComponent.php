@@ -23,6 +23,8 @@ use \Cake\Controller\Component,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Routing\Router,
 	\Cake\Core\Configure,
+	\Cake\Core\App,
+	\Cake\Utility\Inflector,
 	\Cake\Utility\Xml,
 	\Cake\Error;
 
@@ -582,11 +584,11 @@ class RequestHandlerComponent extends Component {
 		}
 		$controller->ext = '.ctp';
 
-		$viewClass = Inflector::classify($type);
-		App::uses($viewClass . 'View', 'View');
+		$view = Inflector::classify($type);
+		$viewClass = App::classname($view, 'View', 'View');
 
-		if (class_exists($viewClass . 'View')) {
-			$controller->viewClass = $viewClass;
+		if ($viewClass) {
+			$controller->viewClass = $view;
 		} elseif (empty($this->_renderType)) {
 			$controller->viewPath .= DS . $type;
 		} else {
@@ -607,9 +609,8 @@ class RequestHandlerComponent extends Component {
 		);
 
 		if (!$isAdded) {
-			App::uses('AppHelper', 'View/Helper');
-			App::uses($helper . 'Helper', 'View/Helper');
-			if (class_exists($helper . 'Helper')) {
+			$helperClass = App::classname($helper, 'View/Helper', 'Helper');
+			if ($helperClass) {
 				$controller->helpers[] = $helper;
 			}
 		}

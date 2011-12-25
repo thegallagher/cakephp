@@ -16,14 +16,14 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+namespace Cake\Test\TestCase\Controller\Component\Auth;
+use \Cake\TestSuite\TestCase,
+	\Cake\Controller\Component\Auth\CrudAuthorize,
+	\Cake\Core\Configure,
+	\Cake\Network\Request,
+	\Cake\Routing\Router;
 
-App::uses('CrudAuthorize', 'Controller/Component/Auth');
-App::uses('ComponentCollection', 'Controller');
-App::uses('AclComponent', 'Controller/Component');
-App::uses('CakeRequest', 'Network');
-App::uses('CakeResponse', 'Network');
-
-class CrudAuthorizeTest extends CakeTestCase {
+class CrudAuthorizeTest extends TestCase {
 
 /**
  * setup
@@ -35,8 +35,8 @@ class CrudAuthorizeTest extends CakeTestCase {
 
 		parent::setUp();
 
-		$this->Acl = $this->getMock('AclComponent', array(), array(), '', false);
-		$this->Components = $this->getMock('ComponentCollection');
+		$this->Acl = $this->getMock('Cake\Controller\Component\AclComponent', array(), array(), '', false);
+		$this->Components = $this->getMock('Cake\Controller\ComponentCollection');
 
 		$this->auth = new CrudAuthorize($this->Components);
 	}
@@ -60,7 +60,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeNoMappedAction() {
-		$request = new CakeRequest('/posts/foobar', false);
+		$request = new Request('/posts/foobar', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'foobar'
@@ -76,7 +76,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeCheckSuccess() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'index'
@@ -98,7 +98,7 @@ class CrudAuthorizeTest extends CakeTestCase {
  * @return void
  */
 	public function testAuthorizeCheckFailure() {
-		$request = new CakeRequest('posts/index', false);
+		$request = new Request('posts/index', false);
 		$request->addParams(array(
 			'controller' => 'posts',
 			'action' => 'index'
