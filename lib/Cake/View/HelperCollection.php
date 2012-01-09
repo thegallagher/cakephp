@@ -19,6 +19,8 @@ namespace Cake\View;
 use \Cake\Utility\ObjectCollection,
 	\Cake\Core\App,
 	\Cake\View\View,
+	\Cake\Event\Event,
+	\Cake\Event\EventListener,
 	\Cake\Error;
 
 /**
@@ -27,7 +29,7 @@ use \Cake\Utility\ObjectCollection,
  *
  * @package       Cake.View
  */
-class HelperCollection extends ObjectCollection implements CakeEventListener {
+class HelperCollection extends ObjectCollection implements EventListener {
 
 /**
  * View object to use when making helpers.
@@ -134,8 +136,8 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  *    Defaults to false.
  *
  *
- * @param string $callback|CakeEvent Method to fire on all the objects. Its assumed all the objects implement
- *   the method you are calling. If an instance of CakeEvent is provided, then then Event name will parsed to
+ * @param string $callback|\Cake\Event\Event Method to fire on all the objects. Its assumed all the objects implement
+ *   the method you are calling. If an instance of Cake\Event\Event is provided, then then Event name will parsed to
  *   get the callback name. This is done by getting the last word after any dot in the event name
  *   (eg. `Model.afterSave` event will trigger the `afterSave` callback)
  * @param array $params Array of parameters for the triggered callback.
@@ -144,7 +146,7 @@ class HelperCollection extends ObjectCollection implements CakeEventListener {
  * @throws CakeException when modParams is used with an index that does not exist.
  */
 	public function trigger($callback, $params = array(), $options = array()) {
-		if ($callback instanceof CakeEvent) {
+		if ($callback instanceof Event) {
 			$callback->omitSubject = true;
 		}
 		return parent::trigger($callback, $params, $options);

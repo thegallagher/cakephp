@@ -18,6 +18,7 @@
  */
 namespace Cake\Test\TestCase\Utility;
 use \Cake\TestSuite\TestCase,
+	\Cake\Event\Event,
 	\Cake\Utility\ObjectCollection;
 
 /**
@@ -530,7 +531,7 @@ class ObjectCollectionTest extends TestCase {
 	}
 	
 /**
- * tests that passing an instance of CakeEvent to trigger will prepend the subject to the list of arguments
+ * tests that passing an instance of Cake\Event\Event to trigger will prepend the subject to the list of arguments
  *
  * @return void
  */
@@ -552,12 +553,12 @@ class ObjectCollectionTest extends TestCase {
 			->with($subjectClass, 'first argument')
 			->will($this->returnValue(true));
 
-		$event = new CakeEvent('callback', $subjectClass, array('first argument'));
+		$event = new Event('callback', $subjectClass, array('first argument'));
 		$this->assertTrue($this->Objects->trigger($event));
 	}
 
 /**
- * tests that passing an instance of CakeEvent to trigger with omitSubject property
+ * tests that passing an instance of Cake\Event\Event to trigger with omitSubject property
  * will NOT prepend the subject to the list of arguments
  *
  * @return void
@@ -580,7 +581,7 @@ class ObjectCollectionTest extends TestCase {
 			->with('first argument')
 			->will($this->returnValue(true));
 
-		$event = new CakeEvent('callback', $subjectClass, array('first argument'));
+		$event = new Event('callback', $subjectClass, array('first argument'));
 		$event->omitSubject = true;
 		$this->assertTrue($this->Objects->trigger($event));
 	}

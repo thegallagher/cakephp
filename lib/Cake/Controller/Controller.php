@@ -23,6 +23,9 @@ use \Cake\Core\Object,
 	\Cake\Utility\Inflector,
 	\Cake\Error,
 	\Cake\Routing\Router,
+	\Cake\Event\EventListener,
+	\Cake\Event\Event,
+	\Cake\Event\EventManager,
 	\Cake\View\View,
 	\Cake\Utility\ClassRegistry;
 
@@ -58,7 +61,7 @@ use \Cake\Core\Object,
  * @property      SessionComponent $Session
  * @link          http://book.cakephp.org/2.0/en/controllers.html
  */
-class Controller extends Object implements CakeEventListener {
+class Controller extends Object implements EventListener {
 
 /**
  * The name of this controller. Controller names are plural, named after the model they manipulate.
@@ -296,10 +299,10 @@ class Controller extends Object implements CakeEventListener {
 	protected $_mergeParent = 'AppController';
 
 /**
- * Instance of the CakeEventManager this controller is using
+ * Instance of the Cake\Event\EventManager this controller is using
  * to dispatch inner events.
  *
- * @var CakeEventManager
+ * @var Cake\Event\EventManager
  */
 	protected $_eventManager = null;
 
@@ -615,15 +618,15 @@ class Controller extends Object implements CakeEventListener {
 	}
 
 /**
- * Returns the CakeEventManager manager instance that is handling any callbacks.
+ * Returns the Cake\Event\EventManager manager instance that is handling any callbacks.
  * You can use this instance to register any new listeners or callbacks to the
  * controller events, or create your own events and trigger them at will.
  *
- * @return CakeEventManager
+ * @return Cake\Event\EventManager
  */
 	public function getEventManager() {
 		if (empty($this->_eventManager)) {
-			$this->_eventManager = new CakeEventManager();
+			$this->_eventManager = new EventManager();
 			$this->_eventManager->attach($this->Components);
 			$this->_eventManager->attach($this);
 		}
@@ -641,8 +644,8 @@ class Controller extends Object implements CakeEventListener {
  * @return void
  */
 	public function startupProcess() {
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.initialize', $this));
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.startup', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.initialize', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.startup', $this));
 	}
 
 /**
@@ -655,7 +658,7 @@ class Controller extends Object implements CakeEventListener {
  * @return void
  */
 	public function shutdownProcess() {
-		$this->getEventManager()->dispatch(new CakeEvent('Controller.shutdown', $this));
+		$this->getEventManager()->dispatch(new Event('Controller.shutdown', $this));
 	}
 
 /**
@@ -729,8 +732,8 @@ class Controller extends Object implements CakeEventListener {
 		if (is_array($status)) {
 			extract($status, EXTR_OVERWRITE);
 		}
-		$event = new CakeEvent('Controller.beforeRedirect', $this, array($url, $status, $exit));
-		//TODO: Remove the following line when the events are fully migrated to the CakeEventManager
+		$event = new Event('Controller.beforeRedirect', $this, array($url, $status, $exit));
+		//TODO: Remove the following line when the events are fully migrated to the Cake\Event\EventManager
 		list($event->break, $event->breakOn, $event->collectReturn) = array(true, false, true);
 		$this->getEventManager()->dispatch($event);
 
@@ -894,7 +897,7 @@ class Controller extends Object implements CakeEventListener {
  * @link http://book.cakephp.org/2.0/en/controllers.html#Controller::render
  */
 	public function render($view = null, $layout = null) {
-		$event = new CakeEvent('Controller.beforeRender', $this);
+		$event = new Event('Controller.beforeRender', $this);
 		$this->getEventManager()->dispatch($event);
 		if ($event->isStopped()) {
 			$this->autoRender = false;

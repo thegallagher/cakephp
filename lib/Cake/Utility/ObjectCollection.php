@@ -11,7 +11,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
-use \Cake\Error;
+use \Cake\Event\Event,
+	\Cake\Error;
 
 /**
  * Deals with Collections of objects.  Keeping registries of those objects,
@@ -84,8 +85,8 @@ abstract class ObjectCollection {
  *    Defaults to false.
  *
  *
- * @param string $callback|CakeEvent Method to fire on all the objects. Its assumed all the objects implement
- *   the method you are calling. If an instance of CakeEvent is provided, then then Event name will parsed to
+ * @param string $callback|Cake\Event\Event Method to fire on all the objects. Its assumed all the objects implement
+ *   the method you are calling. If an instance of Cake\Event\Event is provided, then then Event name will parsed to
  *   get the callback name. This is done by getting the last word after any dot in the event name
  *   (eg. `Model.afterSave` event will trigger the `afterSave` callback)
  * @param array $params Array of parameters for the triggered callback.
@@ -97,7 +98,7 @@ abstract class ObjectCollection {
 		if (empty($this->_enabled)) {
 			return true;
 		}
-		if ($callback instanceof CakeEvent) {
+		if ($callback instanceof Event) {
 			$event = $callback;
 			if (is_array($event->data)) {
 				$params =& $event->data;
@@ -105,7 +106,7 @@ abstract class ObjectCollection {
 			if (empty($event->omitSubject)) {
 				$subject = $event->subject();
 			}
-			//TODO: Temporary BC check, while we move all the triggers system into the CakeEventManager
+			//TODO: Temporary BC check, while we move all the triggers system into the Cake\Event\EventManager
 			foreach (array('break', 'breakOn', 'collectReturn', 'modParams') as $opt) {
 				if (isset($event->{$opt})) {
 					$options[$opt] = $event->{$opt};

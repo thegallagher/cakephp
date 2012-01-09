@@ -1158,11 +1158,11 @@ class ControllerTest extends TestCase {
 	public function testStartupProcess() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('getEventManager'));
 
-		$eventManager = $this->getMock('CakeEventManager');
+		$eventManager = $this->getMock('Cake\Event\EventManager');
 		$eventManager->expects($this->at(0))->method('dispatch')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Cake\Event\Event'),
 					$this->attributeEqualTo('_name', 'Controller.initialize'),
 					$this->attributeEqualTo('_subject', $Controller)
 				)
@@ -1170,7 +1170,7 @@ class ControllerTest extends TestCase {
 		$eventManager->expects($this->at(1))->method('dispatch')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Cake\Event\Event'),
 					$this->attributeEqualTo('_name', 'Controller.startup'),
 					$this->attributeEqualTo('_subject', $Controller)
 				)
@@ -1192,7 +1192,7 @@ class ControllerTest extends TestCase {
 		$Controller->Components = $this->getMock('Cake\Controller\ComponentCollection', array('trigger'));
 
 		$Controller->expects($this->once())->method('beforeFilter');
-		$Controller->Components->expects($this->exactly(2))->method('trigger')->with($this->isInstanceOf('CakeEvent'));
+		$Controller->Components->expects($this->exactly(2))->method('trigger')->with($this->isInstanceOf('Cake\Event\Event'));
 
 		$Controller->startupProcess();
 	}
@@ -1205,11 +1205,11 @@ class ControllerTest extends TestCase {
 	public function testShutdownProcess() {
 		$Controller = $this->getMock('Cake\Controller\Controller', array('getEventManager'));
 
-		$eventManager = $this->getMock('CakeEventManager');
+		$eventManager = $this->getMock('Cake\Event\EventManager');
 		$eventManager->expects($this->once())->method('dispatch')
 			->with(
 				$this->logicalAnd(
-					$this->isInstanceOf('CakeEvent'),
+					$this->isInstanceOf('Cake\Event\Event'),
 					$this->attributeEqualTo('_name', 'Controller.shutdown'),
 					$this->attributeEqualTo('_subject', $Controller)
 				)
@@ -1231,7 +1231,7 @@ class ControllerTest extends TestCase {
 		$Controller->Components = $this->getMock('Cake\Controller\ComponentCollection', array('trigger'));
 
 		$Controller->expects($this->once())->method('afterFilter');
-		$Controller->Components->expects($this->exactly(1))->method('trigger')->with($this->isInstanceOf('CakeEvent'));
+		$Controller->Components->expects($this->exactly(1))->method('trigger')->with($this->isInstanceOf('Cake\Event\Event'));
 
 		$Controller->shutdownProcess();
 	}

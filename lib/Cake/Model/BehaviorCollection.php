@@ -22,6 +22,7 @@ namespace Cake\Model;
 use \Cake\Utility\ObjectCollection,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Core\App,
+	\Cake\Event\EventListener,
 	\Cake\Error;
 
 /**
@@ -31,7 +32,7 @@ use \Cake\Utility\ObjectCollection,
  *
  * @package       Cake.Model
  */
-class BehaviorCollection extends ObjectCollection implements CakeEventListener {
+class BehaviorCollection extends ObjectCollection implements EventListener {
 
 /**
  * Stores a reference to the attached name

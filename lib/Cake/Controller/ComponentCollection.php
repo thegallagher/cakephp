@@ -18,6 +18,7 @@
 namespace Cake\Controller;
 use \Cake\Utility\ObjectCollection,
 	\Cake\Core\App,
+	\Cake\Event\EventListener,
 	\Cake\Error;
 
 /**
@@ -26,7 +27,7 @@ use \Cake\Utility\ObjectCollection,
  *
  * @package       Cake.Controller
  */
-class ComponentCollection extends ObjectCollection implements CakeEventListener {
+class ComponentCollection extends ObjectCollection implements EventListener {
 
 /**
  * The controller that this collection was initialized with.
