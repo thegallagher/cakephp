@@ -23,7 +23,8 @@ use \Cake\TestSuite\TestCase,
 	\Cake\Console\Shell,
 	\Cake\Model\Model,
 	\Cake\Model\Schema,
-	\Cake\View\Helper;
+	\Cake\View\Helper,
+	\Cake\Core\Plugin
 	\Cake\Utility\ClassRegistry;
 
 App::uses('BakeArticle', 'Model');
@@ -304,7 +305,7 @@ class ControllerTaskTest extends TestCase {
 		$uses = array('Comment', 'User');
 
 		//fake plugin path
-		CakePlugin::load('ControllerTest', array('path' =>  APP . 'Plugin' . DS . 'ControllerTest' . DS));
+		Plugin::load('ControllerTest', array('path' =>  APP . 'Plugin' . DS . 'ControllerTest' . DS));
 		$path = APP . 'Plugin' . DS . 'ControllerTest' . DS . 'Controller' . DS . 'ArticlesController.php';
 
 		$this->Task->expects($this->at(1))->method('createFile')->with(
@@ -326,7 +327,7 @@ class ControllerTaskTest extends TestCase {
 		$this->assertEquals('ControllerTest', $this->Task->Template->templateVars['plugin']);
 		$this->assertEquals('ControllerTest.', $this->Task->Template->templateVars['pluginPath']);
 
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

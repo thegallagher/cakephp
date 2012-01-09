@@ -24,6 +24,7 @@ use \Cake\TestSuite\TestCase,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Core\Configure,
 	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Routing\Router,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Security;
@@ -963,7 +964,7 @@ class AuthComponentTest extends TestCase {
 
 		ob_start();
 		$Dispatcher = new Dispatcher();
-		$Dispatcher->dispatch(new Request('/ajax_auth/add'), new CakeResponse(), array('return' => 1));
+		$Dispatcher->dispatch(new Request('/ajax_auth/add'), new Response(), array('return' => 1));
 		$result = ob_get_clean();
 
 		$this->assertEquals("Ajax!\nthis is the test element", str_replace("\r\n", "\n", $result));
@@ -1049,7 +1050,7 @@ class AuthComponentTest extends TestCase {
  */
 	public function testComponentSettings() {
 		$request = new Request(null, false);
-		$this->Controller = new AuthTestController($request, $this->getMock('CakeResponse'));
+		$this->Controller = new AuthTestController($request, $this->getMock('Cake\Network\Response'));
 
 		$this->Controller->components = array(
 			'Auth' => array(

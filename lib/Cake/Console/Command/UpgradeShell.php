@@ -19,6 +19,7 @@
 namespace Cake\Console\Command;
 use \Cake\Console\Shell,
 	\Cake\Core\App,
+	\Cake\Core\Plugin,
 	\Cake\Utility\Folder,
 	\Cake\Utility\Inflector;
 
@@ -227,7 +228,7 @@ class UpgradeShell extends Shell {
 		$plugins = App::objects('plugin');
 		$pluginHelpers = array();
 		foreach ($plugins as $plugin) {
-			CakePlugin::load($plugin);
+			Plugin::load($plugin);
 			$pluginHelpers = array_merge(
 				$pluginHelpers,
 				App::objects('helper', App::pluginPath($plugin) . DS . 'views' . DS . 'helpers' . DS, false)

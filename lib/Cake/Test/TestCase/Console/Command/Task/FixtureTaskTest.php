@@ -19,7 +19,8 @@
 namespace Cake\Test\TestCase\Console\Command\Task;
 use \Cake\TestSuite\TestCase,
 	\Cake\Console\Command\Task\FixtureTask,
-	\Cake\Console\Command\Task\TemplateTask;
+	\Cake\Console\Command\Task\TemplateTask,
+	\Cake\Core\Plugin;
 
 /**
  * FixtureTaskTest class
@@ -372,12 +373,12 @@ class FixtureTaskTest extends TestCase {
 		$filename = APP . 'Plugin' . DS . 'TestFixture' . DS . 'Test' . DS . 'Fixture' . DS . 'ArticleFixture.php';
 
 		//fake plugin path
-		CakePlugin::load('TestFixture', array('path' =>  APP . 'Plugin' . DS . 'TestFixture' . DS));
+		Plugin::load('TestFixture', array('path' =>  APP . 'Plugin' . DS . 'TestFixture' . DS));
 		$this->Task->expects($this->at(0))->method('createFile')
 			->with($filename, $this->stringContains('class Article'));
 
 		$result = $this->Task->generateFixtureFile('Article', array());
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 }

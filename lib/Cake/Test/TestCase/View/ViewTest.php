@@ -470,7 +470,7 @@ class ViewTest extends TestCase {
 		$result = $View->getViewFileName('page.home');
 		$this->assertEquals($expected, $result, 'Should not ruin files with dots.');
 
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS .'Pages' . DS .'home.ctp';
 		$result = $View->getViewFileName('TestPlugin.home');
 		$this->assertEquals($expected, $result, 'Plugin is missing the view, cascade to app.');
@@ -521,7 +521,7 @@ class ViewTest extends TestCase {
 		$this->Controller->action = 'display';
 
 		$View = new TestView($this->Controller);
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS . 'View' . DS . 'Layouts' . DS .'default.ctp';
 		$result = $View->getLayoutFileName('TestPlugin.default');

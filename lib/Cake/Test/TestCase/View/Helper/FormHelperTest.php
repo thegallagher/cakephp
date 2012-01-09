@@ -25,6 +25,7 @@ use \Cake\TestSuite\TestCase,
 	\Cake\View\Helper\FormHelper,
 	\Cake\View\Helper\HtmlHelper,
 	\Cake\Core\App,
+	\Cake\Core\Plugin,
 	\Cake\Core\Configure,
 	\Cake\Routing\Router,
 	\Cake\Network\Request,
@@ -7738,7 +7739,7 @@ class FormHelperTest extends TestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 		$this->Form->request['models'] = array('TestPluginPost' => array('plugin' => 'TestPlugin', 'className' => 'TestPluginPost'));
 
 		$this->assertFalse(ClassRegistry::isKeySet('TestPluginPost'));
@@ -7746,7 +7747,7 @@ class FormHelperTest extends TestCase {
 		$this->assertTrue(ClassRegistry::isKeySet('TestPluginPost'));
 		$this->assertInstanceOf('TestPluginPost', ClassRegistry::getObject('TestPluginPost'));
 
-		CakePlugin::unload();
+		Plugin::unload();
 		App::build();
 	}
 

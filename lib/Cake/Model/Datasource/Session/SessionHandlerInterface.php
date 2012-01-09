@@ -16,7 +16,7 @@ namespace Cake\Model\Datasource\Session;
 
 /**
  * Interface for Session handlers.  Custom session handler classes should implement
- * this interface as it allows CakeSession know how to map methods to session_set_save_handler()
+ * this interface as it allows Cake\Model\Datasource\Session know how to map methods to session_set_save_handler()
  *
  * @package       Cake.Model.Datasource.Session
  */

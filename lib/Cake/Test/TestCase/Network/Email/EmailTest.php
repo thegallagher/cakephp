@@ -19,7 +19,8 @@
 namespace Cake\Test\TestCase\Network\Email;
 use \Cake\TestSuite\TestCase,
 	\Cake\Network\Email\Email,
-	\Cake\Core\App;
+	\Cake\Core\App,
+	\Cake\Core\Plugin;
 
 /**
  * Help to test CakeEmail
@@ -1031,7 +1032,7 @@ class CakeEmailTest extends TestCase {
 		App::build(array(
 			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
 		));
-		CakePlugin::load('TestPlugin');
+		Plugin::load('TestPlugin');
 
 		$this->CakeEmail->reset();
 		$this->CakeEmail->transport('debug');

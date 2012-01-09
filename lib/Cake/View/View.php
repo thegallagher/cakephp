@@ -19,6 +19,7 @@
 namespace Cake\View;
 use \Cake\Core\Object,
 	\Cake\Core\App,
+	\Cake\Core\Plugin,
 	\Cake\Core\Configure,
 	\Cake\Utility\ObjectCollection,
 	\Cake\Utility\Inflector,
@@ -973,7 +974,7 @@ class View extends Object {
 	protected function _pluginSplit($name) {
 		$plugin = null;
 		list($first, $second) = pluginSplit($name);
-		if (CakePlugin::loaded($first) === true) {
+		if (Plugin::loaded($first) === true) {
 			$name = $second;
 			$plugin = $first;
 		}

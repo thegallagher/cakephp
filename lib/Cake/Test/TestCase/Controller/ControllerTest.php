@@ -25,6 +25,7 @@ use \Cake\TestSuite\TestCase,
 	\Cake\Core\Plugin,
 	\Cake\Routing\Router,
 	\Cake\Network\Request,
+	\Cake\Network\Response,
 	\Cake\Utility\ClassRegistry,
 	\Cake\Utility\Set;
 
@@ -637,7 +638,7 @@ class ControllerTest extends TestCase {
 		$request = new Request('controller_posts/index');
 		$request->params['action'] = 'index';
 
-		$Controller = new Controller($request, new CakeResponse());
+		$Controller = new Controller($request, new Response());
 		$Controller->viewPath = 'Posts';
 
 		$result = $Controller->render('index');
@@ -651,7 +652,7 @@ class ControllerTest extends TestCase {
 		$this->assertRegExp('/this is the test element/', (string)$result);
 		$Controller->view = null;
 
-		$Controller = new TestController($request, new CakeResponse());
+		$Controller = new TestController($request, new Response());
 		$Controller->uses = array('ControllerAlias', 'TestPlugin.ControllerComment', 'ControllerPost');
 		$Controller->helpers = array('Html');
 		$Controller->constructClasses();
@@ -686,7 +687,7 @@ class ControllerTest extends TestCase {
 				CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS
 			)
 		), true);
-		$Controller = new Controller($this->getMock('Cake\Network\Request'), new CakeResponse());
+		$Controller = new Controller($this->getMock('Cake\Network\Request'), new Response());
 		$Controller->uses = array();
 		$Controller->components = array('Test');
 		$Controller->constructClasses();

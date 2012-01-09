@@ -24,6 +24,7 @@ use \Cake\TestSuite\TestCase,
 	\Cake\Console\Command\Task\TemplateTask,
 	\Cake\Model\Model,
 	\Cake\Controller\Controller,
+	\Cake\Core\Plugin,
 	\Cake\Core\Configure;
 
 /**
@@ -379,7 +380,7 @@ class ViewTaskTest extends TestCase {
 		$this->Task->name = 'View';
 
 		//fake plugin path
-		CakePlugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS));
+		Plugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS));
 		$path =  APP . 'Plugin' . DS . 'TestTest' . DS . 'View' . DS . 'ViewTaskComments' . DS  . 'view.ctp';
 
 		$result = $this->Task->getContent('index');
@@ -390,7 +391,7 @@ class ViewTaskTest extends TestCase {
 			->with($path, $this->anything());
 
 		$this->Task->bake('view', true);
-		CakePlugin::unload();
+		Plugin::unload();
 	}
 
 /**

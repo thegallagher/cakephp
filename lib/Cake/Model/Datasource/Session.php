@@ -180,7 +180,7 @@ class Session {
 		if (self::started()) {
 			return true;
 		}
-		CakeSession::init();
+		Session::init();
 		$id = self::id();
 		session_write_close();
 		self::_configureSession();
@@ -343,7 +343,7 @@ class Session {
 			self::$_userAgent = $userAgent;
 		}
 		if (empty(self::$_userAgent)) {
-			CakeSession::init(self::$path);
+			Session::init(self::$path);
 		}
 		return self::$_userAgent;
 	}
