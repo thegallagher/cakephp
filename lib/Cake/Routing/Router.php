@@ -22,7 +22,8 @@ use \Cake\Core\Configure,
 	\Cake\Network\Response,
 	\Cake\Routing\Route\Route,
 	\Cake\Utility\Set,
-	\Cake\Utility\Inflector;
+	\Cake\Utility\Inflector,
+	\Cake\Error;
 
 /**
  * Parses the request URL into controller, action, and parameters.  Uses the connected routes

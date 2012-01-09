@@ -16,7 +16,8 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-use \Cake\Routing\Router;
+use \Cake\Routing\Router,
+	\Cake\Utility\Inflector;
 
 /**
  * Connects the default, built-in routes, including prefix and plugin routes. The following routes are created
@@ -49,7 +50,6 @@ use \Cake\Routing\Router;
 	$prefixes = Router::prefixes();
 
 	if ($plugins = \Cake\Core\Plugin::loaded()) {
-		App::uses('PluginShortRoute', 'Routing/Route');
 		foreach ($plugins as $key => $value) {
 			$plugins[$key] = Inflector::underscore($value);
 		}
