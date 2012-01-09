@@ -399,7 +399,7 @@ class HtmlHelperTest extends TestCase {
 		$File = new File($testfile, true);
 
 		App::build(array(
-			'views' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'views' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		Configure::write('Asset.timestamp', true);
 		Configure::write('debug', 1);
@@ -437,10 +437,10 @@ class HtmlHelperTest extends TestCase {
  */
 	public function testThemeAssetsInMainWebrootPath() {
 		App::build(array(
-			'views' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'views' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		$webRoot = Configure::read('App.www_root');
-		Configure::write('App.www_root', CAKE . 'Test' . DS . 'test_app' . DS . 'webroot' . DS);
+		Configure::write('App.www_root', CAKE . 'Test' . DS . 'TestApp' . DS . 'webroot' . DS);
 
 		$this->Html->theme = 'test_theme';
 		$result = $this->Html->css('webroot_test');
@@ -738,7 +738,7 @@ class HtmlHelperTest extends TestCase {
 		$File = new File($testfile, true);
 
 		App::build(array(
-			'views' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'views' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 
 		$this->Html->webroot = '/';
@@ -1523,7 +1523,7 @@ class HtmlHelperTest extends TestCase {
  */
 
 	public function testLoadConfig() {
-		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Config'. DS;
+		$path = CAKE . 'Test' . DS . 'TestApp' . DS . 'Config'. DS;
 
 		$result = $this->Html->loadConfig('htmlhelper_tags', $path);
 		$expected = array(
@@ -1563,7 +1563,7 @@ class HtmlHelperTest extends TestCase {
  * @expectedException \Cake\Error\ConfigureException
  */
 	public function testLoadConfigWrongReader() {
-		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Config'. DS;
+		$path = CAKE . 'Test' . DS . 'TestApp' . DS . 'Config'. DS;
 		$result = $this->Html->loadConfig(array('htmlhelper_tags', 'wrong_reader'), $path);
 	}
 

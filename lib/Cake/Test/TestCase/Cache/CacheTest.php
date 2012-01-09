@@ -90,8 +90,8 @@ class CacheTest extends TestCase {
  */
 	public function testConfigWithLibAndPluginEngines() {
 		App::build(array(
-			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Lib' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
 		Plugin::load('TestPlugin');
 
@@ -262,8 +262,8 @@ class CacheTest extends TestCase {
  */
 	public function testDrop() {
 		App::build(array(
-			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
 
 		$result = Cache::drop('some_config_that_does_not_exist');
@@ -314,8 +314,8 @@ class CacheTest extends TestCase {
  */
 	public function testWriteTriggerError() {
 		App::build(array(
-			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
 
 		Cache::config('test_trigger', array('engine' => 'TestAppCache', 'prefix' => ''));

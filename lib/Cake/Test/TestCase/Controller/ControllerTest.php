@@ -466,9 +466,9 @@ class ControllerTest extends TestCase {
  */
 	public function testLoadModelInPlugins() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-			'Controller' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
-			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Controller' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS),
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
 		));
 		Plugin::load('TestPlugin');
 		App::uses('TestPluginAppController', 'TestPlugin.Controller');
@@ -508,7 +508,7 @@ class ControllerTest extends TestCase {
 
 		unset($Controller);
 
-		App::build(array('plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)));
+		App::build(array('plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)));
 		Plugin::load('TestPlugin');
 
 		$Controller = new Controller($request);
@@ -572,7 +572,7 @@ class ControllerTest extends TestCase {
 		$this->assertEquals($expected, $result);
 
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		$Controller = new Controller($request);
 		$Controller->response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
@@ -632,7 +632,7 @@ class ControllerTest extends TestCase {
  */
 	public function testRender() {
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		), true);
 		ClassRegistry::flush();
 		$request = new Request('controller_posts/index');
@@ -684,7 +684,7 @@ class ControllerTest extends TestCase {
 	public function testComponentBeforeRenderChangingViewClass() {
 		App::build(array(
 			'View' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS
 			)
 		), true);
 		$Controller = new Controller($this->getMock('Cake\Network\Request'), new Response());

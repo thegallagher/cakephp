@@ -80,7 +80,7 @@ class XmlViewTest extends TestCase {
  */
 	public function testRenderWithView() {
 		App::build(array('View' => array(
-			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS
+			CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS
 		)));
 		$Request = new Request();
 		$Response = new Response();

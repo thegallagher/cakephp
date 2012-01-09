@@ -95,8 +95,8 @@ class ScaffoldViewTest extends TestCase {
 		$this->Controller->response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS),
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::load('TestPlugin');
 	}
@@ -165,11 +165,11 @@ class ScaffoldViewTest extends TestCase {
 
 		$ScaffoldView = new TestScaffoldView($Controller);
 		$result = $ScaffoldView->testGetFilename('admin_edit');
-		$expected = CAKE . 'Test' . DS . 'test_app' .DS . 'View' . DS . 'Posts' . DS . 'scaffold.form.ctp';
+		$expected = CAKE . 'Test' . DS . 'TestApp' .DS . 'View' . DS . 'Posts' . DS . 'scaffold.form.ctp';
 		$this->assertEquals($expected, $result);
 
 		$result = $ScaffoldView->testGetFilename('edit');
-		$expected = CAKE . 'Test' . DS . 'test_app' .DS . 'View' . DS . 'Posts' . DS . 'scaffold.form.ctp';
+		$expected = CAKE . 'Test' . DS . 'TestApp' .DS . 'View' . DS . 'Posts' . DS . 'scaffold.form.ctp';
 		$this->assertEquals($expected, $result);
 
 		$Controller = new ScaffoldViewMockController($this->request);
@@ -184,12 +184,12 @@ class ScaffoldViewTest extends TestCase {
 
 		$ScaffoldView = new TestScaffoldView($Controller);
 		$result = $ScaffoldView->testGetFilename('admin_add');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin'
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin'
 			. DS .'TestPlugin' . DS . 'View' . DS . 'Tests' . DS . 'scaffold.form.ctp';
 		$this->assertEquals($expected, $result);
 
 		$result = $ScaffoldView->testGetFilename('add');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin'
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin'
 			. DS .'TestPlugin' . DS . 'View' . DS . 'Tests' . DS . 'scaffold.form.ctp';
 		$this->assertEquals($expected, $result);
 
@@ -208,7 +208,7 @@ class ScaffoldViewTest extends TestCase {
 		$ScaffoldView = new TestScaffoldView($this->Controller);
 
 		$result = $ScaffoldView->testGetFilename('index');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS
 			. 'Themed' . DS . 'TestTheme' . DS . 'Posts' . DS . 'scaffold.index.ctp';
 		$this->assertEquals($expected, $result);
 	}

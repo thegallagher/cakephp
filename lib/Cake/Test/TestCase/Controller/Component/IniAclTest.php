@@ -35,7 +35,7 @@ class IniAclTest extends TestCase {
  * @return void
  */
 	public function testCheck() {
-		$iniFile = CAKE . 'Test' . DS . 'test_app' . DS . 'Config'. DS . 'acl.ini.php';
+		$iniFile = CAKE . 'Test' . DS . 'TestApp' . DS . 'Config'. DS . 'acl.ini.php';
 
 		$Ini = new IniAcl();
 		$Ini->config = $Ini->readConfigFile($iniFile);
@@ -58,7 +58,7 @@ class IniAclTest extends TestCase {
  * @return void
  */
 	public function testCheckArray() {
-		$iniFile = CAKE . 'Test' . DS . 'test_app' . DS . 'Config'. DS . 'acl.ini.php';
+		$iniFile = CAKE . 'Test' . DS . 'TestApp' . DS . 'Config'. DS . 'acl.ini.php';
 
 		$Ini = new IniAcl();
 		$Ini->config = $Ini->readConfigFile($iniFile);

@@ -174,8 +174,8 @@ class ShellTest extends TestCase {
  */
 	public function testInitialize() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-			'models' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'models' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
 		), true);
 
 		Plugin::load('TestPlugin');

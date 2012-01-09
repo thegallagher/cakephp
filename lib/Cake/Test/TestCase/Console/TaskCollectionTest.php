@@ -91,7 +91,7 @@ class TaskCollectionTest extends TestCase {
 		$dispatcher = $this->getMock('Cake\Console\ShellDispatcher', array(), array(), '', false);
 		$shell = $this->getMock('Cake\Console\Shell', array(), array(), '', false);
 		App::build(array(
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::load('TestPlugin');
 		$this->Tasks = new TaskCollection($shell, $dispatcher);

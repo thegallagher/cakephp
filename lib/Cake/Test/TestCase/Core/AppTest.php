@@ -220,7 +220,7 @@ class AppTest extends TestCase {
  * @return void
  */
 	public function testPathWithPlugins() {
-		$basepath = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
+		$basepath = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS;
 		App::build(array(
 			'Plugin' => array($basepath),
 		));
@@ -336,7 +336,7 @@ class AppTest extends TestCase {
 
 		App::build(array(
 			'plugins' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS
 			)
 		));
 		$result = App::objects('plugin', null, false);
@@ -350,7 +350,7 @@ class AppTest extends TestCase {
  * Make sure that .svn and friends are excluded from App::objects('plugin')
  */
 	public function testListObjectsIgnoreDotDirectories() {
-		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS;
+		$path = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS;
 
 		$this->skipIf(!is_writable($path), $path . ' is not writable.');
 
@@ -371,8 +371,8 @@ class AppTest extends TestCase {
  */
 	public function testListObjectsInPlugin() {
 		App::build(array(
-			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Plugin::loadAll();
 
@@ -421,16 +421,16 @@ class AppTest extends TestCase {
  */
 	public function testPluginPath() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::loadAll();
 
 		$path = App::pluginPath('TestPlugin');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS;
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS . 'TestPlugin' . DS;
 		$this->assertEquals($path, $expected);
 
 		$path = App::pluginPath('TestPluginTwo');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPluginTwo' . DS;
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS . 'TestPluginTwo' . DS;
 		$this->assertEquals($path, $expected);
 		App::build();
 	}
@@ -442,14 +442,14 @@ class AppTest extends TestCase {
  */
 	public function testThemePath() {
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		));
 		$path = App::themePath('test_theme');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
 		$this->assertEquals($path, $expected);
 
 		$path = App::themePath('TestTheme');
-		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
+		$expected = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Themed' . DS . 'TestTheme' . DS;
 		$this->assertEquals($path, $expected);
 
 		App::build();
@@ -541,8 +541,8 @@ class AppTest extends TestCase {
  */
 	public function testPluginImporting() {
 		App::build(array(
-			'Lib' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Lib' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::loadAll();
 
@@ -585,7 +585,7 @@ class AppTest extends TestCase {
 		$this->assertFalse(class_exists('BananaHelper', false), 'BananaHelper exists, cannot test importing it.');
 		App::build(array(
 			'View/Helper' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Helper' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Helper' . DS
 			)
 		));
 		$this->assertFalse(class_exists('BananaHelper', false), 'BananaHelper exists, cannot test importing it.');
@@ -694,7 +694,7 @@ class AppTest extends TestCase {
 			$this->markTestSkipped('Cannot test loading of classes that exist.');
 		}
 		App::build(array(
-			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS)
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
 		));
 		$toLoad = array('PersisterOne', 'PersisterTwo');
 		$load = App::import('Model', $toLoad);
@@ -713,8 +713,8 @@ class AppTest extends TestCase {
 
 	public function testLoadingVendor() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-			'vendors' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor'. DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'vendors' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
 		), App::RESET);
 		Plugin::loadAll();
 
@@ -770,8 +770,8 @@ class AppTest extends TestCase {
  */
 	public function testLoadClassInLibs() {
 		App::build(array(
-			'libs' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Lib' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Plugin::loadAll();
 
@@ -814,7 +814,7 @@ class AppTest extends TestCase {
  */
 	public function testPluginLibClasses() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Plugin::loadAll();
 		$this->assertFalse(class_exists('TestPluginOtherLibrary', false));

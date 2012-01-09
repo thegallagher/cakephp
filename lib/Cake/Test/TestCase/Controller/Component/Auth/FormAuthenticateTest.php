@@ -162,7 +162,7 @@ class FormAuthenticateTest extends TestCase {
 	public function testPluginModel() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 		), true);
 		Plugin::load('TestPlugin');
 

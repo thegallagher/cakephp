@@ -73,7 +73,7 @@ class ExtractTaskTest extends TestCase {
 	public function testExecute() {
 		$this->Task->interactive = false;
 
-		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Pages';
+		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Pages';
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->expects($this->never())->method('err');
 		$this->Task->expects($this->any())->method('in')
@@ -165,7 +165,7 @@ class ExtractTaskTest extends TestCase {
 	public function testExtractWithExclude() {
 		$this->Task->interactive = false;
 
-		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'test_app' . DS . 'View';
+		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'TestApp' . DS . 'View';
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->params['exclude'] = 'Pages,Layouts';
 
@@ -192,8 +192,8 @@ class ExtractTaskTest extends TestCase {
 		$this->Task->interactive = false;
 
 		$this->Task->params['paths'] =
-			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Pages,' .
-			CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Posts';
+			CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Pages,' .
+			CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Posts';
 
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->expects($this->never())->method('err');
@@ -213,7 +213,7 @@ class ExtractTaskTest extends TestCase {
  */
 	public function testExtractExcludePlugins() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$this->in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
@@ -223,7 +223,7 @@ class ExtractTaskTest extends TestCase {
 		);
 		$this->Task->expects($this->exactly(2))->method('_isExtractingApp')->will($this->returnValue(true));
 
-		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'test_app' . DS;
+		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'TestApp' . DS;
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->params['exclude-plugins'] = true;
 
@@ -239,7 +239,7 @@ class ExtractTaskTest extends TestCase {
  */
 	public function testExtractPlugin() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
@@ -266,8 +266,8 @@ class ExtractTaskTest extends TestCase {
  */
 	public function testExtractModelValidation() {
 		App::build(array(
-			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$this->in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
@@ -277,7 +277,7 @@ class ExtractTaskTest extends TestCase {
 		);
 		$this->Task->expects($this->exactly(2))->method('_isExtractingApp')->will($this->returnValue(true));
 
-		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'test_app' . DS;
+		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'TestApp' . DS;
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->params['exclude-plugins'] = true;
 		$this->Task->params['ignore-model-validation'] = false;
@@ -312,7 +312,7 @@ class ExtractTaskTest extends TestCase {
  */
 	public function testExtractModelValidationWithDomainInModel() {
 		App::build(array(
-			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' . DS . 'Model' . DS)
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS . 'TestPlugin' . DS . 'Model' . DS)
 		));
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$this->in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
@@ -322,7 +322,7 @@ class ExtractTaskTest extends TestCase {
 		);
 		$this->Task->expects($this->exactly(2))->method('_isExtractingApp')->will($this->returnValue(true));
 
-		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'test_app' . DS;
+		$this->Task->params['paths'] = CAKE . 'Test' . DS . 'TestApp' . DS;
 		$this->Task->params['output'] = $this->path . DS;
 		$this->Task->params['exclude-plugins'] = true;
 		$this->Task->params['ignore-model-validation'] = false;
@@ -354,7 +354,7 @@ class ExtractTaskTest extends TestCase {
  */
 	public function testExtractModelValidationInPlugin() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		$this->out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$this->in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);

@@ -737,7 +737,7 @@ class DispatcherTest extends TestCase {
  */
 	public function testDispatchBasic() {
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		$Dispatcher = new TestDispatcher();
 		Configure::write('App.baseUrl', '/index.php');
@@ -1041,7 +1041,7 @@ class DispatcherTest extends TestCase {
 
 		Router::reload();
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
 		Plugin::loadAll();
 
@@ -1110,14 +1110,14 @@ class DispatcherTest extends TestCase {
 	}
 
 /**
- * Test dispatching into the TestPlugin in the test_app
+ * Test dispatching into the TestPlugin in the TestApp
  *
  * @return void
  */
 	public function testTestPluginDispatch() {
 		$Dispatcher = new TestDispatcher();
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), APP::RESET);
 		Plugin::loadAll();
 		Router::reload();
@@ -1176,9 +1176,9 @@ class DispatcherTest extends TestCase {
 		Router::reload();
 
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-			'vendors' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor'. DS),
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'vendors' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		Plugin::loadAll();
 
@@ -1294,9 +1294,9 @@ class DispatcherTest extends TestCase {
 		Router::reload();
 
 		App::build(array(
-			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
-			'Vendor' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor'. DS),
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Vendor' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		Plugin::loadAll();
 
@@ -1306,7 +1306,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->dispatch(new Request($url), $response);
 		$result = ob_get_clean();
 
-		$path = CAKE. 'Test' . DS . 'test_app' . DS . str_replace('/', DS, $file);
+		$path = CAKE. 'Test' . DS . 'TestApp' . DS . str_replace('/', DS, $file);
 		$file = file_get_contents($path);
 		$this->assertEquals($file, $result);
 
@@ -1399,7 +1399,7 @@ class DispatcherTest extends TestCase {
 		Router::connect('/:controller/:action/*');
 
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS),
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
 		), true);
 
 		$dispatcher = new TestDispatcher();

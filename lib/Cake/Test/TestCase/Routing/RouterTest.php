@@ -139,7 +139,7 @@ class RouterTest extends TestCase {
 	public function testPluginMapResources() {
 		App::build(array(
 			'plugins' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		));
 		$resources = Router::mapResources('TestPlugin.TestPlugin');
@@ -179,7 +179,7 @@ class RouterTest extends TestCase {
 	public function testPluginMapResourcesWithPrefix() {
 		App::build(array(
 			'plugins' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		));
 		$resources = Router::mapResources('TestPlugin.TestPlugin', array('prefix' => '/api/'));
@@ -1189,7 +1189,7 @@ class RouterTest extends TestCase {
 		$paths = App::path('plugins');
 		App::build(array(
 			'plugins' =>  array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		), true);
 		Plugin::loadAll();
@@ -2201,7 +2201,7 @@ class RouterTest extends TestCase {
 	public function testConnectDefaultRoutes() {
 		App::build(array(
 			'plugins' =>  array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		), true);
 		Plugin::loadAll();

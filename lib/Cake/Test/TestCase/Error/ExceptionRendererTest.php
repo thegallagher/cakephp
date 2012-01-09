@@ -158,7 +158,7 @@ class ExceptionRendererTest extends TestCase {
 		parent::setUp();
 		App::build(array(
 			'views' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS
 			)
 		), true);
 		Router::reload();

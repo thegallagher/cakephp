@@ -475,7 +475,7 @@ class FileTest extends TestCase {
  * @return void
  */
 	public function testMime() {
-		$path = CAKE . 'Test' . DS . 'test_app' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif';
+		$path = CAKE . 'Test' . DS . 'TestApp' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif';
 		$file = new File($path);
 		$this->assertEquals('image/gif', $file->mime());
 	}

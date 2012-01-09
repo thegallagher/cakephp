@@ -45,7 +45,7 @@ class ErrorHandlerTest extends TestCase {
 		parent::setUp();
 		App::build(array(
 			'View' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'View'. DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS
 			)
 		), true);
 		Router::reload();
@@ -236,7 +236,7 @@ class ErrorHandlerTest extends TestCase {
 	public function testLoadPluginHanlder() {
 		App::build(array(
 			'plugins' => array(
-				CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		), true);
 		Plugin::load('TestPlugin');
