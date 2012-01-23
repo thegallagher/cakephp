@@ -376,9 +376,7 @@ class Multibyte {
  * @return integer|boolean The portion of $haystack, or false if $needle is not found.
  */
 	public static function stristr($haystack, $needle, $part = false) {
-		$php = (PHP_VERSION < 5.3);
-
-		if (($php && $part) || Multibyte::checkMultibyte($haystack)) {
+		if (Multibyte::checkMultibyte($haystack)) {
 			$check = Multibyte::strtoupper($haystack);
 			$check = Multibyte::utf8($check);
 			$found = false;
@@ -419,10 +417,7 @@ class Multibyte {
 			return false;
 		}
 
-		if (!$php) {
-			return stristr($haystack, $needle, $part);
-		}
-		return stristr($haystack, $needle);
+		return stristr($haystack, $needle, $part);
 	}
 
 /**
@@ -716,9 +711,7 @@ class Multibyte {
  * @return string|boolean The portion of $haystack, or true if $needle is not found.
  */
 	public static function strstr($haystack, $needle, $part = false) {
-		$php = (PHP_VERSION < 5.3);
-
-		if (($php && $part) || Multibyte::checkMultibyte($haystack)) {
+		if (Multibyte::checkMultibyte($haystack)) {
 			$check = Multibyte::utf8($haystack);
 			$found = false;
 
@@ -757,10 +750,7 @@ class Multibyte {
 			return false;
 		}
 
-		if (!$php) {
-			return strstr($haystack, $needle, $part);
-		}
-		return strstr($haystack, $needle);
+		return strstr($haystack, $needle, $part);
 	}
 
 /**
