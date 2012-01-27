@@ -26,9 +26,7 @@ namespace Cake\Error;
  *
  * @package       Cake.Error
  */
-if (!class_exists('HttpException')) {
-	class HttpException extends \RuntimeException { }
-}
+class HttpException extends \RuntimeException { }
 
 /**
  * Represents an HTTP 400 error.
