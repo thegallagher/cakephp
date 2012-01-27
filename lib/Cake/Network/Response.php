@@ -1027,7 +1027,7 @@ class Response {
  * @return boolean whether the response was marked as not modified or 
  * not
  **/
-	public function checkNotModified(CakeRequest $request) {
+	public function checkNotModified(Request $request) {
 		$etags = preg_split('/\s*,\s*/', $request->header('If-None-Match'), null, PREG_SPLIT_NO_EMPTY);
 		$modifiedSince = $request->header('If-Modified-Since');
 		if ($responseTag = $this->etag()) {

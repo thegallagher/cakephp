@@ -181,7 +181,7 @@ class Router {
 	}
 
 /**
- * Validates that the passed route class exists and is a subclass of CakeRoute
+ * Validates that the passed route class exists and is a subclass of Cake Route
  *
  * @param $routeClass
  * @return string
@@ -189,7 +189,7 @@ class Router {
  */
 	protected static function _validateRouteClass($routeClass) {
 		if (!class_exists($routeClass) || !is_subclass_of($routeClass, 'Cake\Routing\Route\Route')) {
-			throw new Error\RouterException(__d('cake_dev', 'Route classes must extend CakeRoute'));
+			throw new Error\RouterException(__d('cake_dev', 'Route classes must extend Cake\Routing\Route\Route'));
 		}
 		return $routeClass;
 	}
