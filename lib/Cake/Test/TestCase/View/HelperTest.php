@@ -844,12 +844,13 @@ class HelperTest extends TestCase {
  */
 	public function testLazyLoadingHelpers() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 		));
 		Plugin::loadAll();
+
 		$Helper = new TestHelper($this->View);
-		$this->assertInstanceOf('OtherHelperHelper', $Helper->OtherHelper);
-		$this->assertInstanceOf('HtmlHelper', $Helper->Html);
+		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $Helper->OtherHelper);
+		$this->assertInstanceOf('Cake\View\Helper\HtmlHelper', $Helper->Html);
 		App::build();
 	}
 
@@ -859,6 +860,11 @@ class HelperTest extends TestCase {
  * @return void
  */
 	public function testThatHelperHelpersAreNotAttached() {
+		App::build(array(
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+		));
+		Plugin::loadAll();
+
 		$Helper = new TestHelper($this->View);
 		$Helper->OtherHelper;
 
