@@ -17,12 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\HelperCollection,
-	\Cake\View\View,
-	\Cake\View\Helper\HtmlHelper,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+
+use Cake\TestSuite\TestCase,
+	Cake\View\HelperCollection,
+	Cake\View\View,
+	Cake\View\Helper\HtmlHelper,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 /**
  * Extended HtmlHelper
@@ -90,8 +91,8 @@ class HelperCollectionTest extends TestCase {
 		App::build(array('plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)));
 		Plugin::loadAll();
 		$result = $this->Helpers->load('SomeOther', array('className' => 'TestPlugin.OtherHelper'));
-		$this->assertInstanceOf('OtherHelperHelper', $result);
-		$this->assertInstanceOf('OtherHelperHelper', $this->Helpers->SomeOther);
+		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $result);
+		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $this->Helpers->SomeOther);
 
 		$result = $this->Helpers->attached();
 		$this->assertEquals(array('Html', 'SomeOther'), $result, 'attached() results are wrong.');
@@ -128,12 +129,13 @@ class HelperCollectionTest extends TestCase {
  */
 	public function testLoadPluginHelper() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 		));
 		Plugin::loadAll();
+
 		$result = $this->Helpers->load('TestPlugin.OtherHelper');
-		$this->assertInstanceOf('OtherHelperHelper', $result, 'Helper class is wrong.');
-		$this->assertInstanceOf('OtherHelperHelper', $this->Helpers->OtherHelper, 'Class is wrong');
+		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $result, 'Helper class is wrong.');
+		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $this->Helpers->OtherHelper, 'Class is wrong');
 
 		App::build();
 	}

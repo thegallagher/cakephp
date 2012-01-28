@@ -16,12 +16,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Utility\ObjectCollection,
-	\Cake\Core\App,
-	\Cake\View\View,
-	\Cake\Event\Event,
-	\Cake\Event\EventListener,
-	\Cake\Error;
+
+use Cake\Utility\ObjectCollection,
+	Cake\Core\App,
+	Cake\View\View,
+	Cake\Event\Event,
+	Cake\Event\EventListener,
+	Cake\Error;
 
 /**
  * Helpers collection is used as a registry for loaded helpers and handles loading
@@ -69,8 +70,9 @@ class HelperCollection extends ObjectCollection implements EventListener {
  * @throws MissingHelperException when the helper could not be found
  */
 	public function load($helper, $settings = array()) {
-		if (isset($this->_loaded[$helper])) {
-			return $this->_loaded[$helper];
+		list($plugin, $name) = pluginSplit($helper);
+		if (isset($this->_loaded[$name])) {
+			return $this->_loaded[$name];
 		}
 		if (is_array($settings) && isset($settings['className'])) {
 			$helperClass = App::classname($settings['className'], 'View/Helper', 'Helper');
@@ -84,17 +86,17 @@ class HelperCollection extends ObjectCollection implements EventListener {
 				'plugin' => substr($plugin, 0, -1)
 			));
 		}
-		$this->_loaded[$helper] = new $helperClass($this->_View, $settings);
+		$this->_loaded[$name] = new $helperClass($this->_View, $settings);
 
 		$vars = array('request', 'theme', 'plugin');
 		foreach ($vars as $var) {
-			$this->_loaded[$helper]->{$var} = $this->_View->{$var};
+			$this->_loaded[$name]->{$var} = $this->_View->{$var};
 		}
 		$enable = isset($settings['enabled']) ? $settings['enabled'] : true;
 		if ($enable) {
-			$this->enable($helper);
+			$this->enable($name);
 		}
-		return $this->_loaded[$helper];
+		return $this->_loaded[$name];
 	}
 
 /**
