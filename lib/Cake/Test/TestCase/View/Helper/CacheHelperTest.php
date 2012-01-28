@@ -17,15 +17,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View\Helper;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Controller,
-	\Cake\Model\Model,
-	\Cake\View\View,
-	\Cake\View\Helper\CacheHelper,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Routing\Router,
-	\Cake\Network\Request;
+
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Controller,
+	Cake\Model\Model,
+	Cake\View\View,
+	Cake\View\Helper\CacheHelper,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Routing\Router,
+	Cake\Network\Request;
 
 /**
  * CacheTestController class

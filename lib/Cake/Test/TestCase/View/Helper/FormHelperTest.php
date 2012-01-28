@@ -17,20 +17,21 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View\Helper;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Controller\Controller,
-	\Cake\Model\Model,
-	\Cake\View\View,
-	\Cake\View\Helper\FormHelper,
-	\Cake\View\Helper\HtmlHelper,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Security;
+
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Controller\Controller,
+	Cake\Model\Model,
+	Cake\View\View,
+	Cake\View\Helper\FormHelper,
+	Cake\View\Helper\HtmlHelper,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Core\Configure,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Security;
 
 /**
  * ContactTestController class

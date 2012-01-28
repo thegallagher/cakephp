@@ -19,15 +19,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Core\Object,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Router,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\Set,
-	\Cake\Utility\ObjectCollection;
+
+use Cake\Core\Object,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
+	Cake\Routing\Router,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Utility\Set,
+	Cake\Utility\ObjectCollection;
 
 /**
  * Abstract base class for all other Helpers in CakePHP.

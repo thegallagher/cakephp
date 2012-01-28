@@ -17,12 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\View\View,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+
+use Cake\View\Helper,
+	Cake\View\View,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Html Helper class for easy use of HTML widgets.
