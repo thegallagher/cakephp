@@ -1,9 +1,5 @@
 <?php
 /**
- * Translate behavior
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -579,30 +575,3 @@ class TranslateBehavior extends ModelBehavior {
 	}
 }
 
-/**
- * @package       Cake.Model.Behavior
- */
-class I18nModel extends AppModel {
-
-/**
- * Model name
- *
- * @var string
- */
-	public $name = 'I18nModel';
-
-/**
- * Table name
- *
- * @var string
- */
-	public $useTable = 'i18n';
-
-/**
- * Display field
- *
- * @var string
- */
-	public $displayField = 'field';
-
-}

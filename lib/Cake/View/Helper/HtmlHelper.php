@@ -495,7 +495,7 @@ class HtmlHelper extends Helper {
  *
  * Add the script file to the `$scripts_for_layout` layout var:
  *
- * `$this->Html->script('styles.js', null, array('inline' => false));`
+ * `$this->Html->script('styles.js', array('inline' => false));`
  *
  * Add the script file to a custom block:
  *
@@ -744,11 +744,11 @@ class HtmlHelper extends Helper {
 	}
 
 /**
- * Creates a formatted IMG element. If `$options['url']` is provided, an image link will be
- * generated with the link pointed at `$options['url']`.  This method will set an empty
- * alt attribute if one is not supplied.
+ * Creates a formatted IMG element.
  *
- * ### Usage
+ * This method will set an empty alt attribute if one is not supplied.
+ *
+ * ### Usage:
  *
  * Create a regular image:
  *
@@ -758,8 +758,15 @@ class HtmlHelper extends Helper {
  *
  * `echo $html->image('cake_icon.png', array('alt' => 'CakePHP', 'url' => 'http://cakephp.org'));`
  *
+ * ### Options:
+ *
+ * - `url` If provided an image link will be generated and the link will point at
+ *   `$options['url']`.
+ * - `fullBase` If provided the src attribute will get a full addres (non-relative url) for 
+ *   the image file.
+ *
  * @param string $path Path to the image file, relative to the app/webroot/img/ directory.
- * @param array $options Array of HTML attributes.
+ * @param array $options Array of HTML attributes.  See above for special options.
  * @return string completed img tag
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html#HtmlHelper::image
  */
@@ -771,6 +778,11 @@ class HtmlHelper extends Helper {
 				$path = IMAGES_URL . $path;
 			}
 			$path = $this->assetTimestamp($this->webroot($path));
+		}
+		
+		if (!empty($options['fullBase'])) {
+			$path = $this->url('/', true) . $path;
+			unset($options['fullBase']);
 		}
 
 		if (!isset($options['alt'])) {

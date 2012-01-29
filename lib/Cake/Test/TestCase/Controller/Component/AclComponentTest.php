@@ -21,8 +21,6 @@ use \Cake\TestSuite\TestCase,
 	\Cake\Controller\Component\AclComponent,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Core\Configure;
-// @todo remove it after separate AclInterface from AclComponent
-class_exists('Cake\Controller\Component\AclComponent');
 
 /**
  * Test Case for AclComponent
@@ -38,7 +36,7 @@ class AclComponentTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		if (!class_exists('MockAclImplementation', false)) {
-			$this->getMock('Cake\Controller\Component\AclInterface', array(), array(), 'MockAclImplementation');
+			$this->getMock('Cake\Controller\Component\Acl\AclInterface', array(), array(), 'MockAclImplementation');
 		}
 		Configure::write('Acl.classname', '\MockAclImplementation');
 		$Collection = new ComponentCollection();

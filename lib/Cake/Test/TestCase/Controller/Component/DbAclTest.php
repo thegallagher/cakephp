@@ -20,7 +20,7 @@ namespace Cake\Test\TestCase\Controller\Component;
 use \Cake\TestSuite\TestCase,
 	\Cake\TestSuite\Fixture\TestModel,
 	\Cake\Controller\Component\AclComponent,
-	\Cake\Controller\Component\DbAcl,
+	\Cake\Controller\Component\Acl\DbAcl,
 	\Cake\Controller\ComponentCollection,
 	\Cake\Model\AclNode,
 	\Cake\Core\Configure;

@@ -231,4 +231,26 @@ class TestCaseTest extends TestCase {
 		$this->assertArrayHasKey('debug', $this->_configure);
 		$this->assertArrayHasKey('Plugin', $this->_pathRestore);
 	}
+
+/**
+ * test assertTextNotEquals()
+ *
+ * @return void
+ */
+	public function testAssertTextNotEquals() {
+		$one = "\r\nOne\rTwooo";
+		$two = "\nOne\nTwo";
+		$this->assertTextNotEquals($one, $two);
+	}
+
+/**
+ * test assertTextEquals()
+ *
+ * @return void
+ */
+	public function testAssertTextEquals() {
+		$one = "\r\nOne\rTwo";
+		$two = "\nOne\nTwo";
+		$this->assertTextEquals($one, $two);
+	}
 }

@@ -371,7 +371,7 @@ text
 HTML;
 		$expected = "text\n\ntext";
 		$result = Sanitize::stripScripts($string);
-		$this->assertEquals($expected, $result);
+		$this->assertTextEquals($expected, $result);
 
 		$string = <<<HTML
 text
@@ -384,7 +384,7 @@ text
 HTML;
 		$expected = "text\n\ntext";
 		$result = Sanitize::stripScripts($string);
-		$this->assertEquals($expected, $result);
+		$this->assertTextEquals($expected, $result);
 	}
 
 /**

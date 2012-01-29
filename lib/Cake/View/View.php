@@ -162,7 +162,7 @@ class View extends Object {
 	public $subDir = null;
 
 /**
- * Theme name.  If you are using themes, you should remember to use ThemeView as well.
+ * Theme name.
  *
  * @var string
  */
@@ -222,7 +222,7 @@ class View extends Object {
  * @var array
  */
 	protected $_passedVars = array(
-		'viewVars', 'autoLayout', 'ext', 'helpers', 'view', 'layout', 'name',
+		'viewVars', 'autoLayout', 'ext', 'helpers', 'view', 'layout', 'name', 'theme',
 		'layoutPath', 'viewPath', 'request', 'plugin', 'passedArgs', 'cacheAction'
 	);
 
@@ -310,9 +310,6 @@ class View extends Object {
 				$this->{$var} = $controller->{$var};
 			}
 			$this->_eventManager = $controller->getEventManager();
-			if (!empty($controller->theme)) {
-				$this->theme = $controller->theme;
-			}
 		}
 		$this->Helpers = new HelperCollection($this);
 		$this->Blocks = new ViewBlock();
@@ -670,20 +667,34 @@ class View extends Object {
  * @param string $name The view or element to 'extend' the current one with.
  * @return void
  * @throws LogicException when you extend a view with itself or make extend loops.
+ * @throws LogicException when you extend an element which doesn't exist
  */
 	public function extend($name) {
-		switch ($this->_currentType) {
-			case self::TYPE_VIEW:
-				$parent = $this->_getViewFileName($name);
-			break;
-			case self::TYPE_ELEMENT:
-				$parent = $this->_getElementFileName($name);
-			break;
-			case self::TYPE_LAYOUT:
-				$parent = $this->_getLayoutFileName($name);
-			break;
-
+		if ($name[0] === '/' || $this->_currentType === self::TYPE_VIEW) {
+			$parent = $this->_getViewFileName($name);
+		} else {
+			switch ($this->_currentType) {
+				case self::TYPE_ELEMENT:
+					$parent = $this->_getElementFileName($name);
+					if (!$parent) {
+						list($plugin, $name) = $this->_pluginSplit($name);
+						$paths = $this->_paths($plugin);
+						$defaultPath = $paths[0] . 'Elements' . DS;
+						throw new LogicException(__d(
+							'cake_dev',
+							'You cannot extend an element which does not exist (%s).',
+							$defaultPath . $name . $this->ext
+						));
+					}
+					break;
+				case self::TYPE_LAYOUT:
+					$parent = $this->_getLayoutFileName($name);
+					break;
+				default:
+					$parent = $this->_getViewFileName($name);
+			}
 		}
+
 		if ($parent == $this->_current) {
 			throw new LogicException(__d('cake_dev', 'You cannot have views extend themselves.'));
 		}

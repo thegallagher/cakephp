@@ -21,7 +21,9 @@ use \Cake\Utility\Inflector;
 
 echo "<?php\n";
 ?>
-App::uses('<?php echo $fullClassName; ?>', '<?php echo $realType; ?>');
+<?php foreach ($uses as $dependency): ?>
+App::uses('<?php echo $dependency[0]; ?>', '<?php echo $dependency[1]; ?>');
+<?php endforeach; ?>
 
 <?php if ($mock and strtolower($type) == 'controller'): ?>
 /**
@@ -71,8 +73,9 @@ class <?php echo $fullClassName; ?>TestCase extends \Cake\TestSuite\TestCase {
  */
 	public function setUp() {
 		parent::setUp();
-
+<?php echo $preConstruct ? "\t\t" . $preConstruct : ''; ?>
 		$this-><?php echo $className . ' = ' . $construction; ?>
+<?php echo $postConstruct ? "\t\t" . $postConstruct : ''; ?>
 	}
 
 /**

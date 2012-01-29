@@ -18,7 +18,6 @@
  */
 namespace Cake\Configure;
 use \Cake\Core\App,
-	\Cake\Core\ConfigReaderInterface,
 	\Cake\Error;
 
 /**

@@ -19,8 +19,7 @@
 namespace Cake\Test\TestCase\Controller\Component;
 use \Cake\TestSuite\TestCase,
 	\Cake\Controller\Component\AclComponent,
-	\Cake\Controller\Component\IniAcl;
-class_exists('Cake\Controller\Component\AclComponent');
+	\Cake\Controller\Component\Acl\IniAcl;
 
 /**
  * Test case for the IniAcl implementation
