@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestApp\Lib\Cache\Engine;
-use \Cake\Cache\Engine;
+use Cake\Cache\Engine;
 
 class TestAppCacheEngine extends Engine {
 

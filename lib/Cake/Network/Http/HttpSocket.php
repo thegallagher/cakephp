@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Http;
-use \Cake\Network\Socket,
-	\Cake\Utility\Set,
-	\Cake\Utility\Inflector,
-	\Cake\Core\App,
-	\Cake\Error;
+use Cake\Network\Socket,
+	Cake\Utility\Set,
+	Cake\Utility\Inflector,
+	Cake\Core\App,
+	Cake\Error;
 
 /**
  * Cake network socket connection class.

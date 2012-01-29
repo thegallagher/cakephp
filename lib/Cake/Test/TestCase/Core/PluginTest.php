@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Core;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure,
-	\Cake\Core\App;
+use Cake\TestSuite\TestCase,
+	Cake\Core\Plugin,
+	Cake\Core\Configure,
+	Cake\Core\App;
 
 /**
  * PluginTest class
@@ -187,7 +187,7 @@ class PluginTest extends TestCase {
  * Tests that Plugin::load() throws an exception on unknown plugin
  *
  * @return void
- * @expectedException \Cake\Error\MissingPluginException
+ * @expectedException Cake\Error\MissingPluginException
  */
 	public function testLoadNotFound() {
 		Plugin::load('MissingPlugin');
@@ -212,7 +212,7 @@ class PluginTest extends TestCase {
  * Tests that Plugin::path() throws an exception on unknown plugin
  *
  * @return void
- * @expectedException \Cake\Error\MissingPluginException
+ * @expectedException Cake\Error\MissingPluginException
  */
 	public function testPathNotFound() {
 		Plugin::path('TestPlugin');

@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network;
-use \Cake\Error;
+use Cake\Error;
 
 /**
  * Cake Response is responsible for managing the response text, status and headers of a HTTP response.
@@ -516,7 +516,7 @@ class Response {
  *
  * @param integer $code
  * @return integer current status code
- * @throws \Cake\Error\Exception When an unknown status code is reached.
+ * @throws Cake\Error\Exception When an unknown status code is reached.
  */
 	public function statusCode($code = null) {
 		if (is_null($code)) {

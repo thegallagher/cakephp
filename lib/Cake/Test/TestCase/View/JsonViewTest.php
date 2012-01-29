@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\JsonView,
-	\Cake\Controller\Controller,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Core\App;
+use Cake\TestSuite\TestCase,
+	Cake\View\JsonView,
+	Cake\Controller\Controller,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Core\App;
 
 /**
  * JsonViewTest

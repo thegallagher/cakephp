@@ -17,13 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\Command\SchemaShell,
-	\Cake\Model\Schema,
-	\Cake\Model\ConnectionManager,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Utility\File;
+use Cake\TestSuite\TestCase,
+	Cake\Console\Command\SchemaShell,
+	Cake\Model\Schema,
+	Cake\Model\ConnectionManager,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Utility\File;
 
 /**
  * Test for Schema database management

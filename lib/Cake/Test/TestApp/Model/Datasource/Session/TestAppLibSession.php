@@ -1,6 +1,6 @@
 <?php
 namespace TestApp\Model\Datasource\Session;
-use \Cake\Model\Datasource\Session\SessionHandlerInterface;
+use Cake\Model\Datasource\Session\SessionHandlerInterface;
 
 /**
  * Test suite app/Model/Datasource/Session session handler

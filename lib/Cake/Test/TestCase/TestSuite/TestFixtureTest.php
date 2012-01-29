@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\TestSuite;
-use \Cake\TestSuite\Fixture\TestFixture,
-	\Cake\TestSuite\TestCase,
-	\Cake\Model\Model,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\Fixture\TestFixture,
+	Cake\TestSuite\TestCase,
+	Cake\Model\Model,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\ClassRegistry;
 
 /**
  * TestFixtureTestFixture class
@@ -184,10 +184,10 @@ class TestFixtureTest extends TestCase {
  * @return void
  */
 	public function setUp() {
-		$methods = array_diff(get_class_methods('\Cake\Model\Datasource\DboSource'), array('enabled'));
+		$methods = array_diff(get_class_methods('Cake\Model\Datasource\DboSource'), array('enabled'));
 		$methods[] = 'connect';
 
-		$this->criticDb = $this->getMock('\Cake\Model\Datasource\DboSource', $methods);
+		$this->criticDb = $this->getMock('Cake\Model\Datasource\DboSource', $methods);
 		$this->criticDb->fullDebug = true;
 		$this->db = ConnectionManager::getDataSource('test');
 		$this->_backupConfig = $this->db->config;

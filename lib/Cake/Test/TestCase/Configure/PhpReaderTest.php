@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Configure;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Configure\PhpReader;
+use Cake\TestSuite\TestCase,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Configure\PhpReader;
 
 class PhpReaderTest extends TestCase {
 /**
@@ -51,7 +51,7 @@ class PhpReaderTest extends TestCase {
 /**
  * Test an exception is thrown by reading files that don't exist.
  *
- * @expectedException \Cake\Error\ConfigureException
+ * @expectedException Cake\Error\ConfigureException
  * @return void
  */
 	public function testReadWithNonExistantFile() {
@@ -73,7 +73,7 @@ class PhpReaderTest extends TestCase {
 /**
  * test reading keys with ../ doesn't work
  *
- * @expectedException \Cake\Error\ConfigureException
+ * @expectedException Cake\Error\ConfigureException
  * @return void
  */
 	public function testReadWithDots() {

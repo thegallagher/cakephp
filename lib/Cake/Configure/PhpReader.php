@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Configure;
-use \Cake\Core\App,
-	\Cake\Error;
+use Cake\Core\App,
+	Cake\Error;
 
 /**
  * PHP Reader allows Configure to load configuration values from

@@ -17,14 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Component\RequestHandlerComponent,
-	\Cake\Controller\Controller,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Core\App,
-	\Cake\Routing\Router;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Component\RequestHandlerComponent,
+	Cake\Controller\Controller,
+	Cake\Controller\ComponentCollection,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Core\App,
+	Cake\Routing\Router;
 
 /**
  * RequestHandlerTestController class
@@ -821,7 +821,7 @@ class RequestHandlerComponentTest extends TestCase {
 	}
 
 /**
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testAddInputTypeException() {

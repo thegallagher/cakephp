@@ -7723,7 +7723,7 @@ class FormHelperTest extends TestCase {
 
 /**
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testHtml5InputException() {

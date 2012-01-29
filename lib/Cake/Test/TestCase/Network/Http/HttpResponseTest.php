@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network\Http;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Http\HttpSocket,
-	\Cake\Network\Http\HttpResponse;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Http\HttpSocket,
+	Cake\Network\Http\HttpResponse;
 
 /**
  * TestHttpResponse class
@@ -331,7 +331,7 @@ class HttpResponseTest extends TestCase {
  * testInvalidParseResponseData
  *
  * @dataProvider invalidParseResponseDataProvider
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * return void
  */
 	public function testInvalidParseResponseData($value) {
@@ -430,7 +430,7 @@ class HttpResponseTest extends TestCase {
 /**
  * testDecodeChunkedBodyError method
  *
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testDecodeChunkedBodyError() {

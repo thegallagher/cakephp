@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Response;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Response;
 
 class ResponseTest extends TestCase {
 
@@ -91,7 +91,7 @@ class ResponseTest extends TestCase {
 /**
 * Tests the statusCode method
 *
-* @expectedException \Cake\Error\Exception
+* @expectedException Cake\Error\Exception
 */
 	public function testStatusCode() {
 		$response = new Response();

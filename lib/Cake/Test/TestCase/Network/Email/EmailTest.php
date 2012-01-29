@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network\Email;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Email\Email,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Email\Email,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 /**
  * Help to test CakeEmail
@@ -245,7 +245,7 @@ class CakeEmailTest extends TestCase {
  * testBuildInvalidData
  *
  * @dataProvider invalidEmails
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testInvalidEmail($value) {
@@ -256,7 +256,7 @@ class CakeEmailTest extends TestCase {
  * testBuildInvalidData
  *
  * @dataProvider invalidEmails
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testInvalidEmailAdd($value) {
@@ -384,7 +384,7 @@ class CakeEmailTest extends TestCase {
  * testMessageIdInvalid method
  *
  * @return void
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  */
 	public function testMessageIdInvalid() {
 		$this->CakeEmail->messageId('my-email@localhost');

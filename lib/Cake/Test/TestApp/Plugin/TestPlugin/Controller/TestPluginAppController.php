@@ -17,6 +17,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestPlugin\Controller;
-use \Cake\Controller\Controller;
+use Cake\Controller\Controller;
 
 class TestPluginAppController extends Controller { }

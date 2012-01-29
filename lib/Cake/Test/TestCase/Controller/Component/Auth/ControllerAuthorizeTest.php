@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component\Auth;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Component\Auth\ControllerAuthorize,
-	\Cake\Controller\Controller,
-	\Cake\Network\Request;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Component\Auth\ControllerAuthorize,
+	Cake\Controller\Controller,
+	Cake\Network\Request;
 
 class ControllerAuthorizeTest extends TestCase {
 
@@ -42,14 +42,14 @@ class ControllerAuthorizeTest extends TestCase {
 
 /**
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  */
 	public function testControllerTypeError() {
 		$this->auth->controller(new \StdClass());
 	}
 
 /**
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  */
 	public function testControllerErrorOnMissingMethod() {
 		$this->auth->controller(new Controller());

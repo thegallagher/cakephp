@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console;
-use \Cake\TestSuite\TestSuite;
+use Cake\TestSuite\TestSuite;
 
 /**
  * AllConsoleLibsTest class

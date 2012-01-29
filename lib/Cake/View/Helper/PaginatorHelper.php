@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\View\View,
-	\Cake\Utility\Inflector,
-	\Cake\Core\App,
-	\Cake\Error;
+use Cake\View\Helper,
+	Cake\View\View,
+	Cake\Utility\Inflector,
+	Cake\Core\App,
+	Cake\Error;
 
 /**
  * Pagination Helper class for easy generation of pagination links.
@@ -89,7 +89,7 @@ class PaginatorHelper extends Helper {
  *
  * @param View $View the view object the helper is attached to.
  * @param array $settings Array of settings.
- * @throws \Cake\Error\Exception When the AjaxProvider helper does not implement a link method.
+ * @throws Cake\Error\Exception When the AjaxProvider helper does not implement a link method.
  */
 	public function __construct(View $View, $settings = array()) {
 		$ajaxProvider = isset($settings['ajax']) ? $settings['ajax'] : 'Js';

@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\MediaView,
-	\Cake\Controller\Controller;
+use Cake\TestSuite\TestCase,
+	Cake\View\MediaView,
+	Cake\Controller\Controller;
 
 /**
  * MediaViewTest class
@@ -53,7 +53,7 @@ class MediaViewTest extends TestCase {
 /**
  * tests that rendering a file that does not exists throws an exception
  *
- * @expectedException \Cake\Error\NotFoundException
+ * @expectedException Cake\Error\NotFoundException
  * @return void
  */
 	public function testRenderNotFound() {

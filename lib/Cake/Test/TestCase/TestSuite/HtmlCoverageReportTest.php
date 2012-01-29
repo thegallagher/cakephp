@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\TestSuite;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Coverage\HtmlCoverageReport,
-	\Cake\TestSuite\Reporter\BaseReporter,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Coverage\HtmlCoverageReport,
+	Cake\TestSuite\Reporter\BaseReporter,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 class HtmlCoverageReportTest extends TestCase {
 /**

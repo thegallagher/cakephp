@@ -18,7 +18,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace {
-use \Cake\I18n\Multibyte;
+use Cake\I18n\Multibyte;
 
 /**
  * Find position of first occurrence of a case-insensitive string.
@@ -250,8 +250,8 @@ if (!function_exists('mb_encode_mimeheader')) {
 }
 
 namespace Cake\I18n {
-use \Cake\Configure\PhpReader,
-	\Cake\Core\Configure;
+use Cake\Configure\PhpReader,
+	Cake\Core\Configure;
 
 /**
  * Multibyte handling methods.

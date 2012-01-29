@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
-use \Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Network\Request,
-	\Cake\Utility\Security,
-	\Cake\Error;
+use Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Network\Request,
+	Cake\Utility\Security,
+	Cake\Error;
 
 
 /**
@@ -197,7 +197,7 @@ class SecurityComponent extends Component {
 /**
  * Request object
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request;
 
@@ -499,7 +499,7 @@ class SecurityComponent extends Component {
 /**
  * Manually add CSRF token information into the provided request object.
  *
- * @param \Cake\Network\Request $request The request object to add into.
+ * @param Cake\Network\Request $request The request object to add into.
  * @return boolean
  */
 	public function generateToken(Request $request) {

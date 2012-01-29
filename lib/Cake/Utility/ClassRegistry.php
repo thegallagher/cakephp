@@ -19,10 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
-use \Cake\Model\ConnectionManager,
-	\Cake\Core\App,
-	\Cake\Model\Model,
-	\Cake\Error;
+use Cake\Model\ConnectionManager,
+	Cake\Core\App,
+	Cake\Model\Model,
+	Cake\Error;
 
 /**
  * Class Collections.
@@ -94,7 +94,7 @@ class ClassRegistry {
  * @param boolean $strict if set to true it will return false if the class was not found instead
  *	of trying to create an AppModel
  * @return object instance of ClassName.
- * @throws \Cake\Error\Exception when you try to construct an interface or abstract class.
+ * @throws Cake\Error\Exception when you try to construct an interface or abstract class.
  */
 	public static function init($class, $strict = false) {
 		$_this = ClassRegistry::getInstance();
@@ -169,7 +169,7 @@ class ClassRegistry {
 					}
 					if (!$appModel = App::classname($pluginPath . 'AppModel', 'Model')) {
 						if (!$appModel = App::classname('AppModel', 'Model')) {
-							$appModel = '\Cake\Model\Model';
+							$appModel = 'Cake\Model\Model';
 						}
 					}
 					$settings['name'] = $class;

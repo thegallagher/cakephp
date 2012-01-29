@@ -13,9 +13,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component\Auth;
-use \Cake\Controller\ComponentCollection,
-	\Cake\Network\Request,
-	\Cake\Network\Response;
+use Cake\Controller\ComponentCollection,
+	Cake\Network\Request,
+	Cake\Network\Response;
 
 /**
  * An authentication adapter for AuthComponent.  Provides the ability to authenticate using POST
@@ -43,8 +43,8 @@ class FormAuthenticate extends BaseAuthenticate {
  * to find POST data that is used to find a matching record in the `settings.userModel`.  Will return false if
  * there is no post data, either username or password is missing, of if the scope conditions have not been met.
  *
- * @param \Cake\Network\Request $request The request that contains login information.
- * @param \Cake\Network\Response $response Unused response object.
+ * @param Cake\Network\Request $request The request that contains login information.
+ * @param Cake\Network\Response $response Unused response object.
  * @return mixed.  False on login failure.  An array of User data on success.
  */
 	public function authenticate(Request $request, Response $response) {

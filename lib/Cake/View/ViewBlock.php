@@ -14,7 +14,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Error;
+use Cake\Error;
 
 /**
  * ViewBlock implements the concept of Blocks or Slots in the View layer.
@@ -86,7 +86,7 @@ class ViewBlock {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws \Cake\Error\Exception when you use non-string values.
+ * @throws Cake\Error\Exception when you use non-string values.
  */
 	public function append($name, $value = null) {
 		if (isset($value)) {
@@ -109,7 +109,7 @@ class ViewBlock {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws \Cake\Error\Exception when you use non-string values.
+ * @throws Cake\Error\Exception when you use non-string values.
  */
 	public function set($name, $value) {
 		if (!is_string($value)) {

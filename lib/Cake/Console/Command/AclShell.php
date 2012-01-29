@@ -16,11 +16,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\Core\Configure,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Controller\Component\AclComponent,
-	\Cake\Utility\Set;
+use Cake\Console\Shell,
+	Cake\Core\Configure,
+	Cake\Controller\ComponentCollection,
+	Cake\Controller\Component\AclComponent,
+	Cake\Utility\Set;
 
 /**
  * Shell for ACL management.  This console is known to have issues with zend.ze1_compatibility_mode

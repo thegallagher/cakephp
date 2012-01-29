@@ -16,13 +16,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Core\Configure,
-	\Cake\Core\Plugin,
-	\Cake\Core\App,
-	\Cake\Core\Object,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Core\Plugin,
+	Cake\Core\App,
+	Cake\Core\Object,
+	Cake\Utility\Inflector,
+	Cake\Utility\ClassRegistry,
+	Cake\Error;
 
 /**
  * Base class for command-line utilities for automating programmer chores.

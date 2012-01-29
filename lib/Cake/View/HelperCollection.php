@@ -138,7 +138,7 @@ class HelperCollection extends ObjectCollection implements EventListener {
  *    Defaults to false.
  *
  *
- * @param string $callback|\Cake\Event\Event Method to fire on all the objects. Its assumed all the objects implement
+ * @param string|Cake\Event\Event $callback Method to fire on all the objects. Its assumed all the objects implement
  *   the method you are calling. If an instance of Cake\Event\Event is provided, then then Event name will parsed to
  *   get the callback name. This is done by getting the last word after any dot in the event name
  *   (eg. `Model.afterSave` event will trigger the `afterSave` callback)

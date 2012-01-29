@@ -15,12 +15,12 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-use \Cake\Core\Configure,
-	\Cake\Utility\Debugger,
-	\Cake\Cache\Cache,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\Validation,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Utility\Debugger,
+	Cake\Cache\Cache,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\Validation,
+	Cake\Error;
 if (Configure::read('debug') == 0):
 	throw new Error\NotFoundException();
 endif;

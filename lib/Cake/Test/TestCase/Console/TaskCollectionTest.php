@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\TaskCollection,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\Console\TaskCollection,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 class TaskCollectionTest extends TestCase {
 /**
@@ -75,7 +75,7 @@ class TaskCollectionTest extends TestCase {
 /**
  * test missingtask exception
  *
- * @expectedException \Cake\Console\MissingTaskException
+ * @expectedException Cake\Console\MissingTaskException
  * @return void
  */
 	public function testLoadMissingTask() {

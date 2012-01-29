@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Controller\Component\CookieComponent,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\ComponentCollection,
+	Cake\Controller\Component\CookieComponent,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 /**
  * Extended CookieComponent
@@ -116,7 +116,7 @@ class ComponentCollectionTest extends TestCase {
 /**
  * test missingcomponent exception
  *
- * @expectedException \Cake\Error\MissingComponentException
+ * @expectedException Cake\Error\MissingComponentException
  * @return void
  */
 	public function testLoadMissingComponent() {

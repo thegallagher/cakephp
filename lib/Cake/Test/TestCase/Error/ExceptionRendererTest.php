@@ -17,16 +17,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Error;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Error\ExceptionRenderer,
-	\Cake\Controller\Controller,
-	\Cake\Controller\Component,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Error;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Error\ExceptionRenderer,
+	Cake\Controller\Controller,
+	Cake\Controller\Component,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Error;
 
 /**
  * Short description for class.
@@ -263,7 +263,7 @@ class ExceptionRendererTest extends TestCase {
 		$exception = new Error\NotFoundException('Page not found');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 
-		$this->assertInstanceOf('\Cake\Controller\ErrorController', $ExceptionRenderer->controller);
+		$this->assertInstanceOf('Cake\Controller\ErrorController', $ExceptionRenderer->controller);
 		$this->assertEquals('error400', $ExceptionRenderer->method);
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}
@@ -278,7 +278,7 @@ class ExceptionRendererTest extends TestCase {
 		$exception = new Error\MissingActionException('Page not found');
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 
-		$this->assertInstanceOf('\Cake\Controller\ErrorController', $ExceptionRenderer->controller);
+		$this->assertInstanceOf('Cake\Controller\ErrorController', $ExceptionRenderer->controller);
 		$this->assertEquals('error400', $ExceptionRenderer->method);
 		$this->assertEquals($exception, $ExceptionRenderer->error);
 	}

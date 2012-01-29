@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\ConsoleOutput;
+use Cake\TestSuite\TestCase,
+	Cake\Console\ConsoleOutput;
 
 class ConsoleOutputTest extends TestCase {
 

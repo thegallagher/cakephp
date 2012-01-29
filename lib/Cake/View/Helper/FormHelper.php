@@ -19,14 +19,14 @@
  * @license     MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\View\View,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\Security,
-	\Cake\Utility\Set,
-	\Cake\Core\Configure,
-	\Cake\Error;
+use Cake\View\Helper,
+	Cake\View\View,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Utility\Security,
+	Cake\Utility\Set,
+	Cake\Core\Configure,
+	Cake\Error;
 
 /**
  * Form helper library.
@@ -1441,7 +1441,7 @@ class FormHelper extends Helper {
  * @param string $method Method name / input type to make.
  * @param array $params Parameters for the method call
  * @return string Formatted input method.
- * @throws \Cake\Error\Exception When there are no params for the method call.
+ * @throws Cake\Error\Exception When there are no params for the method call.
  */
 	public function __call($method, $params) {
 		$options = array();

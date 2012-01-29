@@ -20,19 +20,19 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Error;
-use \Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Core\Configure,
-	\Cake\Utility\Inflector,
-	\Cake\Controller\Controller,
-	\Cake\Controller\ErrorController;
+use Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Core\Configure,
+	Cake\Utility\Inflector,
+	Cake\Controller\Controller,
+	Cake\Controller\ErrorController;
 
 /**
  * Exception Renderer.
  *
  * Captures and handles all unhandled exceptions. Displays helpful framework errors when debug > 1.
- * When debug < 1 a \Cake\Error\Exception will render 404 or  500 errors.  If an uncaught exception is thrown
+ * When debug < 1 a Cake\Error\Exception will render 404 or  500 errors.  If an uncaught exception is thrown
  * and it is a type that ExceptionHandler does not know about it will be treated as a 500 error.
  *
  * ### Implementing application specific exception rendering
@@ -65,7 +65,7 @@ class ExceptionRenderer {
 	public $controller = null;
 
 /**
- * template to render for \Cake\Error\Exception
+ * template to render for Cake\Error\Exception
  *
  * @var string
  */
@@ -87,7 +87,7 @@ class ExceptionRenderer {
 
 /**
  * Creates the controller to perform rendering on the error response.
- * If the error is a \Cake\Error\Exception it will be converted to either a 400 or a 500
+ * If the error is a Cake\Error\Exception it will be converted to either a 400 or a 500
  * code error depending on the code used to construct the error.
  *
  * @param \Exception $exception Exception
@@ -172,7 +172,7 @@ class ExceptionRenderer {
 /**
  * Generic handler for the internal framework errors CakePHP can generate.
  *
- * @param \Cake\Error\Exception $error
+ * @param Cake\Error\Exception $error
  * @return void
  */
 	protected function _cakeError(Exception $error) {

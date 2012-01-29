@@ -17,15 +17,15 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command\Task;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\Command\Task\ControllerTask,
-	\Cake\Console\Command\Task\TemplateTask,
-	\Cake\Console\Shell,
-	\Cake\Model\Model,
-	\Cake\Model\Schema,
-	\Cake\View\Helper,
-	\Cake\Core\Plugin
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\TestCase,
+	Cake\Console\Command\Task\ControllerTask,
+	Cake\Console\Command\Task\TemplateTask,
+	Cake\Console\Shell,
+	Cake\Model\Model,
+	Cake\Model\Schema,
+	Cake\View\Helper,
+	Cake\Core\Plugin
+	Cake\Utility\ClassRegistry;
 
 App::uses('BakeArticle', 'Model');
 App::uses('BakeComment', 'Model');

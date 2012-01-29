@@ -16,10 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Dispatcher,
-	\Cake\Routing\Router;
+use Cake\Console\Shell,
+	Cake\Core\Plugin,
+	Cake\Routing\Dispatcher,
+	Cake\Routing\Router;
 
 /**
  * Provides a very basic 'interactive' console for CakePHP apps.

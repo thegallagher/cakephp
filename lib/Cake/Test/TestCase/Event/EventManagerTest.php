@@ -19,10 +19,10 @@
  * @license		  MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Event;
-use \Cake\TestSuite\TestCase,
-	\Cake\Event\Event,
-	\Cake\Event\EventManager,
-	\Cake\Event\EventListiner;
+use Cake\TestSuite\TestCase,
+	Cake\Event\Event,
+	Cake\Event\EventManager,
+	Cake\Event\EventListiner;
 
 /**
  * Mock class used to test event dispatching

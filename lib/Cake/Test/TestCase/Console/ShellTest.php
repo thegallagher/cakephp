@@ -19,12 +19,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\Shell,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Utility\Folder,
-	\Cake\Utility\Set;
+use Cake\TestSuite\TestCase,
+	Cake\Console\Shell,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Utility\Folder,
+	Cake\Utility\Set;
 
 /**
  * ShellTestShell class

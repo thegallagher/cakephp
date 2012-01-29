@@ -19,9 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Behavior;
-use \Cake\Model\ModelBehavior,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Set;
+use Cake\Model\ModelBehavior,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Set;
 
 /**
  * ACL behavior

@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\Utility\Debugger,
-	\Cake\TestSuite\TestCase,
-	\Cake\Core\Configure,
-	\Cake\Controller\Controller,
-	\Cake\View\View;
+use Cake\Utility\Debugger,
+	Cake\TestSuite\TestCase,
+	Cake\Core\Configure,
+	Cake\Controller\Controller,
+	Cake\View\View;
 
 /**
  * DebugggerTestCaseDebuggger class
@@ -107,7 +107,7 @@ class DebuggerTest extends TestCase {
  * @return void
  */
 	public function testOutput() {
-		set_error_handler('\Cake\Utility\Debugger::showError');
+		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
 
 		$result = Debugger::output(false);
@@ -162,7 +162,7 @@ class DebuggerTest extends TestCase {
  * @return void
  */
 	public function testChangeOutputFormats() {
-		set_error_handler('\Cake\Utility\Debugger::showError');
+		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
 
 		Debugger::output('js', array(
@@ -208,7 +208,7 @@ class DebuggerTest extends TestCase {
 /**
  * Test that choosing a non-existant format causes an exception
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testOutputAsException() {
@@ -221,7 +221,7 @@ class DebuggerTest extends TestCase {
  * @return void
  */
 	public function testAddFormat() {
-		set_error_handler('\Cake\Utility\Debugger::showError');
+		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
 
 		Debugger::addFormat('js', array(
@@ -260,7 +260,7 @@ class DebuggerTest extends TestCase {
  * @return void
  */
 	public function testAddFormatCallback() {
-		set_error_handler('\Cake\Utility\Debugger::showError');
+		set_error_handler('Cake\Utility\Debugger::showError');
 		$this->_restoreError = true;
 
 		Debugger::addFormat('callback', array('callback' => array($this, 'customFormat')));
@@ -416,7 +416,7 @@ TEXT;
  */
 	public function testGetInstance() {
 		$result = Debugger::getInstance();
-		$this->assertInstanceOf('\Cake\Utility\Debugger', $result);
+		$this->assertInstanceOf('Cake\Utility\Debugger', $result);
 
 		$result = Debugger::getInstance(__NAMESPACE__ . '\DebuggerTestCaseDebugger');
 		$this->assertInstanceOf(__NAMESPACE__ . '\DebuggerTestCaseDebugger', $result);
@@ -424,8 +424,8 @@ TEXT;
 		$result = Debugger::getInstance();
 		$this->assertInstanceOf(__NAMESPACE__ . '\DebuggerTestCaseDebugger', $result);
 
-		$result = Debugger::getInstance('\Cake\Utility\Debugger');
-		$this->assertInstanceOf('\Cake\Utility\Debugger', $result);
+		$result = Debugger::getInstance('Cake\Utility\Debugger');
+		$this->assertInstanceOf('Cake\Utility\Debugger', $result);
 	}
 
 /**

@@ -19,9 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Log;
-use \Cake\Error,
-	\Cake\Log\Engine\FileLog,
-	\Cake\Core\App;
+use Cake\Error,
+	Cake\Log\Engine\FileLog,
+	Cake\Core\App;
 
 /**
  * Set up error level constants to be used within the framework if they are not defined within the
@@ -91,7 +91,7 @@ class Log {
  * @param string $key The keyname for this logger, used to remove the logger later.
  * @param array $config Array of configuration information for the logger
  * @return boolean success of configuration.
- * @throws \Cake\Error\LogException
+ * @throws Cake\Error\LogException
  */
 	public static function config($key, $config) {
 		if (empty($config['engine'])) {
@@ -116,7 +116,7 @@ class Log {
  *
  * @param string $loggerName the plugin.className of the logger class you want to build.
  * @return mixed boolean false on any failures, string of classname to use if search was successful.
- * @throws \Cake\Error\LogException
+ * @throws Cake\Error\LogException
  */
 	protected static function _getLogger($loggerName) {
 		$loggerName = App::classname($loggerName, 'Log/Engine');
@@ -152,7 +152,7 @@ class Log {
  * @return void
  */
 	protected static function _autoConfig() {
-		self::_getLogger('\Cake\Log\Engine\FileLog');
+		self::_getLogger('Cake\Log\Engine\FileLog');
 		self::$_streams['default'] = new FileLog(array('path' => LOGS));
 	}
 

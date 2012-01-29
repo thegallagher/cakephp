@@ -17,17 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource;
-use \Cake\Core\Configure,
-	\Cake\Model\ConnectionManager,
-	\Cake\Model\Schema,
-	\Cake\Model\Model,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Set,
-	\Cake\Utility\String,
-	\Cake\Cache\Cache,
+use Cake\Core\Configure,
+	Cake\Model\ConnectionManager,
+	Cake\Model\Schema,
+	Cake\Model\Model,
+	Cake\Utility\Inflector,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Set,
+	Cake\Utility\String,
+	Cake\Cache\Cache,
 	\PDO,
-	\Cake\Error;
+	Cake\Error;
 
 /**
  * DboSource
@@ -2829,13 +2829,13 @@ class DboSource extends DataSource {
 /**
  * Generate a database-native schema for the given Schema object
  *
- * @param Model $schema An instance of a subclass of \Cake\Model\Schema
+ * @param Model $schema An instance of a subclass of Cake\Model\Schema
  * @param string $tableName Optional.  If specified only the table name given will be generated.
  *   Otherwise, all tables defined in the schema are generated.
  * @return string
  */
 	public function createSchema($schema, $tableName = null) {
-		if (!is_a($schema, '\Cake\Model\Schema')) {
+		if (!is_a($schema, 'Cake\Model\Schema')) {
 			trigger_error(__d('cake_dev', 'Invalid schema object'), E_USER_WARNING);
 			return null;
 		}
@@ -2878,7 +2878,7 @@ class DboSource extends DataSource {
 	}
 
 /**
- * Generate a alter syntax from	\Cake\Model\Schema::compare()
+ * Generate a alter syntax from	Cake\Model\Schema::compare()
  *
  * @param mixed $compare
  * @param string $table
@@ -2891,7 +2891,7 @@ class DboSource extends DataSource {
 /**
  * Generate a "drop table" statement for the given Schema object
  *
- * @param \Cake\Model\Schema $schema An instance of a subclass of \Cake\Model\Schema
+ * @param Cake\Model\Schema $schema An instance of a subclass of Cake\Model\Schema
  * @param string $table Optional.  If specified only the table name given will be generated.
  *   Otherwise, all tables defined in the schema are generated.
  * @return string

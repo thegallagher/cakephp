@@ -15,11 +15,11 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-use \Cake\Routing\Dispatcher,
-	\Cake\Cache\Cache,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\Validation,
-	\Cake\Core\Configure;
+use Cake\Routing\Dispatcher,
+	Cake\Cache\Cache,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\Validation,
+	Cake\Core\Configure;
 ?>
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
 <a href="http://cakephp.org/changelogs/1.3.6"><?php echo __d('cake_dev', 'Read the changelog'); ?> </a>

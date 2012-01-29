@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Session;
-use \Cake\Core\Configure,
-	\Cake\Utility\ClassRegistry;
+use Cake\Core\Configure,
+	Cake\Utility\ClassRegistry;
 
 /**
  * DatabaseSession provides methods to be used with Session.

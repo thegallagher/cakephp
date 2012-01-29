@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Email;
-use \Cake\Network\Socket,
-	\Cake\Error;
+use Cake\Network\Socket,
+	Cake\Error;
 
 /**
  * Send mail using SMTP protocol
@@ -30,14 +30,14 @@ class SmtpTransport extends AbstractTransport {
 /**
  * Socket to SMTP server
  *
- * @var \Cake\Network\Socket
+ * @var Cake\Network\Socket
  */
 	protected $_socket;
 
 /**
- * \Cake\Network\Email\Email
+ * Email Instance
  *
- * @var CakeEmail
+ * @var Cake\Network\Email\Email
  */
 	protected $_cakeEmail;
 
@@ -51,7 +51,7 @@ class SmtpTransport extends AbstractTransport {
 /**
  * Send mail
  *
- * @param \Cake\Network\Email\Email $email Cake Email
+ * @param Cake\Network\Email\Email $email Cake Email
  * @return array
  * @throws SocketException
  */

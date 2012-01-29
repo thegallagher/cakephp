@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network\Email;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Email\Email,
-	\Cake\Network\Email\SmtpTransport,
-	\Cake\Network\Socket;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Email\Email,
+	Cake\Network\Email\SmtpTransport,
+	Cake\Network\Socket;
 
 /**
  * Help to test SmtpTransport
@@ -129,7 +129,7 @@ class SmtpTransportTest extends TestCase {
 /**
  * testConnectFail method
  *
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testConnectFail() {

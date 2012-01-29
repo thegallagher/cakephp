@@ -15,9 +15,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Utility\ObjectCollection,
-	\Cake\Core\App,
-	\Cake\Error;
+use Cake\Utility\ObjectCollection,
+	Cake\Core\App,
+	Cake\Error;
 
 /**
  * Collection object for Tasks.  Provides features

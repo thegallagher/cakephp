@@ -19,7 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller;
-use \Cake\Routing\Router;
+use Cake\Routing\Router;
 
 /**
  * Error Handling Controller
@@ -47,8 +47,8 @@ class ErrorController extends Controller {
 /**
  * __construct
  *
- * @param \Cake\Network\Request $request
- * @param \Cake\Network\Response $response
+ * @param Cake\Network\Request $request
+ * @param Cake\Network\Response $response
  */
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);

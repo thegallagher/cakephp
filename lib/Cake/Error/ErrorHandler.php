@@ -19,10 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Error;
-use \Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\Debugger,
-	\Cake\Log\Log;
+use Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\Debugger,
+	Cake\Log\Log;
 
 /**
  *
@@ -31,7 +31,7 @@ use \Cake\Core\Configure,
  *
  * ### Uncaught exceptions
  *
- * When debug < 1 a \Cake\Error\Exception will render 404 or  500 errors.  If an uncaught exception is thrown
+ * When debug < 1 a Cake\Error\Exception will render 404 or  500 errors.  If an uncaught exception is thrown
  * and it is a type that ErrorHandler does not know about it will be treated as a 500 error.
  *
  * ### Implementing application specific exception handling

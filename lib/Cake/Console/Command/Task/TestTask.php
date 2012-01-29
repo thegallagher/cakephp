@@ -16,11 +16,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
-use \Cake\Core\App,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Console\Shell,
-	\Cake\Error;
+use Cake\Core\App,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Console\Shell,
+	Cake\Error;
 
 /**
  * Task class for creating and updating test files.

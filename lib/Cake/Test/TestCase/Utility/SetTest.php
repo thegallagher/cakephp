@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\TestCase,
-	\Cake\Utility\Set,
-	\Cake\Utility\Xml,
-	\Cake\Model\Model;
+use Cake\TestSuite\TestCase,
+	Cake\Utility\Set,
+	Cake\Utility\Xml,
+	Cake\Model\Model;
 
 /**
  * SetTest class
@@ -200,7 +200,7 @@ class SetTest extends TestCase {
 		$this->assertEquals($r, array('foo', 'bar'));
 
 		if (substr(PHP_VERSION, 0, 1) >= 5) {
-			$r = eval('class StaticSetCaller{static function merge($a, $b){return \Cake\Utility\Set::merge($a, $b);}} return StaticSetCaller::merge("foo", "bar");');
+			$r = eval('class StaticSetCaller{static function merge($a, $b){return Cake\Utility\Set::merge($a, $b);}} return StaticSetCaller::merge("foo", "bar");');
 			$this->assertEquals($r, array('foo', 'bar'));
 		}
 

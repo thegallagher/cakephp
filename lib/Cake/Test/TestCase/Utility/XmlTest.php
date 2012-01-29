@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Utility\Xml,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Utility\Xml,
+	Cake\Core\Configure;
 
 /**
  * Article class
@@ -177,7 +177,7 @@ class XmlTest extends TestCase {
  * testBuildInvalidData
  *
  * @dataProvider invalidDataProvider
- * @expectedException \Cake\Error\XmlException
+ * @expectedException Cake\Error\XmlException
  * return void
  */
 	public function testBuildInvalidData($value) {
@@ -841,7 +841,7 @@ class XmlTest extends TestCase {
  * testToArrayFail method
  *
  * @dataProvider invalidToArrayDataProvider
- * @expectedException \Cake\Error\XmlException
+ * @expectedException Cake\Error\XmlException
  */
 	public function testToArrayFail($value) {
 		Xml::toArray($value);

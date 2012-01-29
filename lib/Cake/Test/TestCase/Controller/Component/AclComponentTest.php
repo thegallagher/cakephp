@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Component\AclComponent,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Component\AclComponent,
+	Cake\Controller\ComponentCollection,
+	Cake\Core\Configure;
 
 /**
  * Test Case for AclComponent
@@ -57,7 +57,7 @@ class AclComponentTest extends TestCase {
  * test that construtor throws an exception when Acl.classname is a
  * non-existant class
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testConstrutorException() {
@@ -82,7 +82,7 @@ class AclComponentTest extends TestCase {
 /**
  * test that adapter() whines when the class is not an AclBase
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testAdapterException() {

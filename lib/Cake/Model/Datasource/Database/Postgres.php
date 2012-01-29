@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
-use \Cake\Model\Datasource\DboSource,
-	\Cake\Error,
+use Cake\Model\Datasource\DboSource,
+	Cake\Error,
 	\PDO;
 
 /**
@@ -468,7 +468,7 @@ class Postgres extends DboSource {
 /**
  * Alter the Schema of a table.
  *
- * @param array $compare Results of \Cake\Model\Schema::compare()
+ * @param array $compare Results of Cake\Model\Schema::compare()
  * @param string $table name of the table
  * @return array
  */

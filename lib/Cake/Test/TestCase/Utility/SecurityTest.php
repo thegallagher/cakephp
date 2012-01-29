@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\Configure,
-	\Cake\Utility\Security;
+use Cake\TestSuite\TestCase,
+	Cake\Core\Configure,
+	Cake\Utility\Security;
 
 /**
  * SecurityTest class

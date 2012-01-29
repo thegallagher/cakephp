@@ -29,7 +29,7 @@
  * @package       Cake.Test.TestApp.Plugin.TestPlugin.Model.Behavior
  */
 namespace TestPlugin\Model\Behavior;
-use \Cake\Model\ModelBehavior;
+use Cake\Model\ModelBehavior;
 
 class TestPluginPersisterTwoBehavior extends ModelBehavior {
 }

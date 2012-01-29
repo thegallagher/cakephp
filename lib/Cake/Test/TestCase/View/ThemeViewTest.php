@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\ThemeView,
-	\Cake\Controller\Controller,
-	\Cake\Network\Request,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\View\ThemeView,
+	Cake\Controller\Controller,
+	Cake\Network\Request,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 /**
  * ThemePosts2Controller class
@@ -200,7 +200,7 @@ class ThemeViewTest extends TestCase {
 /**
  * testMissingView method
  *
- * @expectedException \Cake\Error\MissingViewException
+ * @expectedException Cake\Error\MissingViewException
  * @return void
  */
 	public function testMissingView() {
@@ -223,7 +223,7 @@ class ThemeViewTest extends TestCase {
 /**
  * testMissingLayout method
  *
- * @expectedException \Cake\Error\MissingLayoutException
+ * @expectedException Cake\Error\MissingLayoutException
  * @return void
  */
 	public function testMissingLayout() {

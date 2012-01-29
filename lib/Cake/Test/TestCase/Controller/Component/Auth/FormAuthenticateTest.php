@@ -17,14 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component\Auth;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Component\Auth\FormAuthenticate,
-	\Cake\Network\Request,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Security;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Component\Auth\FormAuthenticate,
+	Cake\Network\Request,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Security;
 
 require_once  CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
 

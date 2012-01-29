@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite;
-use \Cake\Core\App,
-	\Cake\Error;
+use Cake\Core\App,
+	Cake\Error;
 
 define('CORE_TEST_CASES', CAKE . 'Test' . DS . 'TestCase');
 define('APP_TEST_CASES', TESTS . 'TestCase');
@@ -71,7 +71,7 @@ class TestSuiteDispatcher {
 /**
  * reporter instance used for the request
  *
- * @var \Cake\TestSuite\Reporter\BaseReporter
+ * @var Cake\TestSuite\Reporter\BaseReporter
  */
 	protected static $_Reporter = null;
 
@@ -247,7 +247,7 @@ class TestSuiteDispatcher {
 		restore_error_handler();
 
 		try {
-			$command = new TestSuiteCommand('\Cake\TestSuite\TestLoader', $commandArgs);
+			$command = new TestSuiteCommand('Cake\TestSuite\TestLoader', $commandArgs);
 			$result = $command->run($options);
 		} catch (Error\MissingConnectionException $exception) {
 			ob_end_clean();

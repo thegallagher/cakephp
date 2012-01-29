@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Socket;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Socket;
 
 /**
  * SocketTest class
@@ -115,7 +115,7 @@ class SocketTest extends TestCase {
  * testInvalidConnection method
  *
  * @dataProvider invalidConnections
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * return void
  */
 	public function testInvalidConnection($data) {

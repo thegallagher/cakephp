@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Cache\Engine;
-use \Cake\Cache\CacheEngine;
+use Cake\Cache\CacheEngine;
 
 /**
  * Xcache storage engine for cache

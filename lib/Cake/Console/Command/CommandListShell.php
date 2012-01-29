@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\Console\ConsoleOutput,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Utility\Inflector;
+use Cake\Console\Shell,
+	Cake\Console\ConsoleOutput,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Utility\Inflector;
 
 /**
  * Shows a list of commands available from the console.

@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestSuite\Log;
-use \Cake\TestSuite\TestCase,
-	\Cake\Log\Log,
-	\Cake\Log\Engine\FileLog,
-	\Cake\Core\App,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\Log\Log,
+	Cake\Log\Engine\FileLog,
+	Cake\Core\App,
+	Cake\Core\Plugin;
 
 /**
  * LogTest class
@@ -74,7 +74,7 @@ class LogTest extends TestCase {
 /**
  * test all the errors from failed logger imports
  *
- * @expectedException \Cake\Error\LogException
+ * @expectedException Cake\Error\LogException
  * @return void
  */
 	public function testImportingLoggerFailure() {
@@ -84,7 +84,7 @@ class LogTest extends TestCase {
 /**
  * test that loggers have to implement the correct interface.
  *
- * @expectedException \Cake\Error\LogException
+ * @expectedException Cake\Error\LogException
  * @return void
  */
 	public function testNotImplementingInterface() {

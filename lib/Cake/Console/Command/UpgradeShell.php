@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Utility\Folder,
-	\Cake\Utility\Inflector;
+use Cake\Console\Shell,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Utility\Folder,
+	Cake\Utility\Inflector;
 
 /**
  * A shell class to help developers upgrade applications to CakePHP 2.0

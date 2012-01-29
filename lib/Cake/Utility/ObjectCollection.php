@@ -11,8 +11,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
-use \Cake\Event\Event,
-	\Cake\Error;
+use Cake\Event\Event,
+	Cake\Error;
 
 /**
  * Deals with Collections of objects.  Keeping registries of those objects,
@@ -92,7 +92,7 @@ abstract class ObjectCollection {
  * @param array $params Array of parameters for the triggered callback.
  * @param array $options Array of options.
  * @return mixed Either the last result or all results if collectReturn is on.
- * @throws \Cake\Error\Exception when modParams is used with an index that does not exist.
+ * @throws Cake\Error\Exception when modParams is used with an index that does not exist.
  */
 	public function trigger($callback, $params = array(), $options = array()) {
 		if (empty($this->_enabled)) {

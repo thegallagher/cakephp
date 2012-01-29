@@ -13,17 +13,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
-use \Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Controller\Component\Acl\AclInterface,
-	\Cake\Core\Object,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Configure\IniReader,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\Set,
-	\Cake\Error;
+use Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Controller\Component\Acl\AclInterface,
+	Cake\Core\Object,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Configure\IniReader,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Utility\Set,
+	Cake\Error;
 
 /**
  * Access Control List factory class.
@@ -63,7 +63,7 @@ class AclComponent extends Component {
  *
  * @param ComponentCollection $collection
  * @param array $settings
- * @throws \Cake\Error\Exception when Acl.classname could not be loaded.
+ * @throws Cake\Error\Exception when Acl.classname could not be loaded.
  */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		parent::__construct($collection, $settings);
@@ -91,7 +91,7 @@ class AclComponent extends Component {
  *
  * @param mixed $adapter Instance of AclBase or a string name of the class to use. (optional)
  * @return mixed either null, or instance of AclBase
- * @throws \Cake\Error\Exception when the given class is not an AclBase
+ * @throws Cake\Error\Exception when the given class is not an AclBase
  */
 	public function adapter($adapter = null) {
 		if ($adapter) {

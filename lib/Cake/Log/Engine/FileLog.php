@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Log\Engine;
-use \Cake\Log\LogInterface;
+use Cake\Log\LogInterface;
 
 /**
  * File Storage stream for Logging.  Writes logs to different files

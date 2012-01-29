@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestPlugin\Lib\Log\Engine;
-use \Cake\Log\LogInterface;
+use Cake\Log\LogInterface;
 
 class TestPluginLog implements LogInterface {
 

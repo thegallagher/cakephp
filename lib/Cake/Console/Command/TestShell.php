@@ -18,12 +18,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\TestSuite\TestLoader,
-	\Cake\TestSuite\TestSuiteCommand,
-	\Cake\TestSuite\TestSuiteDispatcher,
-	\Cake\Console\ConsoleOptionParser,
-	\Cake\Utility\Inflector;
+use Cake\Console\Shell,
+	Cake\TestSuite\TestLoader,
+	Cake\TestSuite\TestSuiteCommand,
+	Cake\TestSuite\TestSuiteDispatcher,
+	Cake\Console\ConsoleOptionParser,
+	Cake\Utility\Inflector;
 
 /**
  * Provides a CakePHP wrapper around PHPUnit.
@@ -273,7 +273,7 @@ class TestShell extends Shell {
 		restore_error_handler();
 		restore_error_handler();
 
-		$testCli = new TestSuiteCommand('\Cake\TestSuite\TestLoader', $runnerArgs);
+		$testCli = new TestSuiteCommand('Cake\TestSuite\TestLoader', $runnerArgs);
 		$testCli->run($options);
 	}
 

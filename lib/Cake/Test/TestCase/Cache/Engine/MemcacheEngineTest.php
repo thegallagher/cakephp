@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Cache\Engine;
-use \Cake\TestSuite\TestCase,
-	\Cake\Cache\Cache,
-	\Cake\Cache\Engine\MemcacheEngine,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\Cache\Cache,
+	Cake\Cache\Engine\MemcacheEngine,
+	Cake\Core\Configure;
 
 class TestMemcacheEngine extends MemcacheEngine {
 /**

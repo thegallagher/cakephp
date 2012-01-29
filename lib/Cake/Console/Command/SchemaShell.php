@@ -19,13 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
-use \Cake\Console\Shell,
-	\Cake\Core\Configure,
-	\Cake\Model\Schema,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\File,
-	\Cake\Utility\Folder,
-	\Cake\Utility\Inflector;
+use Cake\Console\Shell,
+	Cake\Core\Configure,
+	Cake\Model\Schema,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\File,
+	Cake\Utility\Folder,
+	Cake\Utility\Inflector;
 
 /**
  * Schema is a command-line database management utility for automating programmer chores.
@@ -41,7 +41,7 @@ class SchemaShell extends Shell {
 /**
  * Schema class being used.
  *
- * @var \Cake\Model\Schema
+ * @var Cake\Model\Schema
  */
 	public $Schema;
 
@@ -312,7 +312,7 @@ class SchemaShell extends Shell {
  * Create database from Schema object
  * Should be called via the run method
  *
- * @param \Cake\Model\Schema $Schema
+ * @param Cake\Model\Schema $Schema
  * @param string $table
  * @return void
  */
@@ -357,7 +357,7 @@ class SchemaShell extends Shell {
  * Update database with Schema object
  * Should be called via the run method
  *
- * @param \Cake\Model\Schema $Schema
+ * @param Cake\Model\Schema $Schema
  * @param string $table
  * @return void
  */
@@ -403,7 +403,7 @@ class SchemaShell extends Shell {
  *
  * @param array $contents
  * @param string $event
- * @param \Cake\Model\Schema $Schema
+ * @param Cake\Model\Schema $Schema
  * @return void
  */
 	protected function _run($contents, $event, &$Schema) {

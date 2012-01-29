@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
-use \Cake\Model\Datasource\DboSource,
-	\Cake\Error,
+use Cake\Model\Datasource\DboSource,
+	Cake\Error,
 	\PDO;
 
 /**
@@ -537,7 +537,7 @@ class Sqlite extends DboSource {
 /**
  * Generate a "drop table" statement for the given Schema object
  *
- * @param \Cake\Model\Schema $schema An instance of a subclass of \Cake\Model\Schema
+ * @param Cake\Model\Schema $schema An instance of a subclass of Cake\Model\Schema
  * @param string $table Optional.  If specified only the table name given will be generated.
  *   Otherwise, all tables defined in the schema are generated.
  * @return string

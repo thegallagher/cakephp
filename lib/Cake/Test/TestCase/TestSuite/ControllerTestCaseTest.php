@@ -19,13 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\TestSuite;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Controller,
-	\Cake\Model\Model,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Router,
-	\Cake\TestSuite\Reporter\HtmlReporter;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Controller,
+	Cake\Model\Model,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Routing\Router,
+	Cake\TestSuite\Reporter\HtmlReporter;
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 

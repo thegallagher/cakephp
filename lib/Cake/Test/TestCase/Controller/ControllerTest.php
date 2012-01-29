@@ -17,17 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Controller\Controller,
-	\Cake\Core\App,
-	\Cake\Core\Object,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Set;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Controller\Controller,
+	Cake\Core\App,
+	Cake\Core\Object,
+	Cake\Core\Plugin,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Set;
 
 /**
  * AppController class

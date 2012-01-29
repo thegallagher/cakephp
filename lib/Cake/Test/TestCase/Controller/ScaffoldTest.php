@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Scaffold,
-	\Cake\Controller\Controller,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Scaffold,
+	Cake\Controller\Controller,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Core\Plugin;
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 

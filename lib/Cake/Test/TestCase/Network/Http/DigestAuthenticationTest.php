@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network\Http;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Http\HttpSocket,
-	\Cake\Network\Http\DigestAuthentication;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Http\HttpSocket,
+	Cake\Network\Http\DigestAuthentication;
 
 class DigestHttpSocket extends HttpSocket {
 

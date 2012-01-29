@@ -20,7 +20,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestApp\Controller;
-use \Cake\Controller\Controller;
+use Cake\Controller\Controller;
 
 /**
  * This is a placeholder class.

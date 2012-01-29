@@ -139,7 +139,7 @@ class JsHelperTest extends TestCase {
 		$request = new Request(null, false);
 
 		if (!class_exists('TestJsEngineHelper', false)) {
-			$this->getMock('\Cake\View\Helper\JsBaseEngineHelper', array(), array($this->View), 'TestJsEngineHelper');
+			$this->getMock('Cake\View\Helper\JsBaseEngineHelper', array(), array($this->View), 'TestJsEngineHelper');
 		}
 
 		$this->Js = new JsHelper($this->View, array('TestJs'));

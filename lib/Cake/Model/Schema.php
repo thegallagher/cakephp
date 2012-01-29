@@ -17,13 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
-use \Cake\Core\Object,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin,
-	\Cake\Core\App,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Core\Object,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
+	Cake\Core\App,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Base Class for Schema management

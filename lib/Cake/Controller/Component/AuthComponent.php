@@ -19,16 +19,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
-use \Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Model\Datasource\Session,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Utility\Debugger,
-	\Cake\Utility\Set,
-	\Cake\Core\Configure,
-	\Cake\Error;
+use Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Model\Datasource\Session,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Utility\Debugger,
+	Cake\Utility\Set,
+	Cake\Core\Configure,
+	Cake\Error;
 
 /**
  * Authentication control component class
@@ -224,14 +224,14 @@ class AuthComponent extends Component {
 /**
  * Request object
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request;
 
 /**
  * Response object
  *
- * @var \Cake\Network\Response
+ * @var Cake\Network\Response
  */
 	public $response;
 
@@ -362,7 +362,7 @@ class AuthComponent extends Component {
  * be authorized for the request.
  *
  * @param mixed $user The user to check the authorization of. If empty the user in the session will be used.
- * @param \Cake\Network\Request $request The request to authenticate for.  If empty, the current request will be used.
+ * @param Cake\Network\Request $request The request to authenticate for.  If empty, the current request will be used.
  * @return boolean True if $user is authorized, otherwise false
  */
 	public function isAuthorized($user = null, $request = null) {
@@ -389,7 +389,7 @@ class AuthComponent extends Component {
  * Loads the authorization objects configured.
  *
  * @return mixed Either null when authorize is empty, or the loaded authorization objects.
- * @throws \Cake\Error\Exception
+ * @throws Cake\Error\Exception
  */
 	public function constructAuthorize() {
 		if (empty($this->authorize)) {
@@ -626,8 +626,8 @@ class AuthComponent extends Component {
  * Use the configured authentication adapters, and attempt to identify the user
  * by credentials contained in $request.
  *
- * @param \Cake\Network\Request $request The request that contains authentication data.
- * @param \Cake\Network\Response $response The response
+ * @param Cake\Network\Request $request The request that contains authentication data.
+ * @param Cake\Network\Response $response The response
  * @return array User record data, or false, if the user could not be identified.
  */
 	public function identify(Request $request, Response $response) {
@@ -647,7 +647,7 @@ class AuthComponent extends Component {
  * loads the configured authentication objects.
  *
  * @return mixed either null on empty authenticate value, or an array of loaded objects.
- * @throws \Cake\Error\Exception
+ * @throws Cake\Error\Exception
  */
 	public function constructAuthenticate() {
 		if (empty($this->authenticate)) {

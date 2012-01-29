@@ -19,11 +19,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller;
-use \Cake\Network\Request,
-	\Cake\Core\Configure,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Network\Request,
+	Cake\Core\Configure,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Scaffolding is a set of automatic actions for starting web development work faster.
@@ -75,7 +75,7 @@ class Scaffold {
 /**
  * Request object
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request;
 
@@ -106,7 +106,7 @@ class Scaffold {
  * Construct and set up given controller with given parameters.
  *
  * @param Controller $controller Controller to scaffold
- * @param \Cake\Network\Request $request Request parameters.
+ * @param Cake\Network\Request $request Request parameters.
  * @throws MissingModelException
  */
 	public function __construct(Controller $controller, Request $request) {
@@ -158,7 +158,7 @@ class Scaffold {
 /**
  * Renders a view action of scaffolded model.
  *
- * @param \Cake\Network\Request $request Request Object for scaffolding
+ * @param Cake\Network\Request $request Request Object for scaffolding
  * @return mixed A rendered view of a row from Models database table
  * @throws NotFoundException
  */
@@ -216,7 +216,7 @@ class Scaffold {
 /**
  * Saves or updates the scaffolded model.
  *
- * @param \Cake\Network\Request $request Request Object for scaffolding
+ * @param Cake\Network\Request $request Request Object for scaffolding
  * @param string $action add or edit
  * @return mixed Success on save/update, add/edit form if data is empty or error if save or update fails
  * @throws NotFoundException
@@ -290,7 +290,7 @@ class Scaffold {
 /**
  * Performs a delete on given scaffolded Model.
  *
- * @param \Cake\Network\Request $request Request for scaffolding
+ * @param Cake\Network\Request $request Request for scaffolding
  * @return mixed Success on delete, error if delete fails
  * @throws MethodNotAllowedException, NotFoundException
  */
@@ -353,7 +353,7 @@ class Scaffold {
  * scaffoldView is used to call default Scaffold methods if:
  * `public $scaffold;` is placed in the controller's class definition.
  *
- * @param \Cake\Network\Request $request Request object for scaffolding
+ * @param Cake\Network\Request $request Request object for scaffolding
  * @return mixed A rendered view of scaffold action, or showing the error
  * @throws MissingActionException, MissingDatabaseException
  */

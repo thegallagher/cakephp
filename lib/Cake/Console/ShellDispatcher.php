@@ -16,10 +16,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Shell dispatcher handles dispatching cli commands.
@@ -100,7 +100,7 @@ class ShellDispatcher {
  * Defines current working environment.
  *
  * @return void
- * @throws \Cake\Error\Exception
+ * @throws Cake\Error\Exception
  */
 	protected function _initEnvironment() {
 		if (!$this->_bootstrap()) {

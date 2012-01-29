@@ -17,6 +17,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestPlugin\Model;
-use \Cake\TestSuite\Fixture\TestModel;
+use Cake\TestSuite\Fixture\TestModel;
 
 class TestPluginAppModel extends TestModel {}

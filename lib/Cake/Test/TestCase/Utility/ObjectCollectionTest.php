@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\TestCase,
-	\Cake\Event\Event,
-	\Cake\Utility\ObjectCollection;
+use Cake\TestSuite\TestCase,
+	Cake\Event\Event,
+	Cake\Utility\ObjectCollection;
 
 /**
  * A generic object class
@@ -331,7 +331,7 @@ class ObjectCollectionTest extends TestCase {
 /**
  * test that setting modParams to an index that doesn't exist doesn't cause errors.
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testTriggerModParamsInvalidIndex() {

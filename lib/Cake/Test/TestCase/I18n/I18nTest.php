@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\I18n;
-use \Cake\TestSuite\TestCase,
-	\Cake\I18n\I18n,
-	\Cake\Cache\Cache,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin;
+use Cake\TestSuite\TestCase,
+	Cake\I18n\I18n,
+	Cake\Cache\Cache,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin;
 
 /**
  * I18nTest class

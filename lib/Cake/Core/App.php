@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Core;
-use \Cake\Cache\Cache,
-	\Cake\Utility\Inflector;
+use Cake\Cache\Cache,
+	Cake\Utility\Inflector;
 
 /**
  * App is responsible for path management, class location and class loading.
@@ -808,7 +808,7 @@ class App {
 
 		self::$_map += (array)Cache::read('file_map', '_cake_core_');
 		self::$_objects += (array)Cache::read('object_map', '_cake_core_');
-		register_shutdown_function(array('\Cake\Core\App', 'shutdown'));
+		register_shutdown_function(array('Cake\Core\App', 'shutdown'));
 	}
 
 /**

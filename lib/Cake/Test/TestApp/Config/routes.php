@@ -19,7 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestApp\Config;
-use \Cake\Routing\Route;
+use Cake\Routing\Route;
 
 Router::parseExtensions('json');
 Router::connect('/some_alias', array('controller' => 'tests_apps', 'action' => 'some_method'));

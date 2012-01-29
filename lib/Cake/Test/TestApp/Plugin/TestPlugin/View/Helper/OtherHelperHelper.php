@@ -17,6 +17,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestPlugin\View\Helper;
-use \Cake\View\Helper;
+use Cake\View\Helper;
 
 class OtherHelperHelper extends Helper {}

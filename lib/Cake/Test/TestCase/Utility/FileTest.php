@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\TestCase,
-	\Cake\Utility\File,
-	\Cake\Utility\Folder;
+use Cake\TestSuite\TestCase,
+	Cake\Utility\File,
+	Cake\Utility\Folder;
 
 /**
  * FileTest class
@@ -113,7 +113,7 @@ class FileTest extends TestCase {
 		$this->assertEquals($expecting, $result);
 
 		$result = $this->File->Folder();
-		$this->assertInstanceOf('\Cake\Utility\Folder', $result);
+		$this->assertInstanceOf('Cake\Utility\Folder', $result);
 
 		$this->skipIf(DIRECTORY_SEPARATOR === '\\', 'File permissions tests not supported on Windows.');
 

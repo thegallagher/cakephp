@@ -16,8 +16,8 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-use \Cake\Routing\Router,
-	\Cake\Utility\Inflector;
+use Cake\Routing\Router,
+	Cake\Utility\Inflector;
 
 /**
  * Connects the default, built-in routes, including prefix and plugin routes. The following routes are created
@@ -55,7 +55,7 @@ use \Cake\Routing\Router,
 		}
 		$pluginPattern = implode('|', $plugins);
 		$match = array('plugin' => $pluginPattern);
-		$shortParams = array('routeClass' => '\Cake\Routing\Route\PluginShortRoute', 'plugin' => $pluginPattern);
+		$shortParams = array('routeClass' => 'Cake\Routing\Route\PluginShortRoute', 'plugin' => $pluginPattern);
 
 		foreach ($prefixes as $prefix) {
 			$params = array('prefix' => $prefix, $prefix => true);

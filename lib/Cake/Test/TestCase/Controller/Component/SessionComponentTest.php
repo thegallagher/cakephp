@@ -17,13 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Component\SessionComponent,
-	\Cake\Controller\Controller,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Model\Datasource\Session,
-	\Cake\Core\Configure,
-	\Cake\Core\Object;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Component\SessionComponent,
+	Cake\Controller\Controller,
+	Cake\Controller\ComponentCollection,
+	Cake\Model\Datasource\Session,
+	Cake\Core\Configure,
+	Cake\Core\Object;
 
 /**
  * SessionTestController class

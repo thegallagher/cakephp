@@ -20,8 +20,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Cache\Engine;
-use \Cake\Cache\CacheEngine,
-	\Cake\Error;
+use Cake\Cache\CacheEngine,
+	Cake\Error;
 
 /**
  * File Storage engine for cache.  Filestorage is the slowest cache storage

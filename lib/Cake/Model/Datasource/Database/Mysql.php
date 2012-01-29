@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Database;
-use \Cake\Model\Datasource\DboSource,
-	\Cake\Model\Model,
-	\Cake\Model\Schema,
-	\Cake\Error,
+use Cake\Model\Datasource\DboSource,
+	Cake\Model\Model,
+	Cake\Model\Schema,
+	Cake\Error,
 	\PDO;
 
 /**
@@ -298,7 +298,7 @@ class Mysql extends DboSource {
  *
  * @param Model|string $model Name of database table to inspect or model instance
  * @return array Fields in table. Keys are name and type
- * @throws \Cake\Error\Exception
+ * @throws Cake\Error\Exception
  */
 	public function describe($model) {
 		$cache = parent::describe($model);
@@ -470,7 +470,7 @@ class Mysql extends DboSource {
 /**
  * Generate a MySQL Alter Table syntax for the given Schema comparison
  *
- * @param array $compare Result of a \Cake\Model\Schema::compare()
+ * @param array $compare Result of a Cake\Model\Schema::compare()
  * @param string $table
  * @return array Array of alter statements to make.
  */
@@ -531,7 +531,7 @@ class Mysql extends DboSource {
 /**
  * Generate a MySQL "drop table" statement for the given Schema object
  *
- * @param \Cake\Model\Schema $schema An instance of a subclass of \Cake\Model\Schema
+ * @param Cake\Model\Schema $schema An instance of a subclass of Cake\Model\Schema
  * @param string $table Optional.  If specified only the table name given will be generated.
  *                      Otherwise, all tables defined in the schema are generated.
  * @return string

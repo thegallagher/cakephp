@@ -13,10 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Cache;
-use \Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Cache provides a consistent interface to Caching in your application. It allows you
@@ -29,7 +29,7 @@ use \Cake\Core\Configure,
  *
  * {{{
  *	Cache::config('shared', array(
- *		'engine' => '\Cake\Cache\Engine\ApcEngine',
+ *		'engine' => 'Cake\Cache\Engine\ApcEngine',
  *		'prefix' => 'my_app_'
  *  ));
  * }}}
@@ -154,8 +154,8 @@ class Cache {
 		if (!$cacheClass) {
 			return false;
 		}
-		if (!is_subclass_of($cacheClass, '\Cake\Cache\CacheEngine')) {
-			throw new Error\CacheException(__d('cake_dev', 'Cache engines must use \Cake\Cache\CacheEngine as a base class.'));
+		if (!is_subclass_of($cacheClass, 'Cake\Cache\CacheEngine')) {
+			throw new Error\CacheException(__d('cake_dev', 'Cache engines must use Cake\Cache\CacheEngine as a base class.'));
 		}
 		self::$_engines[$name] = new $cacheClass();
 		if (self::$_engines[$name]->init($config)) {

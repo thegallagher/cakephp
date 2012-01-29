@@ -20,7 +20,7 @@ namespace Cake\Utility;
 
 // Load multibyte if the extension is missing.
 if (!function_exists('mb_strlen')) {
-	class_exists('\Cake\I18n\Multibyte');
+	class_exists('Cake\I18n\Multibyte');
 }
 
 /**

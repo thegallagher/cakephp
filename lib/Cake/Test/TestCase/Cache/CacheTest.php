@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Cache;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Cache\Cache;
+use Cake\TestSuite\TestCase,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Cache\Cache;
 
 /**
  * CacheTest class
@@ -146,7 +146,7 @@ class CacheTest extends TestCase {
 /**
  * test that trying to configure classes that don't extend CacheEngine fail.
  *
- * @expectedException \Cake\Error\CacheException
+ * @expectedException Cake\Error\CacheException
  * @return void
  */
 	public function testAttemptingToConfigureANonCacheEngineClass() {

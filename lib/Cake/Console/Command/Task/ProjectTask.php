@@ -17,13 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
-use \Cake\Console\Shell,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\String,
-	\Cake\Utility\Security,
-	\Cake\Utility\File,
-	\Cake\Utility\Folder;
+use Cake\Console\Shell,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\String,
+	Cake\Utility\Security,
+	Cake\Utility\File,
+	Cake\Utility\Folder;
 
 /**
  * Task class for creating new project apps and plugins

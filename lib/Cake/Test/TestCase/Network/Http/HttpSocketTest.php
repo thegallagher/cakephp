@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Network\Http;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Http\HttpSocket,
-	\Cake\Network\Http\HttpResponse,
-	\Cake\Utility\Set;
+use Cake\TestSuite\TestCase,
+	Cake\Network\Http\HttpSocket,
+	Cake\Network\Http\HttpResponse,
+	Cake\Utility\Set;
 
 /**
  * TestAuthentication class
@@ -577,7 +577,7 @@ class HttpSocketTest extends TestCase {
 /**
  * The "*" asterisk character is only allowed for the following methods: OPTIONS.
  *
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testRequestNotAllowedUri() {
@@ -1121,7 +1121,7 @@ class HttpSocketTest extends TestCase {
 /**
  * testBadBuildRequestLine method
  *
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testBadBuildRequestLine() {
@@ -1131,7 +1131,7 @@ class HttpSocketTest extends TestCase {
 /**
  * testBadBuildRequestLine2 method
  *
- * @expectedException \Cake\Error\SocketException
+ * @expectedException Cake\Error\SocketException
  * @return void
  */
 	public function testBadBuildRequestLine2() {

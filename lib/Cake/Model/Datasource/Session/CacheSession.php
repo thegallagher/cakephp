@@ -17,14 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Datasource\Session;
-use \Cake\Cache\Cache,
-	\Cake\Core\Configure;
+use Cake\Cache\Cache,
+	Cake\Core\Configure;
 
 /**
  * CacheSession provides method for saving sessions into a Cache engine. Used with Session
  *
  * @package       Cake.Model.Datasource.Session
- * @see \Cake\Model\Datasource\Session for configuration information.
+ * @see Cake\Model\Datasource\Session for configuration information.
  */
 class CacheSession implements SessionHandlerInterface {
 /**

@@ -20,7 +20,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestApp\Model;
-use \Cake\Model\Model;
+use Cake\Model\Model;
 
 /**
  * Application model for Cake.

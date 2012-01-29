@@ -13,13 +13,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite\Fixture;
-use \Cake\Model\Schema,
-	\Cake\Model\Model,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Core\App,
-	\Cake\Error;
+use Cake\Model\Schema,
+	Cake\Model\Model,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Core\App,
+	Cake\Error;
 
 /**
  * TestFixture is responsible for building and destroying tables to be used 

@@ -19,7 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
-use \Cake\Core\Object;
+use Cake\Core\Object;
 
 /**
  * Model behavior base class.

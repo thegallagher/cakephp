@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\View\View,
-	\Cake\I18n\Multibyte,
-	\Cake\Core\Configure;
+use Cake\View\Helper,
+	Cake\View\View,
+	Cake\I18n\Multibyte,
+	Cake\Core\Configure;
 
 /**
  * Time Helper class for easy use of time data.

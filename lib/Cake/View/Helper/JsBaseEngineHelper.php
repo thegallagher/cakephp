@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\I18n\Multibyte;
+use Cake\View\Helper,
+	Cake\I18n\Multibyte;
 
 /**
  * JsEngineBaseClass

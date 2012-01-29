@@ -17,16 +17,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Routing;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Dispatcher,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Controller\Controller,
-	\Cake\Utility\Inflector;
+use Cake\TestSuite\TestCase,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
+	Cake\Routing\Dispatcher,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Controller\Controller,
+	Cake\Utility\Inflector;
 
 /**
  * A testing stub that doesn't send headers.
@@ -169,7 +169,7 @@ class SomePagesController extends Controller {
 /**
  * Test method for returning responses.
  *
- * @return \Cake\Network\Response
+ * @return Cake\Network\Response
  */
 	public function responseGenerator() {
 		return new Response(array('body' => 'new response'));
@@ -411,7 +411,7 @@ class TestCachedPagesController extends Controller {
  *
  * @var string
  */
-	protected $_responseClass = '\Cake\Test\TestCase\Routing\DispatcherMockResponse';
+	protected $_responseClass = 'Cake\Test\TestCase\Routing\DispatcherMockResponse';
 
 /**
  * viewPath property
@@ -689,7 +689,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 		Configure::write('App.baseUrl', '/index.php');
 		$url = new Request('some_controller/home/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
@@ -707,7 +707,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 		Configure::write('App.baseUrl', '/index.php');
 		$url = new Request('dispatcher_test_interface/index');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
@@ -725,7 +725,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 		Configure::write('App.baseUrl', '/index.php');
 		$url = new Request('dispatcher_test_abstract/index');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
@@ -742,7 +742,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 		Configure::write('App.baseUrl', '/index.php');
 		$url = new Request('pages/home/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 		$expected = 'Pages';
@@ -802,7 +802,7 @@ class DispatcherTest extends TestCase {
 		Router::connect('/:controller/:action');
 		$Dispatcher = new Dispatcher();
 		$request = new Request('some_pages/responseGenerator');
-		$response = $this->getMock('\Cake\Network\Response', array('_sendHeader'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 
 		ob_start();
 		$Dispatcher->dispatch($request, $response);
@@ -822,7 +822,7 @@ class DispatcherTest extends TestCase {
 		Configure::write('Routing.prefixes', array('admin'));
 		Configure::write('App.baseUrl','/cake/repo/branches/1.2.x.x/index.php');
 		$url = new Request('admin/test_dispatch_pages/index/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		Router::reload();
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
@@ -855,7 +855,7 @@ class DispatcherTest extends TestCase {
 		);
 
 		$url = new Request('my_plugin/some_pages/home/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
 		$result = $Dispatcher->parseParams($url);
@@ -893,7 +893,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->base = false;
 
 		$url = new Request('my_plugin/other_pages/index/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
 		$this->assertSame($controller->plugin, 'MyPlugin');
@@ -925,7 +925,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->base = false;
 
 		$url = new Request('my_plugin/my_plugin/add/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
@@ -963,7 +963,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 
 		$url = new Request('admin/my_plugin/my_plugin/add/5/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
@@ -1020,7 +1020,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->base = false;
 
 		$url = new Request('my_plugin/');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 		$this->assertEquals($controller->params['controller'], 'my_plugin');
@@ -1049,7 +1049,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher->base = false;
 
 		$url = new Request('test_plugin/');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 		$this->assertEquals($controller->params['controller'], 'test_plugin');
@@ -1086,7 +1086,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 
 		$url = new Request('my_plugin/not_here/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
@@ -1104,7 +1104,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new TestDispatcher();
 
 		$url = new Request('my_plugin/param:value/param2:value2');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 	}
@@ -1124,7 +1124,7 @@ class DispatcherTest extends TestCase {
 		Router::parse('/');
 
 		$url = new Request('/test_plugin/tests/index');
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 		$result = $Dispatcher->dispatch($url, $response, array('return' => 1));
 		$this->assertTrue(class_exists('TestsController'));
 		$this->assertTrue(class_exists('TestPluginAppController'));
@@ -1144,7 +1144,7 @@ class DispatcherTest extends TestCase {
  */
 	public function testChangingParamsFromBeforeFilter() {
 		$Dispatcher = new TestDispatcher();
-		$response = $this->getMock('\Cake\Network\Response');
+		$response = $this->getMock('Cake\Network\Response');
 		$url = new Request('some_posts/index/param:value/param2:value2');
 
 		try {
@@ -1183,7 +1183,7 @@ class DispatcherTest extends TestCase {
 		Plugin::loadAll();
 
 		$Dispatcher = new TestDispatcher();
-		$response = $this->getMock('\Cake\Network\Response', array('_sendHeader'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 
 		try {
 			$Dispatcher->dispatch(new Request('theme/test_theme/../webroot/css/test_asset.css'), $response);
@@ -1301,7 +1301,7 @@ class DispatcherTest extends TestCase {
 		Plugin::loadAll();
 
 		$Dispatcher = new TestDispatcher();
-		$response = $this->getMock('\Cake\Network\Response', array('_sendHeader'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 
 		$Dispatcher->dispatch(new Request($url), $response);
 		$result = ob_get_clean();
@@ -1321,7 +1321,7 @@ class DispatcherTest extends TestCase {
  * @return void
  */
 	public function testMissingAssetProcessor404() {
-		$response = $this->getMock('\Cake\Network\Response', array('_sendHeader'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 		$Dispatcher = new TestDispatcher();
 		Configure::write('Asset.filter', array(
 			'js' => '',
@@ -1340,7 +1340,7 @@ class DispatcherTest extends TestCase {
  */
 	public function testAssetFilterForThemeAndPlugins() {
 		$Dispatcher = new TestDispatcher();
-		$response = $this->getMock('\Cake\Network\Response', array('_sendHeader'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
 		Configure::write('Asset.filter', array(
 			'js' => '',
 			'css' => ''

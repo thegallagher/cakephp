@@ -19,9 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Utility;
-use \Cake\Core\Configure,
-	\Cake\Log\Log,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Log\Log,
+	Cake\Error;
 
 /**
  * Provide custom logging and error handling.
@@ -580,7 +580,7 @@ class Debugger {
  * @param string $format The format you want errors to be output as.
  *   Leave null to get the current format.
  * @return mixed Returns null when setting.  Returns the current format when getting.
- * @throws \Cake\Error\Exception when choosing a format that doesn't exist.
+ * @throws Cake\Error\Exception when choosing a format that doesn't exist.
  */
 	public static function outputAs($format = null) {
 		$self = Debugger::getInstance();

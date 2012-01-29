@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Controller,
-	\Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Core\App,
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Controller,
+	Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Core\App,
+	Cake\Utility\ClassRegistry;
 
 /**
  * ParamTestComponent

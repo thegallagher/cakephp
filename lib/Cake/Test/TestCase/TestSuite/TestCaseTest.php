@@ -19,10 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\TestSuite;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\Controller,
-	\Cake\Test\Fixture\AssertTagsTestCase,
-	\Cake\Test\Fixture\FixturizedTestCase;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\Controller,
+	Cake\Test\Fixture\AssertTagsTestCase,
+	Cake\Test\Fixture\FixturizedTestCase;
 
 /**
  * TestCaseTest
@@ -148,7 +148,7 @@ class TestCaseTest extends TestCase {
  */
 	public function testLoadFixtures() {
 		$test = new FixturizedTestCase('testFixturePresent');
-		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
+		$manager = $this->getMock('Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('load');
@@ -167,7 +167,7 @@ class TestCaseTest extends TestCase {
 	public function testLoadFixturesOnDemand() {
 		$test = new FixturizedTestCase('testFixtureLoadOnDemand');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
+		$manager = $this->getMock('Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('loadSingle');
@@ -183,7 +183,7 @@ class TestCaseTest extends TestCase {
 	public function testUnoadFixturesAfterFailure() {
 		$test = new FixturizedTestCase('testFixtureLoadOnDemand');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
+		$manager = $this->getMock('Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('loadSingle');
@@ -199,7 +199,7 @@ class TestCaseTest extends TestCase {
 	public function testThrowException() {
 		$test = new FixturizedTestCase('testThrowException');
 		$test->autoFixtures = false;
-		$manager = $this->getMock('\Cake\TestSuite\Fixture\FixtureManager');
+		$manager = $this->getMock('Cake\TestSuite\Fixture\FixtureManager');
 		$manager->fixturize($test);
 		$test->fixtureManager = $manager;
 		$manager->expects($this->once())->method('unload');

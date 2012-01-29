@@ -409,7 +409,7 @@ class RouterException extends Exception { }
 class LogException extends Exception { }
 
 /**
- * Exception class for \Cake\Model\Datasource\Session.  This exception will be thrown from \Cake\Model\Datasource\Session when it
+ * Exception class for Cake\Model\Datasource\Session.  This exception will be thrown from Cake\Model\Datasource\Session when it
  * encounters an error.
  *
  * @package       Cake.Error

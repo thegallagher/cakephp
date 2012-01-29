@@ -16,8 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
-use \Cake\Model\Schema,
-	\Cake\Utility\Inflector;
+use Cake\Model\Schema,
+	Cake\Utility\Inflector;
 
 /**
  * Task class for creating and updating fixtures files.
@@ -43,7 +43,7 @@ class FixtureTask extends BakeTask {
 /**
  * Schema instance
  *
- * @var \Cake\Model\Schema
+ * @var Cake\Model\Schema
  */
 	protected $_Schema = null;
 

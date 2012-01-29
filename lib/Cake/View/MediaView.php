@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Network\Response,
-	\Cake\Core\Configure,
-	\Cake\Error;
+use Cake\Network\Response,
+	Cake\Core\Configure,
+	Cake\Error;
 
 /**
  * Media View provides a custom view implementation for sending files to visitors.  Its great
@@ -67,7 +67,7 @@ class MediaView extends View {
 /**
  * Reference to the Response object responsible for sending the headers
  *
- * @var \Cake\Network\Response
+ * @var Cake\Network\Response
  */
 	public $response = null;
 

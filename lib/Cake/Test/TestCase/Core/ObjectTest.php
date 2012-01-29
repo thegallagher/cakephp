@@ -17,14 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Core;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Core\Object,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Routing\Router,
-	\Cake\Controller\Controller,
-	\Cake\Model\Model;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Core\Object,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Routing\Router,
+	Cake\Controller\Controller,
+	Cake\Model\Model;
 
 /**
  * RequestActionPost class

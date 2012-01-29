@@ -16,9 +16,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network;
-use \Cake\Core\Configure,
-	\Cake\Utility\Set,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Utility\Set,
+	Cake\Error;
 
 /**
  * A class that helps wrap Request information and particulars about a single request.
@@ -90,7 +90,7 @@ class Request implements \ArrayAccess {
 /**
  * The built in detectors used with `is()` can be modified with `addDetector()`.
  *
- * There are several ways to specify a detector, see \Cake\Network\Request::addDetector() for the
+ * There are several ways to specify a detector, see Cake\Network\Request::addDetector() for the
  * various formats and ways to define detectors.
  *
  * @var array
@@ -391,7 +391,7 @@ class Request implements \ArrayAccess {
  * @param string $name The method called
  * @param array $params Array of parameters for the method call
  * @return mixed
- * @throws \Cake\Error\Exception when an invalid method is called.
+ * @throws Cake\Error\Exception when an invalid method is called.
  */
 	public function __call($name, $params) {
 		if (strpos($name, 'is') === 0) {
@@ -429,7 +429,7 @@ class Request implements \ArrayAccess {
 
 /**
  * Check whether or not a Request is a certain type.  Uses the built in detection rules
- * as well as additional rules defined with \Cake\Network\Request::addDetector().  Any detector can be called
+ * as well as additional rules defined with Cake\Network\Request::addDetector().  Any detector can be called
  * as `is($type)` or `is$Type()`.
  *
  * @param string $type The type of request you want to check.
@@ -529,7 +529,7 @@ class Request implements \ArrayAccess {
  * Provides an easy way to modify, here, webroot and base.
  *
  * @param array $paths Array of paths to merge in
- * @return \Cake\Network\Request the current object, you can chain this method.
+ * @return Cake\Network\Request the current object, you can chain this method.
  */
 	public function addPaths($paths) {
 		foreach (array('webroot', 'here', 'base') as $element) {
@@ -657,7 +657,7 @@ class Request implements \ArrayAccess {
  * Parse the HTTP_ACCEPT header and return a sorted array with content types
  * as the keys, and pref values as the values.
  *
- * Generally you want to use \Cake\Network\Request::accept() to get a simple list
+ * Generally you want to use Cake\Network\Request::accept() to get a simple list
  * of the accepted content types.
  *
  * @return array An array of prefValue => array(content/types)
@@ -715,7 +715,7 @@ class Request implements \ArrayAccess {
 
 /**
  * Provides a read/write accessor for `$this->data`.  Allows you
- * to use a syntax similar to `\Cake\Model\Datasource\Session` for reading post data.
+ * to use a syntax similar to `Cake\Model\Datasource\Session` for reading post data.
  *
  * ## Reading values.
  *

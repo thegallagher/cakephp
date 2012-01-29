@@ -17,12 +17,12 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\Command\AclShell,
-	\Cake\Controller\Component\AclComponent,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Core\Configure,
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\TestCase,
+	Cake\Console\Command\AclShell,
+	Cake\Controller\Component\AclComponent,
+	Cake\Controller\ComponentCollection,
+	Cake\Core\Configure,
+	Cake\Utility\ClassRegistry;
 
 /**
  * AclShellTest class

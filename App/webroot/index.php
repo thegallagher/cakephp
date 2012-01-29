@@ -90,10 +90,10 @@
 		return;
 	}
 
-	use \Cake\Network\Request,
-		\Cake\Network\Response,
-		\Cake\Routing\Dispatcher,
-		\Cake\Core\Configure;
+	use Cake\Network\Request,
+		Cake\Network\Response,
+		Cake\Routing\Dispatcher,
+		Cake\Core\Configure;
 
 	$Dispatcher = new Dispatcher();
 	$Dispatcher->dispatch(new Request(), new Response(array('charset' => Configure::read('App.encoding'))));

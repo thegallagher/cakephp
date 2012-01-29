@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\ConsoleOptionParser,
-	\Cake\Console\HelpFormatter,
+use Cake\TestSuite\TestCase,
+	Cake\Console\ConsoleOptionParser,
+	Cake\Console\HelpFormatter,
 	\DOMDocument as DomDocument;
 
 class HelpFormatterTest extends TestCase {

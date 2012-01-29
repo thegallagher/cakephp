@@ -17,17 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View;
-use \Cake\Core\Object,
-	\Cake\Core\App,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure,
-	\Cake\Utility\ObjectCollection,
-	\Cake\Utility\Inflector,
-	\Cake\Routing\Router,
-	\Cake\Cache\Cache,
-	\Cake\Event\Event,
-	\Cake\Event\EventManager,
-	\Cake\Error;
+use Cake\Core\Object,
+	Cake\Core\App,
+	Cake\Core\Plugin,
+	Cake\Core\Configure,
+	Cake\Utility\ObjectCollection,
+	Cake\Utility\Inflector,
+	Cake\Routing\Router,
+	Cake\Cache\Cache,
+	Cake\Event\Event,
+	Cake\Event\EventManager,
+	Cake\Error;
 
 /**
  * View, the V in the MVC triad. View interacts with Helpers and view variables passed
@@ -198,11 +198,11 @@ class View extends Object {
 	public $uuids = array();
 
 /**
- * An instance of a \Cake\Network\Request object that contains information about the current request.
+ * An instance of a Cake\Network\Request object that contains information about the current request.
  * This object contains all the information about a request and several methods for reading
  * additional information about the request.
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request;
 
@@ -438,7 +438,7 @@ class View extends Object {
  * @param string $view Name of view file to use
  * @param string $layout Layout to use.
  * @return string Rendered Element
- * @throws \Cake\Error\Exception if there is an error in the view.
+ * @throws Cake\Error\Exception if there is an error in the view.
  */
 	public function render($view = null, $layout = null) {
 		if ($this->hasRendered) {
@@ -487,7 +487,7 @@ class View extends Object {
  * @param string $content Content to render in a view, wrapped by the surrounding layout.
  * @param string $layout Layout name
  * @return mixed Rendered output, or false on error
- * @throws \Cake\Error\Exception if there is an error in the view.
+ * @throws Cake\Error\Exception if there is an error in the view.
  */
 	public function renderLayout($content, $layout = null) {
 		$layoutFileName = $this->_getLayoutFileName($layout);
@@ -617,7 +617,7 @@ class View extends Object {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws \Cake\Error\Exception when you use non-string values.
+ * @throws Cake\Error\Exception when you use non-string values.
  * @see ViewBlock::append()
  */
 	public function append($name, $value = null) {
@@ -631,7 +631,7 @@ class View extends Object {
  * @param string $name Name of the block
  * @param string $value The content for the block.
  * @return void
- * @throws \Cake\Error\Exception when you use non-string values.
+ * @throws Cake\Error\Exception when you use non-string values.
  * @see ViewBlock::assign()
  */
 	public function assign($name, $value) {
@@ -852,7 +852,7 @@ class View extends Object {
  * @param string $viewFile Filename of the view
  * @param array $data Data to include in rendered view. If empty the current View::$viewVars will be used.
  * @return string Rendered output
- * @throws \Cake\Error\Exception when a block is left open.
+ * @throws Cake\Error\Exception when a block is left open.
  */
 	protected function _render($viewFile, $data = array()) {
 		if (empty($data)) {

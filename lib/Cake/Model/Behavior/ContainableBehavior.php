@@ -19,8 +19,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model\Behavior;
-use \Cake\Model\ModelBehavior,
-	\Cake\Utility\Set;
+use Cake\Model\ModelBehavior,
+	Cake\Utility\Set;
 
 /**
  * Behavior to allow for dynamic and atomic manipulation of a Model's associations 

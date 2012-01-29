@@ -13,9 +13,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Core;
-use \Cake\Cache\Cache,
-	\Cake\Utility\Set,
-	\Cake\Configure\PhpReader;
+use Cake\Cache\Cache,
+	Cake\Utility\Set,
+	Cake\Configure\PhpReader;
 
 /**
  * Configuration class. Used for managing runtime configuration information.

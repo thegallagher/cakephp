@@ -19,10 +19,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\Controller\ControllerMergeVars,
-	\Cake\Controller\Controller,
-	\Cake\Core\Object;
+use Cake\TestSuite\TestCase,
+	Cake\Controller\ControllerMergeVars,
+	Cake\Controller\Controller,
+	Cake\Core\Object;
 
 /**
  * Test case AppController

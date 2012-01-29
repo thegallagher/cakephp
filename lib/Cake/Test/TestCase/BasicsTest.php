@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase;
-use \Cake\TestSuite\TestCase,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Network\Response,
-	\Cake\Utility\Folder;
+use Cake\TestSuite\TestCase,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Network\Response,
+	Cake\Utility\Folder;
 
 require_once CAKE . 'basics.php';
 

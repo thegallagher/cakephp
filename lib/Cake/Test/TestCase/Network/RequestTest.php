@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestSuite\Network;
-use \Cake\TestSuite\TestCase,
-	\Cake\Routing\Dispatcher,
-	\Cake\Utility\Xml,
-	\Cake\Network\Request,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\Routing\Dispatcher,
+	Cake\Utility\Xml,
+	Cake\Network\Request,
+	Cake\Core\Configure;
 
 class RequestTest extends TestCase {
 /**
@@ -647,7 +647,7 @@ class RequestTest extends TestCase {
 /**
  * test __call expcetions
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function test__callExceptionOnUnknownMethod() {

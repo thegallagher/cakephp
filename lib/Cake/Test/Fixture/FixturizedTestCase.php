@@ -1,7 +1,7 @@
 <?php
 
 namespace Cake\Test\Fixture;
-use \Cake\TestSuite\TestCase;
+use Cake\TestSuite\TestCase;
 
 /**
  * This class helps in testing the life-cycle of fixtures inside a CakeTestCase
@@ -22,7 +22,7 @@ class FixturizedTestCase extends TestCase {
  * @return void
  */
 	public function testFixturePresent() {
-		$this->assertInstanceOf('\Cake\TestSuite\Fixture\FixtureManager', $this->fixtureManager);
+		$this->assertInstanceOf('Cake\TestSuite\Fixture\FixtureManager', $this->fixtureManager);
 	}
 
 /**

@@ -15,7 +15,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Utility\String;
+use Cake\Utility\String;
 
 /**
  * HelpFormatter formats help for console shells.  Can format to either

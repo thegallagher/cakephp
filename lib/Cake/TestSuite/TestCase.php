@@ -18,10 +18,10 @@
  */
 namespace Cake\TestSuite;
 
-use \Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Routing\Router,
-	\Cake\Utility\ClassRegistry;
+use Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Routing\Router,
+	Cake\Utility\ClassRegistry;
 
 /**
  * Cake TestCase class
@@ -33,7 +33,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 /**
  * The class responsible for managing the creation, loading and removing of fixtures
  *
- * @var \Cake\TestSuite\Fixture\FixtureManager
+ * @var Cake\TestSuite\Fixture\FixtureManager
  */
 	public $fixtureManager = null;
 
@@ -184,7 +184,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
  * @param string $fixture Each parameter is a model name that corresponds to a
  *                        fixture, i.e. 'Post', 'Author', etc.
  * @return void
- * @see \Cake\TestSuite\TestCase::$autoFixtures
+ * @see Cake\TestSuite\TestCase::$autoFixtures
  */
 	public function loadFixtures() {
 		if (empty($this->fixtureManager)) {

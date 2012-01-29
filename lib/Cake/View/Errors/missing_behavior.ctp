@@ -15,7 +15,7 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-use \Cake\Core\Plugin;
+use Cake\Core\Plugin;
 
 $pluginDot = empty($plugin) ? null : $plugin . '.';
 ?>

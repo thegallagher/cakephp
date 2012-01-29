@@ -19,13 +19,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command\Task;
-use \Cake\TestSuite\TestCase,
-	\Cake\Console\Command\Task\ViewTask,
-	\Cake\Console\Command\Task\TemplateTask,
-	\Cake\Model\Model,
-	\Cake\Controller\Controller,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\Console\Command\Task\ViewTask,
+	Cake\Console\Command\Task\TemplateTask,
+	Cake\Model\Model,
+	Cake\Controller\Controller,
+	Cake\Core\Plugin,
+	Cake\Core\Configure;
 
 /**
  * Test View Task Comment Model

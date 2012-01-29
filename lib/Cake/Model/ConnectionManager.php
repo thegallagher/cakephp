@@ -19,9 +19,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
-use \Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Error;
+use Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Error;
 
 /**
  * Manages loaded instances of DataSource objects
@@ -144,7 +144,7 @@ class ConnectionManager {
  *                        or an array containing the filename (without extension) and class name of the object,
  *                        to be found in app/Model/Datasource/ or lib/Cake/Model/Datasource/.
  * @return string
- * @throws \Cake\Error\MissingDatasourceException
+ * @throws Cake\Error\MissingDatasourceException
  */
 	public static function loadDataSource($connName) {
 		if (empty(self::$_init)) {

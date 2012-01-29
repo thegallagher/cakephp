@@ -17,17 +17,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller\Component;
-use \Cake\TestSuite\TestCase,
-	\Cake\TestSuite\Fixture\TestModel,
-	\Cake\Controller\Component\AuthComponent,
-	\Cake\Controller\Controller,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Core\Configure,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Routing\Router,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Security;
+use Cake\TestSuite\TestCase,
+	Cake\TestSuite\Fixture\TestModel,
+	Cake\Controller\Component\AuthComponent,
+	Cake\Controller\Controller,
+	Cake\Controller\ComponentCollection,
+	Cake\Core\Configure,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Routing\Router,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Security;
 
 /**
 * TestAuthComponent class
@@ -479,7 +479,7 @@ class AuthComponentTest extends TestCase {
 	}
 
 /**
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testIsAuthorizedMissingFile() {
@@ -561,7 +561,7 @@ class AuthComponentTest extends TestCase {
 	}
 
 /**
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testLoadAuthenticateNoFile() {

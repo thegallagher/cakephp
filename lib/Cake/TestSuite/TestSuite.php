@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite;
-use \Cake\Utility\Folder;
+use Cake\Utility\Folder;
 
 /**
  * A class to contain test cases and run them with shared fixtures

@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use \Cake\View\Helper,
-	\Cake\Core\Configure,
-	\Cake\Utility\Inflector;
+use Cake\View\Helper,
+	Cake\Core\Configure,
+	Cake\Utility\Inflector;
 
 /**
  * CacheHelper helps create full page view caching.

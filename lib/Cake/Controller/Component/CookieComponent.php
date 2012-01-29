@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
-use \Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Core\Configure,
-	\Cake\Utility\Set,
-	\Cake\Utility\Security;
+use Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Core\Configure,
+	Cake\Utility\Set,
+	Cake\Utility\Security;
 
 /**
  * Cookie Component.
@@ -399,7 +399,7 @@ class CookieComponent extends Component {
 /**
  * Object wrapper for setcookie() so it can be mocked in unit tests.
  *
- * @todo Re-factor setting cookies into \Cake\Network\Response.  Cookies are part
+ * @todo Re-factor setting cookies into Cake\Network\Response.  Cookies are part
  * of the HTTP response, and should be handled there.
  *
  * @param string $name Name of the cookie

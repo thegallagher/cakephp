@@ -17,16 +17,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\Helper,
-	\Cake\View\View,
-	\Cake\Model\Model,
-	\Cake\Routing\Router,
-	\Cake\Network\Request,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\TestCase,
+	Cake\View\Helper,
+	Cake\View\View,
+	Cake\Model\Model,
+	Cake\Routing\Router,
+	Cake\Network\Request,
+	Cake\Core\Plugin,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\ClassRegistry;
 
 /**
  * HelperTestPost class

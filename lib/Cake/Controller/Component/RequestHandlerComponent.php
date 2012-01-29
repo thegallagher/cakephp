@@ -19,14 +19,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component;
-use \Cake\Controller\Component,
-	\Cake\Controller\ComponentCollection,
-	\Cake\Routing\Router,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\Xml,
-	\Cake\Error;
+use Cake\Controller\Component,
+	Cake\Controller\ComponentCollection,
+	Cake\Routing\Router,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\Utility\Inflector,
+	Cake\Utility\Xml,
+	Cake\Error;
 
 /**
  * Request object for handling alternative HTTP requests
@@ -59,14 +59,14 @@ class RequestHandlerComponent extends Component {
 /**
  * Holds the reference to Controller::$request
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request;
 
 /**
  * Holds the reference to Controller::$response
  *
- * @var \Cake\Network\Response
+ * @var Cake\Network\Response
  */
 	public $response;
 
@@ -433,7 +433,7 @@ class RequestHandlerComponent extends Component {
 /**
  * Determines which content types the client accepts.  Acceptance is based on
  * the file extension parsed by the Router (if present), and by the HTTP_ACCEPT
- * header. Unlike \Cake\Network\Request::accepts() this method deals entirely with mapped content types.
+ * header. Unlike Cake\Network\Request::accepts() this method deals entirely with mapped content types.
  *
  * Usage:
  *
@@ -618,7 +618,7 @@ class RequestHandlerComponent extends Component {
 
 /**
  * Sets the response header based on type map index name.  This wraps several methods
- * available on \Cake\Network\Response. It also allows you to use Content-Type aliases.
+ * available on Cake\Network\Response. It also allows you to use Content-Type aliases.
  *
  * @param mixed $type Friendly type name, i.e. 'html' or 'xml', or a full content-type,
  *    like 'application/x-shockwave'.
@@ -719,7 +719,7 @@ class RequestHandlerComponent extends Component {
  *    be the handling callback, all other arguments should be additional parameters
  *    for the handler.
  * @return void
- * @throws \Cake\Error\Exception
+ * @throws Cake\Error\Exception
  */
 	public function addInputType($type, $handler) {
 		if (!is_array($handler) || !isset($handler[0]) || !is_callable($handler[0])) {

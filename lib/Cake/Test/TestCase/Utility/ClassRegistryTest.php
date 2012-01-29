@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use \Cake\TestSuite\Fixture\TestModel,
-	\Cake\TestSuite\TestCase,
-	\Cake\Core\Plugin,
-	\Cake\Model\ConnectionManager,
-	\Cake\Utility\ClassRegistry;
+use Cake\TestSuite\Fixture\TestModel,
+	Cake\TestSuite\TestCase,
+	Cake\Core\Plugin,
+	Cake\Model\ConnectionManager,
+	Cake\Utility\ClassRegistry;
 
 /**
  * ClassRegisterModel class
@@ -335,7 +335,7 @@ class ClassRegistryTest extends TestCase {
 /**
  * Test that you cannot init() an abstract class. An exception will be raised.
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testInitAbstractClass() {
@@ -345,7 +345,7 @@ class ClassRegistryTest extends TestCase {
 /**
  * Test that you cannot init() an abstract class. A exception will be raised.
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testInitInterface() {

@@ -18,7 +18,7 @@
  * @license       http://www.opensource.org/licenses/opengroup.php The Open Group Test Suite License
  */
 namespace Cake\Test\Fixture;
-use \Cake\TestSuite\Fixture\TestFixture;
+use Cake\TestSuite\Fixture\TestFixture;
 
 /**
  * Short description for class.

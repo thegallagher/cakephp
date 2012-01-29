@@ -19,16 +19,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Model;
-use \Cake\Core\Object,
-	\Cake\Core\Configure,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector,
-	\Cake\Utility\Xml,
-	\Cake\Utility\Set,
-	\Cake\Event\EventListener,
-	\Cake\Event\EventManager,
-	\Cake\Event\Event,
-	\Cake\Error;
+use Cake\Core\Object,
+	Cake\Core\Configure,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector,
+	Cake\Utility\Xml,
+	Cake\Utility\Set,
+	Cake\Event\EventListener,
+	Cake\Event\EventManager,
+	Cake\Event\Event,
+	Cake\Error;
 
 /**
  * Object-relational mapper.

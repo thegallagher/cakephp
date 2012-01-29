@@ -16,7 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console;
-use \Cake\Error;
+use Cake\Error;
 
 /**
  * An object to represent a single argument used in the command line.

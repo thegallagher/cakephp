@@ -17,8 +17,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Network\Http;
-use \Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * HTTP Response from HttpSocket.

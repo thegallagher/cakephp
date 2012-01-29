@@ -18,13 +18,13 @@
  */
 namespace Cake\Routing;
 
-use \Cake\Core\Configure,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Routing\Route\Route,
-	\Cake\Utility\Set,
-	\Cake\Utility\Inflector,
-	\Cake\Error;
+use Cake\Core\Configure,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Routing\Route\Route,
+	Cake\Utility\Set,
+	Cake\Utility\Inflector,
+	Cake\Error;
 
 /**
  * Parses the request URL into controller, action, and parameters.  Uses the connected routes
@@ -163,7 +163,7 @@ class Router {
  *
  * @var string
  */
-    protected static $_routeClass = '\Cake\Routing\Route\Route';
+    protected static $_routeClass = 'Cake\Routing\Route\Route';
 
 /**
  * Set the default route class to use or return the current one
@@ -310,7 +310,7 @@ class Router {
 			$routeClass = self::_validateRouteClass($options['routeClass']);
 			unset($options['routeClass']);
 		}
-		if ($routeClass === '\Cake\Routing\Route\RedirectRoute' && isset($defaults['redirect'])) {
+		if ($routeClass === 'Cake\Routing\Route\RedirectRoute' && isset($defaults['redirect'])) {
 			$defaults = $defaults['redirect'];
 		}
 		self::$routes[] = new $routeClass($route, $defaults, $options);
@@ -350,7 +350,7 @@ class Router {
  * @return array Array of routes
  */
 	public static function redirect($route, $url, $options = array()) {
-		$options['routeClass'] = '\Cake\Routing\Route\RedirectRoute';
+		$options['routeClass'] = 'Cake\Routing\Route\RedirectRoute';
 		if (is_string($url)) {
 			$url = array('redirect' => $url);
 		}
@@ -585,10 +585,10 @@ class Router {
  * Nested requests will create a stack of requests.  You can remove requests using
  * Router::popRequest().  This is done automatically when using Object::requestAction().
  *
- * Will accept either a \Cake\Network\Request object or an array of arrays. Support for
+ * Will accept either a Cake\Network\Request object or an array of arrays. Support for
  * accepting arrays may be removed in the future.
  *
- * @param \Cake\Network\Request|array $request Parameters and path information or a \Cake\Network\Request object.
+ * @param Cake\Network\Request|array $request Parameters and path information or a Cake\Network\Request object.
  * @return void
  */
 	public static function setRequestInfo($request) {
@@ -606,7 +606,7 @@ class Router {
 /**
  * Pops a request off of the request stack.  Used when doing requestAction
  *
- * @return \Cake\Network\Request The request removed from the stack.
+ * @return Cake\Network\Request The request removed from the stack.
  * @see Router::setRequestInfo()
  * @see Object::requestAction()
  */
@@ -618,7 +618,7 @@ class Router {
  * Get the either the current request object, or the first one.
  *
  * @param boolean $current Whether you want the request from the top of the stack or the first one.
- * @return \Cake\Network\Request or null.
+ * @return Cake\Network\Request or null.
  */
 	public static function getRequest($current = false) {
 		if ($current) {
@@ -980,7 +980,7 @@ class Router {
  * This will strip out 'autoRender', 'bare', 'requested', and 'return' param names as those
  * are used for CakePHP internals and should not normally be part of an output url.
  *
- * @param \Cake\Network\Request|array $params The params array or \Cake\Network\Request object that needs to be reversed.
+ * @param Cake\Network\Request|array $params The params array or Cake\Network\Request object that needs to be reversed.
  * @param boolean $full Set to true to include the full url including the protocol when reversing
  *     the url.
  * @return string The string that is the reversed result of the array
@@ -1042,7 +1042,7 @@ class Router {
 /**
  * Returns the route matching the current request URL.
  *
- * @return \Cake\Routing\Route\Route Matching route object.
+ * @return Cake\Routing\Route\Route Matching route object.
  */
 	public static function &requestRoute() {
 		return self::$_currentRoute[0];
@@ -1051,7 +1051,7 @@ class Router {
 /**
  * Returns the route matching the current request (useful for requestAction traces)
  *
- * @return \Cake\Routing\Route\Route Matching route object.
+ * @return Cake\Routing\Route\Route Matching route object.
  */
 	public static function &currentRoute() {
 		return self::$_currentRoute[count(self::$_currentRoute) - 1];

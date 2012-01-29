@@ -17,15 +17,15 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View\Helper;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\Helper\PaginatorHelper,
-	\Cake\View\Helper\HtmlHelper,
-	\Cake\View\Helper\FormHelper,
-	\Cake\View\Helper\JsHelper,
-	\Cake\View\View,
-	\Cake\Network\Request,
-	\Cake\Core\Configure,
-	\Cake\Routing\Router;
+use Cake\TestSuite\TestCase,
+	Cake\View\Helper\PaginatorHelper,
+	Cake\View\Helper\HtmlHelper,
+	Cake\View\Helper\FormHelper,
+	Cake\View\Helper\JsHelper,
+	Cake\View\View,
+	Cake\Network\Request,
+	Cake\Core\Configure,
+	Cake\Routing\Router;
 
 if (!defined('FULL_BASE_URL')) {
 	define('FULL_BASE_URL', 'http://cakephp.org');
@@ -2224,7 +2224,7 @@ class PaginatorHelperTest extends TestCase {
 /**
  * test that mock classes injected into paginatorHelper are called when using link()
  *
- * @expectedException \Cake\Error\Exception
+ * @expectedException Cake\Error\Exception
  * @return void
  */
 	public function testMockAjaxProviderClassInjection() {

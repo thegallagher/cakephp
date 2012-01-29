@@ -62,7 +62,7 @@ class Helper extends Object {
 /**
  * Request object
  *
- * @var \Cake\Network\Request
+ * @var Cake\Network\Request
  */
 	public $request = null;
 

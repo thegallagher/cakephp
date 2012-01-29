@@ -17,13 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite\Fixture;
-use \Cake\Model\ConnectionManager,
-	\Cake\Core\Plugin,
-	\Cake\Core\Configure,
-	\Cake\Core\App,
-	\Cake\TestSuite\TestCase,
-	\Cake\Utility\ClassRegistry,
-	\Cake\Utility\Inflector;
+use Cake\Model\ConnectionManager,
+	Cake\Core\Plugin,
+	Cake\Core\Configure,
+	Cake\Core\App,
+	Cake\TestSuite\TestCase,
+	Cake\Utility\ClassRegistry,
+	Cake\Utility\Inflector;
 
 /**
  * A factory class to manage the life cycle of test fixtures
@@ -63,7 +63,7 @@ class FixtureManager {
 /**
  * Inspects the test to look for unloaded fixtures and loads them
  *
- * @param \Cake\TestSuite\TestCase $test the test case to inspect
+ * @param Cake\TestSuite\TestCase $test the test case to inspect
  * @return void
  */
 	public function fixturize($test) {
@@ -139,7 +139,7 @@ class FixtureManager {
 /**
  * Runs the drop and create commands on the fixtures if necessary.
  *
- * @param \Cake\TestSuite\Fixture\TestFixture $fixture the fixture object to create
+ * @param Cake\TestSuite\Fixture\TestFixture $fixture the fixture object to create
  * @param DataSource $db the datasource instance to use
  * @param boolean $drop whether drop the fixture if it is already created or not
  * @return void
@@ -170,7 +170,7 @@ class FixtureManager {
 /**
  * Crates the fixtures tables and inserts data on them
  *
- * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture loading
+ * @param Cake\TestSuite\TestCase $test the test to inspect for fixture loading
  * @return void
  */
 	public function load(TestCase $test) {
@@ -197,7 +197,7 @@ class FixtureManager {
 /**
  * Truncates the fixtures tables
  *
- * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
+ * @param Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
  * @return void
  */
 	public function unload(TestCase $test) {
@@ -218,7 +218,7 @@ class FixtureManager {
 /**
  * Truncates the fixtures tables
  *
- * @param \Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
+ * @param Cake\TestSuite\TestCase $test the test to inspect for fixture unloading
  * @return void
  * @throws UnexpectedValueException if $name is not a previously loaded class
  */

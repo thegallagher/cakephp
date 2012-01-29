@@ -115,7 +115,7 @@ class HelperCollectionTest extends TestCase {
 /**
  * test missinghelper exception
  *
- * @expectedException \Cake\Error\MissingHelperException
+ * @expectedException Cake\Error\MissingHelperException
  * @return void
  */
 	public function testLoadMissingHelper() {

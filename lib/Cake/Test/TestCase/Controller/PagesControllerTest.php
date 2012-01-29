@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Controller;
-use \Cake\TestSuite\TestCase,
-	\Cake\Network\Request,
-	\Cake\Network\Response,
-	\Cake\Core\App,
+use Cake\TestSuite\TestCase,
+	Cake\Network\Request,
+	Cake\Network\Response,
+	Cake\Core\App,
 	\App\Controller\PagesController;
 
 /**

@@ -17,11 +17,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View\Helper;
-use \Cake\TestSuite\TestCase,
-	\Cake\View\Helper\TimeHelper,
-	\Cake\View\View,
-	\Cake\Core\App,
-	\Cake\Core\Configure;
+use Cake\TestSuite\TestCase,
+	Cake\View\Helper\TimeHelper,
+	Cake\View\View,
+	Cake\Core\App,
+	Cake\Core\Configure;
 
 /**
  * TimeHelperTest class
