@@ -13,6 +13,8 @@
  */
 namespace Cake\Routing\Route;
 
+use Cake\Routing\Route\Route;
+
 /**
  * Plugin short route, that copies the plugin param to the controller parameters
  * It is used for supporting /:plugin routes.

@@ -17,13 +17,14 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Routing;
-use \Cake\TestSuite\TestCase,
-	\Cake\Routing\Router,
-	\Cake\Routing\Route\Route,
-	\Cake\Network\Request,
-	\Cake\Core\App,
-	\Cake\Core\Configure,
-	\Cake\Core\Plugin;
+
+use Cake\TestSuite\TestCase,
+	Cake\Routing\Router,
+	Cake\Routing\Route\Route,
+	Cake\Network\Request,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin;
 
 if (!defined('FULL_BASE_URL')) {
 	define('FULL_BASE_URL', 'http://cakephp.org');
@@ -2240,9 +2241,9 @@ class RouterTest extends TestCase {
 		$routes = Router::connect(
 			'/:slug',
 			array('controller' => 'posts', 'action' => 'view'),
-			array('routeClass' => 'MockConnectedRoute', 'slug' => '[a-z_-]+')
+			array('routeClass' => '\MockConnectedRoute', 'slug' => '[a-z_-]+')
 		);
-		$this->assertTrue(is_a($routes[0], 'MockConnectedRoute'), 'Incorrect class used. %s');
+		$this->assertInstanceOf('\MockConnectedRoute', $routes[0], 'Incorrect class used.');
 		$expected = array('controller' => 'posts', 'action' => 'view', 'slug' => 'test');
 		$routes[0]->expects($this->any())
 			->method('parse')
@@ -2427,8 +2428,8 @@ class RouterTest extends TestCase {
 	public function testUrlFullUrlReturnFromRoute() {
 		$url = 'http://example.com/posts/view/1';
 
-		$this->getMock('Cake\Routing\Route\Route', array(), array('/'), 'MockReturnRoute');
-		$routes = Router::connect('/:controller/:action', array(), array('routeClass' => 'MockReturnRoute'));
+		$this->getMock('Cake\Routing\Route\Route', array(), array('/'), '\MockReturnRoute');
+		$routes = Router::connect('/:controller/:action', array(), array('routeClass' => '\MockReturnRoute'));
 		$routes[0]->expects($this->any())->method('match')
 			->will($this->returnValue($url));
 
@@ -2539,11 +2540,11 @@ class RouterTest extends TestCase {
  * @return void
  */
 	public function testDefaultRouteClass() {
-		$this->getMock('CakeRoute', array(), array('/test'), 'TestDefaultRouteClass');
-		Router::defaultRouteClass('TestDefaultRouteClass');
+		$this->getMock('Cake\Routing\Route\Route', array(), array('/test'), 'TestDefaultRouteClass');
+		Router::defaultRouteClass('\TestDefaultRouteClass');
 
 		$result = Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-		$this->assertInstanceOf('TestDefaultRouteClass', $result[0]);
+		$this->assertInstanceOf('\TestDefaultRouteClass', $result[0]);
 	}
 
 /**
@@ -2552,7 +2553,7 @@ class RouterTest extends TestCase {
  * @return void
  */
 	public function testDefaultRouteClassGetter() {
-		$routeClass = 'TestDefaultRouteClass';
+		$routeClass = '\TestDefaultRouteClass';
 		Router::defaultRouteClass($routeClass);
 
 		$this->assertEqual($routeClass, Router::defaultRouteClass());
@@ -2562,7 +2563,7 @@ class RouterTest extends TestCase {
 /**
  * Test that route classes must extend CakeRoute
  *
- * @expectedException RouterException
+ * @expectedException Cake\Error\RouterException
  * @return void
  */
 	public function testDefaultRouteException() {
@@ -2573,7 +2574,7 @@ class RouterTest extends TestCase {
 /**
  * Test that route classes must extend CakeRoute
  *
- * @expectedException RouterException
+ * @expectedException Cake\Error\RouterException
  * @return void
  */
 	public function testSettingInvalidDefaultRouteException() {
@@ -2583,7 +2584,7 @@ class RouterTest extends TestCase {
 /**
  * Test that class must exist
  *
- * @expectedException RouterException
+ * @expectedException Cake\Error\RouterException
  * @return void
  */
 	public function testSettingNonExistentDefaultRouteException() {

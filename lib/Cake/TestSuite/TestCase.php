@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite;
+
 use \Cake\Core\App,
 	\Cake\Core\Configure,
 	\Cake\Routing\Router,
@@ -133,7 +134,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 		if (empty($this->_pathRestore)) {
 			$this->_pathRestore = App::paths();
 		}
-		if (class_exists('Router', false)) {
+		if (class_exists('Cake\Routing\Router', false)) {
 			Router::reload();
 		}
 	}

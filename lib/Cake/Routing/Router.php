@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Routing;
+
 use \Cake\Core\Configure,
 	\Cake\Network\Request,
 	\Cake\Network\Response,
@@ -187,8 +188,8 @@ class Router {
  * @throws RouterException
  */
 	protected static function _validateRouteClass($routeClass) {
-		if (!class_exists($routeClass) || !is_subclass_of($routeClass, '\Cake\Routing\Route\Route')) {
-			throw new RouterException(__d('cake_dev', 'Route classes must extend CakeRoute'));
+		if (!class_exists($routeClass) || !is_subclass_of($routeClass, 'Cake\Routing\Route\Route')) {
+			throw new Error\RouterException(__d('cake_dev', 'Route classes must extend CakeRoute'));
 		}
 		return $routeClass;
 	}

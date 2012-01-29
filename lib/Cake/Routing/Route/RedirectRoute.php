@@ -13,8 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Routing\Route;
-use \Cake\Routing\Router,
-	\Cake\Network\Response;
+
+use Cake\Routing\Router,
+	Cake\Routing\Route\Route,
+	Cake\Network\Response;
 
 /**
  * Redirect route will perform an immediate redirect. Redirect routes

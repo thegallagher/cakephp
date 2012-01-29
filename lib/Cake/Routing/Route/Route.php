@@ -12,8 +12,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Routing\Route;
-use \Cake\Routing\Router,
-	\Cake\Utility\Set;
+
+use Cake\Routing\Router,
+	Cake\Utility\Set;
 
 /**
  * A single Route used by the Router to connect requests to
