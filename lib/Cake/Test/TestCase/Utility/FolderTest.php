@@ -62,8 +62,8 @@ class FolderTest extends TestCase {
 		$exclude = array_merge(self::$_tmp, array('.', '..'));
 		foreach (scandir(TMP) as $dir) {
 			if (is_dir(TMP . $dir) && !in_array($dir, $exclude)) {
-				$iterator = new RecursiveDirectoryIterator(TMP . $dir);
-				foreach (new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+				$iterator = new \RecursiveDirectoryIterator(TMP . $dir);
+				foreach (new \RecursiveIteratorIterator($iterator, \RecursiveIteratorIterator::CHILD_FIRST) as $file) {
 					if ($file->isFile() || $file->isLink()) {
 						unlink($file->getPathname());
 					} elseif ($file->isDir() && !in_array($file->getFilename(), array('.', '..'))) {
@@ -357,7 +357,7 @@ class FolderTest extends TestCase {
 
 		$expected = array('cache', 'logs', 'sessions', 'tests');
 		$result = $Folder->read(true, true);
-		$this->assertEquals($result[0], $expected);
+		$this->assertEquals($expected, $result[0]);
 
 		$Folder->path = TMP . 'non-existent';
 		$expected = array(array(), array());

@@ -21,6 +21,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Log\Log,
 	Cake\Log\Engine\FileLog,
 	Cake\Core\App,
+	Cake\Core\Configure,
 	Cake\Core\Plugin;
 
 /**
@@ -53,6 +54,7 @@ class LogTest extends TestCase {
 			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
+		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
 
 		$result = Log::config('libtest', array(

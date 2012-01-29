@@ -315,7 +315,8 @@ class Controller extends Object implements EventListener {
  */
 	public function __construct($request = null, $response = null) {
 		if ($this->name === null) {
-			$this->name = substr(get_class($this), 0, strlen(get_class($this)) -10);
+			$className = get_class($this);
+			$this->name = substr($className, strrpos($className, '\\') + 1, -10);
 		}
 
 		if ($this->viewPath == null) {

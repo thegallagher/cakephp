@@ -19,7 +19,8 @@
 namespace Cake\Test\TestCase\Utility;
 use Cake\TestSuite\TestCase,
 	Cake\Event\Event,
-	Cake\Utility\ObjectCollection;
+	Cake\Utility\ObjectCollection,
+	Cake\Core\Object;
 
 /**
  * A generic object class

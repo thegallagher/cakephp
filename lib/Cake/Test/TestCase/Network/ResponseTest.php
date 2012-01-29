@@ -18,6 +18,7 @@
  */
 namespace Cake\Test\TestCase\Network;
 use Cake\TestSuite\TestCase,
+	Cake\Network\Request,
 	Cake\Network\Response;
 
 class ResponseTest extends TestCase {
@@ -268,7 +269,7 @@ class ResponseTest extends TestCase {
 	public function testCache() {
 		$response = new Response();
 		$since = time();
-		$time = new DateTime('+1 day', new DateTimeZone('UTC'));
+		$time = new \DateTime('+1 day', new \DateTimeZone('UTC'));
 		$response->expires('+1 day');
 		$expected = array(
 			'Date' => gmdate("D, j M Y G:i:s ", $since) . 'GMT',
@@ -512,7 +513,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testProtocol() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->protocol('HTTP/1.0');
 		$this->assertEquals('HTTP/1.0', $response->protocol());
 		$response->expects($this->at(0))
@@ -526,14 +527,14 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testLength() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->length(100);
 		$this->assertEquals(100, $response->length());
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Content-Length', 100);
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->length(false);
 		$this->assertFalse($response->length());
 		$response->expects($this->exactly(2))
@@ -547,7 +548,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testUnmodifiedContent() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->body('This is a body');
 		$response->statusCode(204);
 		$response->expects($this->once())
@@ -555,14 +556,14 @@ class ResponseTest extends TestCase {
 		$response->send();
 		$this->assertFalse(array_key_exists('Content-Type', $response->header()));
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->body('This is a body');
 		$response->statusCode(304);
 		$response->expects($this->once())
 			->method('_sendContent')->with('');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->body('This is a body');
 		$response->statusCode(200);
 		$response->expects($this->once())
@@ -576,16 +577,16 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testExpires() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
-		$now = new DateTime('now', new DateTimeZone('America/Los_Angeles'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
+		$now = new \DateTime('now', new \DateTimeZone('America/Los_Angeles'));
 		$response->expires($now);
-		$now->setTimeZone(new DateTimeZone('UTC'));
+		$now->setTimeZone(new \DateTimeZone('UTC'));
 		$this->assertEquals($now->format('D, j M Y H:i:s') . ' GMT', $response->expires());
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Expires', $now->format('D, j M Y H:i:s') . ' GMT');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$now = time();
 		$response->expires($now);
 		$this->assertEquals(gmdate('D, j M Y H:i:s', $now) . ' GMT', $response->expires());
@@ -593,8 +594,8 @@ class ResponseTest extends TestCase {
 			->method('_sendHeader')->with('Expires', gmdate('D, j M Y H:i:s', $now) . ' GMT');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
-		$time = new DateTime('+1 day', new DateTimeZone('UTC'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
+		$time = new \DateTime('+1 day', new \DateTimeZone('UTC'));
 		$response->expires('+1 day');
 		$this->assertEquals($time->format('D, j M Y H:i:s') . ' GMT', $response->expires());
 		$response->expects($this->at(1))
@@ -608,16 +609,16 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testModified() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
-		$now = new DateTime('now', new DateTimeZone('America/Los_Angeles'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
+		$now = new \DateTime('now', new \DateTimeZone('America/Los_Angeles'));
 		$response->modified($now);
-		$now->setTimeZone(new DateTimeZone('UTC'));
+		$now->setTimeZone(new \DateTimeZone('UTC'));
 		$this->assertEquals($now->format('D, j M Y H:i:s') . ' GMT', $response->modified());
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Last-Modified', $now->format('D, j M Y H:i:s') . ' GMT');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$now = time();
 		$response->modified($now);
 		$this->assertEquals(gmdate('D, j M Y H:i:s', $now) . ' GMT', $response->modified());
@@ -625,8 +626,8 @@ class ResponseTest extends TestCase {
 			->method('_sendHeader')->with('Last-Modified', gmdate('D, j M Y H:i:s', $now) . ' GMT');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
-		$time = new DateTime('+1 day', new DateTimeZone('UTC'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
+		$time = new \DateTime('+1 day', new \DateTimeZone('UTC'));
 		$response->modified('+1 day');
 		$this->assertEquals($time->format('D, j M Y H:i:s') . ' GMT', $response->modified());
 		$response->expects($this->at(1))
@@ -640,7 +641,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testSharable() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$this->assertNull($response->sharable());
 		$response->sharable(true);
 		$headers = $response->header();
@@ -650,7 +651,7 @@ class ResponseTest extends TestCase {
 		$response->send();
 
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->sharable(false);
 		$headers = $response->header();
 		$this->assertEquals('private', $headers['Cache-Control']);
@@ -658,7 +659,7 @@ class ResponseTest extends TestCase {
 			->method('_sendHeader')->with('Cache-Control', 'private');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->sharable(true);
 		$headers = $response->header();
 		$this->assertEquals('public', $headers['Cache-Control']);
@@ -672,12 +673,12 @@ class ResponseTest extends TestCase {
 		$response->sharable(true);
 		$this->assertTrue($response->sharable());
 
-		$response = new CakeResponse;
+		$response = new Response;
 		$response->sharable(true, 3600);
 		$headers = $response->header();
 		$this->assertEquals('public, s-maxage=3600', $headers['Cache-Control']);
 
-		$response = new CakeResponse;
+		$response = new Response;
 		$response->sharable(false, 3600);
 		$headers = $response->header();
 		$this->assertEquals('private, max-age=3600', $headers['Cache-Control']);
@@ -690,7 +691,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testMaxAge() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$this->assertNull($response->maxAge());
 		$response->maxAge(3600);
 		$this->assertEquals(3600, $response->maxAge());
@@ -700,7 +701,7 @@ class ResponseTest extends TestCase {
 			->method('_sendHeader')->with('Cache-Control', 'max-age=3600');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->maxAge(3600);
 		$response->sharable(false);
 		$headers = $response->header();
@@ -716,7 +717,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testSharedMaxAge() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$this->assertNull($response->maxAge());
 		$response->sharedMaxAge(3600);
 		$this->assertEquals(3600, $response->sharedMaxAge());
@@ -726,7 +727,7 @@ class ResponseTest extends TestCase {
 			->method('_sendHeader')->with('Cache-Control', 's-maxage=3600');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->sharedMaxAge(3600);
 		$response->sharable(true);
 		$headers = $response->header();
@@ -742,7 +743,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testMustRevalidate() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$this->assertFalse($response->mustRevalidate());
 		$response->mustRevalidate(true);
 		$this->assertTrue($response->mustRevalidate());
@@ -754,7 +755,7 @@ class ResponseTest extends TestCase {
 		$response->mustRevalidate(false);
 		$this->assertFalse($response->mustRevalidate());
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->sharedMaxAge(3600);
 		$response->mustRevalidate(true);
 		$headers = $response->header();
@@ -771,14 +772,14 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testVary() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->vary('Accept-encoding');
 		$this->assertEquals(array('Accept-encoding'), $response->vary());
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Vary', 'Accept-encoding');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->vary(array('Accept-language', 'Accept-encoding'));
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Vary', 'Accept-language, Accept-encoding');
@@ -792,14 +793,14 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testEtag() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->etag('something');
 		$this->assertEquals('"something"', $response->etag());
 		$response->expects($this->at(1))
 			->method('_sendHeader')->with('Etag', '"something"');
 		$response->send();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->etag('something', true);
 		$this->assertEquals('W/"something"', $response->etag());
 		$response->expects($this->at(1))
@@ -813,7 +814,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testNotModified() {
-		$response = $this->getMock('CakeResponse', array('_sendHeader', '_sendContent'));
+		$response = $this->getMock('Cake\Network\Response', array('_sendHeader', '_sendContent'));
 		$response->body('something');
 		$response->statusCode(200);
 		$response->length(100);
@@ -832,10 +833,10 @@ class ResponseTest extends TestCase {
  **/
 	public function testCheckNotModifiedByEtagStar() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = '*';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->etag('something');
 		$response->expects($this->once())->method('notModified');
-		$response->checkNotModified(new CakeRequest);
+		$response->checkNotModified(new Request);
 	}
 
 /**
@@ -845,10 +846,10 @@ class ResponseTest extends TestCase {
  **/
 	public function testCheckNotModifiedByEtagExact() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = 'W/"something", "other"';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->etag('something', true);
 		$response->expects($this->once())->method('notModified');
-		$this->assertTrue($response->checkNotModified(new CakeRequest));
+		$this->assertTrue($response->checkNotModified(new Request));
 	}
 
 /**
@@ -859,11 +860,11 @@ class ResponseTest extends TestCase {
 	public function testCheckNotModifiedByEtagAndTime() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = 'W/"something", "other"';
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = '2012-01-01 00:00:00';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->etag('something', true);
 		$response->modified('2012-01-01 00:00:00');
 		$response->expects($this->once())->method('notModified');
-		$this->assertTrue($response->checkNotModified(new CakeRequest));
+		$this->assertTrue($response->checkNotModified(new Request));
 	}
 
 /**
@@ -874,11 +875,11 @@ class ResponseTest extends TestCase {
 	public function testCheckNotModifiedByEtagAndTimeMismatch() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = 'W/"something", "other"';
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = '2012-01-01 00:00:00';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->etag('something', true);
 		$response->modified('2012-01-01 00:00:01');
 		$response->expects($this->never())->method('notModified');
-		$this->assertFalse($response->checkNotModified(new CakeRequest));
+		$this->assertFalse($response->checkNotModified(new Request));
 	}
 
 /**
@@ -889,11 +890,11 @@ class ResponseTest extends TestCase {
 	public function testCheckNotModifiedByEtagMismatch() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = 'W/"something-else", "other"';
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = '2012-01-01 00:00:00';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->etag('something', true);
 		$response->modified('2012-01-01 00:00:00');
 		$response->expects($this->never())->method('notModified');
-		$this->assertFalse($response->checkNotModified(new CakeRequest));
+		$this->assertFalse($response->checkNotModified(new Request));
 	}
 
 
@@ -904,10 +905,10 @@ class ResponseTest extends TestCase {
  **/
 	public function testCheckNotModifiedByTime() {
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = '2012-01-01 00:00:00';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->modified('2012-01-01 00:00:00');
 		$response->expects($this->once())->method('notModified');
-		$this->assertTrue($response->checkNotModified(new CakeRequest));
+		$this->assertTrue($response->checkNotModified(new Request));
 	}
 
 /**
@@ -918,8 +919,8 @@ class ResponseTest extends TestCase {
 	public function testCheckNotModifiedNoHints() {
 		$_SERVER['HTTP_IF_NONE_MATCH'] = 'W/"something", "other"';
 		$_SERVER['HTTP_IF_MODIFIED_SINCE'] = '2012-01-01 00:00:00';
-		$response =  $this->getMock('CakeResponse', array('notModified'));
+		$response =  $this->getMock('Cake\Network\Response', array('notModified'));
 		$response->expects($this->never())->method('notModified');
-		$this->assertFalse($response->checkNotModified(new CakeRequest));
+		$this->assertFalse($response->checkNotModified(new Request));
 	}
 }
