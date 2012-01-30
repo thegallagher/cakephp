@@ -682,7 +682,7 @@ class Router {
  */
 	public static function reload() {
 		if (empty(self::$_initialState)) {
-			self::$_initialState = get_class_vars('Router');
+			self::$_initialState = get_class_vars(get_called_class());
 			self::_setPrefixes();
 			return;
 		}

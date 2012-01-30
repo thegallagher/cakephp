@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Routing;
+
 use Cake\TestSuite\TestCase,
 	Cake\Core\App,
 	Cake\Core\Configure,
@@ -679,7 +680,7 @@ class DispatcherTest extends TestCase {
 /**
  * testMissingController method
  *
- * @expectedException MissingControllerException
+ * @expectedException Cake\Error\MissingControllerException
  * @expectedExceptionMessage Controller class SomeControllerController could not be found.
  * @return void
  */
@@ -697,7 +698,7 @@ class DispatcherTest extends TestCase {
 /**
  * testMissingControllerInterface method
  *
- * @expectedException MissingControllerException
+ * @expectedException Cake\Error\MissingControllerException
  * @expectedExceptionMessage Controller class DispatcherTestInterfaceController could not be found.
  * @return void
  */
@@ -715,7 +716,7 @@ class DispatcherTest extends TestCase {
 /**
  * testMissingControllerInterface method
  *
- * @expectedException MissingControllerException
+ * @expectedException Cake\Error\MissingControllerException
  * @expectedExceptionMessage Controller class DispatcherTestAbstractController could not be found.
  * @return void
  */
@@ -1077,7 +1078,7 @@ class DispatcherTest extends TestCase {
 /**
  * testAutomaticPluginControllerMissingActionDispatch method
  *
- * @expectedException MissingActionException
+ * @expectedException Cake\Error\MissingActionException
  * @expectedExceptionMessage Action MyPluginController::not_here() could not be found.
  * @return void
  */
@@ -1094,7 +1095,7 @@ class DispatcherTest extends TestCase {
 /**
  * testAutomaticPluginControllerMissingActionDispatch method
  *
- * @expectedException MissingActionException
+ * @expectedException Cake\Error\MissingActionException
  * @expectedExceptionMessage Action MyPluginController::param:value() could not be found.
  * @return void
  */

@@ -121,7 +121,7 @@ class RouterTest extends TestCase {
 
 		Router::reload();
 		$resources = Router::mapResources('Posts', array('id' => '[a-z0-9_]+'));
-		$this->assertEquals($resources, array('posts'));
+		$this->assertEquals(array('posts'), $resources);
 
 		$_SERVER['REQUEST_METHOD'] = 'GET';
 		$result = Router::parse('/posts/add');
@@ -2428,7 +2428,7 @@ class RouterTest extends TestCase {
 	public function testUrlFullUrlReturnFromRoute() {
 		$url = 'http://example.com/posts/view/1';
 
-		$this->getMock('Cake\Routing\Route\Route', array(), array('/'), '\MockReturnRoute');
+		$this->getMock('Cake\Routing\Route\Route', array(), array('/'), 'MockReturnRoute');
 		$routes = Router::connect('/:controller/:action', array(), array('routeClass' => '\MockReturnRoute'));
 		$routes[0]->expects($this->any())->method('match')
 			->will($this->returnValue($url));
