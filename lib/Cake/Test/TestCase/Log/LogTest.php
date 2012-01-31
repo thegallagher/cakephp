@@ -90,7 +90,7 @@ class LogTest extends TestCase {
  * @return void
  */
 	public function testNotImplementingInterface() {
-		Log::config('fail', array('engine' => 'stdClass'));
+		Log::config('fail', array('engine' => '\stdClass'));
 	}
 
 /**
