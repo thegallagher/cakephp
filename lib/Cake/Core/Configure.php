@@ -15,6 +15,7 @@
 namespace Cake\Core;
 use Cake\Cache\Cache,
 	Cake\Utility\Set,
+	Cake\Configure\ConfigReaderInterface,
 	Cake\Configure\PhpReader;
 
 /**
