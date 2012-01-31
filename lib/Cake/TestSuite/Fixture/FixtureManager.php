@@ -114,25 +114,23 @@ class FixtureManager {
 			}
 
 			if (strpos($fixture, 'core.') === 0) {
-				$base = substr($fixture, strlen('core.'));
+				list($core, $base) = explode('.', $fixture, 2);
+				$baseNamespace = 'Cake';
 			} elseif (strpos($fixture, 'app.') === 0) {
-				$base = substr($fixture, strlen('app.'));
+				list($app, $base) = explode('.', $fixture, 2);
+				$baseNamespace = Configure::read('App.namespace');
 			} elseif (strpos($fixture, 'plugin.') === 0) {
-				$base = substr($fixture, strlen('plugin.'));
+				list($p, $plugin, $base) = explode('.', $fixture);
+				$baseNamespace = Inflector::camelize($plugin);
 			} else {
 				$base = $fixture;
 			}
-			list($plugin, $className) = pluginSplit($base);
-			if ($plugin) {
-				$plugin = Inflector::camelize($plugin) . '.';
-			}
-			$baseClass = $className;
-			$className = $plugin . Inflector::camelize($className);
-			$className = App::classname($className, 'Test/Fixture', 'Fixture');
+			$base = Inflector::camelize($base);
+			$className = implode('\\', array($baseNamespace, 'Test\Fixture', $base . 'Fixture'));
 
 			if ($className) {
 				$this->_loaded[$fixture] = new $className();
-				$this->_fixtureMap[$baseClass] = $this->_loaded[$fixture];
+				$this->_fixtureMap[$base] = $this->_loaded[$fixture];
 			}
 		}
 	}
@@ -224,7 +222,7 @@ class FixtureManager {
  * @throws UnexpectedValueException if $name is not a previously loaded class
  */
 	public function loadSingle($name, $db = null) {
-		$name = strtolower($name);
+		$name = Inflector::camelize($name);
 		if (isset($this->_fixtureMap[$name])) {
 			$fixture = $this->_fixtureMap[$name];
 			if (!$db) {
