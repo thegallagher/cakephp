@@ -17,9 +17,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace TestApp\Cache\Engine;
-use Cake\Cache\Engine;
+use Cake\Cache\CacheEngine;
 
-class TestAppCacheEngine extends Engine {
+class TestAppCacheEngine extends CacheEngine {
 
 	public function write($key, $value, $duration) {
 		if ($key == 'fail') {

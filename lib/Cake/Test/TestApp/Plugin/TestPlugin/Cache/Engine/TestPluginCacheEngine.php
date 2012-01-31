@@ -16,7 +16,7 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-namespace TestPlugin\Lib\Cache\Engine;
+namespace TestPlugin\Cache\Engine;
 use Cake\Cache\CacheEngine;
 
 class TestPluginCacheEngine extends CacheEngine {

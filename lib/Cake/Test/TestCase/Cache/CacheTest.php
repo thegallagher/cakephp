@@ -93,6 +93,7 @@ class CacheTest extends TestCase {
 			'Lib' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
+		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
 
 		$settings = array('engine' => 'TestAppCache', 'path' => TMP, 'prefix' => 'cake_test_');
@@ -317,12 +318,13 @@ class CacheTest extends TestCase {
 			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
 			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), true);
+		Configure::write('App.namespace', 'TestApp');
 
 		Cache::config('test_trigger', array('engine' => 'TestAppCache', 'prefix' => ''));
 		try {
 			Cache::write('fail', 'value', 'test_trigger');
 			$this->fail('No exception thrown');
-		} catch (PHPUnit_Framework_Error $e) {
+		} catch (\PHPUnit_Framework_Error $e) {
 			$this->assertTrue(true);
 		}
 		Cache::drop('test_trigger');
