@@ -21,6 +21,7 @@
 namespace Cake\Test\TestCase\Event;
 use Cake\TestSuite\TestCase,
 	Cake\Event\Event,
+	Cake\Event\EventListener,
 	Cake\Event\EventManager,
 	Cake\Event\EventListiner;
 
