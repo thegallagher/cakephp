@@ -126,12 +126,13 @@ class FixtureManager {
 			if ($plugin) {
 				$plugin = Inflector::camelize($plugin) . '.';
 			}
+			$baseClass = $className;
 			$className = $plugin . Inflector::camelize($className);
 			$className = App::classname($className, 'Test/Fixture', 'Fixture');
 
 			if ($className) {
 				$this->_loaded[$fixture] = new $className();
-				$this->_fixtureMap[$className] = $this->_loaded[$fixture];
+				$this->_fixtureMap[$baseClass] = $this->_loaded[$fixture];
 			}
 		}
 	}
@@ -223,7 +224,7 @@ class FixtureManager {
  * @throws UnexpectedValueException if $name is not a previously loaded class
  */
 	public function loadSingle($name, $db = null) {
-		$name .= 'Fixture';
+		$name = strtolower($name);
 		if (isset($this->_fixtureMap[$name])) {
 			$fixture = $this->_fixtureMap[$name];
 			if (!$db) {

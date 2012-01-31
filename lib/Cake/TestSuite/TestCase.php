@@ -147,7 +147,7 @@ abstract class TestCase extends \PHPUnit_Framework_TestCase {
 	public function tearDown() {
 		parent::tearDown();
 		App::build($this->_pathRestore, App::RESET);
-		if (class_exists('ClassRegistry', false)) {
+		if (class_exists('Cake\Utility\ClassRegistry', false)) {
 			ClassRegistry::flush();
 		}
 		Configure::write($this->_configure);
