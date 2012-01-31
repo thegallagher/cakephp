@@ -98,7 +98,9 @@ class ExceptionRenderer {
 		if (method_exists($this->controller, 'apperror')) {
 			return $this->controller->appError($exception);
 		}
-		$method = $template = Inflector::variable(str_replace('Exception', '', get_class($exception)));
+		$baseClass = get_class($exception);
+		$baseClass = substr($baseClass, strrpos($baseClass, '\\') + 1, -9);
+		$method = $template = Inflector::variable($baseClass);
 		$code = $exception->getCode();
 
 		$methodExists = method_exists($this, $method);

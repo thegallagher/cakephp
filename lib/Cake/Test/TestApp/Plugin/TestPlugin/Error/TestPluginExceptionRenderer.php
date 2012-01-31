@@ -19,7 +19,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-namespace TestPlugin\Lib\Error;
+namespace TestPlugin\Error;
 use Cake\Error\ExceptionRenderer;
 
 class TestPluginExceptionRenderer extends ExceptionRenderer {
