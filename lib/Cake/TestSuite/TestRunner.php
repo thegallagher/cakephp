@@ -16,7 +16,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\TestSuite;
-use Cake\Core\App;
+use Cake\Core\App,
+	Cake\Core\ClassLoader;
 
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
@@ -47,6 +48,9 @@ class TestRunner extends \PHPUnit_TextUI_TestRunner {
 		if (isset($arguments['printer'])) {
 			self::$versionStringPrinted = true;
 		}
+
+		$autoloader = new ClassLoader('TestApp', dirname(__DIR__) . '/Test');
+		$autoloader->register();
 
 		$fixture = $this->_getFixtureManager($arguments);
 		foreach ($suite->getIterator() as $test) {
