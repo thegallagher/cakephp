@@ -137,14 +137,21 @@ class Contact extends TestModel {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array('ContactTag' => array('with' => 'ContactTagsContact'));
+	public $hasAndBelongsToMany = array(
+		'ContactTag' => array(
+			'className' => 'Cake\Test\TestCase\View\Helper\ContactTag',
+			'with' => 'Cake\Test\TestCase\View\Helper\ContactTagsContact'
+		)
+	);
 
 /**
  * hasAndBelongsToMany property
  *
  * @var array
  */
-	public $belongsTo = array('User' => array('className' => 'UserForm'));
+	public $belongsTo = array(
+		'User' => array('className' => 'UserForm'
+	));
 }
 
 /**
@@ -638,6 +645,8 @@ class FormHelperTest extends TestCase {
 		parent::setUp();
 
 		Configure::write('App.base', '');
+		Configure::write('App.namespace', 'Cake\Test\TestCase\View\Helper');
+
 		$this->Controller = new ContactTestController();
 		$this->View = new View($this->Controller);
 
@@ -2594,7 +2603,7 @@ class FormHelperTest extends TestCase {
  * @return void
  */
 	public function testFormInputs() {
-		$this->Form->create('Contact');
+		$this->Form->create('Cake\Test\TestCase\View\Helper\Contact');
 		$result = $this->Form->inputs('The Legend');
 		$expected = array(
 			'<fieldset',
@@ -7741,12 +7750,17 @@ class FormHelperTest extends TestCase {
 			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::load('TestPlugin');
-		$this->Form->request['models'] = array('TestPluginPost' => array('plugin' => 'TestPlugin', 'className' => 'TestPluginPost'));
+		$this->Form->request['models'] = array(
+			'TestPluginPost' => array(
+				'plugin' => 'TestPlugin',
+				'className' => 'TestPluginPost'
+			)
+		);
 
 		$this->assertFalse(ClassRegistry::isKeySet('TestPluginPost'));
 		$this->Form->create('TestPluginPost');
 		$this->assertTrue(ClassRegistry::isKeySet('TestPluginPost'));
-		$this->assertInstanceOf('TestPluginPost', ClassRegistry::getObject('TestPluginPost'));
+		$this->assertInstanceOf('TestPlugin\Model\TestPluginPost', ClassRegistry::getObject('TestPluginPost'));
 
 		Plugin::unload();
 		App::build();
