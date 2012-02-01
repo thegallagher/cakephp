@@ -397,8 +397,6 @@ class HtmlHelperTest extends TestCase {
 		$this->skipIf(!is_writable(WWW_ROOT), 'Cannot write to webroot.');
 		$themeExists = is_dir(WWW_ROOT . 'theme');
 
-		App::uses('File', 'Utility');
-
 		$testfile = WWW_ROOT . 'theme' . DS . 'test_theme' . DS . 'img' . DS . '__cake_test_image.gif';
 		$File = new File($testfile, true);
 
@@ -735,8 +733,6 @@ class HtmlHelperTest extends TestCase {
 	public function testScriptInTheme() {
 		$this->skipIf(!is_writable(WWW_ROOT), 'Cannot write to webroot.');
 		$themeExists = is_dir(WWW_ROOT . 'theme');
-
-		App::uses('File', 'Utility');
 
 		$testfile = WWW_ROOT . 'theme' . DS . 'test_theme' . DS . 'js' . DS . '__test_js.js';
 		$File = new File($testfile, true);
