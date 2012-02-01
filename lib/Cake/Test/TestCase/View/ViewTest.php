@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\View;
+
 use Cake\TestSuite\TestCase,
 	Cake\View\View,
 	Cake\View\Helper,
@@ -25,6 +26,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\App,
 	Cake\Core\Configure,
 	Cake\Core\Plugin,
+	Cake\Network\Request,
 	Cake\Utility\ClassRegistry;
 
 /**
@@ -264,7 +266,7 @@ class ViewTest extends TestCase {
 		$this->PostsController->index();
 		$this->View = new View($this->PostsController);
 
-		$themeRequest = new CakeRequest('posts/index');
+		$themeRequest = new Request('posts/index');
 		$this->ThemeController = new Controller($themeRequest);
 		$this->ThemePostsController = new ThemePostsController($themeRequest);
 		$this->ThemePostsController->viewPath = 'posts';
@@ -280,7 +282,7 @@ class ViewTest extends TestCase {
 		Plugin::load(array('TestPlugin', 'TestPlugin', 'PluginJs'));
 		Configure::write('debug', 2);
 
-		CakePlugin::loadAll();
+		Plugin::loadAll();
 
 	}
 
