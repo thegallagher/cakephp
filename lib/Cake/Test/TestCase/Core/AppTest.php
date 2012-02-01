@@ -336,7 +336,7 @@ class AppTest extends TestCase {
 
 		App::build(array(
 			'plugins' => array(
-				CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS
 			)
 		));
 		$result = App::objects('plugin', null, false);

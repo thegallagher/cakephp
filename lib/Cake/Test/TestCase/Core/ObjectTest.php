@@ -21,126 +21,9 @@ use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Fixture\TestModel,
 	Cake\Core\Object,
 	Cake\Core\App,
+	Cake\Core\Configure,
 	Cake\Core\Plugin,
-	Cake\Routing\Router,
-	Cake\Controller\Controller,
-	Cake\Model\Model;
-
-/**
- * RequestActionPost class
- *
- * @package       Cake.Test.Case.Core
- */
-class RequestActionPost extends TestModel {
-
-/**
- * name property
- *
- * @var string 'ControllerPost'
- */
-	public $name = 'RequestActionPost';
-
-/**
- * useTable property
- *
- * @var string 'posts'
- */
-	public $useTable = 'posts';
-}
-
-/**
- * RequestActionController class
- *
- * @package       Cake.Test.Case.Core
- */
-class RequestActionController extends Controller {
-
-/**
-* uses property
-*
-* @var array
-* @access public
-*/
-	public $uses = array('RequestActionPost');
-
-/**
-* test_request_action method
-*
-* @access public
-* @return void
-*/
-	public function test_request_action() {
-		return 'This is a test';
-	}
-
-/**
-* another_ra_test method
-*
-* @param mixed $id
-* @param mixed $other
-* @access public
-* @return void
-*/
-	public function another_ra_test($id, $other) {
-		return $id + $other;
-	}
-
-/**
- * normal_request_action method
- *
- * @return void
- */
-	public function normal_request_action() {
-		return 'Hello World';
-	}
-
-/**
- * returns $this->here
- *
- * @return void
- */
-	public function return_here() {
-		return $this->here;
-	}
-
-/**
- * paginate_request_action method
- *
- * @return void
- */
-	public function paginate_request_action() {
-		$data = $this->paginate();
-		return true;
-	}
-
-/**
- * post pass, testing post passing
- *
- * @return array
- */
-	public function post_pass() {
-		return $this->request->data;
-	}
-
-/**
- * test param passing and parsing.
- *
- * @return array
- */
-	public function params_pass() {
-		return $this->request;
-	}
-
-	public function param_check() {
-		$this->autoRender = false;
-		$content = '';
-		if (isset($this->request->params[0])) {
-			$content = 'return found';
-		}
-		$this->response->body($content);
-	}
-}
-
+	Cake\Routing\Router;
 
 /**
  * TestObject class
@@ -304,6 +187,8 @@ class ObjectTest extends TestCase {
  */
 	public function setUp() {
 		$this->object = new TestObject();
+		$this->appNS = Configure::read('App.namespace');
+		Configure::write('App.namespace', 'TestApp');
 	}
 
 /**
@@ -315,6 +200,7 @@ class ObjectTest extends TestCase {
 		App::build();
 		Plugin::unload();
 		unset($this->object);
+		Configure::write('App.namespace', $this->appNS);
 	}
 
 /**
