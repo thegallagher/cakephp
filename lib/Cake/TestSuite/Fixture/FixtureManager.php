@@ -121,7 +121,7 @@ class FixtureManager {
 				$baseNamespace = Configure::read('App.namespace');
 			} elseif (strpos($fixture, 'plugin.') === 0) {
 				list($p, $plugin, $base) = explode('.', $fixture);
-				$baseNamespace = Inflector::camelize($plugin);
+				$baseNamespace = Plugin::getNamespace($plugin);
 			} else {
 				$base = $fixture;
 			}
