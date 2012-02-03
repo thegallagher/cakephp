@@ -21,12 +21,12 @@ use Cake\TestSuite\TestCase,
 	Cake\Controller\Component\SecurityComponent,
 	Cake\Controller\Controller,
 	Cake\Core\Configure,
+	Cake\Utility\Security,
 	Cake\Network\Request;
 
 /**
 * TestSecurityComponent
 *
-* @package       Cake.Test.Case.Controller.Component
 * @package       Cake.Test.Case.Controller.Component
 */
 class TestSecurityComponent extends SecurityComponent {
@@ -46,7 +46,6 @@ class TestSecurityComponent extends SecurityComponent {
 * SecurityTestController
 *
 * @package       Cake.Test.Case.Controller.Component
-* @package       Cake.Test.Case.Controller.Component
 */
 class SecurityTestController extends Controller {
 
@@ -62,7 +61,10 @@ class SecurityTestController extends Controller {
  *
  * @var array
  */
-	public $components = array('Session', 'TestSecurity');
+	public $components = array(
+		'Session',
+		'TestSecurity' => array('className' => 'Cake\Test\TestCase\Controller\Component\TestSecurityComponent')
+	);
 
 /**
  * failed property

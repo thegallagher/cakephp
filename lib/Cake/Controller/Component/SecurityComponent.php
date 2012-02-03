@@ -21,6 +21,8 @@ use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
 	Cake\Network\Request,
 	Cake\Utility\Security,
+	Cake\Utility\Set,
+	Cake\Core\Configure,
 	Cake\Error;
 
 
