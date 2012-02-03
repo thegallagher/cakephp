@@ -27,7 +27,8 @@ use Cake\TestSuite\TestCase,
 	Cake\Network\Request,
 	Cake\Network\Response,
 	Cake\Utility\ClassRegistry,
-	Cake\Utility\Set;
+	Cake\Utility\Set,
+	TestPlugin\Controller\TestPluginController;
 
 /**
  * AppController class
@@ -413,7 +414,7 @@ class ControllerTest extends TestCase {
  *
  * @var array
  */
-	public $fixtures = array('core.post', 'core.comment', 'core.name');
+	public $fixtures = array('core.post', 'core.comment');
 
 /**
  * reset environment.
@@ -471,8 +472,6 @@ class ControllerTest extends TestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
 		));
 		Plugin::load('TestPlugin');
-		App::uses('TestPluginAppController', 'TestPlugin.Controller');
-		App::uses('TestPluginController', 'TestPlugin.Controller');
 
 		$Controller = new TestPluginController();
 		$Controller->plugin = 'TestPlugin';
@@ -705,12 +704,12 @@ class ControllerTest extends TestCase {
  * @return void
  */
 	public function testComponentCancelRender() {
-		$Controller = new Controller($this->getMock('CakeRequest'), new CakeResponse());
+		$Controller = new Controller($this->getMock('Cake\Network\Request'), new Response());
 		$Controller->uses = array();
 		$Controller->components = array('Test2');
 		$Controller->constructClasses();
 		$result = $Controller->render('index');
-		$this->assertInstanceOf('CakeResponse', $result);
+		$this->assertInstanceOf('Cake\Network\Response', $result);
 	}
 
 
@@ -1187,7 +1186,7 @@ class ControllerTest extends TestCase {
  * @return void
  */
 	public function testStartupProcessIndirect() {
-		$Controller = $this->getMock('Controller', array('beforeFilter'));
+		$Controller = $this->getMock('Cake\Controller\Controller', array('beforeFilter'));
 
 		$Controller->components = array('MockShutdown');
 		$Controller->Components = $this->getMock('Cake\Controller\ComponentCollection', array('trigger'));
@@ -1312,7 +1311,7 @@ class ControllerTest extends TestCase {
 /**
  * testMissingAction method
  *
- * @expectedException MissingActionException
+ * @expectedException Cake\Error\MissingActionException
  * @expectedExceptionMessage Action TestController::missing() could not be found.
  * @return void
  */
@@ -1328,7 +1327,7 @@ class ControllerTest extends TestCase {
 /**
  * test invoking private methods.
  *
- * @expectedException PrivateActionException
+ * @expectedException Cake\Error\PrivateActionException
  * @expectedExceptionMessage Private Action TestController::private_m() is not directly accessible.
  * @return void
  */
@@ -1344,7 +1343,7 @@ class ControllerTest extends TestCase {
 /**
  * test invoking protected methods.
  *
- * @expectedException PrivateActionException
+ * @expectedException Cake\Error\PrivateActionException
  * @expectedExceptionMessage Private Action TestController::protected_m() is not directly accessible.
  * @return void
  */
@@ -1360,7 +1359,7 @@ class ControllerTest extends TestCase {
 /**
  * test invoking hidden methods.
  *
- * @expectedException PrivateActionException
+ * @expectedException Cake\Error\PrivateActionException
  * @expectedExceptionMessage Private Action TestController::_hidden() is not directly accessible.
  * @return void
  */
@@ -1376,7 +1375,7 @@ class ControllerTest extends TestCase {
 /**
  * test invoking controller methods.
  *
- * @expectedException PrivateActionException
+ * @expectedException Cake\Error\PrivateActionException
  * @expectedExceptionMessage Private Action TestController::redirect() is not directly accessible.
  * @return void
  */
@@ -1392,7 +1391,7 @@ class ControllerTest extends TestCase {
 /**
  * test invoking controller methods.
  *
- * @expectedException PrivateActionException
+ * @expectedException Cake\Error\PrivateActionException
  * @expectedExceptionMessage Private Action TestController::admin_add() is not directly accessible.
  * @return void
  */
