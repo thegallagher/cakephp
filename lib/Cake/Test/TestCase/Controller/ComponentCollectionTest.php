@@ -91,8 +91,8 @@ class ComponentCollectionTest extends TestCase {
 		App::build(array('plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)));
 		Plugin::load('TestPlugin');
 		$result = $this->Components->load('SomeOther', array('className' => 'TestPlugin.Other'));
-		$this->assertInstanceOf('OtherComponent', $result);
-		$this->assertInstanceOf('OtherComponent', $this->Components->SomeOther);
+		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $result);
+		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $this->Components->SomeOther);
 
 		$result = $this->Components->attached();
 		$this->assertEquals(array('Cookie', 'SomeOther'), $result, 'attached() results are wrong.');
@@ -134,8 +134,8 @@ class ComponentCollectionTest extends TestCase {
 		));
 		Plugin::load('TestPlugin');
 		$result = $this->Components->load('TestPlugin.Other');
-		$this->assertInstanceOf('OtherComponent', $result, 'Component class is wrong.');
-		$this->assertInstanceOf('OtherComponent', $this->Components->Other, 'Class is wrong');
+		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $result, 'Component class is wrong.');
+		$this->assertInstanceOf('TestPlugin\Controller\Component\OtherComponent', $this->Components->Other, 'Class is wrong');
 		App::build();
 		Plugin::unload();
 	}

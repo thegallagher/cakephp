@@ -84,26 +84,29 @@ class ComponentCollection extends ObjectCollection implements EventListener {
  * @throws MissingComponentException when the component could not be found
  */
 	public function load($component, $settings = array()) {
-		if (isset($this->_loaded[$component])) {
-			return $this->_loaded[$component];
-		}
 		if (is_array($settings) && isset($settings['className'])) {
-			$componentClass = $settings['className'];
+			$alias = $component;
+			$component = $settings['className'];
 		}
-		if (!isset($componentClass)) {
-			$componentClass = App::classname($component, 'Controller/Component', 'Component');
+		list($plugin, $name) = pluginSplit($component, true);
+		if (!isset($alias)) {
+			$alias = $name;
 		}
+		if (isset($this->_loaded[$alias])) {
+			return $this->_loaded[$alias];
+		}
+		$componentClass = App::classname($plugin . $name, 'Controller/Component', 'Component');
 		if (!$componentClass) {
 			throw new Error\MissingComponentException(array(
 				'class' => $component
 			));
 		}
-		$this->_loaded[$component] = new $componentClass($this, $settings);
+		$this->_loaded[$alias] = new $componentClass($this, $settings);
 		$enable = isset($settings['enabled']) ? $settings['enabled'] : true;
 		if ($enable) {
-			$this->enable($component);
+			$this->enable($alias);
 		}
-		return $this->_loaded[$component];
+		return $this->_loaded[$alias];
 	}
 
 /**
