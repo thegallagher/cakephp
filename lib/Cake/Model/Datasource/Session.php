@@ -180,7 +180,7 @@ class Session {
 		if (self::started()) {
 			return true;
 		}
-		Session::init();
+		self::init();
 		$id = self::id();
 		session_write_close();
 		self::_configureSession();

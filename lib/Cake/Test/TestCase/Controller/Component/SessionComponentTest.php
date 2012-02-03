@@ -26,54 +26,6 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\Object;
 
 /**
- * SessionTestController class
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class SessionTestController extends Controller {
-
-/**
- * uses property
- *
- * @var array
- */
-	public $uses = array();
-
-/**
- * session_id method
- *
- * @return string
- */
-	public function session_id() {
-		return $this->Session->id();
-	}
-}
-
-/**
- * OrangeSessionTestController class
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class OrangeSessionTestController extends Controller {
-
-/**
- * uses property
- *
- * @var array
- */
-	public $uses = array();
-
-/**
- * session_id method
- *
- * @return string
- */
-	public function session_id() {
-		return $this->Session->id();
-	}
-}
-
-/**
  * SessionComponentTest class
  *
  * @package       Cake.Test.Case.Controller.Component
@@ -120,6 +72,7 @@ class SessionComponentTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		$_SESSION = null;
+		Configure::write('App.namespace', 'TestApp');
 		$this->ComponentCollection = new ComponentCollection();
 	}
 
