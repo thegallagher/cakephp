@@ -18,6 +18,8 @@
  */
 namespace Cake\Controller;
 use Cake\Core\Object,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
 	Cake\Network\Request,
 	Cake\Network\Response,
 	Cake\Utility\Inflector,
@@ -296,7 +298,7 @@ class Controller extends Object implements EventListener {
  *
  * @var string
  */
-	protected $_mergeParent = 'AppController';
+	protected $_mergeParent = null;
 
 /**
  * Instance of the Cake\Event\EventManager this controller is using
@@ -321,6 +323,9 @@ class Controller extends Object implements EventListener {
 
 		if ($this->viewPath == null) {
 			$this->viewPath = $this->name;
+		}
+		if ($this->_mergeParent === null) {
+			$this->_mergeParent = Configure::read('App.namespace') . '\Controller\Controller';
 		}
 
 		$this->modelClass = Inflector::singularize($this->name);
@@ -540,7 +545,7 @@ class Controller extends Object implements EventListener {
 		$pluginController = $pluginDot = null;
 
 		if (!empty($this->plugin)) {
-			$pluginController = $this->plugin . 'AppController';
+			$pluginController = Plugin::getNamespace($this->plugin) . '\Controller\Controller';
 			if (!is_subclass_of($this, $pluginController)) {
 				$pluginController = null;
 			}

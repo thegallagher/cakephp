@@ -20,122 +20,13 @@
  */
 namespace Cake\Test\TestCase\Controller;
 use Cake\TestSuite\TestCase,
-	Cake\Controller\ControllerMergeVars,
 	Cake\Controller\Controller,
-	Cake\Core\Object;
-
-/**
- * Test case AppController
- *
- * @package       Cake.Test.Case.Controller
- * @package       Cake.Test.Case.Controller
- */
-class MergeVarsAppController extends Controller {
-
-/**
- * components
- *
- * @var array
- */
-	public $components = array('MergeVar' => array('flag', 'otherFlag', 'redirect' => false));
-
-/**
- * helpers
- *
- * @var array
- */
-	public $helpers = array('MergeVar' => array('format' => 'html', 'terse'));
-}
-
-/**
- * MergeVar Component
- *
- * @package       Cake.Test.Case.Controller
- */
-class MergeVarComponent extends Object {
-
-}
-
-/**
- * Additional controller for testing
- *
- * @package       Cake.Test.Case.Controller
- */
-class MergeVariablesController extends MergeVarsAppController {
-
-/**
- * name
- *
- * @var string
- */
-	public $name = 'MergeVariables';
-
-/**
- * uses
- *
- * @var arrays
- */
-	public $uses = array();
-
-/**
- * parent for mergeVars
- *
- * @var string
- */
-	protected $_mergeParent = 'MergeVarsAppController';
-}
-
-/**
- * MergeVarPlugin App Controller
- *
- * @package       Cake.Test.Case.Controller
- */
-class MergeVarPluginAppController extends MergeVarsAppController {
-
-/**
- * components
- *
- * @var array
- */
-	public $components = array('Auth' => array('setting' => 'val', 'otherVal'));
-
-/**
- * helpers
- *
- * @var array
- */
-	public $helpers = array('Javascript');
-
-/**
- * parent for mergeVars
- *
- * @var string
- */
-	protected $_mergeParent = 'MergeVarsAppController';
-}
-
-/**
- * MergePostsController
- *
- * @package       Cake.Test.Case.Controller
- */
-class MergePostsController extends MergeVarPluginAppController {
-
-/**
- * name
- *
- * @var string
- */
-	public $name = 'MergePosts';
-
-/**
- * uses
- *
- * @var array
- */
-	public $uses = array();
-}
-
+	Cake\Core\App,
+	Cake\Core\Object,
+	Cake\Core\Configure,
+	Cake\Core\Plugin,
+	TestApp\Controller\MergeVariablesController,
+	MergeVar\Controller\MergePostsController;
 
 /**
  * Test Case for Controller Merging of Vars.
@@ -143,6 +34,29 @@ class MergePostsController extends MergeVarPluginAppController {
  * @package       Cake.Test.Case.Controller
  */
 class ControllerMergeVarsTest extends TestCase {
+
+/**
+ * setUp method
+ *
+ * @return void
+ */
+	public function setUp() {
+		$this->_appNamespace = Configure::read('App.namespace');
+		Configure::write('App.namespace', 'TestApp');
+		App::build(array(
+			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
+		));
+	}
+
+/**
+ * tearDown method
+ *
+ * @return void
+ */
+	public function tearDown() {
+		Configure::write('App.namespace', $this->_appNamespace);
+		App::build();
+	}
 
 /**
  * test that component settings are not duplicated when merging component settings
@@ -168,7 +82,7 @@ class ControllerMergeVarsTest extends TestCase {
 		$Controller->constructClasses();
 
 		$expected = array('MergeVar' => array('flag', 'otherFlag', 'redirect' => true, 'remote'));
-		$this->assertEquals($Controller->components, $expected, 'Merging of settings is wrong. %s');
+		$this->assertEquals($expected, $Controller->components, 'Merging of settings is wrong.');
 	}
 
 /**
@@ -209,15 +123,16 @@ class ControllerMergeVarsTest extends TestCase {
  * @return void
  */
 	public function testMergeVarsWithPlugin() {
+		Plugin::load('MergeVar');
 		$Controller = new MergePostsController();
-		$Controller->components = array('Email' => array('ports' => 'open'));
-		$Controller->plugin = 'MergeVarPlugin';
+		$Controller->components = array('Cookie' => array('ports' => 'open'));
+		$Controller->plugin = 'MergeVar';
 		$Controller->constructClasses();
 
 		$expected = array(
 			'MergeVar' => array('flag', 'otherFlag', 'redirect' => false),
 			'Auth' => array('setting' => 'val', 'otherVal'),
-			'Email' => array('ports' => 'open')
+			'Cookie' => array('ports' => 'open')
 		);
 		$this->assertEquals($expected, $Controller->components, 'Components are unexpected.');
 
@@ -229,7 +144,7 @@ class ControllerMergeVarsTest extends TestCase {
 
 		$Controller = new MergePostsController();
 		$Controller->components = array();
-		$Controller->plugin = 'MergeVarPlugin';
+		$Controller->plugin = 'MergeVar';
 		$Controller->constructClasses();
 
 		$expected = array(
