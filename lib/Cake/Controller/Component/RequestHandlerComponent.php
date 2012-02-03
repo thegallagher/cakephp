@@ -214,7 +214,7 @@ class RequestHandlerComponent extends Component {
 				return Xml::toArray($xml->data);
 			}
 			return Xml::toArray($xml);
-		 } catch (XmlException $e) {
+		 } catch (Error\XmlException $e) {
 			return array();
 		 }
 	}
