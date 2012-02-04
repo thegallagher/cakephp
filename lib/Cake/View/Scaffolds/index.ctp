@@ -16,6 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 use Cake\Utility\Inflector;
+
 ?>
 <div class="<?php echo $pluralVar;?> index">
 <h2><?php echo $pluralHumanName;?></h2>

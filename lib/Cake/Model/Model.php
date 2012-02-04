@@ -674,6 +674,9 @@ class Model extends Object implements EventListener {
 		}
 
 		if ($this->alias === null) {
+			if (isset($alias)) {
+				$alias = (strpos($alias, '\\') !== false) ? substr($alias, strrpos($alias, '\\') + 1) : $alias;
+			}
 			$this->alias = (isset($alias) ? $alias : $this->name);
 		}
 
