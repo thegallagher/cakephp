@@ -356,10 +356,14 @@ class HtmlHelperTest extends TestCase {
 
 		$result = $this->Html->image('/test/view/1.gif');
 		$this->assertTags($result, array('img' => array('src' => '/test/view/1.gif', 'alt' => '')));
-		
+
 		$result = $this->Html->image('test.gif', array('fullBase' => true));
 		$here = $this->Html->url('/', true);
 		$this->assertTags($result, array('img' => array('src' => $here . 'img/test.gif', 'alt' => '')));
+
+		$result = $this->Html->image('sub/test.gif', array('fullBase' => true));
+		$here = $this->Html->url('/', true);
+		$this->assertTags($result, array('img' => array('src' => $here . 'img/sub/test.gif', 'alt' => '')));
 	}
 
 /**
@@ -689,7 +693,7 @@ class HtmlHelperTest extends TestCase {
 		$this->View->expects($this->at(1))
 			->method('append')
 			->with('script', $this->matchesRegularExpression('/bool_false.js/'));
-	
+
 		$this->View->expects($this->at(2))
 			->method('append')
 			->with('headScripts', $this->matchesRegularExpression('/second_script.js/'));
@@ -793,11 +797,18 @@ class HtmlHelperTest extends TestCase {
 		$this->assertTags($result, $expected);
 
 
-		$this->View->expects($this->any())
+		$this->View->expects($this->at(0))
 			->method('append')
 			->with('script', $this->matchesRegularExpression('/window\.foo\s\=\s2;/'));
 
+		$this->View->expects($this->at(1))
+			->method('append')
+			->with('scriptTop', $this->stringContains('alert('));
+
 		$result = $this->Html->scriptBlock('window.foo = 2;', array('inline' => false));
+		$this->assertNull($result);
+
+		$result = $this->Html->scriptBlock('alert("hi")', array('block' => 'scriptTop'));
 		$this->assertNull($result);
 
 		$result = $this->Html->scriptBlock('window.foo = 2;', array('safe' => false, 'encoding' => 'utf-8'));

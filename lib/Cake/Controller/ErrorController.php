@@ -59,7 +59,6 @@ class ErrorController extends Controller {
 		$this->Components->trigger('initialize', array(&$this));
 
 		$this->_set(array('cacheAction' => false, 'viewPath' => 'Errors'));
-
 		if (isset($this->RequestHandler)) {
 			$this->RequestHandler->startup($this);
 		}

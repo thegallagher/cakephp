@@ -287,6 +287,7 @@ class CacheHelper extends Helper {
 			";
 		} else {
 			$file .= "
+			App::uses('{$this->_View->plugin}AppController', '{$this->_View->plugin}.Controller');
 			App::uses('{$this->_View->name}Controller', '{$this->_View->plugin}.Controller');
 			";
 		}

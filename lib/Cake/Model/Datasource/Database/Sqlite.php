@@ -120,7 +120,7 @@ class Sqlite extends DboSource {
 	}
 
 /**
- * Check whether the MySQL extension is installed/loaded
+ * Check whether the SQLite extension is installed/loaded
  *
  * @return boolean
  */

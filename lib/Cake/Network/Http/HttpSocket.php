@@ -98,9 +98,9 @@ class HttpSocket extends Socket {
 		'timeout' => 30,
 		'request' => array(
 			'uri' => array(
-				'scheme' => 'http',
+				'scheme' => array('http', 'https'),
 				'host' => 'localhost',
-				'port' => 80
+				'port' => array(80, 443)
 			),
 			'redirect' => false,
 			'cookies' => array()
@@ -404,7 +404,7 @@ class HttpSocket extends Socket {
 			}
 			$this->config['request']['cookies'][$Host] = array_merge($this->config['request']['cookies'][$Host], $this->response->cookies);
 		}
-		
+
 		if($this->request['redirect'] && $this->response->isRedirect()) {
 			$request['uri'] = $this->response->getHeader('Location');
 			$request['redirect'] = is_int($this->request['redirect']) ? $this->request['redirect'] - 1 : $this->request['redirect'];
@@ -511,7 +511,7 @@ class HttpSocket extends Socket {
  * urls.
  *
  * {{{
- * $http->configUri('http://www.cakephp.org');
+ * $http = new HttpSocket('http://www.cakephp.org');
  * $url = $http->url('/search?q=bar');
  * }}}
  *
@@ -532,11 +532,19 @@ class HttpSocket extends Socket {
 			$url = '/';
 		}
 		if (is_string($url)) {
+			$scheme = $this->config['request']['uri']['scheme'];
+			if (is_array($scheme)) {
+				$scheme = $scheme[0];
+			}
+			$port = $this->config['request']['uri']['port'];
+			if (is_array($port)) {
+				$port = $port[0];
+			}
 			if ($url{0} == '/') {
-				$url = $this->config['request']['uri']['host'] . ':' . $this->config['request']['uri']['port'] . $url;
+				$url = $this->config['request']['uri']['host'] . ':' . $port . $url;
 			}
 			if (!preg_match('/^.+:\/\/|\*|^\//', $url)) {
-				$url = $this->config['request']['uri']['scheme'] . '://' . $url;
+				$url = $scheme . '://' . $url;
 			}
 		} elseif (!is_array($url) && !empty($url)) {
 			return false;
@@ -653,6 +661,7 @@ class HttpSocket extends Socket {
 
 		$uri['path'] = preg_replace('/^\//', null, $uri['path']);
 		$uri['query'] = http_build_query($uri['query']);
+		$uri['query'] = rtrim($uri['query'], '=');
 		$stripIfEmpty = array(
 			'query' => '?%query',
 			'fragment' => '#%fragment',

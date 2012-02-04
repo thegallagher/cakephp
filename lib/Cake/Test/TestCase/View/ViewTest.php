@@ -408,7 +408,6 @@ class ViewTest extends TestCase {
 		$expected = array(
 			CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS . 'Plugin' . DS . 'TestPlugin' . DS,
 			$pluginPath . 'View' . DS,
-			$pluginPath . 'Lib' . DS . 'View' . DS,
 			CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS,
 			CAKE . 'View' . DS
 		);
