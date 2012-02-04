@@ -23,6 +23,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\App,
 	Cake\Core\Configure,
 	Cake\Core\Plugin,
+	Cake\Cache\Cache,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Security;
 

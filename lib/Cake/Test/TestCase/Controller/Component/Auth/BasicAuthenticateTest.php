@@ -19,6 +19,7 @@
 namespace Cake\Test\TestCase\Controller\Component\Auth;
 use Cake\TestSuite\TestCase,
 	Cake\Controller\Component\Auth\BasicAuthenticate,
+	Cake\Network\Request,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Security;
 
