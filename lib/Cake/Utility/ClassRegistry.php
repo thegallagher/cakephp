@@ -134,9 +134,9 @@ class ClassRegistry {
 					return $model;
 				}
 
-				$class = App::classname($pluginPath . $class, 'Model');
-				if (class_exists($class) || interface_exists($class)) {
-					$reflection = new \ReflectionClass($class);
+				$classname = App::classname($pluginPath . $class, 'Model');
+				if (class_exists($classname) || interface_exists($classname)) {
+					$reflection = new \ReflectionClass($classname);
 					if ($reflection->isAbstract() || $reflection->isInterface()) {
 						throw new Error\Exception(__d('cake_dev', 'Cannot create instance of %s, as it is abstract or is an interface', $class));
 					}

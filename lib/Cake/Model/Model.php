@@ -664,7 +664,12 @@ class Model extends Object implements EventListener {
 		}
 
 		if ($this->name === null) {
-			$this->name = (isset($name) ? $name : get_class($this));
+			if (isset($name)) {
+				$this->name = $name;
+			} else {
+				$className = get_class($this);
+				$this->name = substr($className, strrpos($className, '\\') + 1, -10);
+			}
 		}
 
 		if ($this->alias === null) {
