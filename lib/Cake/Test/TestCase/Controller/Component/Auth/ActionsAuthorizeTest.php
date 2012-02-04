@@ -114,7 +114,7 @@ class ActionsAuthorizeTest extends TestCase {
  * @return void
  */
 	public function testAuthorizeSettings() {
-		$request = new CakeRequest('/posts/index', false);
+		$request = new Request('/posts/index', false);
 		$request->addParams(array(
 			'plugin' => null,
 			'controller' => 'posts',

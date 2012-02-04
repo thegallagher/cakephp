@@ -67,18 +67,14 @@ class AclComponent extends Component {
  */
 	public function __construct(ComponentCollection $collection, $settings = array()) {
 		parent::__construct($collection, $settings);
-		$name = Configure::read('Acl.classname');
-		if (!class_exists($name)) {
-			list($plugin, $name) = pluginSplit($name, true);
-			App::uses($name . 'Component', $plugin . 'Controller/Component');
-			App::uses($name, 'Controller/Component/Acl');
-			if (class_exists($name . 'Component')) {
-				$name .= 'Component';
-			} elseif (!class_exists($name)) {
+		$classname = $name = Configure::read('Acl.classname');
+		if (!class_exists($classname)) {
+			$classname = App::classname($name, 'Controller/Component', 'Component');
+			if (!$classname) {
 				throw new Error\Exception(__d('cake_dev', 'Could not find %s.', $name));
 			}
 		}
-		$this->adapter($name);
+		$this->adapter($classname);
 	}
 
 /**
