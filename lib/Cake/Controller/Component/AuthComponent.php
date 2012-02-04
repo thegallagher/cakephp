@@ -27,6 +27,8 @@ use Cake\Controller\Component,
 	Cake\Network\Response,
 	Cake\Utility\Debugger,
 	Cake\Utility\Set,
+	Cake\Utility\Security,
+	Cake\Core\App,
 	Cake\Core\Configure,
 	Cake\Error;
 
@@ -266,7 +268,7 @@ class AuthComponent extends Component {
  * @return boolean
  */
 	public function startup($controller) {
-		if ($controller->name == 'CakeError') {
+		if ($controller->name == 'Error') {
 			return true;
 		}
 
@@ -403,9 +405,7 @@ class AuthComponent extends Component {
 			unset($config[AuthComponent::ALL]);
 		}
 		foreach ($config as $class => $settings) {
-			list($plugin, $class) = pluginSplit($class, true);
-			$className = $class . 'Authorize';
-			App::uses($className, $plugin . 'Controller/Component/Auth');
+			$className = App::classname($class, 'Controller/Component/Auth', 'Authorize');
 			if (!class_exists($className)) {
 				throw new Error\Exception(__d('cake_dev', 'Authorization adapter "%s" was not found.', $class));
 			}
@@ -661,9 +661,7 @@ class AuthComponent extends Component {
 			unset($config[AuthComponent::ALL]);
 		}
 		foreach ($config as $class => $settings) {
-			list($plugin, $class) = pluginSplit($class, true);
-			$className = $class . 'Authenticate';
-			App::uses($className, $plugin . 'Controller/Component/Auth');
+			$className = App::classname($class, 'Controller/Component/Auth', 'Authenticate');
 			if (!class_exists($className)) {
 				throw new Error\Exception(__d('cake_dev', 'Authentication adapter "%s" was not found.', $class));
 			}
