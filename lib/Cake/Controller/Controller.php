@@ -20,6 +20,7 @@ namespace Cake\Controller;
 use Cake\Core\Object,
 	Cake\Core\Configure,
 	Cake\Core\Plugin,
+	Cake\Core\App,
 	Cake\Network\Request,
 	Cake\Network\Response,
 	Cake\Utility\Inflector,
@@ -910,7 +911,11 @@ class Controller extends Object implements EventListener {
 			return $this->response;
 		}
 
-		$viewClass = $this->viewClass;
+		if ($this->viewClass === 'View') {
+			$viewClass = App::classname('View', 'View');
+		} else {
+			$viewClass = App::classname($this->viewClass, 'View', 'View');
+		}
 		$View = new $viewClass($this);
 
 		if (!empty($this->uses)) {

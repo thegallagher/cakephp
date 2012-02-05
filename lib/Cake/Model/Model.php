@@ -21,6 +21,7 @@
 namespace Cake\Model;
 use Cake\Core\Object,
 	Cake\Core\Configure,
+	Cake\Core\App,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Inflector,
 	Cake\Utility\Xml,
@@ -695,13 +696,14 @@ class Model extends Object implements EventListener {
 			$this->useDbConfig = $ds;
 		}
 
-		if (is_subclass_of($this, 'AppModel')) {
+		$appModelClass = App::classname('Model', 'Model');
+		if (is_subclass_of($this, $appModelClass)) {
 			$merge = array('actsAs', 'findMethods');
 			$parentClass = get_parent_class($this);
-			if ($parentClass !== 'AppModel') {
+			if ($parentClass !== $appModelClass) {
 				$this->_mergeVars($merge, $parentClass);
 			}
-			$this->_mergeVars($merge, 'AppModel');
+			$this->_mergeVars($merge, $appModelClass);
 		}
 		$this->Behaviors = new BehaviorCollection();
 
@@ -828,7 +830,8 @@ class Model extends Object implements EventListener {
 		list($plugin, $className) = pluginSplit($className);
 
 		if (!ClassRegistry::isKeySet($className) && !empty($dynamic)) {
-			$this->{$className} = new AppModel(array(
+			$appModelClass = App::classname('Model', 'Model');
+			$this->{$className} = new $appModelClass(array(
 				'name' => $className,
 				'table' => $this->hasAndBelongsToMany[$assocKey]['joinTable'],
 				'ds' => $this->useDbConfig

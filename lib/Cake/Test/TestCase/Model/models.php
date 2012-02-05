@@ -4519,7 +4519,7 @@ class ScaffoldMock extends CakeTestModel {
  */
 	public $belongsTo = array(
 		'User' => array(
-			'className' => 'ScaffoldUser',
+			'className' => 'Cake\Test\TestCase\Model\ScaffoldUser',
 			'foreignKey' => 'user_id',
 		)
 	);
@@ -4531,7 +4531,7 @@ class ScaffoldMock extends CakeTestModel {
  */
 	public $hasMany = array(
 		'Comment' => array(
-			'className' => 'ScaffoldComment',
+			'className' => 'Cake\Test\TestCase\Model\ScaffoldComment',
 			'foreignKey' => 'article_id',
 		)
 	);
@@ -4542,7 +4542,7 @@ class ScaffoldMock extends CakeTestModel {
  */
 	public $hasAndBelongsToMany = array(
 		'ScaffoldTag' => array(
-			'className' => 'ScaffoldTag',
+			'className' => 'Cake\Test\TestCase\Model\ScaffoldTag',
 			'foreignKey' => 'something_id',
 			'associationForeignKey' => 'something_else_id',
 			'joinTable' => 'join_things'
@@ -4571,7 +4571,7 @@ class ScaffoldUser extends CakeTestModel {
  */
 	public $hasMany = array(
 		'Article' => array(
-			'className' => 'ScaffoldMock',
+			'className' => 'Cake\Test\TestCase\Model\ScaffoldMock',
 			'foreignKey' => 'article_id',
 		)
 	);
@@ -4598,7 +4598,7 @@ class ScaffoldComment extends CakeTestModel {
  */
 	public $belongsTo = array(
 		'Article' => array(
-			'className' => 'ScaffoldMock',
+			'className' => 'Cake\Test\TestCase\Model\ScaffoldMock',
 			'foreignKey' => 'article_id',
 		)
 	);
