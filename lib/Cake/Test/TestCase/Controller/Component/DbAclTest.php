@@ -24,7 +24,6 @@ use Cake\TestSuite\TestCase,
 	Cake\Controller\ComponentCollection,
 	Cake\Model\AclNode,
 	Cake\Core\Configure;
-class_exists('Cake\Controller\Component\AclComponent');
 
 /**
  * AclNodeTwoTestBase class
@@ -74,7 +73,10 @@ class AroTwoTest extends AclNodeTwoTestBase {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array('AcoTwoTest' => array('with' => 'PermissionTwoTest'));
+	public $hasAndBelongsToMany = array('AcoTwoTest' => array(
+		'with' => 'PermissionTwoTest',
+		'className' => 'Cake\Test\TestCase\Controller\Component\AcoTwoTest'
+	));
 }
 
 /**
@@ -103,7 +105,10 @@ class AcoTwoTest extends AclNodeTwoTestBase {
  *
  * @var array
  */
-	public $hasAndBelongsToMany = array('AroTwoTest' => array('with' => 'PermissionTwoTest'));
+	public $hasAndBelongsToMany = array('AroTwoTest' => array(
+		'with' => 'PermissionTwoTest',
+		'className' => 'Cake\Test\TestCase\Controller\Component\AroTwoTest'
+	));
 }
 
 /**
@@ -139,7 +144,16 @@ class PermissionTwoTest extends TestModel {
  *
  * @var array
  */
-	public $belongsTo = array('AroTwoTest' => array('foreignKey' => 'aro_id'), 'AcoTwoTest' => array('foreignKey' => 'aco_id'));
+	public $belongsTo = array(
+		'AroTwoTest' => array(
+			'foreignKey' => 'aro_id',
+			'className' => 'Cake\Test\TestCase\Controller\Component\AroTwoTest'
+		),
+		'AcoTwoTest' => array(
+			'foreignKey' => 'aco_id',
+			'className' => 'Cake\Test\TestCase\Controller\Component\AcoTwoTest'
+		)
+	);
 
 /**
  * actsAs property
