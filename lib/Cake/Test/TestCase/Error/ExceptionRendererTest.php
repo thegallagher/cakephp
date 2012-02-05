@@ -662,15 +662,15 @@ class ExceptionRendererTest extends TestCase {
  * @return void
  */
 	public function testMissingSubdirRenderSafe() {
-		$exception = new NotFoundException();
+		$exception = new Error\NotFoundException();
 		$ExceptionRenderer = new ExceptionRenderer($exception);
 
-		$ExceptionRenderer->controller = $this->getMock('Controller');
+		$ExceptionRenderer->controller = $this->getMock('Cake\Controller\Controller');
 		$ExceptionRenderer->controller->helpers = array('Fail', 'Boom');
 		$ExceptionRenderer->controller->layoutPath = 'json';
 		$ExceptionRenderer->controller->subDir = 'json';
 		$ExceptionRenderer->controller->viewClass = 'Json';
-		$ExceptionRenderer->controller->request = $this->getMock('CakeRequest');
+		$ExceptionRenderer->controller->request = $this->getMock('Cake\Network\Request');
 
 		$ExceptionRenderer->controller->expects($this->at(1))
 			->method('render')
@@ -682,7 +682,7 @@ class ExceptionRendererTest extends TestCase {
 			->with('error500')
 			->will($this->returnValue(true));
 
-		$ExceptionRenderer->controller->response = $this->getMock('CakeResponse');
+		$ExceptionRenderer->controller->response = $this->getMock('Cake\Network\Response');
 		$ExceptionRenderer->controller->response->expects($this->once())
 			->method('type')
 			->with('html');
