@@ -131,7 +131,7 @@ class Scaffold {
 		$this->scaffoldTitle = Inflector::humanize(Inflector::underscore($this->viewPath));
 		$this->scaffoldActions = $controller->scaffold;
 		$title_for_layout = __d('cake', 'Scaffold :: ') . Inflector::humanize($request->action) . ' :: ' . $this->scaffoldTitle;
-		$modelClass = Inflector::singularize($this->controller->name);
+		$modelClass = $this->controller->modelClass;
 		$primaryKey = $this->ScaffoldModel->primaryKey;
 		$displayField = $this->ScaffoldModel->displayField;
 		$singularVar = Inflector::variable($modelClass);
@@ -147,7 +147,7 @@ class Scaffold {
 		));
 
 		if ($this->controller->viewClass) {
-			$this->controller->viewClass = 'Cake\View\ScaffoldView';
+			$this->controller->viewClass = 'Scaffold';
 		}
 		$this->_validSession = (
 			isset($this->controller->Session) && $this->controller->Session->valid() != false
@@ -435,9 +435,8 @@ class Scaffold {
 				$associations[$type][$assocKey]['foreignKey'] =
 					$assocData['foreignKey'];
 
-				$segments = explode('\\', $assocData['className']);
 				$associations[$type][$assocKey]['controller'] =
-					Inflector::pluralize(Inflector::underscore(array_pop($segments)));
+					Inflector::pluralize(Inflector::underscore($assocData['className']));
 
 				if ($type == 'hasAndBelongsToMany') {
 					$associations[$type][$assocKey]['with'] = $assocData['with'];
