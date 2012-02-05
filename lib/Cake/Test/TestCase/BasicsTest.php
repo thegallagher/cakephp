@@ -944,4 +944,23 @@ EXPECTED;
 		$result = pluginSplit('Blog.Post', false, 'Ultimate');
 		$this->assertEquals($result, array('Blog', 'Post'));
 	}
+
+/**
+ * test namespaceSplit
+ *
+ * @return void
+ */
+	public function testNamespaceSplit() {
+		$result = namespaceSplit('Something');
+		$this->assertEquals(array('', 'Something'), $result);
+
+		$result = namespaceSplit('\Something');
+		$this->assertEquals(array('', 'Something'), $result);
+
+		$result = namespaceSplit('Cake\Something');
+		$this->assertEquals(array('Cake', 'Something'), $result);
+
+		$result = namespaceSplit('Cake\Test\Something');
+		$this->assertEquals(array('Cake\Test', 'Something'), $result);
+	}
 }

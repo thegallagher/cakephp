@@ -98,8 +98,8 @@ class ExceptionRenderer {
 		if (method_exists($this->controller, 'apperror')) {
 			return $this->controller->appError($exception);
 		}
-		$baseClass = get_class($exception);
-		$baseClass = substr($baseClass, strrpos($baseClass, '\\') + 1, -9);
+		list(, $baseClass) = namespaceSplit(get_class($exception));
+		$baseClass = substr($baseClass, 0, -9);
 		$method = $template = Inflector::variable($baseClass);
 		$code = $exception->getCode();
 

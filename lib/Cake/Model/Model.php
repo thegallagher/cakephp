@@ -668,8 +668,7 @@ class Model extends Object implements EventListener {
 			if (isset($name)) {
 				$this->name = $name;
 			} else {
-				$className = get_class($this);
-				$this->name = substr($className, strrpos($className, '\\') + 1, -10);
+				list(, $this->name) = namespaceSplit(get_class($this));
 			}
 		}
 

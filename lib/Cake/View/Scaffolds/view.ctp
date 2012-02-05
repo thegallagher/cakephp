@@ -26,7 +26,7 @@ foreach ($scaffoldFields as $_field) {
 	$isKey = false;
 	if (!empty($associations['belongsTo'])) {
 		foreach ($associations['belongsTo'] as $_alias => $_details) {
-			$_details['controller'] = substr($_details['controller'], strrpos($_details['controller'], '\\') + 1);
+			list(, $_details['controller']) = namespaceSplit($_details['controller']);
 			if ($_field === $_details['foreignKey']) {
 				$isKey = true;
 				echo "\t\t<dt>" . Inflector::humanize($_alias) . "</dt>\n";
@@ -55,7 +55,7 @@ foreach ($scaffoldFields as $_field) {
 	$done = array();
 	foreach ($associations as $_type => $_data) {
 		foreach ($_data as $_alias => $_details) {
-			$_details['controller'] = substr($_details['controller'], strrpos($_details['controller'], '\\') + 1);
+			list(, $_details['controller']) = namespaceSplit($_details['controller']);
 			if ($_details['controller'] != $this->name && !in_array($_details['controller'], $done)) {
 				echo "\t\t<li>" . $this->Html->link(__d('cake', 'List %s', Inflector::humanize($_details['controller'])), array('controller' => $_details['controller'], 'action' => 'index')) . "</li>\n";
 				echo "\t\t<li>" . $this->Html->link(__d('cake', 'New %s', Inflector::humanize(Inflector::underscore($_alias))), array('controller' => $_details['controller'], 'action' => 'add')) . "</li>\n";
@@ -102,7 +102,7 @@ if (empty($associations['hasAndBelongsToMany'])) {
 $relations = array_merge($associations['hasMany'], $associations['hasAndBelongsToMany']);
 $i = 0;
 foreach ($relations as $_alias => $_details):
-$_details['controller'] = substr($_details['controller'], strrpos($_details['controller'], '\\') + 1);
+list(, $_details['controller']) = namespaceSplit($_details['controller']);
 $otherSingularVar = Inflector::variable($_alias);
 ?>
 <div class="related">

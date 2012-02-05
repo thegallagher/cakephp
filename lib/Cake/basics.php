@@ -216,6 +216,22 @@ function pluginSplit($name, $dotAppend = false, $plugin = null) {
 }
 
 /**
+ * Split the namespace from the classname.
+ *
+ * Commonly used like `list($namespace, $classname) = namespaceSplit($class);`
+ *
+ * @param string $class The full class name, ie `Cake\Core\App`
+ * @return array Array with 2 indexes. 0 => namespace, 1 => classname
+ */
+function namespaceSplit($class) {
+	$pos = strrpos($class, '\\');
+	if ($pos === false) {
+		return array('', $class);
+	}
+	return array(substr($class, 0, $pos), substr($class, $pos + 1));
+}
+
+/**
  * Print_r convenience function, which prints out <PRE> tags around
  * the output of given array. Similar to debug().
  *

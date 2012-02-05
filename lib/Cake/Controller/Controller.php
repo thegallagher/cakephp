@@ -318,8 +318,8 @@ class Controller extends Object implements EventListener {
  */
 	public function __construct($request = null, $response = null) {
 		if ($this->name === null) {
-			$className = get_class($this);
-			$this->name = substr($className, strrpos($className, '\\') + 1, -10);
+			list(, $this->name) = namespaceSplit(get_class($this));
+			$this->name = substr($this->name, 0, -10);
 		}
 
 		if ($this->viewPath == null) {
