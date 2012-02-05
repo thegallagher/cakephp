@@ -20,9 +20,9 @@
  */
 namespace Cake\Test\TestCase\Controller\Component;
 use Cake\TestSuite\TestCase,
-	Cake\TestSuite\Fixture\TestModel,
 	Cake\Controller\Component\PaginatorComponent,
 	Cake\Controller\Controller,
+	Cake\Core\Configure,
 	Cake\Network\Request,
 	Cake\Utility\Set;
 
@@ -54,183 +54,6 @@ class PaginatorTestController extends Controller {
 	public $components = array('Paginator');
 }
 
-/**
- * PaginatorControllerPost class
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class PaginatorControllerPost extends TestModel {
-
-/**
- * name property
- *
- * @var string 'PaginatorControllerPost'
- */
-	public $name = 'PaginatorControllerPost';
-
-/**
- * useTable property
- *
- * @var string 'posts'
- */
-	public $useTable = 'posts';
-
-/**
- * invalidFields property
- *
- * @var array
- */
-	public $invalidFields = array('name' => 'error_msg');
-
-/**
- * lastQueries property
- *
- * @var array
- */
-	public $lastQueries = array();
-
-/**
- * belongsTo property
- *
- * @var array
- */
-	public $belongsTo = array('PaginatorAuthor' => array('foreignKey' => 'author_id'));
-
-/**
- * beforeFind method
- *
- * @param mixed $query
- * @return void
- */
-	public function beforeFind($query) {
-		array_unshift($this->lastQueries, $query);
-	}
-
-/**
- * find method
- *
- * @param mixed $type
- * @param array $options
- * @return void
- */
-	public function find($conditions = null, $fields = array(), $order = null, $recursive = null) {
-		if ($conditions == 'popular') {
-			$conditions = array($this->name . '.' . $this->primaryKey .' > ' => '1');
-			$options = Set::merge($fields, compact('conditions'));
-			return parent::find('all', $options);
-		}
-		return parent::find($conditions, $fields);
-	}
-}
-
-/**
- * ControllerPaginateModel class
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class ControllerPaginateModel extends TestModel {
-
-/**
- * name property
- *
- * @var string 'ControllerPaginateModel'
- */
-	public $name = 'ControllerPaginateModel';
-
-/**
- * useTable property
- *
- * @var string 'comments'
- */
-	public $useTable = 'comments';
-
-/**
- * paginate method
- *
- * @return void
- */
-	public function paginate($conditions, $fields, $order, $limit, $page, $recursive, $extra) {
-		$this->extra = $extra;
-	}
-
-/**
- * paginateCount
- *
- * @return void
- */
-	public function paginateCount($conditions, $recursive, $extra) {
-		$this->extraCount = $extra;
-	}
-}
-
-/**
- * PaginatorControllerCommentclass
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class PaginatorControllerComment extends TestModel {
-
-/**
- * name property
- *
- * @var string 'Comment'
- */
-	public $name = 'Comment';
-
-/**
- * useTable property
- *
- * @var string 'comments'
- */
-	public $useTable = 'comments';
-
-/**
- * alias property
- *
- * @var string 'PaginatorControllerComment'
- */
-	public $alias = 'PaginatorControllerComment';
-}
-
-/**
- * PaginatorAuthorclass
- *
- * @package       Cake.Test.Case.Controller.Component
- */
-class PaginatorAuthor extends TestModel {
-
-/**
- * name property
- *
- * @var string 'PaginatorAuthor'
- */
-	public $name = 'PaginatorAuthor';
-
-/**
- * useTable property
- *
- * @var string 'authors'
- */
-	public $useTable = 'authors';
-
-/**
- * alias property
- *
- * @var string 'PaginatorAuthor'
- */
-	public $alias = 'PaginatorAuthor';
-
-/**
- * alias property
- *
- * @var string 'PaginatorAuthor'
- */
-	public $virtualFields = array(
-			'joined_offset' => 'PaginatorAuthor.id + 1'
-		);
-
-}
-
 class PaginatorComponentTest extends TestCase {
 
 /**
@@ -247,6 +70,9 @@ class PaginatorComponentTest extends TestCase {
  */
 	public function setUp() {
 		parent::setUp();
+		$this->_ns = Configure::read('App.namespace');
+		Configure::write('App.namespace', 'TestApp');
+
 		$this->request = new Request('controller_posts/index');
 		$this->request->params['pass'] = $this->request->params['named'] = array();
 		$this->Controller = new Controller($this->request);
@@ -254,6 +80,16 @@ class PaginatorComponentTest extends TestCase {
 		$this->Paginator->Controller = $this->Controller;
 		$this->Controller->Post = $this->getMock('Cake\Model\Model');
 		$this->Controller->Post->alias = 'Post';
+	}
+
+/**
+ * tearDown
+ *
+ * @return void
+ */
+	public function tearDown() {
+		Configure::write('App.namespace', $this->_ns);
+		parent::tearDown();
 	}
 
 /**
