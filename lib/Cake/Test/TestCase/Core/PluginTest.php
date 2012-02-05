@@ -225,7 +225,7 @@ class PluginTest extends TestCase {
  */
 	public function testLoadAll() {
 		Plugin::loadAll();
-		$expected = array('PluginJs', 'TestPlugin', 'TestPluginTwo');
+		$expected = array('MergeVar', 'PluginJs', 'TestPlugin', 'TestPluginTwo');
 		$this->assertEquals($expected, Plugin::loaded());
 	}
 
@@ -237,7 +237,7 @@ class PluginTest extends TestCase {
 	public function testLoadAllWithDefaults() {
 		$defaults = array('bootstrap' => true);
 		Plugin::loadAll(array($defaults));
-		$expected = array('PluginJs', 'TestPlugin', 'TestPluginTwo');
+		$expected = array('MergeVar', 'PluginJs', 'TestPlugin', 'TestPluginTwo');
 		$this->assertEquals($expected, Plugin::loaded());
 		$this->assertEquals('loaded js plugin bootstrap', Configure::read('PluginTest.js_plugin.bootstrap'));
 		$this->assertEquals('loaded plugin bootstrap', Configure::read('PluginTest.test_plugin.bootstrap'));
@@ -254,7 +254,7 @@ class PluginTest extends TestCase {
 		Plugin::loadAll(array(array('bootstrap' => true), 'TestPlugin' => array('routes' => true)));
 		Plugin::routes();
 
-		$expected = array('PluginJs', 'TestPlugin', 'TestPluginTwo');
+		$expected = array('MergeVar', 'PluginJs', 'TestPlugin', 'TestPluginTwo');
 		$this->assertEquals($expected, Plugin::loaded());
 		$this->assertEquals('loaded js plugin bootstrap', Configure::read('PluginTest.js_plugin.bootstrap'));
 		$this->assertEquals('loaded plugin routes', Configure::read('PluginTest.test_plugin.routes'));
