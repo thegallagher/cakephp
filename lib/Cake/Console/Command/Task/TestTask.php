@@ -16,6 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command\Task;
+
 use Cake\Core\App,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Inflector,
@@ -134,7 +135,7 @@ class TestTask extends BakeTask {
 		} elseif ($this->interactive) {
 			$this->getUserFixtures();
 		}
-		App::uses($fullClassName, $realType);
+		$fullClassName = App::className($fullClassName, $realType);
 
 		$methods = array();
 		if (class_exists($fullClassName)) {
@@ -254,9 +255,8 @@ class TestTask extends BakeTask {
  * @param string $class the Classname of the class the test is being generated for.
  * @return object And instance of the class that is going to be tested.
  */
-	public function &buildTestSubject($type, $class) {
+	public function buildTestSubject($type, $class) {
 		ClassRegistry::flush();
-		App::import($type, $class);
 		$class = $this->getRealClassName($type, $class);
 		if (strtolower($type) == 'model') {
 			$instance = ClassRegistry::init($class);

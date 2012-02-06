@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command\Task;
+
 use Cake\TestSuite\TestCase,
 	Cake\Console\Command\Task\ControllerTask,
 	Cake\Console\Command\Task\TemplateTask,
@@ -24,23 +25,17 @@ use Cake\TestSuite\TestCase,
 	Cake\Model\Model,
 	Cake\Model\Schema,
 	Cake\View\Helper,
-	Cake\Core\Plugin
+	Cake\Core\Plugin,
+	Cake\Core\App,
 	Cake\Utility\ClassRegistry;
 
-App::uses('BakeArticle', 'Model');
-App::uses('BakeComment', 'Model');
-App::uses('BakeTags', 'Model');
-$imported = class_exists('BakeArticle') || class_exists('BakeComment') || class_exists('BakeTag');
-
-if (!$imported) {
-	define('ARTICLE_MODEL_CREATED', true);
-
-	class BakeArticle extends Model {
-		public $name = 'BakeArticle';
-		public $hasMany = array('BakeComment');
-		public $hasAndBelongsToMany = array('BakeTag');
-	}
+class BakeArticle extends Model {
+	public $name = 'BakeArticle';
+	public $hasMany = array('BakeComment');
+	public $hasAndBelongsToMany = array('BakeTag');
 }
+
+class_alias('Cake\Test\TestCase\Console\Command\Task\BakeArticle', 'Cake\Model\BakeArticle');
 
 /**
  * ControllerTaskTest class
@@ -310,7 +305,7 @@ class ControllerTaskTest extends TestCase {
 
 		$this->Task->expects($this->at(1))->method('createFile')->with(
 			$path,
-			new PHPUnit_Framework_Constraint_IsAnything()
+			$this->anything()
 		);
 		$this->Task->expects($this->at(3))->method('createFile')->with(
 			$path,
@@ -336,8 +331,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testBakeActionsUsingSessions() {
-		$this->skipIf(!defined('ARTICLE_MODEL_CREATED'), 'Testing bakeActions requires Article, Comment & Tag Model to be undefined.');
-
 		$result = $this->Task->bakeActions('BakeArticles', null, true);
 
 		$this->assertContains('function index() {', $result);
@@ -375,8 +368,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testBakeActionsWithNoSessions() {
-		$this->skipIf(!defined('ARTICLE_MODEL_CREATED'), 'Testing bakeActions requires Article, Tag, Comment Models to be undefined.');
-
 		$result = $this->Task->bakeActions('BakeArticles', null, false);
 
 		$this->assertContains('function index() {', $result);
@@ -507,9 +498,6 @@ class ControllerTaskTest extends TestCase {
 		if ($count != count($this->fixtures)) {
 			$this->markTestSkipped('Additional tables detected.');
 		}
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute into all could not be run as an Article, Tag or Comment model was already loaded.');
-		}
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
 		$this->Task->args = array('all');
@@ -532,9 +520,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testExecuteWithController() {
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute with scaffold param requires no Article, Tag or Comment model to be defined');
-		}
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
 		$this->Task->args = array('BakeArticles');
@@ -566,9 +551,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testExecuteWithControllerNameVariations($name) {
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute with scaffold param requires no Article, Tag or Comment model to be defined.');
-		}
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
 		$this->Task->args = array($name);
@@ -586,16 +568,13 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testExecuteWithPublicParam() {
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute with public param requires no Article, Tag or Comment model to be defined.');
-		}
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
 		$this->Task->args = array('BakeArticles');
 		$this->Task->params = array('public' => true);
 
 		$filename = '/my/path/BakeArticlesController.php';
-		$expected = new PHPUnit_Framework_Constraint_Not($this->stringContains('$scaffold'));
+		$expected = new \PHPUnit_Framework_Constraint_Not($this->stringContains('$scaffold'));
 		$this->Task->expects($this->once())->method('createFile')->with(
 			$filename, $expected
 		);
@@ -608,9 +587,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testExecuteWithControllerAndBoth() {
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute with controller and both requires no Article, Tag or Comment model to be defined.');
-		}
 		$this->Task->Project->expects($this->any())->method('getPrefix')->will($this->returnValue('admin_'));
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';
@@ -630,9 +606,6 @@ class ControllerTaskTest extends TestCase {
  * @return void
  */
 	public function testExecuteWithControllerAndAdmin() {
-		if (!defined('ARTICLE_MODEL_CREATED')) {
-			$this->markTestSkipped('Execute with controller and admin requires no Article, Tag or Comment model to be defined.');
-		}
 		$this->Task->Project->expects($this->any())->method('getPrefix')->will($this->returnValue('admin_'));
 		$this->Task->connection = 'test';
 		$this->Task->path = '/my/path/';

@@ -163,8 +163,7 @@ class BakeShell extends Shell {
 		$modelExists = false;
 		$model = $this->_modelName($name);
 
-		App::uses('AppModel', 'Model');
-		App::uses($model, 'Model');
+		$model = App::classname($model, 'Model');
 		if (class_exists($model)) {
 			$object = new $model();
 			$modelExists = true;
@@ -189,8 +188,9 @@ class BakeShell extends Shell {
 					$this->Controller->bakeTest($controller);
 				}
 			}
-			App::uses($controller . 'Controller', 'Controller');
-			if (class_exists($controller . 'Controller')) {
+			$controller .= 'Controller';
+			$controller = App::classname($controller, 'Controller');
+			if (class_exists($controller)) {
 				$this->View->args = array($name);
 				$this->View->execute();
 			}

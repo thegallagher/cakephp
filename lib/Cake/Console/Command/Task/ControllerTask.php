@@ -17,6 +17,7 @@
  */
 namespace Cake\Console\Command\Task;
 use Cake\Core\App,
+	Cake\Console\Shell,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Inflector;
 
@@ -108,8 +109,8 @@ class ControllerTask extends BakeTask {
 		foreach ($this->__tables as $table) {
 			$model = $this->_modelName($table);
 			$controller = $this->_controllerName($model);
-			App::uses($model, 'Model');
-			if (class_exists($model)) {
+			$classname = App::classname($model, 'Model');
+			if (class_exists($classname)) {
 				$actions = $this->bakeActions($controller);
 				if ($this->bake($controller, $actions) && $unitTestExists) {
 					$this->bakeTest($controller);
@@ -276,7 +277,7 @@ class ControllerTask extends BakeTask {
 		if ($plugin) {
 			$plugin .= '.';
 		}
-		App::uses($modelImport, $plugin . 'Model');
+		$classname = App::classname($plugin . $modelImport, 'Model');
 		if (!class_exists($modelImport)) {
 			$this->err(__d('cake_console', 'You must have a model for this class to build basic methods. Please try again.'));
 			$this->_stop();

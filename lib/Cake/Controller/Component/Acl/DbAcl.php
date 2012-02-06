@@ -13,7 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Controller\Component\Acl;
+
 use Cake\Core\Object,
+	Cake\Utility\ClassRegistry,
+	Cake\Controller\Component\Acl\AclInterface,
 	Cake\Utility\Set;
 
 /**

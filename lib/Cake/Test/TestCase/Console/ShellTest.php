@@ -768,7 +768,7 @@ class ShellTest extends TestCase {
  */
 	public function testRunCommandMissingMethod() {
 		$methods = get_class_methods('Cake\Console\Shell');
-		$Mock = $this->getMock('Shell', array('startup', 'getOptionParser', 'out'), array(), '', false);
+		$Mock = $this->getMock('Cake\Console\Shell', array('startup', 'getOptionParser', 'out'), array(), '', false);
 		$Parser = $this->getMock('Cake\Console\ConsoleOptionParser', array(), array(), '', false);
 
 		$Parser->expects($this->once())->method('help');

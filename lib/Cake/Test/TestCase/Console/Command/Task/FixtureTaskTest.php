@@ -17,10 +17,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command\Task;
+
 use Cake\TestSuite\TestCase,
+	Cake\Core\Plugin,
+	Cake\Model\ConnectionManager,
 	Cake\Console\Command\Task\FixtureTask,
 	Cake\Console\Command\Task\TemplateTask,
-	Cake\Core\Plugin;
+	Cake\Utility\ClassRegistry;
 
 /**
  * FixtureTaskTest class

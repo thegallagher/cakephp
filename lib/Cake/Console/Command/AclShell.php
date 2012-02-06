@@ -16,6 +16,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Console\Command;
+
 use Cake\Console\Shell,
 	Cake\Core\Configure,
 	Cake\Controller\ComponentCollection,
@@ -69,7 +70,8 @@ class AclShell extends Shell {
 			$this->connection = $this->params['connection'];
 		}
 
-		if (!in_array(Configure::read('Acl.classname'), array('DbAcl', 'DB_ACL'))) {
+		$aclClass = Configure::read('Acl.classname');
+		if (strpos($aclClass, 'DbAcl') === false) {
 			$out = "--------------------------------------------------\n";
 			$out .= __d('cake_console', 'Error: Your current Cake configuration is set to an ACL implementation other than DB.') . "\n";
 			$out .= __d('cake_console', 'Please change your core config to reflect your decision to use DbAcl before attempting to use this script') . "\n";

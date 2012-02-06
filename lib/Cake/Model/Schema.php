@@ -206,10 +206,6 @@ class Schema extends Object {
 		));
 		$db = ConnectionManager::getDataSource($connection);
 
-		if (isset($this->plugin)) {
-			App::uses($this->plugin . 'AppModel', $this->plugin . '.Model');
-		}
-
 		$tables = array();
 		$currentTables = (array) $db->listSources();
 
@@ -242,7 +238,7 @@ class Schema extends Object {
 					$plugin = $this->plugin . '.';
 				}
 
-				App::uses($importModel, $plugin . 'Model');
+				$importModel = App::classname($plugin . $importModel, 'Model');
 				if (!class_exists($importModel)) {
 					continue;
 				}

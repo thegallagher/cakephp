@@ -17,6 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Console\Command;
+
 use Cake\TestSuite\TestCase,
 	Cake\Console\Command\AclShell,
 	Cake\Controller\Component\AclComponent,
@@ -46,7 +47,7 @@ class AclShellTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Acl.database', 'test');
-		Configure::write('Acl.classname', 'Cake\Controller\Component\DbAcl');
+		Configure::write('Acl.classname', 'Cake\Controller\Component\Acl\DbAcl');
 
 		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);

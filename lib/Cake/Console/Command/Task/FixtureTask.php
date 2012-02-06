@@ -17,6 +17,8 @@
  */
 namespace Cake\Console\Command\Task;
 use Cake\Model\Schema,
+	Cake\Model\Model,
+	Cake\Console\Shell,
 	Cake\Utility\Inflector;
 
 /**

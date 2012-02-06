@@ -348,17 +348,15 @@ class ExtractTask extends Shell {
 		if (!$this->_extractValidation) {
 			return;
 		}
-		App::uses('AppModel', 'Model');
 		$plugin = null;
 		if (!empty($this->params['plugin'])) {
-			App::uses($this->params['plugin'] . 'AppModel', $this->params['plugin'] . '.Model');
 			$plugin = $this->params['plugin'] . '.';
 		}
 		$models = App::objects($plugin . 'Model', null, false);
 
 		foreach ($models as $model) {
-			App::uses($model, $plugin . 'Model');
-			$reflection = new \ReflectionClass($model);
+			$modelClass = App::classname($plugin . $model, 'Model');
+			$reflection = new \ReflectionClass($modelClass);
 			if (!$reflection->isSubClassOf('Model')) {
 				continue;
 			}

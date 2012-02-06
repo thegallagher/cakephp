@@ -22,6 +22,8 @@ use Cake\Core\Configure,
 	Cake\Core\Object,
 	Cake\Utility\Inflector,
 	Cake\Utility\ClassRegistry,
+	Cake\Utility\File,
+	Cake\Utility\String,
 	Cake\Error;
 
 /**
