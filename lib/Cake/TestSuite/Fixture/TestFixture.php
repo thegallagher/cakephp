@@ -18,6 +18,7 @@ use Cake\Model\Schema,
 	Cake\Model\ConnectionManager,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Inflector,
+	Cake\Utility\Set,
 	Cake\Core\App,
 	Cake\Error;
 

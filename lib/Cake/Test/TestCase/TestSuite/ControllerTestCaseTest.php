@@ -23,8 +23,10 @@ use Cake\TestSuite\TestCase,
 	Cake\Controller\Controller,
 	Cake\Model\Model,
 	Cake\Core\App,
+	Cake\Core\Configure,
 	Cake\Core\Plugin,
 	Cake\Routing\Router,
+	Cake\Utility\ClassRegistry,
 	Cake\TestSuite\Reporter\HtmlReporter;
 
 require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
@@ -32,7 +34,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
 /**
  * AppController class
  *
-	 * @package       Cake.Test.Case.TestSuite
+ * @package       Cake.Test.Case.TestSuite
  */
 class AppController extends Controller {
 /**
@@ -70,7 +72,6 @@ class PostsController extends AppController {
  */
 	public $components = array(
 		'RequestHandler',
-		'Email',
 		'Auth'
 	);
 }
@@ -116,6 +117,8 @@ class ControllerTestCaseTest extends TestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		), App::RESET);
+		$this->_ns = Configure::read('App.namespace');
+		Configure::write('App.namespace', 'TestApp');
 		Plugin::loadAll();
 		$this->Case = $this->getMockForAbstractClass('Cake\TestSuite\ControllerTestCase');
 		Router::reload();
@@ -128,6 +131,7 @@ class ControllerTestCaseTest extends TestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
+		Configure::write('App.namespace', $this->_ns);
 		Plugin::unload();
 		$this->Case->controller = null;
 	}
@@ -139,7 +143,7 @@ class ControllerTestCaseTest extends TestCase {
 		if (defined('APP_CONTROLLER_EXISTS')) {
 			$this->markTestSkipped('AppController exists, cannot run.');
 		}
-		$Posts = $this->Case->generate('Posts');
+		$Posts = $this->Case->generate(__NAMESPACE__ . '\PostsController');
 		$this->assertEquals($Posts->name, 'Posts');
 		$this->assertEquals($Posts->modelClass, 'Post');
 		$this->assertNull($Posts->response->send());
@@ -182,7 +186,6 @@ class ControllerTestCaseTest extends TestCase {
 			'models' => array('Post'),
 			'components' => array(
 				'RequestHandler' => array('isPut'),
-				'Email' => array('send'),
 				'Session'
 			)
 		));
@@ -210,17 +213,17 @@ class ControllerTestCaseTest extends TestCase {
 			)
 		));
 		$this->assertEquals($Tests->name, 'Tests');
-		$this->assertInstanceOf('PluginsComponent', $Tests->Plugins);
+		$this->assertInstanceOf('TestPlugin\Controller\Component\PluginsComponent', $Tests->Plugins);
 
 		$result = ClassRegistry::init('TestPlugin.TestPluginComment');
-		$this->assertInstanceOf('TestPluginComment', $result);
+		$this->assertInstanceOf('TestPlugin\Model\TestPluginComment', $result);
 
-		$Tests = $this->Case->generate('ControllerTestCaseTest', array(
+		$Tests = $this->Case->generate(__NAMESPACE__ . '\ControllerTestCaseTest', array(
 			'models' => array(
 				'TestPlugin.TestPluginComment' => array('save')
 			)
 		));
-		$this->assertInstanceOf('TestPluginComment', $Tests->TestPluginComment);
+		$this->assertInstanceOf('TestPlugin\Model\TestPluginComment', $Tests->TestPluginComment);
 		$Tests->TestPluginComment->expects($this->at(0))
 			->method('save')
 			->will($this->returnValue(true));
@@ -294,7 +297,7 @@ class ControllerTestCaseTest extends TestCase {
 /**
  * Tests not using loaded routes during tests
  *
- * @expectedException MissingActionException
+ * @expectedException Cake\Error\MissingActionException
  */
 	public function testSkipRoutes() {
 		Router::connect('/:controller/:action/*');
