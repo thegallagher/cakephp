@@ -20,6 +20,7 @@ namespace Cake\Test\TestCase\Console;
 use Cake\TestSuite\TestCase,
 	Cake\Console\ShellDispatcher,
 	Cake\Core\App,
+	Cake\Core\Configure,
 	Cake\Core\Plugin;
 
 /**
@@ -163,9 +164,9 @@ class ShellDispatcherTest extends TestCase {
 
 		$params = array('cake.php');
 		$expected = array(
-			'app' => 'app',
+			'app' => 'App',
 			'webroot' => 'webroot',
-			'working' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH) . DS . 'app'),
+			'working' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH) . DS . 'App'),
 			'root' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH)),
 		);
 		$Dispatcher->params = $Dispatcher->args = array();
@@ -257,9 +258,9 @@ class ShellDispatcherTest extends TestCase {
 			'DbAcl'
 		);
 		$expected = array(
-			'app' => 'app',
+			'app' => 'App',
 			'webroot' => 'webroot',
-			'working' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH) . DS . 'app'),
+			'working' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH) . DS . 'App'),
 			'root' => str_replace('\\', DS, dirname(CAKE_CORE_INCLUDE_PATH)),
 		);
 		$Dispatcher->params = $Dispatcher->args = array();
@@ -417,20 +418,21 @@ class ShellDispatcherTest extends TestCase {
 		$this->skipIf(class_exists('SampleShell'), 'SampleShell Class already loaded.');
 		$this->skipIf(class_exists('ExampleShell'), 'ExampleShell Class already loaded.');
 
+		Configure::write('App.namespace', 'TestApp');
 		$Dispatcher = new TestShellDispatcher();
 
 		$result = $Dispatcher->getShell('sample');
-		$this->assertInstanceOf('SampleShell', $result);
+		$this->assertInstanceOf('TestApp\Console\Command\SampleShell', $result);
 
 		$Dispatcher = new TestShellDispatcher();
 		$result = $Dispatcher->getShell('test_plugin.example');
-		$this->assertInstanceOf('ExampleShell', $result);
+		$this->assertInstanceOf('TestPlugin\Console\Command\ExampleShell', $result);
 		$this->assertEquals('TestPlugin', $result->plugin);
 		$this->assertEquals('Example', $result->name);
 
 		$Dispatcher = new TestShellDispatcher();
 		$result = $Dispatcher->getShell('TestPlugin.example');
-		$this->assertInstanceOf('ExampleShell', $result);
+		$this->assertInstanceOf('TestPlugin\Console\Command\ExampleShell', $result);
 	}
 
 /**
@@ -440,7 +442,7 @@ class ShellDispatcherTest extends TestCase {
  */
 	public function testDispatchShellWithMain() {
 		$Dispatcher = new TestShellDispatcher();
-		$Mock = $this->getMock('Shell', array(), array(&$Dispatcher), 'MockWithMainShell');
+		$Mock = $this->getMock('Cake\Console\Shell', array(), array(&$Dispatcher), 'MockWithMainShell');
 
 		$Mock->expects($this->once())->method('initialize');
 		$Mock->expects($this->once())->method('loadTasks');
@@ -463,9 +465,9 @@ class ShellDispatcherTest extends TestCase {
  */
 	public function testDispatchShellWithoutMain() {
 		$Dispatcher = new TestShellDispatcher();
-		$Shell = $this->getMock('Shell', array(), array(&$Dispatcher), 'MockWithoutMainShell');
+		$Shell = $this->getMock('Cake\Console\Shell', array(), array(&$Dispatcher), 'MockWithoutMainShell');
 
-		$Shell = new MockWithoutMainShell($Dispatcher);
+		$Shell = new \MockWithoutMainShell($Dispatcher);
 		$this->mockObjects[] = $Shell;
 
 		$Shell->expects($this->once())->method('initialize');
@@ -488,9 +490,9 @@ class ShellDispatcherTest extends TestCase {
  */
 	public function testDispatchNotAShellWithMain() {
 		$Dispatcher = new TestShellDispatcher();
-		$methods = get_class_methods('Object');
+		$methods = get_class_methods('Cake\Core\Object');
 		array_push($methods, 'main', 'initdb', 'initialize', 'loadTasks', 'startup', '_secret');
-		$Shell = $this->getMock('Object', $methods, array(), 'MockWithMainNotAShell');
+		$Shell = $this->getMock('Cake\Core\Object', $methods, array(), 'MockWithMainNotAShell');
 
 		$Shell->expects($this->never())->method('initialize');
 		$Shell->expects($this->never())->method('loadTasks');
@@ -503,7 +505,7 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertTrue($result);
 		$this->assertEquals($Dispatcher->args, array());
 
-		$Shell = new MockWithMainNotAShell($Dispatcher);
+		$Shell = new \MockWithMainNotAShell($Dispatcher);
 		$this->mockObjects[] = $Shell;
 		$Shell->expects($this->once())->method('initdb')->will($this->returnValue(true));
 		$Shell->expects($this->once())->method('startup');
@@ -521,7 +523,7 @@ class ShellDispatcherTest extends TestCase {
  */
 	public function testDispatchNotAShellWithoutMain() {
 		$Dispatcher = new TestShellDispatcher();
-		$methods = get_class_methods('Object');
+		$methods = get_class_methods('Cake\Core\Object');
 		array_push($methods, 'main', 'initdb', 'initialize', 'loadTasks', 'startup', '_secret');
 		$Shell = $this->getMock('Object', $methods, array(&$Dispatcher), 'MockWithoutMainNotAShell');
 
@@ -536,7 +538,7 @@ class ShellDispatcherTest extends TestCase {
 		$this->assertTrue($result);
 		$this->assertEquals($Dispatcher->args, array());
 
-		$Shell = new MockWithoutMainNotAShell($Dispatcher);
+		$Shell = new \MockWithoutMainNotAShell($Dispatcher);
 		$this->mockObjects[] = $Shell;
 		$Shell->expects($this->once())->method('initdb')->will($this->returnValue(true));
 		$Shell->expects($this->once())->method('startup');

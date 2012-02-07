@@ -158,7 +158,8 @@ class Shell extends Object {
  */
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
 		if ($this->name == null) {
-			$this->name = Inflector::camelize(str_replace(array('Shell', 'Task'), '', get_class($this)));
+			list(, $class) = namespaceSplit(get_class($this));
+			$this->name = str_replace(array('Shell', 'Task'), '', $class);
 		}
 		$this->Tasks = new TaskCollection($this);
 
