@@ -100,6 +100,9 @@ class TestAppleTask extends Shell {
 class TestBananaTask extends Shell {
 }
 
+class_alias(__NAMESPACE__ . '\TestAppleTask', 'Cake\Console\Command\Task\TestAppleTask');
+class_alias(__NAMESPACE__ . '\TestBananaTask', 'Cake\Console\Command\Task\TestBananaTask');
+
 /**
  * ShellTest class
  *
@@ -156,8 +159,8 @@ class ShellTest extends TestCase {
 	public function testMergeVars() {
 		$this->Shell->tasks = array('DbConfig' => array('one', 'two'));
 		$this->Shell->uses = array('Posts');
-		$this->Shell->mergeVars(array('tasks'), 'TestMergeShell');
-		$this->Shell->mergeVars(array('uses'), 'TestMergeShell', false);
+		$this->Shell->mergeVars(array('tasks'), __NAMESPACE__ . '\TestMergeShell');
+		$this->Shell->mergeVars(array('uses'), __NAMESPACE__ . '\TestMergeShell', false);
 
 		$expected = array('DbConfig' => null, 'Fixture' => null, 'DbConfig' => array('one', 'two'));
 		$this->assertEquals($expected, $this->Shell->tasks);
@@ -174,8 +177,8 @@ class ShellTest extends TestCase {
  */
 	public function testInitialize() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
-			'models' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS)
 		), true);
 
 		Plugin::load('TestPlugin');
@@ -183,15 +186,15 @@ class ShellTest extends TestCase {
 		$this->Shell->initialize();
 
 		$this->assertTrue(isset($this->Shell->TestPluginPost));
-		$this->assertInstanceOf('TestPluginPost', $this->Shell->TestPluginPost);
+		$this->assertInstanceOf('TestPlugin\Model\TestPluginPost', $this->Shell->TestPluginPost);
 		$this->assertEquals($this->Shell->modelClass, 'TestPluginPost');
 		Plugin::unload('TestPlugin');
 
-		$this->Shell->uses = array('Comment');
+		$this->Shell->uses = array('TestApp\Model\Comment');
 		$this->Shell->initialize();
 		$this->assertTrue(isset($this->Shell->Comment));
-		$this->assertInstanceOf('Comment', $this->Shell->Comment);
-		$this->assertEquals($this->Shell->modelClass, 'Comment');
+		$this->assertInstanceOf('TestApp\Model\Comment', $this->Shell->Comment);
+		$this->assertEquals('Comment', $this->Shell->modelClass);
 
 		App::build();
 	}
@@ -450,19 +453,19 @@ class ShellTest extends TestCase {
 
 		$this->Shell->tasks = array('TestApple');
 		$this->assertTrue($this->Shell->loadTasks());
-		$this->assertInstanceOf('TestAppleTask', $this->Shell->TestApple);
+		$this->assertInstanceOf('Cake\Console\Command\Task\TestAppleTask', $this->Shell->TestApple);
 
 		$this->Shell->tasks = 'TestBanana';
 		$this->assertTrue($this->Shell->loadTasks());
-		$this->assertInstanceOf('TestAppleTask', $this->Shell->TestApple);
-		$this->assertInstanceOf('TestBananaTask', $this->Shell->TestBanana);
+		$this->assertInstanceOf('Cake\Console\Command\Task\TestAppleTask', $this->Shell->TestApple);
+		$this->assertInstanceOf('Cake\Console\Command\Task\TestBananaTask', $this->Shell->TestBanana);
 
 		unset($this->Shell->ShellTestApple, $this->Shell->TestBanana);
 
 		$this->Shell->tasks = array('TestApple', 'TestBanana');
 		$this->assertTrue($this->Shell->loadTasks());
-		$this->assertInstanceOf('TestAppleTask', $this->Shell->TestApple);
-		$this->assertInstanceOf('TestBananaTask', $this->Shell->TestBanana);
+		$this->assertInstanceOf('Cake\Console\Command\Task\TestAppleTask', $this->Shell->TestApple);
+		$this->assertInstanceOf('Cake\Console\Command\Task\TestBananaTask', $this->Shell->TestBanana);
 	}
 
 /**

@@ -241,15 +241,15 @@ class Shell extends Object {
 		if ($this->uses !== true && !empty($this->uses)) {
 			$uses = is_array($this->uses) ? $this->uses : array($this->uses);
 
-			$modelClassName = $uses[0];
-			if (strpos($uses[0], '.') !== false) {
-				list($plugin, $modelClassName) = explode('.', $uses[0]);
-			}
-			$this->modelClass = $modelClassName;
+			$modelClass = $uses[0];
+			$className = App::className($modelClass, 'Model');
+			list(, $modelClass) = namespaceSplit($className);
+			$this->modelClass = $modelClass;
 
 			foreach ($uses as $modelClass) {
-				list($plugin, $modelClass) = pluginSplit($modelClass, true);
-				$this->{$modelClass} = ClassRegistry::init($plugin . $modelClass);
+				$className = App::className($modelClass, 'Model');
+				list(, $modelClass) = namespaceSplit($className);
+				$this->{$modelClass} = ClassRegistry::init($className);
 			}
 			return true;
 		}
@@ -296,7 +296,7 @@ class Shell extends Object {
 			if (!$method->isPublic() || substr($name, 0, 1) === '_') {
 				return false;
 			}
-			if ($method->getDeclaringClass()->name == 'Shell') {
+			if ($method->getDeclaringClass()->name == 'Cake\Console\Shell') {
 				return false;
 			}
 			return true;
