@@ -75,7 +75,7 @@ class TaskCollectionTest extends TestCase {
 /**
  * test missingtask exception
  *
- * @expectedException Cake\Console\MissingTaskException
+ * @expectedException Cake\Error\MissingTaskException
  * @return void
  */
 	public function testLoadMissingTask() {
@@ -97,8 +97,8 @@ class TaskCollectionTest extends TestCase {
 		$this->Tasks = new TaskCollection($shell, $dispatcher);
 
 		$result = $this->Tasks->load('TestPlugin.OtherTask');
-		$this->assertInstanceOf('OtherTaskTask', $result, 'Task class is wrong.');
-		$this->assertInstanceOf('OtherTaskTask', $this->Tasks->OtherTask, 'Class is wrong');
+		$this->assertInstanceOf('TestPlugin\Console\Command\Task\OtherTaskTask', $result, 'Task class is wrong.');
+		$this->assertInstanceOf('TestPlugin\Console\Command\Task\OtherTaskTask', $this->Tasks->OtherTask, 'Class is wrong');
 		Plugin::unload();
 	}
 
