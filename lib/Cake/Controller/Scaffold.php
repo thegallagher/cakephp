@@ -107,7 +107,7 @@ class Scaffold {
  *
  * @param Controller $controller Controller to scaffold
  * @param Cake\Network\Request $request Request parameters.
- * @throws MissingModelException
+ * @throws Cake\Error\MissingModelException
  */
 	public function __construct(Controller $controller, Request $request) {
 		$this->controller = $controller;
@@ -130,7 +130,7 @@ class Scaffold {
 		$this->ScaffoldModel = $this->controller->{$this->modelClass};
 		$this->scaffoldTitle = Inflector::humanize(Inflector::underscore($this->viewPath));
 		$this->scaffoldActions = $controller->scaffold;
-		$title_for_layout = __d('cake', 'Scaffold :: ') . Inflector::humanize($request->action) . ' :: ' . $this->scaffoldTitle;
+		$title = __d('cake', 'Scaffold :: ') . Inflector::humanize($request->action) . ' :: ' . $this->scaffoldTitle;
 		$modelClass = $this->controller->modelClass;
 		$primaryKey = $this->ScaffoldModel->primaryKey;
 		$displayField = $this->ScaffoldModel->displayField;
@@ -145,6 +145,7 @@ class Scaffold {
 			'title_for_layout', 'modelClass', 'primaryKey', 'displayField', 'singularVar', 'pluralVar',
 			'singularHumanName', 'pluralHumanName', 'scaffoldFields', 'associations'
 		));
+		$this->controller->set('title_for_layout', $title);
 
 		if ($this->controller->viewClass) {
 			$this->controller->viewClass = 'Scaffold';
@@ -160,7 +161,7 @@ class Scaffold {
  *
  * @param Cake\Network\Request $request Request Object for scaffolding
  * @return mixed A rendered view of a row from Models database table
- * @throws NotFoundException
+ * @throws Cake\Error\NotFoundException
  */
 	protected function _scaffoldView(Request $request) {
 		if ($this->controller->beforeScaffold('view')) {
@@ -219,7 +220,7 @@ class Scaffold {
  * @param Cake\Network\Request $request Request Object for scaffolding
  * @param string $action add or edit
  * @return mixed Success on save/update, add/edit form if data is empty or error if save or update fails
- * @throws NotFoundException
+ * @throws Cake\Error\NotFoundException
  */
 	protected function _scaffoldSave(Request $request, $action = 'edit') {
 		$formAction = 'edit';
@@ -292,7 +293,8 @@ class Scaffold {
  *
  * @param Cake\Network\Request $request Request for scaffolding
  * @return mixed Success on delete, error if delete fails
- * @throws MethodNotAllowedException, NotFoundException
+ * @throws Cake\Error\MethodNotAllowedException When HTTP method is not a DELETE
+ * @throws Cake\Error\NotFoundException When id being deleted does not exist.
  */
 	protected function _scaffoldDelete(Request $request) {
 		if ($this->controller->beforeScaffold('delete')) {
@@ -355,7 +357,8 @@ class Scaffold {
  *
  * @param Cake\Network\Request $request Request object for scaffolding
  * @return mixed A rendered view of scaffold action, or showing the error
- * @throws MissingActionException, MissingDatabaseException
+ * @throws Cake\Error\MissingActionException When methods are not scaffolded.
+ * @throws Cake\Error\MissingDatabaseException When the database connection is undefined.
  */
 	protected function _scaffold(Request $request) {
 		$db = ConnectionManager::getDataSource($this->ScaffoldModel->useDbConfig);
@@ -445,4 +448,5 @@ class Scaffold {
 		}
 		return $associations;
 	}
+
 }

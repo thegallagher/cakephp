@@ -43,7 +43,7 @@ if (!defined('WEBROOT_DIR')) {
  * Path to the application's directory.
  */
 if (!defined('APP')) {
-	define('APP', ROOT . DS . APP_DIR.DS);
+	define('APP', ROOT . DS . APP_DIR . DS);
 }
 
 /**

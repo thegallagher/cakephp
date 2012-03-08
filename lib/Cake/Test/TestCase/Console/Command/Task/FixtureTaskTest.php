@@ -176,7 +176,7 @@ class FixtureTaskTest extends TestCase {
  *
  * @return void
  */
-	function testImportRecordsNoEscaping() {
+	public function testImportRecordsNoEscaping() {
 		$db = ConnectionManager::getDataSource('test');
 		if ($db instanceof Sqlserver) {
 			$this->markTestSkipped('This test does not run on SQLServer');

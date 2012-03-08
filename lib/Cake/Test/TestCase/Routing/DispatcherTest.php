@@ -408,7 +408,7 @@ class TestCachedPagesController extends Controller {
 	);
 
 /**
- * Mock out the reponse object so it doesn't send headers.
+ * Mock out the response object so it doesn't send headers.
  *
  * @var string
  */
@@ -1042,9 +1042,9 @@ class DispatcherTest extends TestCase {
 
 		Router::reload();
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
-		), true);
-		Plugin::loadAll();
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
+		), App::RESET);
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$Dispatcher = new TestDispatcher();
 		$Dispatcher->base = false;
@@ -1118,9 +1118,9 @@ class DispatcherTest extends TestCase {
 	public function testTestPluginDispatch() {
 		$Dispatcher = new TestDispatcher();
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), APP::RESET);
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 		Router::reload();
 		Router::parse('/');
 
@@ -1177,11 +1177,11 @@ class DispatcherTest extends TestCase {
 		Router::reload();
 
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
-			'vendors' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Vendor' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$Dispatcher = new TestDispatcher();
 		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
@@ -1299,7 +1299,7 @@ class DispatcherTest extends TestCase {
 			'Vendor' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor'. DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin', 'PluginJs'));
 
 		$Dispatcher = new TestDispatcher();
 		$response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
@@ -1401,7 +1401,7 @@ class DispatcherTest extends TestCase {
 
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
-		), true);
+		), App::RESET);
 
 		$dispatcher = new TestDispatcher();
 		$request = new Request($url);
@@ -1415,11 +1415,9 @@ class DispatcherTest extends TestCase {
 		$dispatcher->cached($request->here());
 		$cached = ob_get_clean();
 
-		$result = str_replace(array("\t", "\r\n", "\n"), "", $out);
 		$cached = preg_replace('/<!--+[^<>]+-->/', '', $cached);
-		$expected =  str_replace(array("\t", "\r\n", "\n"), "", $cached);
 
-		$this->assertEquals($expected, $result);
+		$this->assertTextEquals($cached, $out);
 
 		$filename = $this->__cachePath($request->here());
 		unlink($filename);
@@ -1499,7 +1497,7 @@ class DispatcherTest extends TestCase {
  *
  * @return void
  */
-	function __backupEnvironment() {
+	protected function __backupEnvironment() {
 		return array(
 			'App' => Configure::read('App'),
 			'GET' => $_GET,
@@ -1513,7 +1511,7 @@ class DispatcherTest extends TestCase {
  *
  * @return void
  */
-	function __reloadEnvironment() {
+	protected function __reloadEnvironment() {
 		foreach ($_GET as $key => $val) {
 			unset($_GET[$key]);
 		}
@@ -1532,7 +1530,7 @@ class DispatcherTest extends TestCase {
  * @param mixed $env
  * @return void
  */
-	function __loadEnvironment($env) {
+	protected function __loadEnvironment($env) {
 		if ($env['reload']) {
 			$this->__reloadEnvironment();
 		}
@@ -1566,7 +1564,7 @@ class DispatcherTest extends TestCase {
  * @param mixed $her
  * @return string
  */
-	function __cachePath($here) {
+	protected function __cachePath($here) {
 		$path = $here;
 		if ($here == '/') {
 			$path = 'home';

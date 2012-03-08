@@ -41,7 +41,7 @@ class TestHttpResponse extends HttpResponse {
 /**
  * Convenience method for testing protected method
  *
- * @param string $body A string continaing the body to decode
+ * @param string $body A string containing the body to decode
  * @param mixed $encoding Can be false in case no encoding is being used, or a string representing the encoding
  * @return mixed Array or false
  */
@@ -52,7 +52,7 @@ class TestHttpResponse extends HttpResponse {
 /**
  * Convenience method for testing protected method
  *
- * @param string $body A string continaing the chunked body to decode
+ * @param string $body A string containing the chunked body to decode
  * @return mixed Array or false
  */
 	public function decodeChunkedBody($body) {
@@ -125,7 +125,7 @@ class HttpResponseTest extends TestCase {
 	}
 
 /**
- * testGetHeadr
+ * testGetHeader
  *
  * @return void
  */

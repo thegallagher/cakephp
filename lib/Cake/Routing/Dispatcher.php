@@ -27,7 +27,7 @@ use Cake\Core\Configure,
 	Cake\Network\Request,
 	Cake\Network\Response,
 	Cake\Utility\Inflector,
-	Cake\View\ThemeView,
+	Cake\View\View,
 	Cake\Error;
 
 /**
@@ -66,8 +66,7 @@ class Dispatcher {
  * @param Cake\Network\Response $response Response object to put the results of the dispatch into.
  * @param array $additionalParams Settings array ("bare", "return") which is melded with the GET and POST params
  * @return boolean Success
- * @throws MissingControllerException, MissingActionException, PrivateActionException if any of those error states
- *    are encountered.
+ * @throws MissingControllerException When the controller is missing.
  */
 	public function dispatch(Request $request, Response $response, $additionalParams = array()) {
 		if ($this->asset($request->url, $response) || $this->cached($request->here())) {
@@ -217,10 +216,9 @@ class Dispatcher {
 			if (!file_exists($filename)) {
 				$filename = CACHE . 'views' . DS . $path . '_index.php';
 			}
-
 			if (file_exists($filename)) {
 				$controller = null;
-				$view = new ThemeView($controller);
+				$view = new View($controller);
 				return $view->renderCache($filename, microtime(true));
 			}
 		}
@@ -316,7 +314,7 @@ class Dispatcher {
 		$response->send();
 		ob_clean();
 		if ($ext === 'css' || $ext === 'js') {
-			include($assetFile);
+			include $assetFile;
 		} else {
 			readfile($assetFile);
 		}
@@ -325,4 +323,5 @@ class Dispatcher {
 			ob_end_flush();
 		}
 	}
+
 }

@@ -51,9 +51,9 @@ class LogTest extends TestCase {
  */
 	public function testImportingLoggers() {
 		App::build(array(
-			'libs' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
-		), true);
+			'Lib' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Lib' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
+		), App::RESET);
 		Configure::write('App.namespace', 'TestApp');
 		Plugin::load('TestPlugin');
 
@@ -136,7 +136,7 @@ class LogTest extends TestCase {
 	}
 
 /**
- * explict tests for drop()
+ * explicit tests for drop()
  *
  * @return void
  **/

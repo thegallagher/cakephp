@@ -40,7 +40,7 @@ class IniReaderTest extends TestCase {
 	}
 
 /**
- * test constrction
+ * test construct
  *
  * @return void
  */

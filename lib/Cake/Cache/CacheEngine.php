@@ -55,7 +55,8 @@ abstract class CacheEngine {
  * Permanently remove all expired and deleted data
  * @return void
  */
-	public function gc() { }
+	public function gc() {
+	}
 
 /**
  * Write value for a key into cache
@@ -131,4 +132,5 @@ abstract class CacheEngine {
 		$key = Inflector::underscore(str_replace(array(DS, '/', '.'), '_', strval($key)));
 		return $key;
 	}
+
 }

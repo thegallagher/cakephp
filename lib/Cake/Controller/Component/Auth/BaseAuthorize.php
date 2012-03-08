@@ -29,6 +29,7 @@ use Cake\Controller\ComponentCollection,
  * @see AuthComponent::$authenticate
  */
 abstract class BaseAuthorize {
+
 /**
  * Controller for the request.
  *
@@ -95,7 +96,7 @@ abstract class BaseAuthorize {
  * @return mixed
  * @throws Cake\Error\Exception
  */
-	public function controller($controller = null) {
+	public function controller(Controller $controller = null) {
 		if ($controller) {
 			if (!$controller instanceof Controller) {
 				throw new Error\Exception(__d('cake_dev', '$controller needs to be an instance of Controller'));
@@ -116,11 +117,13 @@ abstract class BaseAuthorize {
  */
 	public function action($request, $path = '/:plugin/:controller/:action') {
 		$plugin = empty($request['plugin']) ? null : Inflector::camelize($request['plugin']) . '/';
-		return str_replace(
+		$path = str_replace(
 			array(':controller', ':action', ':plugin/'),
 			array(Inflector::camelize($request['controller']), $request['action'], $plugin),
 			$this->settings['actionPath'] . $path
 		);
+		$path = str_replace('//', '/', $path);
+		return trim($path, '/');
 	}
 
 /**
@@ -162,4 +165,5 @@ abstract class BaseAuthorize {
 			}
 		}
 	}
+
 }

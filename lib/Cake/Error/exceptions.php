@@ -26,7 +26,8 @@ namespace Cake\Error;
  *
  * @package       Cake.Error
  */
-class HttpException extends \RuntimeException { }
+class HttpException extends \RuntimeException {
+}
 
 /**
  * Represents an HTTP 400 error.
@@ -34,6 +35,7 @@ class HttpException extends \RuntimeException { }
  * @package       Cake.Error
  */
 class BadRequestException extends HttpException {
+
 /**
  * Constructor
  *
@@ -46,6 +48,7 @@ class BadRequestException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -54,6 +57,7 @@ class BadRequestException extends HttpException {
  * @package       Cake.Error
  */
 class UnauthorizedException extends HttpException {
+
 /**
  * Constructor
  *
@@ -66,6 +70,7 @@ class UnauthorizedException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -74,6 +79,7 @@ class UnauthorizedException extends HttpException {
  * @package       Cake.Error
  */
 class ForbiddenException extends HttpException {
+
 /**
  * Constructor
  *
@@ -86,6 +92,7 @@ class ForbiddenException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -94,6 +101,7 @@ class ForbiddenException extends HttpException {
  * @package       Cake.Error
  */
 class NotFoundException extends HttpException {
+
 /**
  * Constructor
  *
@@ -106,6 +114,7 @@ class NotFoundException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -114,6 +123,7 @@ class NotFoundException extends HttpException {
  * @package       Cake.Error
  */
 class MethodNotAllowedException extends HttpException {
+
 /**
  * Constructor
  *
@@ -126,6 +136,7 @@ class MethodNotAllowedException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -134,6 +145,7 @@ class MethodNotAllowedException extends HttpException {
  * @package       Cake.Error
  */
 class InternalErrorException extends HttpException {
+
 /**
  * Constructor
  *
@@ -146,6 +158,7 @@ class InternalErrorException extends HttpException {
 		}
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -155,6 +168,7 @@ class InternalErrorException extends HttpException {
  * @package       Cake.Error
  */
 class Exception extends \RuntimeException {
+
 /**
  * Array of attributes that are passed in from the constructor, and
  * made available in the view when a development error is displayed.
@@ -196,6 +210,7 @@ class Exception extends \RuntimeException {
 	public function getAttributes() {
 		return $this->_attributes;
 	}
+
 }
 
 /**
@@ -205,11 +220,13 @@ class Exception extends \RuntimeException {
  * @package       Cake.Error
  */
 class MissingControllerException extends Exception {
+
 	protected $_messageTemplate = 'Controller class %s could not be found.';
 
 	public function __construct($message, $code = 404) {
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -219,11 +236,13 @@ class MissingControllerException extends Exception {
  * @package       Cake.Error
  */
 class MissingActionException extends Exception {
+
 	protected $_messageTemplate = 'Action %s::%s() could not be found.';
 
 	public function __construct($message, $code = 404) {
 		parent::__construct($message, $code);
 	}
+
 }
 
 /**
@@ -233,11 +252,13 @@ class MissingActionException extends Exception {
  * @package       Cake.Error
  */
 class PrivateActionException extends Exception {
+
 	protected $_messageTemplate = 'Private Action %s::%s() is not directly accessible.';
 
 	public function __construct($message, $code = 404, Exception $previous = null) {
 		parent::__construct($message, $code, $previous);
 	}
+
 }
 
 /**
@@ -246,7 +267,9 @@ class PrivateActionException extends Exception {
  * @package       Cake.Error
  */
 class MissingComponentException extends Exception {
+
 	protected $_messageTemplate = 'Component class %s could not be found.';
+
 }
 
 /**
@@ -255,7 +278,9 @@ class MissingComponentException extends Exception {
  * @package       Cake.Error
  */
 class MissingBehaviorException extends Exception {
+
 	protected $_messageTemplate = 'Behavior class %s could not be found.';
+
 }
 
 /**
@@ -264,7 +289,9 @@ class MissingBehaviorException extends Exception {
  * @package       Cake.Error
  */
 class MissingViewException extends Exception {
+
 	protected $_messageTemplate = 'View file "%s" is missing.';
+
 }
 
 /**
@@ -273,7 +300,9 @@ class MissingViewException extends Exception {
  * @package       Cake.Error
  */
 class MissingLayoutException extends Exception {
+
 	protected $_messageTemplate = 'Layout file "%s" is missing.';
+
 }
 
 /**
@@ -282,7 +311,9 @@ class MissingLayoutException extends Exception {
  * @package       Cake.Error
  */
 class MissingHelperException extends Exception {
+
 	protected $_messageTemplate = 'Helper class %s could not be found.';
+
 }
 
 /**
@@ -291,7 +322,9 @@ class MissingHelperException extends Exception {
  * @package       Cake.Error
  */
 class MissingDatabaseException extends Exception {
+
 	protected $_messageTemplate = 'Database connection "%s" could not be found.';
+
 }
 
 /**
@@ -300,7 +333,9 @@ class MissingDatabaseException extends Exception {
  * @package       Cake.Error
  */
 class MissingConnectionException extends Exception {
+
 	protected $_messageTemplate = 'Database connection "%s" is missing, or could not be created.';
+
 }
 
 /**
@@ -309,7 +344,9 @@ class MissingConnectionException extends Exception {
  * @package       Cake.Error
  */
 class MissingTaskException extends Exception {
+
 	protected $_messageTemplate = 'Task class %s could not be found.';
+
 }
 
 /**
@@ -318,7 +355,9 @@ class MissingTaskException extends Exception {
  * @package       Cake.Error
  */
 class MissingShellMethodException extends Exception {
+
 	protected $_messageTemplate = "Unknown command %1\$s %2\$s.\nFor usage try `cake %1\$s --help`";
+
 }
 
 /**
@@ -327,7 +366,9 @@ class MissingShellMethodException extends Exception {
  * @package       Cake.Error
  */
 class MissingShellException extends Exception {
+
 	protected $_messageTemplate = 'Shell class %s could not be found.';
+
 }
 
 /**
@@ -336,7 +377,9 @@ class MissingShellException extends Exception {
  * @package       Cake.Error
  */
 class MissingDatasourceConfigException extends Exception {
+
 	protected $_messageTemplate = 'The datasource configuration "%s" was not found in database.php';
+
 }
 
 /**
@@ -345,7 +388,9 @@ class MissingDatasourceConfigException extends Exception {
  * @package       Cake.Error
  */
 class MissingDatasourceException extends Exception {
+
 	protected $_messageTemplate = 'Datasource class %s could not be found.';
+
 }
 
 /**
@@ -354,7 +399,9 @@ class MissingDatasourceException extends Exception {
  * @package       Cake.Error
  */
 class MissingTableException extends Exception {
+
 	protected $_messageTemplate = 'Table %s for model %s was not found in datasource %s.';
+
 }
 
 /**
@@ -363,7 +410,9 @@ class MissingTableException extends Exception {
  * @package       Cake.Error
  */
 class MissingModelException extends Exception {
+
 	protected $_messageTemplate = 'Model %s could not be found.';
+
 }
 
 /**
@@ -372,7 +421,9 @@ class MissingModelException extends Exception {
  * @package       Cake.Error
  */
 class MissingTestLoaderException extends Exception {
+
 	protected $_messageTemplate = 'Test loader %s could not be found.';
+
 }
 
 /**
@@ -381,7 +432,17 @@ class MissingTestLoaderException extends Exception {
  * @package       Cake.Error
  */
 class MissingPluginException extends Exception {
+
 	protected $_messageTemplate = 'Plugin %s could not be found.';
+
+}
+
+/**
+ * Exception class for AclComponent and Interface implementations. 
+ *
+ * @package       Cake.Error
+ */
+class AclException extends CakeException {
 }
 
 /**
@@ -390,7 +451,8 @@ class MissingPluginException extends Exception {
  *
  * @package       Cake.Error
  */
-class CacheException extends Exception { }
+class CacheException extends Exception {
+}
 
 /**
  * Exception class for Router.  This exception will be thrown from Router when it
@@ -398,7 +460,8 @@ class CacheException extends Exception { }
  *
  * @package       Cake.Error
  */
-class RouterException extends Exception { }
+class RouterException extends Exception {
+}
 
 /**
  * Exception class for Log.  This exception will be thrown from Log when it
@@ -406,7 +469,8 @@ class RouterException extends Exception { }
  *
  * @package       Cake.Error
  */
-class LogException extends Exception { }
+class LogException extends Exception {
+}
 
 /**
  * Exception class for Cake\Model\Datasource\Session.  This exception will be thrown from Cake\Model\Datasource\Session when it
@@ -414,7 +478,8 @@ class LogException extends Exception { }
  *
  * @package       Cake.Error
  */
-class SessionException extends Exception { }
+class SessionException extends Exception {
+}
 
 /**
  * Exception class for Configure.  This exception will be thrown from Configure when it
@@ -422,7 +487,8 @@ class SessionException extends Exception { }
  *
  * @package       Cake.Error
  */
-class ConfigureException extends Exception { }
+class ConfigureException extends Exception {
+}
 
 /**
  * Exception class for Socket. This exception will be thrown from Socket, Email, HttpSocket
@@ -430,7 +496,8 @@ class ConfigureException extends Exception { }
  *
  * @package       Cake.Error
  */
-class SocketException extends Exception { }
+class SocketException extends Exception {
+}
 
 /**
  * Exception class for Xml.  This exception will be thrown from Xml when it
@@ -438,7 +505,8 @@ class SocketException extends Exception { }
  *
  * @package       Cake.Error
  */
-class XmlException extends Exception { }
+class XmlException extends Exception {
+}
 
 /**
  * Exception class for Console libraries.  This exception will be thrown from Console library
@@ -446,4 +514,5 @@ class XmlException extends Exception { }
  *
  * @package       Cake.Error
  */
-class ConsoleException extends Exception { }
+class ConsoleException extends Exception {
+}

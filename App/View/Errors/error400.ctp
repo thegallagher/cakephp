@@ -1,6 +1,5 @@
 <?php
 /**
- * AppShell file
  *
  * PHP 5
  *
@@ -12,20 +11,24 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @since         CakePHP(tm) v 2.0
+ * @package       Cake.View.Errors
+ * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Shell', 'Console');
+use Cake\Core\Configure;
 
-/**
- * Application Shell
- *
- * Add your application-wide methods in the class below, your shells
- * will inherit them.
- *
- * @package       app.Console.Command
- */
-class AppShell extends Shell {
-
-}
+?>
+<h2><?php echo $name; ?></h2>
+<p class="error">
+	<strong><?php echo __d('cake', 'Error'); ?>: </strong>
+	<?php printf(
+		__d('cake', 'The requested address %s was not found on this server.'),
+		"<strong>'{$url}'</strong>"
+	); ?>
+</p>
+<?php
+if (Configure::read('debug') > 0 ):
+	echo $this->element('exception_stack_trace');
+endif;
+?>

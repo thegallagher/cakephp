@@ -73,7 +73,7 @@ class ActionsAuthorizeTest extends TestCase {
 
 		$this->Acl->expects($this->once())
 			->method('check')
-			->with($user, '/controllers/Posts/index')
+			->with($user, 'controllers/Posts/index')
 			->will($this->returnValue(false));
 
 		$this->assertFalse($this->auth->authorize($user['User'], $request));
@@ -102,7 +102,7 @@ class ActionsAuthorizeTest extends TestCase {
 
 		$this->Acl->expects($this->once())
 			->method('check')
-			->with($user, '/controllers/Posts/index')
+			->with($user, 'controllers/Posts/index')
 			->will($this->returnValue(true));
 
 		$this->assertTrue($this->auth->authorize($user['User'], $request));
@@ -132,7 +132,7 @@ class ActionsAuthorizeTest extends TestCase {
 		$expected = array('TestPlugin.TestPluginAuthUser' => array('id' => 1, 'user' => 'mariano'));
 		$this->Acl->expects($this->once())
 			->method('check')
-			->with($expected, '/controllers/Posts/index')
+			->with($expected, 'controllers/Posts/index')
 			->will($this->returnValue(true));
 
 		$this->assertTrue($this->auth->authorize($user, $request));
@@ -152,8 +152,23 @@ class ActionsAuthorizeTest extends TestCase {
 		));
 
 		$result = $this->auth->action($request);
+		$this->assertEquals('controllers/Posts/index', $result);
+	}
 
-		$this->assertEquals('/controllers/Posts/index', $result);
+/**
+ * Make sure that action() doesn't create double slashes anywhere.
+ *
+ * @return void
+ */
+	public function testActionNoDoubleSlash() {
+		$this->auth->settings['actionPath'] = '/controllers/';
+		$request = array(
+			'plugin' => null,
+			'controller' => 'posts',
+			'action' => 'index'
+		);
+		$result = $this->auth->action($request);
+		$this->assertEquals('controllers/Posts/index', $result);
 	}
 
 /**
@@ -170,6 +185,6 @@ class ActionsAuthorizeTest extends TestCase {
 		));
 
 		$result = $this->auth->action($request);
-		$this->assertEquals('/controllers/DebugKit/Posts/index', $result);
+		$this->assertEquals('controllers/DebugKit/Posts/index', $result);
 	}
 }

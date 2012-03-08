@@ -336,10 +336,10 @@ class ObjectTest extends TestCase {
  */
 	public function testRequestAction() {
 		App::build(array(
-			'models' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
-			'views' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
-			'controllers' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS)
-		), true);
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
+			'Controller' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS)
+		), App::RESET);
 		$this->assertNull(Router::getRequest(), 'request stack should be empty.');
 
 		$result = $this->object->requestAction('');
@@ -378,8 +378,8 @@ class ObjectTest extends TestCase {
  */
 	public function testRequestActionPlugins() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
-		), true);
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+		), App::RESET);
 		Plugin::load('TestPlugin');
 		Router::reload();
 
@@ -415,12 +415,12 @@ class ObjectTest extends TestCase {
  */
 	public function testRequestActionArray() {
 		App::build(array(
-			'models' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
-			'views' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
-			'controllers' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS),
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin'. DS)
-		), true);
-		Plugin::loadAll();
+			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
+			'Controller' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin'. DS)
+		), App::RESET);
+		Plugin::load(array('TestPlugin'));
 
 		$result = $this->object->requestAction(
 			array('controller' => 'request_action', 'action' => 'test_request_action')

@@ -25,7 +25,6 @@ use Cake\TestSuite\TestCase,
 /**
  * Short description for class.
  *
- * @package		  cake.tests
  * @package       Cake.Test.Case.Utility
  */
 class InflectorTest extends TestCase {

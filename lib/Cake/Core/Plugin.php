@@ -132,7 +132,7 @@ class Plugin {
 			if ($opts === null && isset($options[0])) {
 				$opts = $options[0];
 			}
-			self::load($p, (array) $opts);
+			self::load($p, (array)$opts);
 		}
 	}
 
@@ -182,7 +182,7 @@ class Plugin {
 
 		$path = self::path($plugin);
 		if ($config['bootstrap'] === true) {
-			return include($path . 'Config' . DS . 'bootstrap.php');
+			return include $path . 'Config' . DS . 'bootstrap.php';
 		}
 
 		$bootstrap = (array)$config['bootstrap'];
@@ -211,7 +211,7 @@ class Plugin {
 		if ($config['routes'] === false) {
 			return false;
 		}
-		return (bool) include self::path($plugin) . 'Config' . DS . 'routes.php';
+		return (bool)include self::path($plugin) . 'Config' . DS . 'routes.php';
 	}
 
 /**
@@ -244,4 +244,5 @@ class Plugin {
 			unset(self::$_plugins[$plugin]);
 		}
 	}
+
 }

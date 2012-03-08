@@ -33,6 +33,7 @@ class TestSuiteCommand extends \PHPUnit_TextUI_Command {
  * Construct method
  *
  * @param array $params list of options to be used for this run
+ * @throws MissingTestLoaderException When a loader class could not be found.
  */
 	public function __construct($loader, $params = array()) {
 	    if ($loader && !class_exists($loader)) {
@@ -151,4 +152,5 @@ class TestSuiteCommand extends \PHPUnit_TextUI_Command {
 
 		return $this->arguments['printer'] = $object;
 	}
+
 }

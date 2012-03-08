@@ -272,7 +272,7 @@ class App {
 		if (!empty($plugin)) {
 			$path = array();
 			$pluginPath = self::pluginPath($plugin);
-			$packageFormat= self::_packageFormat();
+			$packageFormat = self::_packageFormat();
 			if (!empty($packageFormat[$type])) {
 				foreach ($packageFormat[$type] as $f) {
 					$path[] = sprintf($f, $pluginPath);
@@ -421,7 +421,7 @@ class App {
 		$themeDir = 'Themed' . DS . Inflector::camelize($theme);
 		foreach (self::$_packages['View'] as $path) {
 			if (is_dir($path . $themeDir)) {
-				return $path . $themeDir . DS ;
+				return $path . $themeDir . DS;
 			}
 		}
 		return self::$_packages['View'][0] . $themeDir . DS;
@@ -511,7 +511,7 @@ class App {
 					foreach ($files as $file) {
 						$fileName = basename($file);
 						if (!$file->isDot() && $fileName[0] !== '.') {
-							$isDir = $file->isDir() ;
+							$isDir = $file->isDir();
 							if ($isDir && $includeDirectories) {
 								$objects[] = $fileName;
 							} elseif (!$includeDirectories && !$isDir) {
@@ -566,7 +566,7 @@ class App {
 
 		if (empty($plugin)) {
 			$appLibs = empty(self::$_packages['Lib']) ? APPLIBS : current(self::$_packages['Lib']);
-			$paths[] =  $appLibs . $package . DS;
+			$paths[] = $appLibs . $package . DS;
 			$paths[] = APP . $package . DS;
 			$paths[] = CAKE . $package . DS;
 		} else {
@@ -711,7 +711,7 @@ class App {
 				),
 				'Vendor' => array(
 					'%s' . 'Vendor' . DS,
-					VENDORS
+					dirname(dirname(CAKE)) . DS . 'vendors' . DS,
 				),
 				'Plugin' => array(
 					APP . 'Plugin' . DS,
@@ -738,4 +738,5 @@ class App {
 			Cache::write('object_map', self::$_objects, '_cake_core_');
 		}
 	}
+
 }

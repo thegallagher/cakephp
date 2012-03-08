@@ -56,7 +56,6 @@ class EventManager {
  */
 	protected $_isGlobal = false;
 
-
 /**
  * Returns the globally available instance of a Cake\Event\EventManager
  * this is used for dispatching events attached from outside the scope
@@ -97,6 +96,8 @@ class EventManager {
  * when the listener is called. If $called is an instance of Cake\Event\EventListener, this parameter will be ignored
  *
  * @return void
+ * @throws InvalidArgumentException When event key is missing or callable is not an
+ *   instance of CakeEventListener.
  */
 	public function attach($callable, $eventKey = null, $options = array()) {
 		if (!$eventKey && !($callable instanceof EventListener)) {
@@ -126,7 +127,7 @@ class EventManager {
 			$method = $function;
 			if (is_array($function) && isset($function['callable'])) {
 				list($method, $options) = $this->_extractCallable($function, $subscriber);
-			} else if (is_array($function) && is_numeric(key($function))) {
+			} elseif (is_array($function) && is_numeric(key($function))) {
 				foreach ($function as $f) {
 					list($method, $options) = $this->_extractCallable($f, $subscriber);
 					$this->attach($method, $eventKey, $options);
@@ -198,7 +199,7 @@ class EventManager {
 		$events = $subscriber->implementedEvents();
 		if (!empty($eventKey) && empty($events[$eventKey])) {
 			return;
-		} else if (!empty($eventKey)) {
+		} elseif (!empty($eventKey)) {
 			$events = array($eventKey => $events[$eventKey]);
 		}
 		foreach ($events as $key => $function) {

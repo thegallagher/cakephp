@@ -292,4 +292,5 @@ class BehaviorCollection extends ObjectCollection implements EventListener {
 			'Model.afterDelete' => 'trigger'
 		);
 	}
+
 }

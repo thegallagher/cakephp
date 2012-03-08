@@ -117,4 +117,5 @@ class I18nShell extends Shell {
 				'parser' => $this->Extract->getOptionParser()
 			));
 	}
+
 }

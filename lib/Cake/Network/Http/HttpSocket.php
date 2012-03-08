@@ -405,7 +405,7 @@ class HttpSocket extends Socket {
 			$this->config['request']['cookies'][$Host] = array_merge($this->config['request']['cookies'][$Host], $this->response->cookies);
 		}
 
-		if($this->request['redirect'] && $this->response->isRedirect()) {
+		if ($this->request['redirect'] && $this->response->isRedirect()) {
 			$request['uri'] = $this->response->getHeader('Location');
 			$request['redirect'] = is_int($this->request['redirect']) ? $this->request['redirect'] - 1 : $this->request['redirect'];
 			$this->response = $this->request($request);
@@ -924,4 +924,5 @@ class HttpSocket extends Socket {
 		parent::reset($initalState);
 		return true;
 	}
+
 }

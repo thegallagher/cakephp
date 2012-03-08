@@ -55,4 +55,5 @@ class PluginShortRoute extends Route {
 		unset($this->defaults['controller']);
 		return $result;
 	}
+
 }

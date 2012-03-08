@@ -124,4 +124,5 @@ class ComponentCollection extends ObjectCollection implements EventListener {
 			'Controller.shutdown' => array('callable' => 'trigger'),
 		);
 	}
+
 }

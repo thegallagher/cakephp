@@ -21,6 +21,7 @@
 namespace Cake\Controller\Component;
 use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
+	Cake\Controller\Controller,
 	Cake\Model\Datasource\Session,
 	Cake\Routing\Router,
 	Cake\Network\Request,
@@ -250,7 +251,7 @@ class AuthComponent extends Component {
  * @param Controller $controller A reference to the instantiating controller object
  * @return void
  */
-	public function initialize($controller) {
+	public function initialize(Controller $controller) {
 		$this->request = $controller->request;
 		$this->response = $controller->response;
 		$this->_methods = $controller->methods;
@@ -267,7 +268,7 @@ class AuthComponent extends Component {
  * @param Controller $controller A reference to the instantiating controller object
  * @return boolean
  */
-	public function startup($controller) {
+	public function startup(Controller $controller) {
 		if ($controller->name == 'Error') {
 			return true;
 		}
@@ -694,7 +695,7 @@ class AuthComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return void
  */
-	public function shutdown($controller) {
+	public function shutdown(Controller $controller) {
 		if ($this->loggedIn()) {
 			$this->Session->delete('Auth.redirect');
 		}
@@ -718,4 +719,5 @@ class AuthComponent extends Component {
 	public function flash($message) {
 		$this->Session->setFlash($message, $this->flash['element'], $this->flash['params'], $this->flash['key']);
 	}
+
 }

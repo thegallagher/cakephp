@@ -112,8 +112,8 @@ class TextReporter extends BaseReporter {
  */
 	public function paintException($exception) {
 		$message = 'Unexpected exception of type [' . get_class($exception) .
-			'] with message ['. $exception->getMessage() .
-			'] in ['. $exception->getFile() .
+			'] with message [' . $exception->getMessage() .
+			'] in [' . $exception->getFile() .
 			' line ' . $exception->getLine() . ']';
 		echo $message . "\n\n";
 	}
@@ -167,7 +167,7 @@ class TextReporter extends BaseReporter {
 		}
 
 		foreach ($testCases as $testCaseFile => $testCase) {
-			$buffer .= $_SERVER['SERVER_NAME'] . $this->baseUrl() ."?case=" . $testCase . "&output=text"."\n";
+			$buffer .= $_SERVER['SERVER_NAME'] . $this->baseUrl() . "?case=" . $testCase . "&output=text\n";
 		}
 
 		$buffer .= "\n";

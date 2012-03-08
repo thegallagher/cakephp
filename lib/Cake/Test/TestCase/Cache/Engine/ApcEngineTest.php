@@ -80,7 +80,7 @@ class ApcEngineTest extends TestCase {
  *
  * @return void
  */
-	function testReadWriteDurationZero() {
+	public function testReadWriteDurationZero() {
 		Cache::config('apc', array('engine' => 'Apc', 'duration' => 0, 'prefix' => 'cake_'));
 		Cache::write('zero', 'Should save', 'apc');
 		sleep(1);

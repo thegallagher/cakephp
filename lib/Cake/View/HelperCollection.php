@@ -153,4 +153,5 @@ class HelperCollection extends ObjectCollection implements EventListener {
 		}
 		return parent::trigger($callback, $params, $options);
 	}
+
 }

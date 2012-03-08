@@ -8802,7 +8802,6 @@ mb_strtoupper does not work for these strings.
 		$this->assertEquals($expected, $result);
 
 		$string = 'ĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮĲĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŹŻŽ';
-		$find = 'Ċ';
 		$result = mb_substr($string, 4, 7);
 		$expected = 'ĈĊČĎĐĒĔ';
 		$this->assertEquals($expected, $result);
@@ -8960,7 +8959,6 @@ mb_strtoupper does not work for these strings.
 		$this->assertEquals($expected, $result);
 
 		$string = 'ĀĂĄĆĈĊČĎĐĒĔĖĘĚĜĞĠĢĤĦĨĪĬĮĲĴĶĹĻĽĿŁŃŅŇŊŌŎŐŒŔŖŘŚŜŞŠŢŤŦŨŪŬŮŰŲŴŶŹŻŽ';
-		$find = 'Ċ';
 		$result = Multibyte::substr($string, 4, 7);
 		$expected = 'ĈĊČĎĐĒĔ';
 		$this->assertEquals($expected, $result);

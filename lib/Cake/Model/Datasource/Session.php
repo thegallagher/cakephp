@@ -680,4 +680,5 @@ class Session {
 		self::$error[$errorNumber] = $errorMessage;
 		self::$lastError = $errorNumber;
 	}
+
 }

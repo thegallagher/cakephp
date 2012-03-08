@@ -48,7 +48,7 @@ function config() {
 	$args = func_get_args();
 	foreach ($args as $arg) {
 		if (file_exists(APP . 'Config' . DS . $arg . '.php')) {
-			include_once(APP . 'Config' . DS . $arg . '.php');
+			include_once APP . 'Config' . DS . $arg . '.php';
 
 			if (count($args) == 1) {
 				return true;
@@ -80,7 +80,7 @@ function debug($var = false, $showHtml = null, $showFrom = true) {
 		$lineInfo = '';
 		if ($showFrom) {
 			$trace = Debugger::trace(array('start' => 1, 'depth' => 2, 'format' => 'array'));
-			$file = substr($trace[0]['file'], strlen(ROOT) + 1);
+			$file = substr($trace[0]['file'], strlen(ROOT));
 			$line = $trace[0]['line'];
 		}
 		$html = <<<HTML
@@ -121,16 +121,16 @@ TEXT;
 
 if (!function_exists('sortByKey')) {
 
-	/**
-	 * Sorts given $array by key $sortby.
-	 *
-	 * @param array $array Array to sort
-	 * @param string $sortby Sort by this key
-	 * @param string $order  Sort order asc/desc (ascending or descending).
-	 * @param integer $type Type of sorting to perform
-	 * @return mixed Sorted array
-	 * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#sortByKey
-	 */
+/**
+ * Sorts given $array by key $sortby.
+ *
+ * @param array $array Array to sort
+ * @param string $sortby Sort by this key
+ * @param string $order  Sort order asc/desc (ascending or descending).
+ * @param integer $type Type of sorting to perform
+ * @return mixed Sorted array
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#sortByKey
+ */
 	function sortByKey(&$array, $sortby, $order = 'asc', $type = SORT_NUMERIC) {
 		if (!is_array($array)) {
 			return null;
@@ -173,7 +173,7 @@ function h($text, $double = true, $charset = null) {
 		return $texts;
 	} elseif (is_object($text)) {
 		if (method_exists($text, '__toString')) {
-			$text = (string) $text;
+			$text = (string)$text;
 		} else {
 			$text = '(object)' . get_class($text);
 		}
@@ -768,3 +768,4 @@ function convertSlash($string) {
 	$string = str_replace('/', '_', $string);
 	return $string;
 }
+

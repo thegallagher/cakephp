@@ -26,6 +26,7 @@ use Cake\Utility\ObjectCollection,
  * @package       Cake.Console
  */
 class TaskCollection extends ObjectCollection {
+
 /**
  * Shell to use to set params to tasks.
  *

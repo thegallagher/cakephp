@@ -26,6 +26,7 @@ use Cake\Error;
  * @package       Cake.Console
  */
 class ConsoleInputOption {
+
 /**
  * Name of the option
  *
@@ -173,7 +174,7 @@ class ConsoleInputOption {
  * @return boolean
  */
 	public function isBoolean() {
-		return (bool) $this->_boolean;
+		return (bool)$this->_boolean;
 	}
 
 /**
@@ -218,4 +219,5 @@ class ConsoleInputOption {
 		}
 		return $parent;
 	}
+
 }

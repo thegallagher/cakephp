@@ -113,6 +113,9 @@ class PaginatorHelper extends Helper {
  */
 	public function beforeRender($viewFile) {
 		$this->options['url'] = array_merge($this->request->params['pass'], $this->request->params['named']);
+		if (!empty($this->request->query)) {
+			$this->options['url']['?'] = $this->request->query;
+		}
 		parent::beforeRender($viewFile);
 	}
 
@@ -200,13 +203,14 @@ class PaginatorHelper extends Helper {
 			$params = $this->params($model);
 			$options = $params['options'];
 		}
-
 		if (isset($options['sort']) && !empty($options['sort'])) {
 			return $options['sort'];
-		} elseif (isset($options['order']) && is_array($options['order'])) {
-			return key($options['order']);
-		} elseif (isset($options['order']) && is_string($options['order'])) {
-			return $options['order'];
+		}
+		if (isset($options['order'])) {
+			return is_array($options['order']) ? key($options['order']) : $options['order'];
+		}
+		if (isset($params['order'])) {
+			return is_array($params['order']) ? key($params['order']) : $params['order'];
 		}
 		return null;
 	}
@@ -232,6 +236,8 @@ class PaginatorHelper extends Helper {
 			$dir = strtolower($options['direction']);
 		} elseif (isset($options['order']) && is_array($options['order'])) {
 			$dir = strtolower(current($options['order']));
+		} elseif (isset($params['order']) && is_array($params['order'])) {
+			$dir = strtolower(current($params['order']));
 		}
 
 		if ($dir == 'desc') {
@@ -691,7 +697,7 @@ class PaginatorHelper extends Helper {
 			$start = $params['page'] - ($modulus - ($end - $params['page']));
 			if ($start <= 1) {
 				$start = 1;
-				$end = $params['page'] + ($modulus  - $params['page']) + 1;
+				$end = $params['page'] + ($modulus - $params['page']) + 1;
 			}
 
 			if ($first && $start > 1) {
@@ -706,8 +712,7 @@ class PaginatorHelper extends Helper {
 			$out .= $before;
 
 			for ($i = $start; $i < $params['page']; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'))
-					. $separator;
+				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
 			}
 
 			if ($class) {
@@ -720,8 +725,7 @@ class PaginatorHelper extends Helper {
 
 			$start = $params['page'] + 1;
 			for ($i = $start; $i < $end; $i++) {
-				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class'))
-					. $separator;
+				$out .= $this->Html->tag($tag, $this->link($i, array('page' => $i), $options), compact('class')) . $separator;
 			}
 
 			if ($end != $params['page']) {
@@ -744,7 +748,6 @@ class PaginatorHelper extends Helper {
 
 			for ($i = 1; $i <= $params['pageCount']; $i++) {
 				if ($i == $params['page']) {
-					$currentClass = 'current';
 					if ($class) {
 						$currentClass .= ' ' . $class;
 					}
@@ -825,8 +828,7 @@ class PaginatorHelper extends Helper {
 			$out .= $after;
 		} elseif ($params['page'] > 1 && is_string($first)) {
 			$options += array('rel' => 'first');
-			$out = $this->Html->tag($tag, $this->link($first, array('page' => 1), $options), compact('class'))
-				. $after;
+			$out = $this->Html->tag($tag, $this->link($first, array('page' => 1), $options), compact('class')) . $after;
 		}
 		return $out;
 	}
@@ -899,4 +901,5 @@ class PaginatorHelper extends Helper {
 		}
 		return $out;
 	}
+
 }

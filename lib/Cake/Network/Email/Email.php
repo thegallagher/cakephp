@@ -242,7 +242,6 @@ class Email {
 /**
  * Charset the email body is sent in
  *
- *
  * @var string
  */
 	public $charset = 'utf-8';
@@ -250,15 +249,17 @@ class Email {
 /**
  * Charset the email header is sent in
  * If null, the $charset property will be used as default
+ *
  * @var string
  */
 	public $headerCharset = null;
 
 /**
  * The application wide charset, used to encode headers and body
+ *
  * @var string
  */
-	public $_appCharset = null;
+	protected $_appCharset = null;
 
 /**
  * List of files that should be attached to the email.
@@ -686,6 +687,9 @@ class Email {
 			if ($email === $alias) {
 				$return[] = $email;
 			} else {
+				if (strpos($alias, ',') !== false) {
+					$alias = '"' . $alias . '"';
+				}
 				$return[] = sprintf('%s <%s>', $this->_encode($alias), $email);
 			}
 		}
@@ -942,7 +946,8 @@ class Email {
 
 /**
  * Send an email using the specified content, template and layout
- *
+ * 
+ * @param mixed $content String with message or array with messages
  * @return array
  * @throws SocketException
  */
@@ -1012,6 +1017,8 @@ class Email {
  *
  * @param array $config
  * @return void
+ * @throws ConfigureException When configuration file cannot be found, or is missing
+ *   the named config.
  */
 	protected function _applyConfig($config) {
 		if (is_string($config)) {
@@ -1105,9 +1112,6 @@ class Email {
 		if ($internalEncoding) {
 			$restore = mb_internal_encoding();
 			mb_internal_encoding($this->_appCharset);
-		}
-		if (strpos($text, ',') !== false) {
-			$text = '"' . $text . '"';
 		}
 		$return = mb_encode_mimeheader($text, $this->headerCharset, 'B');
 		if ($internalEncoding) {
@@ -1275,7 +1279,7 @@ class Email {
 	protected function _readFile($file) {
 		$handle = fopen($file, 'rb');
 		$data = fread($handle, filesize($file));
-		$data = chunk_split(base64_encode($data)) ;
+		$data = chunk_split(base64_encode($data));
 		fclose($handle);
 		return $data;
 	}
@@ -1355,7 +1359,7 @@ class Email {
 			$msg = array_merge($msg, $content);
 			$msg[] = '';
 		}
-	
+
 		if (isset($rendered['html'])) {
 			if ($textBoundary !== $boundary || $hasAttachments) {
 				$msg[] = '--' . $textBoundary;
@@ -1447,7 +1451,7 @@ class Email {
 			$View->set('content', $content);
 			$View->hasRendered = false;
 			$View->viewPath = $View->layoutPath = 'Emails' . DS . $type;
-	
+
 			$render = $View->render($template, $layout);
 			$render = str_replace(array("\r\n", "\r"), "\n", $render);
 			$rendered[$type] = $this->_encodeString($render, $this->charset);
@@ -1467,4 +1471,5 @@ class Email {
 		}
 		return '7bit';
 	}
+
 }

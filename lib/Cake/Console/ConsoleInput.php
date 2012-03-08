@@ -24,6 +24,7 @@ namespace Cake\Console;
  * @package       Cake.Console
  */
 class ConsoleInput {
+
 /**
  * Input value.
  *
@@ -48,4 +49,5 @@ class ConsoleInput {
 	public function read() {
 		return fgets($this->_input);
 	}
+
 }

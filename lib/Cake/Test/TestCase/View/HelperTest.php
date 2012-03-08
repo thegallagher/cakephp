@@ -204,6 +204,10 @@ class HelperTest extends TestCase {
 		ClassRegistry::addObject('HelperTestPost', new HelperTestPost());
 		ClassRegistry::addObject('HelperTestComment', new HelperTestComment());
 		ClassRegistry::addObject('HelperTestTag', new HelperTestTag());
+
+		App::build(array(
+			'Plugin' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS),
+		));
 	}
 
 /**
@@ -258,7 +262,7 @@ class HelperTest extends TestCase {
 	}
 
 /**
- * Test setting an entity and retriving the entity, model and field.
+ * Test setting an entity and retrieving the entity, model and field.
  *
  * @dataProvider entityProvider
  * @return void
@@ -462,7 +466,7 @@ class HelperTest extends TestCase {
  *
  * @return void
  */
-	function testValueWithDefault() {
+	public function testValueWithDefault() {
 		$this->Helper->request->data = array('zero' => 0);
 		$this->Helper->setEntity('zero');
 		$result = $this->Helper->value(array('default' => 'something'), 'zero');
@@ -482,7 +486,7 @@ class HelperTest extends TestCase {
  *
  * @return void
  */
-	function testValueHabtmKeys() {
+	public function testValueHabtmKeys() {
 		$this->Helper->request->data = array(
 			'HelperTestTag' => array('HelperTestTag' => '')
 		);
@@ -533,7 +537,7 @@ class HelperTest extends TestCase {
 		$this->assertEquals($result, '/controller/action/1?one=1&amp;two=2');
 
 		$result = $this->Helper->url(array('controller' => 'posts', 'action' => 'index', 'page' => '1" onclick="alert(\'XSS\');"'));
-		$this->assertEquals($result, "/posts/index/page:1&quot; onclick=&quot;alert(&#039;XSS&#039;);&quot;");
+		$this->assertEquals($result, "/posts/index/page:1%22%20onclick%3D%22alert%28%27XSS%27%29%3B%22");
 
 		$result = $this->Helper->url('/controller/action/1/param:this+one+more');
 		$this->assertEquals($result, '/controller/action/1/param:this+one+more');
@@ -547,7 +551,7 @@ class HelperTest extends TestCase {
 		$result = $this->Helper->url(array(
 			'controller' => 'posts', 'action' => 'index', 'param' => '%7Baround%20here%7D%5Bthings%5D%5Bare%5D%24%24'
 		));
-		$this->assertEquals($result, "/posts/index/param:%7Baround%20here%7D%5Bthings%5D%5Bare%5D%24%24");
+		$this->assertEquals($result, "/posts/index/param:%257Baround%2520here%257D%255Bthings%255D%255Bare%255D%2524%2524");
 
 		$result = $this->Helper->url(array(
 			'controller' => 'posts', 'action' => 'index', 'page' => '1',
@@ -596,6 +600,51 @@ class HelperTest extends TestCase {
 	}
 
 /**
+ * test assetUrl application
+ *
+ * @return void
+ */
+	public function testAssetUrl() {
+		$this->Helper->webroot = '';
+		$_timestamp = Configure::read('Asset.timestamp');
+
+		$result = $this->Helper->assetUrl(array(
+				'controller' => 'js',
+				'action' => 'post',
+				'ext' => 'js'
+			),
+			array('fullBase' => true)
+		);
+		$this->assertEquals(FULL_BASE_URL . '/js/post.js', $result);
+
+		$result = $this->Helper->assetUrl('foo.jpg', array('pathPrefix' => 'img/'));
+		$this->assertEquals('img/foo.jpg', $result);
+
+		$result = $this->Helper->assetUrl('foo.jpg', array('fullBase' => true));
+		$this->assertEquals(FULL_BASE_URL . '/foo.jpg', $result);
+
+		$result = $this->Helper->assetUrl('style', array('ext' => '.css'));
+		$this->assertEqual('style.css', $result);
+
+		Plugin::load('TestPlugin');
+
+		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css'));
+		$this->assertEqual('test_plugin/style.css', $result);
+
+		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css', 'plugin' => false));
+		$this->assertEqual('TestPlugin.style.css', $result);
+
+		Plugin::unload('TestPlugin');
+
+		Configure::write('Asset.timestamp', 'force');
+
+		$result = $this->Helper->assetUrl('cake.generic.css', array('pathPrefix' => CSS_URL));
+		$this->assertRegExp('/' . preg_quote(CSS_URL . 'cake.generic.css?', '/') . '[0-9]+/', $result);
+
+		Configure::write('Asset.timestamp', $_timestamp);
+	}
+
+/**
  * test assetTimestamp with plugins and themes
  *
  * @return void
@@ -604,10 +653,9 @@ class HelperTest extends TestCase {
 		$_timestamp = Configure::read('Asset.timestamp');
 		Configure::write('Asset.timestamp', 'force');
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
 		));
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin'));;
 
 		$result = $this->Helper->assetTimestamp('/test_plugin/css/test_plugin_asset.css');
 		$this->assertRegExp('#/test_plugin/css/test_plugin_asset.css\?[0-9]+$#', $result, 'Missing timestamp plugin');
@@ -846,7 +894,7 @@ class HelperTest extends TestCase {
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 		));
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin'));
 
 		$Helper = new TestHelper($this->View);
 		$this->assertInstanceOf('TestPlugin\View\Helper\OtherHelperHelper', $Helper->OtherHelper);

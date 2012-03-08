@@ -403,7 +403,7 @@ class Shell extends Object {
  */
 	protected function _displayHelp($command) {
 		$format = 'text';
-		if (!empty($this->args[0]) && $this->args[0] == 'xml')  {
+		if (!empty($this->args[0]) && $this->args[0] == 'xml') {
 			$format = 'xml';
 			$this->stdout->outputAs(ConsoleOutput::RAW);
 		} else {
@@ -815,4 +815,5 @@ class Shell extends Object {
 		}
 		return current(App::path('plugins')) . $pluginName . DS;
 	}
+
 }

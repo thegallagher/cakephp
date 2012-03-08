@@ -171,8 +171,8 @@ class MemcacheEngineTest extends TestCase {
  *
  * @return void
  */
-	function testParseServerStringUnix() {
-		$Memcache =& new TestMemcacheEngine();
+	public function testParseServerStringUnix() {
+		$Memcache = new TestMemcacheEngine();
 		$result = $Memcache->parseServerString('unix:///path/to/memcached.sock');
 		$this->assertEquals($result, array('unix:///path/to/memcached.sock', 0));
 	}
@@ -368,7 +368,7 @@ class MemcacheEngineTest extends TestCase {
 	}
 
 /**
- * test that a 0 duration can succesfully write.
+ * test that a 0 duration can successfully write.
  *
  * @return void
  */
@@ -387,7 +387,7 @@ class MemcacheEngineTest extends TestCase {
  * @return void
  */
 	public function testLongDurationEqualToZero() {
-		$memcache =& new TestMemcacheEngine();
+		$memcache = new TestMemcacheEngine();
 		$memcache->settings['compress'] = false;
 
 		$mock = $this->getMock('Memcache');

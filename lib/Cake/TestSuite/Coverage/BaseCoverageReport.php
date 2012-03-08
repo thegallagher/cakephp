@@ -68,7 +68,7 @@ abstract class BaseCoverageReport {
  */
 	public function __construct($coverage, BaseReporter $reporter) {
 		$this->_rawCoverage = $coverage;
-		$this->setParams($reporter);
+		$this->_setParams($reporter);
 	}
 
 /**
@@ -156,7 +156,7 @@ abstract class BaseCoverageReport {
 			if (is_array($coverageData[$lineno]) && !empty($coverageData[$lineno])) {
 				$covered++;
 				$total++;
-			} else if ($coverageData[$lineno] === -1 || $coverageData[$lineno] === array()) {
+			} elseif ($coverageData[$lineno] === -1 || $coverageData[$lineno] === array()) {
 				$total++;
 			}
 		}

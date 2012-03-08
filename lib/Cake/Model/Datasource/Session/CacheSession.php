@@ -27,6 +27,7 @@ use Cake\Cache\Cache,
  * @see Cake\Model\Datasource\Session for configuration information.
  */
 class CacheSession implements SessionHandlerInterface {
+
 /**
  * Method called on open of a database session.
  *
@@ -98,4 +99,5 @@ class CacheSession implements SessionHandlerInterface {
 	public function __destruct() {
 		session_write_close();
 	}
+
 }

@@ -93,7 +93,7 @@ class AclShell extends Shell {
 			if (!in_array($this->command, array('initdb'))) {
 				$collection = new ComponentCollection();
 				$this->Acl = new AclComponent($collection);
-				$controller = null;
+				$controller = new Controller();
 				$this->Acl->startup($controller);
 			}
 		}
@@ -202,7 +202,7 @@ class AclShell extends Shell {
 		}
 		$this->out(__d('cake_console', 'Path:'));
 		$this->hr();
-		for ($i = 0; $i < count($nodes); $i++) {
+		for ($i = 0, $len = count($nodes); $i < $len; $i++) {
 			$this->_outputNode($class, $nodes[$i], $i);
 		}
 	}
@@ -220,7 +220,7 @@ class AclShell extends Shell {
 		$data = $node[$class];
 		if ($data['alias']) {
 			$this->out($indent . "[" . $data['id'] . "] " . $data['alias']);
-		 } else {
+		} else {
 			$this->out($indent . "[" . $data['id'] . "] " . $data['model'] . '.' . $data['foreign_key']);
 		}
 	}
@@ -368,8 +368,9 @@ class AclShell extends Shell {
 			'help' => __d('cake_console', 'Type of node to create.')
 		);
 
-		$parser->description(__d('cake_console', 'A console tool for managing the DbAcl'))
-			->addSubcommand('create', array(
+		$parser->description(
+			__d('cake_console', 'A console tool for managing the DbAcl')
+			)->addSubcommand('create', array(
 				'help' => __d('cake_console', 'Create a new ACL node'),
 				'parser' => array(
 					'description' => __d('cake_console', 'Creates a new ACL object <node> under the parent'),
@@ -516,8 +517,9 @@ class AclShell extends Shell {
 		if (!isset($this->args[0]) || !isset($this->args[1])) {
 			return false;
 		}
-		extract($this->_dataVars($this->args[0]));
-		$key = is_numeric($this->args[1]) ? $secondary_id : 'alias';
+		$dataVars = $this->_dataVars($this->args[0]);
+		extract($dataVars);
+		$key = is_numeric($this->args[1]) ? $dataVars['secondary_id'] : 'alias';
 		$conditions = array($class . '.' . $key => $this->args[1]);
 		$possibility = $this->Acl->{$class}->find('all', compact('conditions'));
 		if (empty($possibility)) {
@@ -604,4 +606,5 @@ class AclShell extends Shell {
 		$vars['class'] = $class;
 		return $vars;
 	}
+
 }

@@ -446,9 +446,11 @@ class Mysql extends DboSource {
 		$old = version_compare($this->getVersion(), '4.1', '<=');
 		if ($table) {
 			$indices = $this->_execute('SHOW INDEX FROM ' . $table);
+			// @codingStandardsIgnoreStart
+			// MySQL columns don't match the cakephp conventions.
 			while ($idx = $indices->fetch(PDO::FETCH_OBJ)) {
 				if ($old) {
-					$idx = (object) current((array)$idx);
+					$idx = (object)current((array)$idx);
 				}
 				if (!isset($index[$idx->Key_name]['column'])) {
 					$col = array();
@@ -462,6 +464,7 @@ class Mysql extends DboSource {
 					$index[$idx->Key_name]['column'] = $col;
 				}
 			}
+			// @codingStandardsIgnoreEnd
 			$indices->closeCursor();
 		}
 		return $index;
@@ -593,9 +596,9 @@ class Mysql extends DboSource {
 					}
 				}
 				if (is_array($value['column'])) {
-					$out .= 'KEY '. $name .' (' . implode(', ', array_map(array(&$this, 'name'), $value['column'])) . ')';
+					$out .= 'KEY ' . $name . ' (' . implode(', ', array_map(array(&$this, 'name'), $value['column'])) . ')';
 				} else {
-					$out .= 'KEY '. $name .' (' . $this->name($value['column']) . ')';
+					$out .= 'KEY ' . $name . ' (' . $this->name($value['column']) . ')';
 				}
 				$alter[] = $out;
 			}
@@ -611,36 +614,33 @@ class Mysql extends DboSource {
  */
 	public function listDetailedSources($name = null) {
 		$condition = '';
-		$params = array();
 		if (is_string($name)) {
-				$condition = ' WHERE name = ' . $this->value($name);
-				$params = array($name);
+			$condition = ' WHERE name = ' . $this->value($name);
 		}
 		$result = $this->_connection->query('SHOW TABLE STATUS ' . $condition, PDO::FETCH_ASSOC);
 
 		if (!$result) {
-				$result->closeCursor();
-				return array();
+			$result->closeCursor();
+			return array();
 		} else {
-				$tables = array();
-				foreach ($result as $row) {
-						$tables[$row['Name']] = (array) $row;
-						unset($tables[$row['Name']]['queryString']);
-						if (!empty($row['Collation'])) {
-								$charset = $this->getCharsetName($row['Collation']);
-								if ($charset) {
-										$tables[$row['Name']]['charset'] = $charset;
-								}
-						}
+			$tables = array();
+			foreach ($result as $row) {
+				$tables[$row['Name']] = (array)$row;
+				unset($tables[$row['Name']]['queryString']);
+				if (!empty($row['Collation'])) {
+					$charset = $this->getCharsetName($row['Collation']);
+					if ($charset) {
+						$tables[$row['Name']]['charset'] = $charset;
+					}
 				}
-				$result->closeCursor();
-				if (is_string($name) && isset($tables[$name])) {
-						return $tables[$name];
-				}
-				return $tables;
+			}
+			$result->closeCursor();
+			if (is_string($name) && isset($tables[$name])) {
+				return $tables[$name];
+			}
+			return $tables;
 		}
 	}
-
 
 /**
  * Converts database-layer column types to basic types

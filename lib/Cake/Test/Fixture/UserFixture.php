@@ -40,8 +40,8 @@ class UserFixture extends TestFixture {
  */
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
-		'user' => array('type' => 'string', 'null' => false),
-		'password' => array('type' => 'string', 'null' => false),
+		'user' => array('type' => 'string', 'null' => true),
+		'password' => array('type' => 'string', 'null' => true),
 		'created' => 'datetime',
 		'updated' => 'datetime'
 	);

@@ -246,7 +246,6 @@ class ControllerTaskTest extends TestCase {
 		$scaffold = false;
 		$helpers = array('Ajax', 'Time');
 		$components = array('Acl', 'Auth');
-		$uses = array('Comment', 'User');
 
 		$this->Task->expects($this->at(4))->method('out')->with("Controller Name:\n\t$controller");
 		$this->Task->expects($this->at(5))->method('out')->with("Helpers:\n\tAjax, Time");
@@ -295,9 +294,6 @@ class ControllerTaskTest extends TestCase {
  */
 	public function testBakeWithPlugin() {
 		$this->Task->plugin = 'ControllerTest';
-		$helpers = array('Ajax', 'Time');
-		$components = array('Acl', 'Auth');
-		$uses = array('Comment', 'User');
 
 		//fake plugin path
 		Plugin::load('ControllerTest', array('path' =>  APP . 'Plugin' . DS . 'ControllerTest' . DS));

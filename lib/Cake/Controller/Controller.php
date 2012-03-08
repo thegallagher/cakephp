@@ -1,9 +1,5 @@
 <?php
 /**
- * Base controller class.
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -79,13 +75,20 @@ class Controller extends Object implements EventListener {
  *
  * Example: `public $uses = array('Product', 'Post', 'Comment');`
  *
- * Can be set to array() to use no models.  Can be set to false to
- * use no models and prevent the merging of $uses with AppController
+ * Can be set to several values to express different options:
+ *
+ * - `true` Use the default inflected model name.
+ * - `array()` Use only models defined in the parent class.
+ * - `false` Use no models at all, do not merge with parent class either.
+ * - `array('Post', 'Comment')` Use only the Post and Comment models. Models
+ *   Will also be merged with the parent class.
+ *
+ * The default value is `true`.
  *
  * @var mixed A single name as a string or a list of names as an array.
  * @link http://book.cakephp.org/2.0/en/controllers.html#components-helpers-and-uses
  */
-	public $uses = false;
+	public $uses = true;
 
 /**
  * An array containing the names of helpers this controller uses. The array elements should
@@ -141,7 +144,6 @@ class Controller extends Object implements EventListener {
  * @var array
  */
 	public $viewVars = array();
-
 
 /**
  * The name of the view file to render. The name specified
@@ -477,7 +479,9 @@ class Controller extends Object implements EventListener {
  *
  * @param Cake\Network\Request $request
  * @return mixed The resulting response.
- * @throws PrivateActionException, MissingActionException
+ * @throws PrivateActionException When actions are not public or prefixed by _
+ * @throws MissingActionException When actions are not defined and scaffolding is
+ *    not enabled.
  */
 	public function invokeAction(Request $request) {
 		try {
@@ -538,12 +542,16 @@ class Controller extends Object implements EventListener {
 	}
 
 /**
- * Merge components, helpers, and uses vars from Controller::$_mergeParent and PluginAppController.
+ * Merge components, helpers, and uses vars from 
+ * Controller::$_mergeParent and PluginAppController.
  *
  * @return void
  */
 	protected function _mergeControllerVars() {
 		$pluginController = $pluginDot = null;
+		$mergeParent = is_subclass_of($this, $this->_mergeParent);
+		$pluginVars = array();
+		$appVars = array();
 
 		if (!empty($this->plugin)) {
 			$pluginController = Plugin::getNamespace($this->plugin) . '\Controller\Controller';
@@ -553,40 +561,59 @@ class Controller extends Object implements EventListener {
 			$pluginDot = $this->plugin . '.';
 		}
 
-		if ($pluginController && $this->plugin != null) {
+		if ($pluginController) {
 			$merge = array('components', 'helpers');
-			$appVars = get_class_vars($pluginController);
-			if (
-				($this->uses !== null || $this->uses !== false) &&
-				is_array($this->uses) && !empty($appVars['uses'])
-			) {
-				$this->uses = array_merge($this->uses, array_diff($appVars['uses'], $this->uses));
-			}
 			$this->_mergeVars($merge, $pluginController);
 		}
 
-		if (is_subclass_of($this, $this->_mergeParent) || !empty($pluginController)) {
+		if ($mergeParent || !empty($pluginController)) {
 			$appVars = get_class_vars($this->_mergeParent);
 			$uses = $appVars['uses'];
 			$merge = array('components', 'helpers');
-
-			if ($uses == $this->uses && !empty($this->uses)) {
-				if (!in_array($pluginDot . $this->modelClass, $this->uses)) {
-					array_unshift($this->uses, $pluginDot . $this->modelClass);
-				} elseif ($this->uses[0] !== $pluginDot . $this->modelClass) {
-					$this->uses = array_flip($this->uses);
-					unset($this->uses[$pluginDot . $this->modelClass]);
-					$this->uses = array_flip($this->uses);
-					array_unshift($this->uses, $pluginDot . $this->modelClass);
-				}
-			} elseif (
-				($this->uses !== null || $this->uses !== false) &&
-				is_array($this->uses) && !empty($appVars['uses'])
-			) {
-				$this->uses = array_merge($this->uses, array_diff($appVars['uses'], $this->uses));
-			}
 			$this->_mergeVars($merge, $this->_mergeParent, true);
 		}
+
+		if ($this->uses === null) {
+			$this->uses = false;
+		}
+		if ($this->uses === true) {
+			$this->uses = array($pluginDot . $this->modelClass);
+		}
+		if (isset($appVars['uses']) && $appVars['uses'] === $this->uses) {
+			array_unshift($this->uses, $pluginDot . $this->modelClass);
+		}
+		if ($pluginController) {
+			$pluginVars = get_class_vars($pluginController);
+		}
+		if ($this->uses !== false) {
+			$this->_mergeUses($pluginVars);
+			$this->_mergeUses($appVars);
+		} else {
+			$this->uses = array();
+			$this->modelClass = '';
+		}
+	}
+
+/**
+ * Helper method for merging the $uses property together.
+ *
+ * Merges the elements not already in $this->uses into
+ * $this->uses.
+ *
+ * @param mixed $merge The data to merge in.
+ * @return void
+ */
+	protected function _mergeUses($merge) {
+		if (!isset($merge['uses'])) {
+			return;
+		}
+		if ($merge['uses'] === true) {
+			return;
+		}
+		$this->uses = array_merge(
+			$this->uses,
+			array_diff($merge['uses'], $this->uses)
+		);
 	}
 
 /**
@@ -618,7 +645,7 @@ class Controller extends Object implements EventListener {
 		$this->_mergeControllerVars();
 		$this->Components->init($this);
 		if ($this->uses) {
-			$this->uses = (array) $this->uses;
+			$this->uses = (array)$this->uses;
 			list(, $this->modelClass) = pluginSplit(current($this->uses));
 		}
 		return true;
@@ -706,7 +733,7 @@ class Controller extends Object implements EventListener {
 			$modelClass = $this->modelClass;
 		}
 
-		$this->uses = ($this->uses) ? $this->uses : array();
+		$this->uses = ($this->uses) ? (array)$this->uses : array();
 		if (!in_array($modelClass, $this->uses)) {
 			$this->uses[] = $modelClass;
 		}
@@ -918,16 +945,6 @@ class Controller extends Object implements EventListener {
 		}
 		$View = new $viewClass($this);
 
-		if (!empty($this->uses)) {
-			foreach ($this->uses as $model) {
-				list($plugin, $className) = pluginSplit($model);
-				$this->request->params['models'][$className] = compact('plugin', 'className');
-			}
-		}
-		if (!empty($this->modelClass) && ($this->uses === false || $this->uses === array())) {
-			$this->request->params['models'][$this->modelClass] = array('plugin' => $this->plugin, 'className' => $this->modelClass);
-		}
-
 		$models = ClassRegistry::keys();
 		foreach ($models as $currentModel) {
 			$currentObject = ClassRegistry::getObject($currentModel);
@@ -1041,10 +1058,10 @@ class Controller extends Object implements EventListener {
 				}
 				$fieldOp = strtoupper(trim($fieldOp));
 				if ($fieldOp === 'LIKE') {
-					$key = $key.' LIKE';
+					$key = $key . ' LIKE';
 					$value = '%' . $value . '%';
 				} elseif ($fieldOp && $fieldOp != '=') {
-					$key = $key.' ' . $fieldOp;
+					$key = $key . ' ' . $fieldOp;
 				}
 				$cond[$key] = $value;
 			}

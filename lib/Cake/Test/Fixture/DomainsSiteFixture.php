@@ -34,7 +34,7 @@ class DomainsSiteFixture extends TestFixture {
  * @var string 'Domain'
  * @access public
  */
-	var $name = 'DomainsSite';
+	public $name = 'DomainsSite';
 
 /**
  * fields property
@@ -42,7 +42,7 @@ class DomainsSiteFixture extends TestFixture {
  * @var array
  * @access public
  */
-	var $fields = array(
+	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'domain_id' => array('type' => 'integer', 'null' => false),
 		'site_id' => array('type' => 'integer', 'null' => false),
@@ -57,7 +57,7 @@ class DomainsSiteFixture extends TestFixture {
  * @var array
  * @access public
  */
-	var $records = array(
+	public $records = array(
 		array('site_id' => 1, 'domain_id' => 1, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
 		array('site_id' => 1, 'domain_id' => 2, 'active' => true, 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
 		array('site_id' => 2, 'domain_id' => 4, 'active' => true, 'created' => '2007-03-17 01:18:23', 'updated' => '2007-03-17 01:20:31'),

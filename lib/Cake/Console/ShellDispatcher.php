@@ -333,4 +333,5 @@ class ShellDispatcher {
 	protected function _stop($status = 0) {
 		exit($status);
 	}
+
 }

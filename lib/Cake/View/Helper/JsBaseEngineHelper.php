@@ -1,9 +1,5 @@
 <?php
 /**
- * JsEngineBaseClass
- *
- * PHP 5
- *
  * CakePHP :  Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc.
  *
@@ -59,16 +55,6 @@ abstract class JsBaseEngineHelper extends Helper {
  * @var array
  */
 	protected $_callbackArguments = array();
-
-/**
- * Constructor.
- *
- * @param View $View
- * @param array $settings
- */
-	public function __construct($View, $settings = array()) {
-		parent::__construct($View, $settings);
-	}
 
 /**
  * Create an `alert()` message in Javascript
@@ -539,7 +525,7 @@ abstract class JsBaseEngineHelper extends Helper {
  *
  * @param string $method Name of the method you are preparing callbacks for.
  * @param array $options Array of options being parsed
- * @param string $callbacks Additional Keys that contain callbacks
+ * @param array $callbacks Additional Keys that contain callbacks
  * @return array Array of options with callbacks added.
  */
 	protected function _prepareCallbacks($method, $options, $callbacks = array()) {
@@ -603,4 +589,5 @@ abstract class JsBaseEngineHelper extends Helper {
 		}
 		return $out;
 	}
+
 }

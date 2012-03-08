@@ -206,7 +206,7 @@ class DebuggerTest extends TestCase {
 	}
 
 /**
- * Test that choosing a non-existant format causes an exception
+ * Test that choosing a non-existent format causes an exception
  *
  * @expectedException Cake\Error\Exception
  * @return void
@@ -328,6 +328,7 @@ object(Cake\View\View) {
 	hasRendered => false
 	uuids => array()
 	request => null
+	response => object(CakeResponse) {}
 	elementCache => 'default'
 	int => (int) 2
 	float => (float) 1.333

@@ -137,4 +137,5 @@ class IniReader implements ConfigReaderInterface {
 		}
 		return $values;
 	}
+
 }

@@ -41,14 +41,14 @@ class CommandListShellTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
-			'plugins' => array(
+			'Plugin' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			),
 			'Console/Command' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Console' . DS . 'Command' . DS
 			)
-		), true);
-		Plugin::loadAll();
+		), App::RESET);
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 
 		$out = new TestStringOutput();
 		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);

@@ -115,4 +115,5 @@ class RedirectRoute extends Route {
 			exit($code);
 		}
 	}
+
 }

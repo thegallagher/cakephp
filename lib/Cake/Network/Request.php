@@ -31,6 +31,7 @@ use Cake\Core\Configure,
  * @package       Cake.Network
  */
 class Request implements \ArrayAccess {
+
 /**
  * Array of parameters parsed from the url.
  *
@@ -148,7 +149,14 @@ class Request implements \ArrayAccess {
 
 /**
  * process the post data and set what is there into the object.
- * processed data is available at $this->data
+ * processed data is available at `$this->data`
+ *
+ * Will merge POST vars prefixed with `data`, and ones without
+ * into a single array. Variables prefixed with `data` will overwrite those without.
+ *
+ * If you have mixed POST values be careful not to make any top level keys numeric
+ * containing arrays. Set::merge() is used to merge data, and it has possibly
+ * unexpected behavior in this situation.
  *
  * @return void
  */
@@ -168,10 +176,15 @@ class Request implements \ArrayAccess {
 			}
 			unset($this->data['_method']);
 		}
+
 		if (isset($this->data['data'])) {
 			$data = $this->data['data'];
-			unset($this->data['data']);
-			$this->data = Set::merge($this->data, $data);
+			if (count($this->data) <= 1) {
+				$this->data = $data;
+			} else {
+				unset($this->data['data']);
+				$this->data = Set::merge($this->data, $data);
+			}
 		}
 	}
 
@@ -187,7 +200,7 @@ class Request implements \ArrayAccess {
 			$query = $_GET;
 		}
 
-		unset($query['/' . str_replace('.', '_', $this->url)]);
+		unset($query['/' . str_replace('.', '_', urldecode($this->url))]);
 		if (strpos($this->url, '?') !== false) {
 			list(, $querystr) = explode('?', $this->url);
 			parse_str($querystr, $queryArgs);
@@ -265,7 +278,7 @@ class Request implements \ArrayAccess {
 				$base = '';
 			}
 
-			$this->webroot = $base .'/';
+			$this->webroot = $base . '/';
 			return $this->base = $base;
 		}
 
@@ -282,7 +295,7 @@ class Request implements \ArrayAccess {
 
 		if (!empty($base) || !$docRootContainsWebroot) {
 			if (strpos($this->webroot, '/' . $dir . '/') === false) {
-				$this->webroot .= $dir . '/' ;
+				$this->webroot .= $dir . '/';
 			}
 			if (strpos($this->webroot, '/' . $webroot . '/') === false) {
 				$this->webroot .= $webroot . '/';
@@ -506,6 +519,7 @@ class Request implements \ArrayAccess {
  * @return void
  */
 	public function addDetector($name, $options) {
+		$name = strtolower($name);
 		if (isset($this->_detectors[$name]) && isset($options['options'])) {
 			$options = Set::merge($this->_detectors[$name], $options);
 		}
@@ -549,7 +563,7 @@ class Request implements \ArrayAccess {
 	public function here($base = true) {
 		$url = $this->here;
 		if (!empty($this->query)) {
-			$url .= '?' . http_build_query($this->query);
+			$url .= '?' . http_build_query($this->query, null, '&');
 		}
 		if (!$base) {
 			$url = preg_replace('/^' . preg_quote($this->base, '/') . '/', '', $url, 1);
@@ -836,4 +850,5 @@ class Request implements \ArrayAccess {
 	public function offsetUnset($name) {
 		unset($this->params[$name]);
 	}
+
 }

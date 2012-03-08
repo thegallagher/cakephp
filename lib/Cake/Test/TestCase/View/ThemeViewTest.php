@@ -114,11 +114,11 @@ class ThemeViewTest extends TestCase {
 		$this->PostsController->index();
 		$this->ThemeView = new ThemeView($this->PostsController);
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
 		));
 		App::objects('plugins', null, false);
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin'));
 	}
 
 /**
@@ -215,7 +215,7 @@ class ThemeViewTest extends TestCase {
 		$View = new TestTheme2View($this->Controller);
 		ob_start();
 		$result = $View->getViewFileName('does_not_exist');
-		$expected = str_replace(array("\t", "\r\n", "\n"), "", ob_get_clean());
+		$expected = ob_get_clean();
 		$this->assertRegExp("/PagesController::/", $expected);
 		$this->assertRegExp("/views(\/|\\\)themed(\/|\\\)my_theme(\/|\\\)pages(\/|\\\)does_not_exist.ctp/", $expected);
 	}
@@ -236,7 +236,7 @@ class ThemeViewTest extends TestCase {
 		$View = new TestTheme2View($this->Controller);
 		ob_start();
 		$result = $View->getLayoutFileName();
-		$expected = str_replace(array("\t", "\r\n", "\n"), "", ob_get_clean());
+		$expected = ob_get_clean();
 		$this->assertRegExp("/Missing Layout/", $expected);
 		$this->assertRegExp("/views(\/|\\\)themed(\/|\\\)my_theme(\/|\\\)layouts(\/|\\\)whatever.ctp/", $expected);
 	}

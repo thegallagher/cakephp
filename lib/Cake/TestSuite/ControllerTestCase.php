@@ -51,7 +51,7 @@ class ControllerTestDispatcher extends Dispatcher {
  *
  * @return Controller
  */
-	function _getController($request, $response) {
+	protected function _getController($request, $response) {
 		if ($this->testController === null) {
 			$this->testController = parent::_getController($request, $response);
 		}
@@ -82,6 +82,7 @@ class ControllerTestDispatcher extends Dispatcher {
 			Router::reload();
 		}
 	}
+
 }
 
 /**
@@ -100,6 +101,7 @@ class InterceptContentHelper extends Helper {
 		$this->_View->assign('__view_no_layout__', $this->_View->fetch('content'));
 		$this->_View->Helpers->unload('InterceptContent');
 	}
+
 }
 
 /**
@@ -293,6 +295,8 @@ abstract class ControllerTestCase extends TestCase {
  * @param string $controller Controller name
  * @param array $mocks List of classes and methods to mock
  * @return Controller Mocked controller
+ * @throws MissingControllerException When controllers could not be created.
+ * @throws MissingComponentException When components could not be created.
  */
 	public function generate($controller, $mocks = array()) {
 		$classname = App::classname($controller, 'Controller', 'Controller');
@@ -361,4 +365,5 @@ abstract class ControllerTestCase extends TestCase {
 		$this->controller = $_controller;
 		return $this->controller;
 	}
+
 }

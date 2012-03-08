@@ -1,9 +1,5 @@
 <?php
 /**
- * Convenience class for handling directories.
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -193,7 +189,7 @@ class Folder {
  */
 	public function find($regexpPattern = '.*', $sort = false) {
 		list($dirs, $files) = $this->read($sort);
-		return array_values(preg_grep('/^' . $regexpPattern . '$/i', $files)); ;
+		return array_values(preg_grep('/^' . $regexpPattern . '$/i', $files));
 	}
 
 /**
@@ -414,10 +410,6 @@ class Folder {
 
 		if (is_array($exceptions)) {
 			$exceptions = array_flip($exceptions);
-			if (isset($exceptions['.'])) {
-				$skipHidden = true;
-				unset($exceptions['.']);
-			}
 		}
 		$skipHidden = false;
 		if ($exceptions === true) {
@@ -436,7 +428,7 @@ class Folder {
 			}
 			return array();
 		}
-		$pathLength = strlen($path);
+
 		foreach ($iterator as $itemPath => $fsIterator) {
 			if ($skipHidden) {
 				$subPathName = $fsIterator->getSubPathname();
@@ -755,7 +747,7 @@ class Folder {
 			$newpath = DS;
 		}
 
-		while (($part = array_shift($parts)) !== NULL) {
+		while (($part = array_shift($parts)) !== null) {
 			if ($part === '.' || $part === '') {
 				continue;
 			}
@@ -785,4 +777,5 @@ class Folder {
 		$lastChar = $path[strlen($path) - 1];
 		return $lastChar === '/' || $lastChar === '\\';
 	}
+
 }

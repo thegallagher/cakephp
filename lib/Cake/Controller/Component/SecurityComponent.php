@@ -19,6 +19,7 @@
 namespace Cake\Controller\Component;
 use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
+	Cake\Controller\Controller,
 	Cake\Network\Request,
 	Cake\Utility\Security,
 	Cake\Utility\Set,
@@ -209,7 +210,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return void
  */
-	public function startup($controller) {
+	public function startup(Controller $controller) {
 		$this->request = $controller->request;
 		$this->_action = $this->request->params['action'];
 		$this->_methodsRequired($controller);
@@ -312,7 +313,7 @@ class SecurityComponent extends Component {
  * @link http://book.cakephp.org/2.0/en/core-libraries/components/security-component.html#handling-blackhole-callbacks
  * @throws BadRequestException
  */
-	public function blackHole($controller, $error = '') {
+	public function blackHole(Controller $controller, $error = '') {
 		if ($this->blackHoleCallback == null) {
 			throw new Error\BadRequestException(__d('cake_dev', 'The request has been black-holed'));
 		} else {
@@ -340,7 +341,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return boolean true if $method is required
  */
-	protected function _methodsRequired($controller) {
+	protected function _methodsRequired(Controller $controller) {
 		foreach (array('Post', 'Get', 'Put', 'Delete') as $method) {
 			$property = 'require' . $method;
 			if (is_array($this->$property) && !empty($this->$property)) {
@@ -363,7 +364,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return boolean true if secure connection required
  */
-	protected function _secureRequired($controller) {
+	protected function _secureRequired(Controller $controller) {
 		if (is_array($this->requireSecure) && !empty($this->requireSecure)) {
 			$requireSecure = $this->requireSecure;
 
@@ -384,7 +385,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return boolean true if authentication required
  */
-	protected function _authRequired($controller) {
+	protected function _authRequired(Controller $controller) {
 		if (is_array($this->requireAuth) && !empty($this->requireAuth) && !empty($this->request->data)) {
 			$requireAuth = $this->requireAuth;
 
@@ -399,9 +400,9 @@ class SecurityComponent extends Component {
 					$tData = $this->Session->read('_Token');
 
 					if (
-						!empty($tData['allowedControllers']) && 
-						!in_array($this->request->params['controller'], $tData['allowedControllers']) || 
-						!empty($tData['allowedActions']) && 
+						!empty($tData['allowedControllers']) &&
+						!in_array($this->request->params['controller'], $tData['allowedControllers']) ||
+						!empty($tData['allowedActions']) &&
 						!in_array($this->request->params['action'], $tData['allowedActions'])
 					) {
 						if (!$this->blackHole($controller, 'auth')) {
@@ -424,7 +425,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller Instantiating controller
  * @return boolean true if submitted form is valid
  */
-	protected function _validatePost($controller) {
+	protected function _validatePost(Controller $controller) {
 		if (empty($controller->request->data)) {
 			return true;
 		}
@@ -467,7 +468,6 @@ class SecurityComponent extends Component {
 		);
 
 		foreach ($fieldList as $i => $key) {
-			$isDisabled = false;
 			$isLocked = (is_array($locked) && in_array($key, $locked));
 
 			if (!empty($unlockedFields)) {
@@ -550,7 +550,7 @@ class SecurityComponent extends Component {
  * @param Controller $controller A controller to check
  * @return boolean Valid csrf token.
  */
-	protected function _validateCsrf($controller) {
+	protected function _validateCsrf(Controller $controller) {
 		$token = $this->Session->read('_Token');
 		$requestToken = $controller->request->data('_Token.key');
 		if (isset($token['csrfTokens'][$requestToken]) && $token['csrfTokens'][$requestToken] >= time()) {
@@ -591,11 +591,12 @@ class SecurityComponent extends Component {
  * @param array $params Parameters to send to method
  * @return mixed Controller callback method's response
  */
-	protected function _callback($controller, $method, $params = array()) {
+	protected function _callback(Controller $controller, $method, $params = array()) {
 		if (is_callable(array($controller, $method))) {
 			return call_user_func_array(array(&$controller, $method), empty($params) ? null : $params);
 		} else {
 			return null;
 		}
 	}
+
 }

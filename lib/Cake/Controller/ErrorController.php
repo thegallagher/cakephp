@@ -77,4 +77,5 @@ class ErrorController extends Controller {
 			}
 		}
 	}
+
 }

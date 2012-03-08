@@ -35,8 +35,8 @@ class PluginTest extends TestCase {
  */
 	public function setUp() {
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
-		), true);
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
+		), App::RESET);
 		App::objects('plugins', null, false);
 	}
 

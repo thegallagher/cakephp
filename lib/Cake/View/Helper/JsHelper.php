@@ -430,4 +430,5 @@ class JsHelper extends Helper {
 		}
 		return array($options, $htmlOptions);
 	}
+
 }

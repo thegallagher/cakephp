@@ -49,7 +49,7 @@ class TestTask extends BakeTask {
  *
  * @var array
  */
-	public $classTypes =  array(
+	public $classTypes = array(
 		'Model' => 'Model',
 		'Controller' => 'Controller',
 		'Component' => 'Controller/Component',
@@ -97,7 +97,7 @@ class TestTask extends BakeTask {
 		$this->interactive = true;
 		$this->hr();
 		$this->out(__d('cake_console', 'Bake Tests'));
-		$this->out(__d('cake_console', 'Path: %s', $this->path));
+		$this->out(__d('cake_console', 'Path: %s', $this->getPath()));
 		$this->hr();
 
 		if ($type) {
@@ -278,7 +278,10 @@ class TestTask extends BakeTask {
 		if (strtolower($type) == 'model' || empty($this->classTypes[$type])) {
 			return $class;
 		}
-		if (strlen($class) - strpos($class, $type) == strlen($type)) {
+
+		$position = strpos($class, $type);
+
+		if ($position !== false && strlen($class) - $position == strlen($type)) {
 			return $class;
 		}
 		return $class . $type;
@@ -290,6 +293,7 @@ class TestTask extends BakeTask {
  * @param string $type The type of thing having a test generated.
  * @param string $plugin The plugin name.
  * @return string
+ * @throws Cake\Error\Exception When invalid object types are requested.
  */
 	public function mapType($type, $plugin) {
 		$type = ucfirst($type);
@@ -396,8 +400,8 @@ class TestTask extends BakeTask {
 	protected function _addFixture($name) {
 		$parent = get_parent_class($name);
 		$prefix = 'app.';
-		if (strtolower($parent) != 'appmodel' && strtolower(substr($parent, -8)) == 'appmodel') {
-			$pluginName = substr($parent, 0, strlen($parent) -8);
+		if (strtolower($parent) != 'appmodel' && strtolower(substr($parent, - 8)) == 'appmodel') {
+			$pluginName = substr($parent, 0, strlen($parent) - 8);
 			$prefix = 'plugin.' . Inflector::underscore($pluginName) . '.';
 		}
 		$fixture = $prefix . Inflector::underscore($name);
@@ -469,8 +473,9 @@ class TestTask extends BakeTask {
  * Generate the uses() calls for a type & classname
  *
  * @param string $type The Type of object you are generating tests for eg. controller
+ * @param string $realType The package name for the class.
  * @param string $className The Classname of the class the test is being generated for.
- * @return array Constructor snippets for the thing you are building.
+ * @return array An array containing used classes
  */
 	public function generateUses($type, $realType, $className) {
 		$uses = array();
@@ -528,4 +533,5 @@ class TestTask extends BakeTask {
 				'help' => __d('cake_console', 'CamelCased name of the plugin to bake tests for.')
 			))->epilog(__d('cake_console', 'Omitting all arguments and options will enter into an interactive mode.'));
 	}
+
 }

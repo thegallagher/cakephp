@@ -93,7 +93,7 @@ class ApiShell extends Shell {
 			$this->error(__d('cake_console', '%s not found', $class));
 		}
 
-		$parsed = $this->_parseClass($path . $class .'.php', $class);
+		$parsed = $this->_parseClass($path . $class . '.php', $class);
 
 		if (!empty($parsed)) {
 			if (isset($this->params['method'])) {
@@ -167,14 +167,14 @@ class ApiShell extends Shell {
 
 		$commands = array(
 			'path' => "\t<type>\n" .
-				"\t\tEither a full path or type of class (model, behavior, controller, component, view, helper).\n".
-				"\t\tAvailable values:\n\n".
-				"\t\tbehavior\tLook for class in CakePHP behavior path\n".
-				"\t\tcache\tLook for class in CakePHP cache path\n".
-				"\t\tcontroller\tLook for class in CakePHP controller path\n".
-				"\t\tcomponent\tLook for class in CakePHP component path\n".
-				"\t\thelper\tLook for class in CakePHP helper path\n".
-				"\t\tmodel\tLook for class in CakePHP model path\n".
+				"\t\tEither a full path or type of class (model, behavior, controller, component, view, helper).\n" .
+				"\t\tAvailable values:\n\n" .
+				"\t\tbehavior\tLook for class in CakePHP behavior path\n" .
+				"\t\tcache\tLook for class in CakePHP cache path\n" .
+				"\t\tcontroller\tLook for class in CakePHP controller path\n" .
+				"\t\tcomponent\tLook for class in CakePHP component path\n" .
+				"\t\thelper\tLook for class in CakePHP helper path\n" .
+				"\t\tmodel\tLook for class in CakePHP model path\n" .
 				"\t\tview\tLook for class in CakePHP view path\n",
 			'className' => "\t<className>\n" .
 				"\t\tA CakePHP core class name (e.g: Component, HtmlHelper).\n"
@@ -204,7 +204,7 @@ class ApiShell extends Shell {
 		$parsed = array();
 
 		if (!class_exists($class)) {
-			if (!include_once($path)) {
+			if (!include_once $path) {
 				$this->err(__d('cake_console', '%s could not be found', $path));
 			}
 		}
@@ -235,4 +235,5 @@ class ApiShell extends Shell {
 		ksort($parsed);
 		return $parsed;
 	}
+
 }

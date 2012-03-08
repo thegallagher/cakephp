@@ -21,6 +21,7 @@ namespace Cake\Model\Datasource\Session;
  * @package       Cake.Model.Datasource.Session
  */
 interface SessionHandlerInterface {
+
 /**
  * Method called on open of a session.
  *
@@ -68,4 +69,5 @@ interface SessionHandlerInterface {
  * @return boolean Success
  */
 	public function gc($expires = null);
+
 }

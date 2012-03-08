@@ -45,4 +45,5 @@ interface EventListener  {
  * that should be called in the object when the respective event is fired
  */
 	public function implementedEvents();
+
 }

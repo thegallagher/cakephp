@@ -71,4 +71,5 @@ class Permission extends Model {
 		}
 		parent::__construct();
 	}
+
 }

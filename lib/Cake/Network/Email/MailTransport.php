@@ -31,6 +31,7 @@ class MailTransport extends AbstractTransport {
  *
  * @param Cake\Network\Email\Email $email Cake Email
  * @return array
+ * @throws SocketException When mail cannot be sent.
  */
 	public function send(Email $email) {
 		$eol = PHP_EOL;

@@ -159,4 +159,5 @@ class SessionHelper extends Helper {
 	public function valid() {
 		return Session::valid();
 	}
+
 }

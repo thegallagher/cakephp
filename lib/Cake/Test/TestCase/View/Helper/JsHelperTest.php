@@ -135,7 +135,7 @@ class JsHelperTest extends TestCase {
  *
  * @return void
  */
-	function _useMock() {
+	protected function _useMock() {
 		$request = new Request(null, false);
 
 		if (!class_exists('TestJsEngineHelper', false)) {

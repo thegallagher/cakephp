@@ -54,8 +54,8 @@ class AclComponentTest extends TestCase {
 	}
 
 /**
- * test that construtor throws an exception when Acl.classname is a
- * non-existant class
+ * test that constructor throws an exception when Acl.classname is a
+ * non-existent class
  *
  * @expectedException Cake\Error\Exception
  * @return void
@@ -67,7 +67,7 @@ class AclComponentTest extends TestCase {
 	}
 
 /**
- * test that adapter() allows control of the interal implementation AclComponent uses.
+ * test that adapter() allows control of the internal implementation AclComponent uses.
  *
  * @return void
  */

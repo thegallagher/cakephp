@@ -127,7 +127,7 @@ class FolderTest extends TestCase {
 	}
 
 /**
- * test creation of single and mulitple paths.
+ * test creation of single and multiple paths.
  *
  * @return void
  */
@@ -164,7 +164,7 @@ class FolderTest extends TestCase {
 	}
 
 /**
- * test recurisve directory create failure.
+ * test recursive directory create failure.
  *
  * @return void
  */
@@ -478,6 +478,9 @@ class FolderTest extends TestCase {
 		$result = $Folder->tree(null, true);
 		$this->assertEquals($expected, $result);
 
+		$result = $Folder->tree(null, array('.'));
+		$this->assertEquals($expected, $result);
+
 		$expected = array(
 			array(
 				$Folder->path,
@@ -730,15 +733,15 @@ class FolderTest extends TestCase {
 	}
 
 /**
- * testConstructWithNonExistantPath method
+ * testConstructWithNonExistentPath method
  *
  * @return void
  */
-	public function testConstructWithNonExistantPath() {
-		$Folder = new Folder(TMP . 'config_non_existant', true);
-		$this->assertTrue(is_dir(TMP . 'config_non_existant'));
+	public function testConstructWithNonExistentPath() {
+		$Folder = new Folder(TMP . 'config_non_existent', true);
+		$this->assertTrue(is_dir(TMP . 'config_non_existent'));
 		$Folder->cd(TMP);
-		$Folder->delete($Folder->pwd() . 'config_non_existant');
+		$Folder->delete($Folder->pwd() . 'config_non_existent');
 	}
 
 /**
@@ -747,7 +750,7 @@ class FolderTest extends TestCase {
  * @return void
  */
 	public function testDirSize() {
-		$Folder = new Folder(TMP . 'config_non_existant', true);
+		$Folder = new Folder(TMP . 'config_non_existent', true);
 		$this->assertEquals($Folder->dirSize(), 0);
 
 		$File = new File($Folder->pwd() . DS . 'my.php', true, 0777);
@@ -757,7 +760,7 @@ class FolderTest extends TestCase {
 		$this->assertEquals($Folder->dirSize(), 14);
 
 		$Folder->cd(TMP);
-		$Folder->delete($Folder->pwd() . 'config_non_existant');
+		$Folder->delete($Folder->pwd() . 'config_non_existent');
 	}
 
 /**

@@ -247,7 +247,7 @@ class AuthComponentTest extends TestCase {
 	}
 
 /**
- * test that isAuthroized calls methods correctly
+ * test that isAuthorized calls methods correctly
  *
  * @return void
  */
@@ -624,7 +624,9 @@ class AuthComponentTest extends TestCase {
 		$_SERVER['HTTP_REFERER'] = 'http://webmail.example.com/view/message';
 		$this->Auth->Session->delete('Auth');
 		$url = '/posts/edit/1';
-		$this->Auth->request = $this->Controller->request = new Request($url);
+		$request = new Request($url);
+		$request->query = array();
+		$this->Auth->request = $this->Controller->request = $request;
 		$this->Auth->request->addParams(Router::parse($url));
 		$this->Auth->request->url = $this->Auth->request->here = Router::normalize($url);
 		$this->Auth->initialize($this->Controller);
@@ -650,7 +652,7 @@ class AuthComponentTest extends TestCase {
 	}
 
 /**
- * test that no redirects or authoization tests occur on the loginAction
+ * test that no redirects or authorization tests occur on the loginAction
  *
  * @return void
  */

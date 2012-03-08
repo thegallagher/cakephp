@@ -194,7 +194,6 @@ class TestShell extends Shell {
 			'output' => 'text',
 		);
 
-
 		if (strpos($this->args[0], '.php')) {
 			$category = $this->_mapFileToCategory($this->args[0]);
 			$params['case'] = $this->_mapFileToCase($this->args[0], $category);
@@ -314,7 +313,7 @@ class TestShell extends Shell {
 		}
 
 		while ($choice = $this->in(__d('cake_console', 'What test case would you like to run?'), null, 'q')) {
-			if (is_numeric($choice)  && isset($cases[$choice])) {
+			if (is_numeric($choice) && isset($cases[$choice])) {
 				$this->args[0] = $category;
 				$this->args[1] = $cases[$choice];
 				$this->_run($this->_parseArgs(), $this->_runnerOptions());
@@ -373,7 +372,6 @@ class TestShell extends Shell {
 				}
 
 				throw new \Exception(__d('cake_dev', 'Test case %s cannot be run via this shell', $testFile));
-				return false;
 			}
 		}
 
@@ -388,7 +386,7 @@ class TestShell extends Shell {
 			if (!file_exists($testFile) && $throwOnMissingFile) {
 				throw new \Exception(__d('cake_dev', 'Test case %s not found', $testFile));
 			}
-				
+
 			return $testCase;
 		}
 
@@ -434,4 +432,5 @@ class TestShell extends Shell {
 		}
 		return 'app';
 	}
+
 }

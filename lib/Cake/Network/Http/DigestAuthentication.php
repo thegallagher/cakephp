@@ -102,4 +102,5 @@ class DigestAuthentication {
 		}
 		return $authHeader;
 	}
+
 }

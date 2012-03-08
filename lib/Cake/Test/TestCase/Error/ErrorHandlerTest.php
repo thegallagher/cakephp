@@ -47,7 +47,7 @@ class ErrorHandlerTest extends TestCase {
 			'View' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS
 			)
-		), true);
+		), App::RESET);
 		Router::reload();
 
 		$request = new Request(null, false);
@@ -235,10 +235,10 @@ class ErrorHandlerTest extends TestCase {
  */
 	public function testLoadPluginHanlder() {
 		App::build(array(
-			'plugins' => array(
+			'Plugin' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
-		), true);
+		), App::RESET);
 		Plugin::load('TestPlugin');
 		Configure::write('Exception.renderer', 'TestPlugin.TestPluginExceptionRenderer');
 		$error = new Error\NotFoundException('Kaboom!');

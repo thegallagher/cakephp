@@ -155,7 +155,7 @@ abstract class ClassRegistryAbstractModel extends ClassRegisterModel {
  */
 interface ClassRegistryInterfaceTest {
 
-	function doSomething();
+	public function doSomething();
 }
 
 /**

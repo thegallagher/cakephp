@@ -12,9 +12,10 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-namespace Cake\Controller\Component\Acl;
 
+namespace Cake\Controller\Component\Acl;
 use Cake\Core\Object,
+	Cake\Controller\Component,
 	Cake\Utility\ClassRegistry,
 	Cake\Controller\Component\Acl\AclInterface,
 	Cake\Utility\Set;
@@ -56,7 +57,7 @@ class DbAcl extends Object implements AclInterface {
  * @param AclComponent $component
  * @return void
  */
-	public function initialize($component) {
+	public function initialize(Component $component) {
 		$component->Aro = $this->Aro;
 		$component->Aco = $this->Aco;
 	}
@@ -98,7 +99,7 @@ class DbAcl extends Object implements AclInterface {
 		$acoIDs = Set::extract($acoPath, '{n}.' . $this->Aco->alias . '.id');
 
 		$count = count($aroPath);
-		for ($i = 0 ; $i < $count; $i++) {
+		for ($i = 0; $i < $count; $i++) {
 			$permAlias = $this->Aro->Permission->alias;
 
 			$perms = $this->Aro->Permission->find('all', array(
@@ -293,5 +294,5 @@ class DbAcl extends Object implements AclInterface {
 		}
 		return $newKeys;
 	}
-}
 
+}

@@ -99,4 +99,5 @@ class CrudAuthorize extends BaseAuthorize {
 			$this->settings['actionMap'][$request->params['action']]
 		);
 	}
+
 }

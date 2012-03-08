@@ -157,4 +157,5 @@ class ViewBlock {
 	public function unclosed() {
 		return $this->_active;
 	}
+
 }

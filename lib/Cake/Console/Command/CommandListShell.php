@@ -1,9 +1,5 @@
 <?php
 /**
- * Command list Shell
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -49,7 +45,7 @@ class CommandListShell extends Shell {
 	public function main() {
 		if (empty($this->params['xml'])) {
 			$this->out(__d('cake_console', "<info>Current Paths:</info>"), 2);
-			$this->out(" -app: ". APP_DIR);
+			$this->out(" -app: " . APP_DIR);
 			$this->out(" -working: " . rtrim(APP, DS));
 			$this->out(" -root: " . rtrim(ROOT, DS));
 			$this->out(" -core: " . rtrim(CORE_PATH, DS));
@@ -237,4 +233,5 @@ class CommandListShell extends Shell {
 				'boolean' => true
 			));
 	}
+
 }

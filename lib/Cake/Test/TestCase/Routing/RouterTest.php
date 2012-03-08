@@ -139,7 +139,7 @@ class RouterTest extends TestCase {
  */
 	public function testPluginMapResources() {
 		App::build(array(
-			'plugins' => array(
+			'Plugin' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		));
@@ -179,7 +179,7 @@ class RouterTest extends TestCase {
  */
 	public function testPluginMapResourcesWithPrefix() {
 		App::build(array(
-			'plugins' => array(
+			'Plugin' => array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
 		));
@@ -509,7 +509,7 @@ class RouterTest extends TestCase {
 			'keyed' => 'is an array',
 			'test'
 		)));
-		$expected = '/tests/index/namedParam[keyed]:is an array/namedParam[0]:test';
+		$expected = '/tests/index/namedParam[keyed]:is%20an%20array/namedParam[0]:test';
 		$this->assertEquals($expected, $result);
 	}
 
@@ -975,7 +975,8 @@ class RouterTest extends TestCase {
 		Router::reload();
 		Router::connect('/page/*', array('controller' => 'test'));
 		$result = Router::parse('/page/my-page');
-		$expected = array('pass' => array('my-page'), 'plugin' => null, 'controller' => 'test', 'action' => 'index');
+		$expected = array('pass' => array('my-page'), 'plugin' => null, 'controller' => 'test', 'action' => 'index', 'named' => array());
+		$this->assertEquals($expected, $result);
 
 		Router::reload();
 		Router::connect('/:language/contact', array('language' => 'eng', 'plugin' => 'contact', 'controller' => 'contact', 'action' => 'index'), array('language' => '[a-z]{3}'));
@@ -1192,8 +1193,8 @@ class RouterTest extends TestCase {
 			'plugins' =>  array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
-		), true);
-		Plugin::loadAll();
+		), App::RESET);
+		Plugin::load(array('TestPlugin'));
 
 		Router::reload();
 		require CAKE . 'Config' . DS . 'routes.php';
@@ -1711,6 +1712,8 @@ class RouterTest extends TestCase {
  */
 	public function testPrefixFalseIgnored() {
 		Configure::write('Routing.prefixes', array('admin'));
+		Router::reload();
+
 		Router::connect('/cache_css/*', array('admin' => false, 'controller' => 'asset_compress', 'action' => 'get'));
 
 		$url = Router::url(array('controller' => 'asset_compress', 'action' => 'get', 'test'));
@@ -2113,7 +2116,7 @@ class RouterTest extends TestCase {
 	}
 
 /**
- * testCurentRoute
+ * testCurrentRoute
  *
  * This test needs some improvement and actual requestAction() usage
  *
@@ -2204,8 +2207,8 @@ class RouterTest extends TestCase {
 			'plugins' =>  array(
 				CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS
 			)
-		), true);
-		Plugin::loadAll();
+		), App::RESET);
+		Plugin::load(array('TestPlugin', 'PluginJs'));
 		Router::reload();
 		require CAKE . 'Config' . DS . 'routes.php';
 

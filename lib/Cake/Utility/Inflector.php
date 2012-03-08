@@ -1,11 +1,5 @@
 <?php
 /**
- * Pluralize and singularize English words.
- *
- * Used by Cake's naming conventions throughout the framework.
- *
- * PHP 5
- *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
@@ -351,7 +345,6 @@ class Inflector {
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/inflector.html#Inflector::pluralize
  */
 	public static function pluralize($word) {
-
 		if (isset(self::$_cache['pluralize'][$word])) {
 			return self::$_cache['pluralize'][$word];
 		}
@@ -395,7 +388,6 @@ class Inflector {
  * @link http://book.cakephp.org/2.0/en/core-utility-libraries/inflector.html#Inflector::singularize
  */
 	public static function singularize($word) {
-
 		if (isset(self::$_cache['singularize'][$word])) {
 			return self::$_cache['singularize'][$word];
 		}
@@ -553,6 +545,7 @@ class Inflector {
 		$map = self::$_transliteration + $merge;
 		return preg_replace(array_keys($map), array_values($map), $string);
 	}
+
 }
 
 // Store the initial state

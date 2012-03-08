@@ -357,7 +357,7 @@ class ObjectCollectionTest extends TestCase {
 	}
 
 /**
- * test that returrning null doesn't modify parameters.
+ * test that returning null doesn't modify parameters.
  *
  * @return void
  */
@@ -388,7 +388,7 @@ class ObjectCollectionTest extends TestCase {
 	}
 
 /**
- * test order of callbacks trigerring based on priority.
+ * test order of callbacks triggering based on priority.
  *
  * @return void
  */

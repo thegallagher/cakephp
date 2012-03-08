@@ -112,14 +112,14 @@ class ControllerTestCaseTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
 			'Controller' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS),
 			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		), App::RESET);
 		$this->_ns = Configure::read('App.namespace');
 		Configure::write('App.namespace', 'TestApp');
-		Plugin::loadAll();
+		Plugin::load(array('TestPlugin', 'TestPluginTwo'));
 		$this->Case = $this->getMockForAbstractClass('Cake\TestSuite\ControllerTestCase');
 		Router::reload();
 	}

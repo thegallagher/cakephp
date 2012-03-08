@@ -34,7 +34,7 @@ class DomainFixture extends TestFixture {
  * @var string 'Domain'
  * @access public
  */
-	var $name = 'Domain';
+	public $name = 'Domain';
 
 /**
  * fields property
@@ -42,7 +42,7 @@ class DomainFixture extends TestFixture {
  * @var array
  * @access public
  */
-	var $fields = array(
+	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'domain' => array('type' => 'string', 'null' => false),
 		'created' => 'datetime',
@@ -55,7 +55,7 @@ class DomainFixture extends TestFixture {
  * @var array
  * @access public
  */
-	var $records = array(
+	public $records = array(
 		array('domain' => 'cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
 		array('domain' => 'book.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),
 		array('domain' => 'api.cakephp.org', 'created' => '2007-03-17 01:16:23', 'updated' => '2007-03-17 01:18:31'),

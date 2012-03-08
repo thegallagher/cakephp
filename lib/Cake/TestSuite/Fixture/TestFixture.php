@@ -40,30 +40,35 @@ class TestFixture {
 /**
  * Cake's DBO driver (e.g: DboMysql).
  *
+ * @var object
  */
 	public $db = null;
 
 /**
  * Fixture Datasource
  *
+ * @var string
  */
 	public $useDbConfig = 'test';
 
 /**
  * Full Table Name
  *
+ * @var string
  */
 	public $table = null;
 
 /**
  * List of datasources where this fixture has been created
  *
+ * @var array
  */
 	public $created = array();
 
 /**
  * Instantiate the fixture.
  *
+ * @throws CakeException on invalid datasource usage.
  */
 	public function __construct() {
 		if ($this->name === null) {
@@ -87,6 +92,8 @@ class TestFixture {
 /**
  * Initialize the fixture.
  *
+ * @return void
+ * @throws MissingModelException Whe importing from a model that does not exist.
  */
 	public function init() {
 		if (isset($this->import) && (is_string($this->import) || is_array($this->import))) {
@@ -211,7 +218,7 @@ class TestFixture {
 		$this->Schema->build(array($this->table => $this->fields));
 		try {
 			$db->execute($db->dropSchema($this->Schema), array('log' => false));
-			$this->created = array_diff($this->created, array($db->configKeyName));;
+			$this->created = array_diff($this->created, array($db->configKeyName));
 		} catch (\Exception $e) {
 			return false;
 		}
@@ -245,7 +252,6 @@ class TestFixture {
 		}
 	}
 
-
 /**
  * Truncates the current fixture. Can be overwritten by classes extending CakeFixture to trigger other events before / after
  * truncate.
@@ -260,4 +266,5 @@ class TestFixture {
 		$db->fullDebug = $fullDebug;
 		return $return;
 	}
+
 }

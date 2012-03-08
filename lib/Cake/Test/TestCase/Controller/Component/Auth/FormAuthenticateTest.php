@@ -119,7 +119,7 @@ class FormAuthenticateTest extends TestCase {
 	}
 
 /**
- * test authenticate sucesss
+ * test authenticate success
  *
  * @return void
  */
@@ -163,8 +163,8 @@ class FormAuthenticateTest extends TestCase {
 	public function testPluginModel() {
 		Cache::delete('object_map', '_cake_core_');
 		App::build(array(
-			'plugins' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
-		), true);
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS),
+		), App::RESET);
 		Plugin::load('TestPlugin');
 
 		$ts = date('Y-m-d H:i:s');

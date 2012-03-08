@@ -49,7 +49,7 @@ class ApiShellTest extends TestCase {
  *
  * @return void
  */
-	public function testMethodNameDetection () {
+	public function testMethodNameDetection() {
 		$this->Shell->expects($this->any())->method('in')->will($this->returnValue('q'));
 		$this->Shell->expects($this->at(0))->method('out')->with('Controller');
 

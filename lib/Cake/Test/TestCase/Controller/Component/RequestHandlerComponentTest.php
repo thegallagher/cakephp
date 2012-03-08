@@ -67,7 +67,7 @@ class RequestHandlerComponentTest extends TestCase {
  *
  * @return void
  */
-	function _init() {
+	protected function _init() {
 		$request = new Request('controller_posts/index');
 		$response = new Response();
 		$this->Controller = new RequestHandlerTestController($request, $response);
@@ -150,7 +150,7 @@ class RequestHandlerComponentTest extends TestCase {
 
 /**
  * Test that RequestHandler sets $this->ext when jQuery sends its wonky-ish headers
- * and the application is configured to handle multiplate extensions
+ * and the application is configured to handle multiple extensions
  *
  * @return void
  */
@@ -164,7 +164,7 @@ class RequestHandlerComponentTest extends TestCase {
 	}
 
 /**
- * Test that RequestHandler does not set $this->ext when multple accepts are sent.
+ * Test that RequestHandler does not set $this->ext when multiple accepts are sent.
  *
  * @return void
  */
@@ -389,7 +389,6 @@ class RequestHandlerComponentTest extends TestCase {
 		$this->RequestHandler->response->expects($this->at(1))->method('type')
 			->with('text/xml');
 
-		$RequestHandler = $this->getMock('Cake\Controller\Component\RequestHandlerComponent', array('_header'), array(&$this->Controller->Components));
 		$result = $this->RequestHandler->respondAs('json');
 		$this->assertTrue($result);
 		$result = $this->RequestHandler->respondAs('text/xml');
@@ -674,7 +673,7 @@ class RequestHandlerComponentTest extends TestCase {
 	public function testAjaxRedirectAsRequestAction() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
-		), true);
+		), App::RESET);
 
 		$this->Controller->RequestHandler = $this->getMock('Cake\Controller\Component\RequestHandlerComponent', array('_stop'), array(&$this->Controller->Components));
 		$this->Controller->request = $this->getMock('Cake\Network\Request');
@@ -703,7 +702,7 @@ class RequestHandlerComponentTest extends TestCase {
 	public function testAjaxRedirectAsRequestActionStillRenderingLayout() {
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
-		), true);
+		), App::RESET);
 
 		$this->Controller->RequestHandler = $this->getMock('Cake\Controller\Component\RequestHandlerComponent', array('_stop'), array(&$this->Controller->Components));
 		$this->Controller->request = $this->getMock('Cake\Network\Request');

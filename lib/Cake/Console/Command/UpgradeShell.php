@@ -172,7 +172,7 @@ class UpgradeShell extends Shell {
 				}
 			}
 		}
-	
+
 		$this->_moveViewFiles();
 		$this->_moveAppClasses();
 
@@ -194,7 +194,7 @@ class UpgradeShell extends Shell {
 		$defaultOptions = array(
 			'recursive' => true,
 			'checkFolder' => true,
-			'regex' => '@class (\S*) .*{@i'
+			'regex' => '@class (\S*) .*(\s|\v)*{@i'
 		);
 		foreach ($sourceDirs as $dir => $options) {
 			if (is_numeric($dir)) {
@@ -237,7 +237,7 @@ class UpgradeShell extends Shell {
 		$helpers = array_merge($pluginHelpers, $helpers);
 		foreach ($helpers as $helper) {
 			$helper = preg_replace('/Helper$/', '', $helper);
-			$oldHelper = strtolower(substr($helper, 0, 1)).substr($helper, 1);
+			$oldHelper = strtolower(substr($helper, 0, 1)) . substr($helper, 1);
 			$patterns[] = array(
 				"\${$oldHelper} to \$this->{$helper}",
 				"/\\\${$oldHelper}->/",
@@ -358,7 +358,7 @@ class UpgradeShell extends Shell {
 			$pluginPath = App::pluginPath($this->params['plugin']);
 			$this->_paths = array(
 				$pluginPath . 'controllers' . DS,
-				$pluginPath . 'controllers' . DS . 'components' .DS,
+				$pluginPath . 'controllers' . DS . 'components' . DS,
 				$pluginPath . 'views' . DS,
 			);
 		}
@@ -539,7 +539,7 @@ class UpgradeShell extends Shell {
 			$pluginPath = App::pluginPath($this->params['plugin']);
 			$this->_paths = array(
 				$pluginPath . 'controllers' . DS,
-				$pluginPath . 'controllers' . DS . 'components' .DS,
+				$pluginPath . 'controllers' . DS . 'components' . DS,
 			);
 		}
 		$patterns = array(
@@ -607,7 +607,7 @@ class UpgradeShell extends Shell {
 	protected function _moveAppClasses() {
 		$files = array(
 			APP . 'app_controller.php' => APP . 'Controller' . DS . 'AppController.php',
-			APP . 'controllers' . DS .'app_controller.php' => APP . 'Controller' . DS . 'AppController.php',
+			APP . 'controllers' . DS . 'app_controller.php' => APP . 'Controller' . DS . 'AppController.php',
 			APP . 'app_model.php' => APP . 'Model' . DS . 'AppModel.php',
 			APP . 'models' . DS . 'app_model.php' => APP . 'Model' . DS . 'AppModel.php',
 		);
@@ -709,7 +709,7 @@ class UpgradeShell extends Shell {
 			if (!$this->params['dry-run']) {
 				if ($this->params['git']) {
 					exec('git mv -f ' . escapeshellarg($file) . ' ' . escapeshellarg($file . '__'));
-					exec('git mv -f ' . escapeshellarg($file. '__') . ' ' . escapeshellarg($new));
+					exec('git mv -f ' . escapeshellarg($file . '__') . ' ' . escapeshellarg($new));
 				} else {
 					rename($file, $new);
 				}
@@ -857,4 +857,5 @@ class UpgradeShell extends Shell {
 				'parser' => $subcommandParser
 			));
 	}
+
 }

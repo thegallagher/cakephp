@@ -319,4 +319,5 @@ class CacheHelper extends Helper {
 		$file .= $content;
 		return cache('views' . DS . $cache, $file, $timestamp);
 	}
+
 }

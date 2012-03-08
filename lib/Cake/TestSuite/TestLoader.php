@@ -64,12 +64,13 @@ class TestLoader extends \PHPUnit_Runner_StandardTestSuiteLoader {
 		$result = null;
 		if (!empty($params['core'])) {
 			$result = CORE_TEST_CASES;
-		} else if (!empty($params['plugin'])) {
+		} elseif (!empty($params['plugin'])) {
 			if (!Plugin::loaded($params['plugin'])) {
 				try {
 					Plugin::load($params['plugin']);
 					$result = Plugin::path($params['plugin']) . 'Test' . DS . 'TestCase';
-				} catch (Error\MissingPluginException $e) {}
+				} catch (Error\MissingPluginException $e) {
+				}
 			} else {
 				$result = Plugin::path($params['plugin']) . 'Test' . DS . 'TestCase';
 			}

@@ -103,7 +103,6 @@ class Event {
 		return $this->_name;
 	}
 
-
 /**
  * Returns the subject of this event
  *

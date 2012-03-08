@@ -221,7 +221,7 @@ class RssHelper extends Helper {
 						}
 						$elements[$key] = implode('', $categories);
 						continue 2;
-					} else if (is_array($val) && isset($val['domain'])) {
+					} elseif (is_array($val) && isset($val['domain'])) {
 						$attrib['domain'] = $val['domain'];
 					}
 				break;
@@ -327,7 +327,7 @@ class RssHelper extends Helper {
 		if ($cdata && !empty($content)) {
 			$content = '<![CDATA[' . $content . ']]>';
 		}
-		$xml .= '>' . $content . '</' . $name. '>';
+		$xml .= '>' . $content . '</' . $name . '>';
 		$elem = Xml::build($xml, array('return' => 'domdocument'));
 		$nodes = $elem->getElementsByTagName($bareName);
 		foreach ($attrib as $key => $value) {
@@ -342,4 +342,5 @@ class RssHelper extends Helper {
 		$xml = trim(substr($xml, strpos($xml, '?>') + 2));
 		return $xml;
 	}
+
 }

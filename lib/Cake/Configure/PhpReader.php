@@ -30,6 +30,7 @@ use Cake\Core\App,
  * @package       Cake.Configure
  */
 class PhpReader implements ConfigReaderInterface {
+
 /**
  * The path this reader finds files on.
  *
@@ -89,4 +90,5 @@ class PhpReader implements ConfigReaderInterface {
 		}
 		return $config;
 	}
+
 }

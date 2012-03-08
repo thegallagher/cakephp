@@ -41,8 +41,7 @@ class ControllerAuthorizeTest extends TestCase {
 	}
 
 /**
- *
- * @expectedException Cake\Error\Exception
+ * @expectedException \PHPUnit_Framework_Error
  */
 	public function testControllerTypeError() {
 		$this->auth->controller(new \StdClass());

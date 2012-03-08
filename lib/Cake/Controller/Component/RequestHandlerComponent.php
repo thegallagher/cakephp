@@ -21,6 +21,7 @@
 namespace Cake\Controller\Component;
 use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
+	Cake\Controller\Controller,
 	Cake\Routing\Router,
 	Cake\Core\Configure,
 	Cake\Core\App,
@@ -122,7 +123,7 @@ class RequestHandlerComponent extends Component {
  * @return void
  * @see Router::parseExtensions()
  */
-	public function initialize($controller, $settings = array()) {
+	public function initialize(Controller $controller, $settings = array()) {
 		if (isset($this->request->params['ext'])) {
 			$this->ext = $this->request->params['ext'];
 		}
@@ -167,7 +168,10 @@ class RequestHandlerComponent extends Component {
  *   switched based on the parsed extension or Accept-Type header.  For example, if `controller/action.xml`
  *   is requested, the view path becomes `app/View/Controller/xml/action.ctp`. Also if
  *   `controller/action` is requested with `Accept-Type: application/xml` in the headers
- *   the view path will become `app/View/Controller/xml/action.ctp`.
+ *   the view path will become `app/View/Controller/xml/action.ctp`.  Layout and template
+ *   types will only switch to mime-types recognized by Cake\Network\Response.  If you need to declare
+ *   additional mime-types, you can do so using CakeResponse::type() in your controllers beforeFilter()
+ *   method.
  * - If a helper with the same name as the extension exists, it is added to the controller.
  * - If the extension is of a type that RequestHandler understands, it will set that
  *   Content-type in the response header.
@@ -177,7 +181,7 @@ class RequestHandlerComponent extends Component {
  * @param Controller $controller A reference to the controller
  * @return void
  */
-	public function startup($controller) {
+	public function startup(Controller $controller) {
 		$controller->request->params['isAjax'] = $this->request->is('ajax');
 		$isRecognized = (
 			!in_array($this->ext, array('html', 'htm')) &&
@@ -214,9 +218,9 @@ class RequestHandlerComponent extends Component {
 				return Xml::toArray($xml->data);
 			}
 			return Xml::toArray($xml);
-		 } catch (Error\XmlException $e) {
+		} catch (Error\XmlException $e) {
 			return array();
-		 }
+		}
 	}
 
 /**
@@ -228,7 +232,7 @@ class RequestHandlerComponent extends Component {
  * @param boolean $exit
  * @return void
  */
-	public function beforeRedirect($controller, $url, $status = null, $exit = true) {
+	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
 		if (!$this->request->is('ajax')) {
 			return;
 		}
@@ -257,7 +261,7 @@ class RequestHandlerComponent extends Component {
  * @params Controller $controller
  * @return boolean false if the render process should be aborted
  **/
-	public function beforeRender($controller) {
+	public function beforeRender(Controller $controller) {
 		$shouldCheck = $this->settings['checkHttpCache'];
 		if ($shouldCheck && $this->response->checkNotModified($this->request)) {
 			return false;
@@ -570,7 +574,7 @@ class RequestHandlerComponent extends Component {
  * @see RequestHandlerComponent::setContent()
  * @see RequestHandlerComponent::respondAs()
  */
-	public function renderAs($controller, $type, $options = array()) {
+	public function renderAs(Controller $controller, $type, $options = array()) {
 		$defaults = array('charset' => 'UTF-8');
 
 		if (Configure::read('App.encoding') !== null) {
