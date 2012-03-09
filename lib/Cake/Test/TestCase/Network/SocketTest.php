@@ -182,7 +182,7 @@ class SocketTest extends TestCase {
 		$this->assertTrue($this->Socket->connect());
 
 		$config = array('host' => '127.0.0.1', 'timeout' => 0.00001);
-		$this->Socket = new CakeSocket($config);
+		$this->Socket = new Socket($config);
 		$this->assertFalse($this->Socket->read(1024 * 1024));
 		$this->assertEquals($this->Socket->lastError(), '2: ' . __d('cake_dev', 'Connection timed out'));
 	}

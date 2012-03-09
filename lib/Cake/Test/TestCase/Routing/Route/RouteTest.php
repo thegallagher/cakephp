@@ -518,7 +518,7 @@ class RouteTest extends TestCase {
  * @return void
  */
 	public function testParseUrlDecodeElements() {
-		$route = new Cakeroute(
+		$route = new Route(
 			'/:controller/:slug',
 			array('action' => 'view')
 		);

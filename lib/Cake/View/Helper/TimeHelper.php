@@ -21,7 +21,10 @@ namespace Cake\View\Helper;
 use Cake\View\Helper,
 	Cake\View\View,
 	Cake\I18n\Multibyte,
-	Cake\Core\Configure;
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Utility\Set,
+	Cake\Error;
 
 /**
  * Time Helper class for easy use of time data.
@@ -59,7 +62,7 @@ class TimeHelper extends Helper {
 		if (class_exists($engineClass)) {
 			$this->_engine = new $engineClass($settings);
 		} else {
-			throw new CakeException(__d('cake_dev', '%s could not be found', $engineClass));
+			throw new Error\Exception(__d('cake_dev', '%s could not be found', $engineClass));
 		}
 	}
 

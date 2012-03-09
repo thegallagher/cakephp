@@ -19,7 +19,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\View\Helper;
-use Cake\View\Helper;
+use Cake\View\Helper,
+	Cake\View\View,
+	Cake\Core\App,
+	Cake\Utility\Set,
+	Cake\Error;
 
 /**
  * Text helper library.
@@ -73,7 +77,7 @@ class TextHelper extends Helper {
 		if (class_exists($engineClass)) {
 			$this->_engine = new $engineClass($settings);
 		} else {
-			throw new CakeException(__d('cake_dev', '%s could not be found', $engineClass));
+			throw new Error\Exception(__d('cake_dev', '%s could not be found', $engineClass));
 		}
 	}
 

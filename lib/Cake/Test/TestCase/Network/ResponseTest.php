@@ -934,7 +934,7 @@ class ResponseTest extends TestCase {
  * @return void
  */
 	public function testCookieSettings() {
-		$response = new CakeResponse();
+		$response = new Response();
 		$cookie = array(
 			'name' => 'CakeTestCookie[Testing]'
 		);

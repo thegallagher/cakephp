@@ -186,7 +186,7 @@ class RequestTest extends TestCase {
 			),
 			'action' => 'update'
 		);
-		$request = new CakeRequest('some/path');
+		$request = new Request('some/path');
 		$expected = array(
 			'Article' => array('title' => 'Testing'),
 			'action' => 'update'
@@ -197,21 +197,21 @@ class RequestTest extends TestCase {
 			'Article' => array('title'),
 			'Tag' => array('Tag' => array(1, 2))
 		));
-		$request = new CakeRequest('some/path');
+		$request = new Request('some/path');
 		$this->assertEquals($_POST['data'], $request->data);
 
 		$_POST = array('data' => array(
 			'Article' => array('title' => 'some title'),
 			'Tag' => array('Tag' => array(1, 2))
 		));
-		$request = new CakeRequest('some/path');
+		$request = new Request('some/path');
 		$this->assertEquals($_POST['data'], $request->data);
 
 		$_POST = array(
 			'a' => array(1, 2),
 			'b' => array(1, 2)
 		);
-		$request = new CakeRequest('some/path');
+		$request = new Request('some/path');
 		$this->assertEquals($_POST, $request->data);
 	}
 
@@ -1170,10 +1170,10 @@ class RequestTest extends TestCase {
 	public function testGetParamWithUrlencodedElement() {
 		$_GET = array();
 		$_GET['/posts/add/∂∂'] = '';
-		$_SERVER['PHP_SELF'] = '/cake_dev/app/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/cake_dev/App/webroot/index.php';
 		$_SERVER['REQUEST_URI'] = '/cake_dev/posts/add/%E2%88%82%E2%88%82';
 
-		$request = new CakeRequest();
+		$request = new Request();
 		$this->assertEquals(array(), $request->query);
 	}
 

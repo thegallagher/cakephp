@@ -442,7 +442,7 @@ class MissingPluginException extends Exception {
  *
  * @package       Cake.Error
  */
-class AclException extends CakeException {
+class AclException extends Exception {
 }
 
 /**

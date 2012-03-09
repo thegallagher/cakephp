@@ -48,7 +48,7 @@ class CakeNumberMock {
  *
  * @package       Cake.Test.Case.View.Helper
  */
-class NumberHelperTest extends CakeTestCase {
+class NumberHelperTest extends TestCase {
 
 /**
  * setUp method
