@@ -383,7 +383,7 @@ class MediaViewTest extends TestCase {
  */
 	public function testRenderExtensionNotSet() {
 		$this->MediaView->viewVars = array(
-			'path' =>  CAKE . 'Test' . DS . 'test_app' . DS . 'Vendor' . DS .'img' . DS,
+			'path' =>  CAKE . 'Test' . DS . 'TestApp' . DS . 'Vendor' . DS .'img' . DS,
 			'id' => 'test_2.JPG',
 		);
 
