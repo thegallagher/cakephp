@@ -17,7 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Multibyte', 'I18n');
+namespace Cake\Utility;
+
+use Cake\Core\Configure,
+	Cake\I18n\Multibyte;
 
 /**
  * Time Helper class for easy use of time data.
@@ -27,7 +30,7 @@ App::uses('Multibyte', 'I18n');
  * @package       Cake.Utility
  * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/time.html
  */
-class CakeTime {
+class Time {
 
 /**
  * The format to use when formatting a time using `TimeHelper::nice()`
@@ -48,7 +51,7 @@ class CakeTime {
 /**
  * Magic set method for backward compatibility.
  *
- * Used by TimeHelper to modify static variables in CakeTime
+ * Used by TimeHelper to modify static variables in Cake Time
  */
 	public function __set($name, $value) {
 		switch ($name) {
@@ -63,7 +66,7 @@ class CakeTime {
 /**
  * Magic set method for backward compatibility.
  *
- * Used by TimeHelper to get static variables in CakeTime
+ * Used by TimeHelper to get static variables in Cake Time
  */
 	public function __get($name) {
 		switch ($name) {
@@ -91,7 +94,7 @@ class CakeTime {
 			$time = time();
 		}
 		self::$_time = $time;
-		return preg_replace_callback('/\%(\w+)/', array('CakeTime', '_translateSpecifier'), $format);
+		return preg_replace_callback('/\%(\w+)/', array(__CLASS__, '_translateSpecifier'), $format);
 	}
 
 /**

@@ -20,14 +20,17 @@ namespace Cake\Test\TestCase\View\Helper;
 
 use Cake\TestSuite\TestCase,
 	Cake\View\Helper\NumberHelper,
-	Cake\View\View;
+	Cake\View\View,
+	Cake\Core\App,
+	Cake\Core\Configure,
+	Cake\Core\Plugin;
 
 /**
  * NumberHelperTestObject class
  */
 class NumberHelperTestObject extends NumberHelper {
 
-	public function attach(CakeNumberMock $cakeNumber) {
+	public function attach(NumberMock $cakeNumber) {
 		$this->_engine = $cakeNumber;
 	}
 
@@ -38,9 +41,9 @@ class NumberHelperTestObject extends NumberHelper {
 }
 
 /**
- * CakeNumberMock class
+ * NumberMock class
  */
-class CakeNumberMock {
+class NumberMock {
 }
 
 /**
@@ -58,6 +61,9 @@ class NumberHelperTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->View = new View(null);
+
+		$this->_appNamespace = Configure::read('App.namespace');
+		Configure::write('App.namespace', 'TestApp');
 	}
 
 /**
@@ -67,6 +73,7 @@ class NumberHelperTest extends TestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
+		Configure::write('App.namespace', $this->_appNamespace);
 		unset($this->View);
 	}
 
@@ -79,8 +86,8 @@ class NumberHelperTest extends TestCase {
 			'precision', 'toReadableSize', 'toPercentage', 'format',
 			'currency', 'addFormat',
 			);
-		$CakeNumber = $this->getMock('CakeNumberMock', $methods);
-		$Number = new NumberHelperTestObject($this->View, array('engine' => 'CakeNumberMock'));
+		$CakeNumber = $this->getMock(__NAMESPACE__ . '\NumberMock', $methods);
+		$Number = new NumberHelperTestObject($this->View, array('engine' => __NAMESPACE__ . '\NumberMock'));
 		$Number->attach($CakeNumber);
 		foreach ($methods as $method) {
 			$CakeNumber->expects($this->at(0))->method($method);
@@ -96,14 +103,14 @@ class NumberHelperTest extends TestCase {
 			'Utility' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Utility' . DS)
 		), App::REGISTER);
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'TestAppEngine'));
-		$this->assertInstanceOf('TestAppEngine', $Number->engine());
+		$this->assertInstanceOf('TestApp\Utility\TestAppEngine', $Number->engine());
 
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
 		Plugin::load('TestPlugin');
 		$Number = new NumberHelperTestObject($this->View, array('engine' => 'TestPlugin.TestPluginEngine'));
-		$this->assertInstanceOf('TestPluginEngine', $Number->engine());
+		$this->assertInstanceOf('TestPlugin\Utility\TestPluginEngine', $Number->engine());
 		Plugin::unload('TestPlugin');
 	}
 
