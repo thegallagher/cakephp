@@ -30,9 +30,13 @@ use Cake\TestSuite\TestCase,
 	Cake\Utility\ClassRegistry;
 
 class BakeArticle extends Model {
+
 	public $name = 'BakeArticle';
+
 	public $hasMany = array('BakeComment');
+
 	public $hasAndBelongsToMany = array('BakeTag');
+
 }
 
 class_alias('Cake\Test\TestCase\Console\Command\Task\BakeArticle', 'Cake\Model\BakeArticle');
@@ -296,7 +300,7 @@ class ControllerTaskTest extends TestCase {
 		$this->Task->plugin = 'ControllerTest';
 
 		//fake plugin path
-		Plugin::load('ControllerTest', array('path' =>  APP . 'Plugin' . DS . 'ControllerTest' . DS));
+		Plugin::load('ControllerTest', array('path' => APP . 'Plugin' . DS . 'ControllerTest' . DS));
 		$path = APP . 'Plugin' . DS . 'ControllerTest' . DS . 'Controller' . DS . 'ArticlesController.php';
 
 		$this->Task->expects($this->at(1))->method('createFile')->with(
@@ -534,7 +538,7 @@ class ControllerTaskTest extends TestCase {
  *
  * @return void
  */
-	static function nameVariations() {
+	public static function nameVariations() {
 		return array(
 			array('BakeArticles'), array('BakeArticle'), array('bake_article'), array('bake_articles')
 		);

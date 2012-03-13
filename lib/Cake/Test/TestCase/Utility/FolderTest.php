@@ -266,7 +266,7 @@ class FolderTest extends TestCase {
 	public function testChmod() {
 		$this->skipIf(DIRECTORY_SEPARATOR === '\\', 'Folder permissions tests not supported on Windows.');
 
-		$path = CAKE . 'Console' . DS . 'Templates' . DS . 'skel';
+		$path = TMP;
 		$Folder = new Folder($path);
 
 		$subdir = 'test_folder_new';
@@ -285,19 +285,16 @@ class FolderTest extends TestCase {
 		$this->assertTrue($File->create());
 
 		$this->assertTrue($Folder->chmod($new, 0755, true));
-		$this->assertTrue($Folder->chmod($new, 0777, true, array('skip_me.php', 'test2')));
-
-		$perms = substr(sprintf('%o', fileperms($new . DS . 'test1')), -4);
-		$this->assertEquals($perms, '0777');
+		$perms = substr(sprintf('%o', fileperms($new . DS . 'test2')), -4);
+		$this->assertEquals($perms, '0755');
+	
+		$this->assertTrue($Folder->chmod($new, 0744, true, array('skip_me.php', 'test2')));
 
 		$perms = substr(sprintf('%o', fileperms($new . DS . 'test2')), -4);
 		$this->assertEquals($perms, '0755');
 
-		$perms = substr(sprintf('%o', fileperms($new . DS . 'test1.php')), -4);
-		$this->assertEquals($perms, '0777');
-
-		$perms = substr(sprintf('%o', fileperms($new . DS . 'skip_me.php')), -4);
-		$this->assertEquals($perms, '0755');
+		$perms = substr(sprintf('%o', fileperms($new . DS . 'test1')), -4);
+		$this->assertEquals($perms, '0744');
 
 		$Folder->delete($new);
 	}

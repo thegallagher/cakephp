@@ -111,7 +111,7 @@ class ExtractTaskTest extends TestCase {
 
 		$pattern = '/msgid "Your database configuration file is NOT present."\nmsgstr ""\n/';
 		$this->assertRegExp($pattern, $result);
-		
+
 		$pattern = '/msgid "Rename config\/database.php.default to ';
 		$pattern .= 'config\/database.php"\nmsgstr ""\n/';
 		$this->assertRegExp($pattern, $result);
@@ -359,7 +359,6 @@ class ExtractTaskTest extends TestCase {
 		$this->assertRegExp($pattern, $result);
 	}
 
-
 /**
  *  Test that the extract shell can obtain validation messages from models inside a specific plugin
  *
@@ -383,10 +382,10 @@ class ExtractTaskTest extends TestCase {
 		$this->Task->execute();
 		$result = file_get_contents($this->path . DS . 'test_plugin.pot');
 
-		$pattern =  preg_quote('#Model' . DS . 'TestPluginPost.php:validation for field title#', '\\');
+		$pattern = preg_quote('#Model' . DS . 'TestPluginPost.php:validation for field title#', '\\');
 		$this->assertRegExp($pattern, $result);
 
-		$pattern =  preg_quote('#Model' . DS . 'TestPluginPost.php:validation for field body#', '\\');
+		$pattern = preg_quote('#Model' . DS . 'TestPluginPost.php:validation for field body#', '\\');
 		$this->assertRegExp($pattern, $result);
 
 		$pattern = '#msgid "Post title is required"#';

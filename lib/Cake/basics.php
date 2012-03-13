@@ -151,6 +151,7 @@ if (!function_exists('sortByKey')) {
 		}
 		return $out;
 	}
+
 }
 
 /**
@@ -768,4 +769,3 @@ function convertSlash($string) {
 	$string = str_replace('/', '_', $string);
 	return $string;
 }
-

@@ -861,7 +861,7 @@ STRINGEND;
  *
  * @return void
  */
-	static function nameVariations() {
+	public static function nameVariations() {
 		return array(
 			array('BakeArticles'), array('BakeArticle'), array('bake_article'), array('bake_articles')
 		);

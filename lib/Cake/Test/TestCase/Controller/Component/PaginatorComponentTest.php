@@ -32,19 +32,13 @@ use Cake\TestSuite\TestCase,
  * @package       Cake.Test.Case.Controller.Component
  */
 class PaginatorTestController extends Controller {
+
 /**
  * name property
  *
  * @var string 'PaginatorTest'
  */
 	public $name = 'PaginatorTest';
-
-/**
- * uses property
- *
- * @var array
- */
-	//public $uses = null;
 
 /**
  * components property
@@ -692,7 +686,7 @@ class PaginatorComponentTest extends TestCase {
 		$Controller->request->params['named'] = array('contain' => array('ControllerComment'), 'limit' => '5000');
 		$result = $Controller->paginate('PaginatorControllerPost');
 		$this->assertEquals($Controller->params['paging']['PaginatorControllerPost']['options']['limit'], 2000);
-	 }
+	}
 
 /**
  * test paginate() and virtualField overlapping with real fields.
@@ -723,4 +717,189 @@ class PaginatorComponentTest extends TestCase {
 		$this->assertEquals(Set::extract($result, '{n}.PaginatorControllerComment.id'), array(1, 2, 3, 4, 5, 6));
 	}
 
+/**
+ * test paginate() and custom find, to make sure the correct count is returned.
+ *
+ * @return void
+ */
+	public function testPaginateCustomFind() {
+		$Controller =& new Controller($this->request);
+		$Controller->uses = array('PaginatorCustomPost');
+		$Controller->constructClasses();
+		$data = array('author_id' => 3, 'title' => 'Fourth Article', 'body' => 'Article Body, unpublished', 'published' => 'N');
+		$Controller->PaginatorCustomPost->create($data);
+		$result = $Controller->PaginatorCustomPost->save();
+		$this->assertTrue(!empty($result));
+
+		$result = $Controller->paginate();
+		$this->assertEquals(Set::extract($result, '{n}.PaginatorCustomPost.id'), array(1, 2, 3, 4));
+
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(4, $result['current']);
+		$this->assertEquals(4, $result['count']);
+
+		$Controller->paginate = array('published');
+		$result = $Controller->paginate();
+		$this->assertEquals(Set::extract($result, '{n}.PaginatorCustomPost.id'), array(1, 2, 3));
+
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(3, $result['current']);
+		$this->assertEquals(3, $result['count']);
+
+		$Controller->paginate = array('published', 'limit' => 2);
+		$result = $Controller->paginate();
+		$this->assertEquals(Set::extract($result, '{n}.PaginatorCustomPost.id'), array(1, 2));
+
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(2, $result['current']);
+		$this->assertEquals(3, $result['count']);
+		$this->assertEquals(2, $result['pageCount']);
+		$this->assertTrue($result['nextPage']);
+		$this->assertFalse($result['prevPage']);
+	}
+/**
+ * test paginate() and custom find with fields array, to make sure the correct count is returned.
+ *
+ * @return void
+ */
+	public function testPaginateCustomFindFieldsArray() {
+		$Controller =& new Controller($this->request);
+		$Controller->uses = array('PaginatorCustomPost');
+		$Controller->constructClasses();
+		$data = array('author_id' => 3, 'title' => 'Fourth Article', 'body' => 'Article Body, unpublished', 'published' => 'N');
+		$Controller->PaginatorCustomPost->create($data);
+		$result = $Controller->PaginatorCustomPost->save();
+		$this->assertTrue(!empty($result));
+
+		$Controller->paginate = array(
+			'list',
+			'conditions' => array('PaginatorCustomPost.published' => 'Y'),
+			'limit' => 2
+		);
+		$result = $Controller->paginate();
+		$expected = array(
+			1 => 'First Post',
+			2 => 'Second Post',
+		);
+		$this->assertEquals($expected, $result);
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(2, $result['current']);
+		$this->assertEquals(3, $result['count']);
+		$this->assertEquals(2, $result['pageCount']);
+		$this->assertTrue($result['nextPage']);
+		$this->assertFalse($result['prevPage']);
+	}
+
+/**
+ * test paginate() and custom find with fields array, to make sure the correct count is returned.
+ *
+ * @return void
+ */
+	public function testPaginateCustomFindGroupBy() {
+		$Controller =& new Controller($this->request);
+		$Controller->uses = array('PaginatorCustomPost');
+		$Controller->constructClasses();
+		$data = array('author_id' => 2, 'title' => 'Fourth Article', 'body' => 'Article Body, unpublished', 'published' => 'N');
+		$Controller->PaginatorCustomPost->create($data);
+		$result = $Controller->PaginatorCustomPost->save();
+		$this->assertTrue(!empty($result));
+
+		$Controller->paginate = array(
+			'totals',
+			'limit' => 2
+		);
+		$result = $Controller->paginate();
+		$expected = array(
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '1',
+					'total_posts' => '2'
+				)
+			),
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '2',
+					'total_posts' => '1'
+				)
+			)
+		);
+		$this->assertEquals($expected, $result);
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(2, $result['current']);
+		$this->assertEquals(3, $result['count']);
+		$this->assertEquals(2, $result['pageCount']);
+		$this->assertTrue($result['nextPage']);
+		$this->assertFalse($result['prevPage']);
+
+		$Controller->paginate = array(
+			'totals',
+			'limit' => 2,
+			'page' => 2
+		);
+		$result = $Controller->paginate();
+		$expected = array(
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '3',
+					'total_posts' => '1'
+				)
+			),
+		);
+		$this->assertEquals($expected, $result);
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(1, $result['current']);
+		$this->assertEquals(3, $result['count']);
+		$this->assertEquals(2, $result['pageCount']);
+		$this->assertFalse($result['nextPage']);
+		$this->assertTrue($result['prevPage']);
+	}
+
+/**
+ * test paginate() and custom find with returning otehr query on count operation,
+ * to make sure the correct count is returned.
+ *
+ * @return void
+ */
+	public function testPaginateCustomFindCount() {
+		$Controller =& new Controller($this->request);
+		$Controller->uses = array('PaginatorCustomPost');
+		$Controller->constructClasses();
+		$data = array('author_id' => 2, 'title' => 'Fourth Article', 'body' => 'Article Body, unpublished', 'published' => 'N');
+		$Controller->PaginatorCustomPost->create($data);
+		$result = $Controller->PaginatorCustomPost->save();
+		$this->assertTrue(!empty($result));
+
+		$Controller->paginate = array(
+			'totalsOperation',
+			'limit' => 2
+		);
+		$result = $Controller->paginate();
+		$expected = array(
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '3',
+					'total_posts' => '1'
+				),
+				'Author' => array(
+					'user' => 'larry',
+				)
+			),
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '1',
+					'total_posts' => '2'
+				),
+				'Author' => array(
+					'user' => 'mariano'
+				)
+			)
+		);
+		$this->assertEquals($expected, $result);
+		$result = $Controller->params['paging']['PaginatorCustomPost'];
+		$this->assertEquals(2, $result['current']);
+		$this->assertEquals(3, $result['count']);
+		$this->assertEquals(2, $result['pageCount']);
+		$this->assertTrue($result['nextPage']);
+		$this->assertFalse($result['prevPage']);
+	}
 }

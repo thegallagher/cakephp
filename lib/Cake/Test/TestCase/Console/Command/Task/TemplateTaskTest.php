@@ -98,7 +98,7 @@ class TemplateTaskTest extends TestCase {
  * @return void
  */
 	public function testGetThemePath() {
-		$defaultTheme = CAKE . 'Console' . DS . 'Templates' . DS . 'default' .DS;
+		$defaultTheme = CAKE . 'Console' . DS . 'Templates' . DS . 'default' . DS;
 		$this->Task->templatePaths = array('default' => $defaultTheme);
 
 		$this->Task->expects($this->exactly(1))->method('in')->will($this->returnValue('1'));
@@ -125,7 +125,7 @@ class TemplateTaskTest extends TestCase {
 	public function testGenerate() {
 		App::build(array(
 			'Console' => array(
-				CAKE . 'Test' . DS .  'TestApp' . DS . 'Console' . DS
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Console' . DS
 			)
 		));
 		$this->Task->initialize();
@@ -145,7 +145,7 @@ class TemplateTaskTest extends TestCase {
 	public function testGenerateWithTemplateFallbacks() {
 		App::build(array(
 			'Console' => array(
-				CAKE . 'Test' . DS .  'TestApp' . DS . 'Console' . DS,
+				CAKE . 'Test' . DS . 'TestApp' . DS . 'Console' . DS,
 				CAKE_CORE_INCLUDE_PATH . DS . 'console' . DS
 			)
 		));

@@ -65,7 +65,6 @@ class TestShellDispatcher extends ShellDispatcher {
  * @return void
  */
 	public function clear() {
-
 	}
 
 /**
@@ -100,6 +99,7 @@ class TestShellDispatcher extends ShellDispatcher {
 		}
 		return parent::_getShell($shell);
 	}
+
 }
 
 /**

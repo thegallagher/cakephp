@@ -30,6 +30,7 @@ class CookieAliasComponent extends CookieComponent {
 }
 
 class ComponentCollectionTest extends TestCase {
+
 /**
  * setUp
  *

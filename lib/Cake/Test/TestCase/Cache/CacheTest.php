@@ -131,7 +131,6 @@ class CacheTest extends TestCase {
 		$read = Cache::read('Test', 'invalid');
 	}
 
-
 /**
  * Test reading from a config that is undefined.
  *

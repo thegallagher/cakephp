@@ -203,7 +203,8 @@ class Sqlserver extends DboSource {
  * @throws Cake\Error\Exception
  */
 	public function describe($model) {
-		$cache = parent::describe($model);
+		$table = $this->fullTableName($model, false);
+		$cache = parent::describe($table);
 		if ($cache != null) {
 			return $cache;
 		}

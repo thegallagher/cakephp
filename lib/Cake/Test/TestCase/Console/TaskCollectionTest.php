@@ -23,6 +23,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\Plugin;
 
 class TaskCollectionTest extends TestCase {
+
 /**
  * setUp
  *

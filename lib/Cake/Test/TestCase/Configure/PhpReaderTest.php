@@ -23,6 +23,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Configure\PhpReader;
 
 class PhpReaderTest extends TestCase {
+
 /**
  * setup
  *

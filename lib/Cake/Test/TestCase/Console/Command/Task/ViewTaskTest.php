@@ -118,6 +118,7 @@ class ViewTaskCommentsController extends Controller {
  */
 	public function add() {
 	}
+
 }
 
 
@@ -193,6 +194,7 @@ class ViewTaskArticlesController extends Controller {
  */
 	public function admin_delete() {
 	}
+
 }
 
 // Alias classes
@@ -238,10 +240,7 @@ class ViewTaskTest extends TestCase {
 
 		$this->Task->path = TMP;
 		$this->Task->Template->params['theme'] = 'default';
-		$this->Task->Template->templatePaths = array('default' => CAKE . 'Console' . DS . 'Templates' . DS . 'default' .DS);
-
-		// Fake plugin path
-		Plugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS));
+		$this->Task->Template->templatePaths = array('default' => CAKE . 'Console' . DS . 'Templates' . DS . 'default' . DS);
 	}
 
 /**
@@ -397,8 +396,8 @@ class ViewTaskTest extends TestCase {
 		$this->Task->name = 'View';
 
 		//fake plugin path
-		Plugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS));
-		$path =  APP . 'Plugin' . DS . 'TestTest' . DS . 'View' . DS . 'ViewTaskComments' . DS  . 'view.ctp';
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
+		$path =  APP . 'Plugin' . DS . 'TestTest' . DS . 'View' . DS . 'ViewTaskComments' . DS . 'view.ctp';
 
 		$result = $this->Task->getContent('index');
 		$this->assertNotContains('List Test Test.view Task Articles', $result);
@@ -620,7 +619,6 @@ class ViewTaskTest extends TestCase {
 		$this->Task->expects($this->any())->method('in')
 			->will($this->onConsecutiveCalls('y', 'y', 'n'));
 
-
 		$this->Task->expects($this->at(3))->method('createFile')
 			->with(
 				TMP . 'ViewTaskComments' . DS . 'index.ctp',
@@ -732,7 +730,7 @@ class ViewTaskTest extends TestCase {
 		$this->assertEquals($result, 'form');
 
 		$this->Task->Template->templatePaths = array(
-			'test' => CAKE . 'Test' . DS .  'TestApp' . DS . 'Console' . DS . 'Templates' . DS . 'test' .DS
+			'test' => CAKE . 'Test' . DS .  'TestApp' . DS . 'Console' . DS . 'Templates' . DS . 'test' . DS
 		);
 		$this->Task->Template->params['theme'] = 'test';
 

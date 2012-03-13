@@ -242,7 +242,7 @@ class Route {
 		}
 
 		if (isset($route['_trailing_'])) {
-			$route['pass'][] = $route['_trailing_'];
+			$route['pass'][] = rawurldecode($route['_trailing_']);
 			unset($route['_trailing_']);
 		}
 

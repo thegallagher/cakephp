@@ -41,10 +41,12 @@ use Cake\Utility\Debugger;
 	echo ' &rarr; ';
 	if ($stack['function']):
 		$args = array();
-		foreach ($stack['args'] as $arg):
-			$args[] = Debugger::getType($arg);
-			$params[] = Debugger::exportVar($arg, 2);
-		endforeach;
+		if (!empty($stack['args'])):
+			foreach ((array)$stack['args'] as $arg):
+				$args[] = Debugger::getType($arg);
+				$params[] = Debugger::exportVar($arg, 2);
+			endforeach;
+		endif;
 
 		$called = isset($stack['class']) ? $stack['class'] . $stack['type'] . $stack['function'] : $stack['function'];
 	

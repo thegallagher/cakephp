@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\Controller\Component;
 use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Fixture\TestModel,
@@ -116,7 +117,7 @@ class AcoTwoTest extends AclNodeTwoTestBase {
  *
  * @package       Cake.Test.Case.Controller.Component.Acl
  */
-class PermissionTwoTest extends TestModel {
+class PermissionTwoTest extends Permission {
 
 /**
  * name property
@@ -180,7 +181,12 @@ class DbAclTwoTest extends DbAcl {
 		$this->Aro->Permission = new PermissionTwoTest();
 		$this->Aco = new AcoTwoTest();
 		$this->Aro->Permission = new PermissionTwoTest();
+
+		$this->Permission = $this->Aro->Permission;
+		$this->Permission->Aro = $this->Aro;
+		$this->Permission->Aco = $this->Aco;
 	}
+
 }
 
 /**
@@ -189,6 +195,7 @@ class DbAclTwoTest extends DbAcl {
  * @package       Cake.Test.Case.Controller.Component.Acl
  */
 class DbAclTest extends TestCase {
+
 /**
  * fixtures property
  *

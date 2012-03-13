@@ -23,7 +23,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Security;
 
-require_once  CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
+require_once CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
 
 /**
  * Test case for BasicAuthentication

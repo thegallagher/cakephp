@@ -24,7 +24,9 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\App;
 
 class UsersController extends Controller {
+
 	public $name = 'Users';
+
 }
 
 class BakeShellTest extends TestCase {
@@ -83,7 +85,7 @@ class BakeShellTest extends TestCase {
 
 		$this->Shell->Model->expects($this->never())
 			->method('getName');
-	
+
 		$this->Shell->Model->expects($this->once())
 			->method('bake')
 			->will($this->returnValue(true));
@@ -91,7 +93,7 @@ class BakeShellTest extends TestCase {
 		$this->Shell->Controller->expects($this->once())
 			->method('bake')
 			->will($this->returnValue(true));
-	
+
 		$this->Shell->View->expects($this->once())
 			->method('execute');
 

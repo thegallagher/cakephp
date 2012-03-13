@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\Controller\Component\Auth;
 use Cake\TestSuite\TestCase,
 	Cake\Controller\Component\Auth\FormAuthenticate,
@@ -27,7 +28,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Security;
 
-require_once  CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
+require_once CAKE . 'Test' . DS . 'TestCase' . DS . 'Model' . DS . 'models.php';
 
 /**
  * Test case for FormAuthentication

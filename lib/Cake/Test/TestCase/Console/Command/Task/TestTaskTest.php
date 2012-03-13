@@ -99,6 +99,7 @@ class TestTaskArticle extends Model {
  */
 	protected function _innerMethod() {
 	}
+
 }
 
 /**
@@ -403,7 +404,7 @@ class TestTaskTest extends TestCase {
 
 		$result = $this->Task->getRealClassname('Controller', 'PostsController');
 		$this->assertEquals('PostsController', $result);
-		
+
 		$result = $this->Task->getRealClassname('Controller', 'AlertTypes');
 		$this->assertEquals('AlertTypesController', $result);
 
@@ -540,7 +541,6 @@ class TestTaskTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
-
 /**
  * Test that mock class generation works for the appropriate classes
  *
@@ -560,8 +560,8 @@ class TestTaskTest extends TestCase {
 		$this->Task->plugin = 'TestTest';
 
 		//fake plugin path
-		Plugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS));
-		$path =  APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper' . DS  .'FormHelperTest.php';
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS));
+		$path =  APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'View' . DS . 'Helper' . DS . 'FormHelperTest.php';
 		$this->Task->expects($this->once())->method('createFile')
 			->with($path, $this->anything());
 
@@ -638,10 +638,10 @@ class TestTaskTest extends TestCase {
 	public function testTestCaseFileNamePlugin() {
 		$this->Task->path = DS . 'my' . DS . 'path' . DS . 'tests' . DS;
 
-		Plugin::load('TestTest', array('path' =>  APP . 'Plugin' . DS . 'TestTest' . DS ));
+		Plugin::load('TestTest', array('path' => APP . 'Plugin' . DS . 'TestTest' . DS ));
 		$this->Task->plugin = 'TestTest';
 		$result = $this->Task->testCaseFileName('Model', 'Post');
-		$expected =  APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'PostTest.php';
+		$expected = APP . 'Plugin' . DS . 'TestTest' . DS . 'Test' . DS . 'Case' . DS . 'Model' . DS . 'PostTest.php';
 		$this->assertEquals($expected, $result);
 	}
 

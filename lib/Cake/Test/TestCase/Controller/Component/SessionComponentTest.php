@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 1.2.0.5436
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\Controller\Component;
 use Cake\TestSuite\TestCase,
 	Cake\Controller\Component\SessionComponent,
@@ -100,10 +101,10 @@ class SessionComponentTest extends TestCase {
 		$Session = new SessionComponent($this->ComponentCollection);
 		$expected = $Session->id();
 
-		$result = $Object->requestAction('/session_test/session_id');
+		$result = $Object->requestAction('/session_test/sessionId');
 		$this->assertEquals($expected, $result);
 
-		$result = $Object->requestAction('/orange_session_test/session_id');
+		$result = $Object->requestAction('/orange_session_test/sessionId');
 		$this->assertEquals($expected, $result);
 	}
 

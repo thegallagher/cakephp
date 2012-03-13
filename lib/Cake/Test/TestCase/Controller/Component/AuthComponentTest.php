@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 1.2.0.5347
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\Controller\Component;
 use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Fixture\TestModel,
@@ -722,7 +723,7 @@ class AuthComponentTest extends TestCase {
  */
 	public function testAjaxLogin() {
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		));
 		$_SERVER['HTTP_X_REQUESTED_WITH'] = "XMLHttpRequest";
 
@@ -997,6 +998,6 @@ class AuthComponentTest extends TestCase {
 		$result = $this->Auth->password('password');
 		$expected = Security::hash('password', null, true);
 		$this->assertEquals($expected, $result);
-
 	}
+
 }

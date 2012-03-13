@@ -114,7 +114,6 @@ class CrudAuthorizeTest extends TestCase {
 		$this->assertFalse($this->auth->authorize($user['User'], $request));
 	}
 
-
 /**
  * test getting actionMap
  *

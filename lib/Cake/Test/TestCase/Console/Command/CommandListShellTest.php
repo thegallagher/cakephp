@@ -25,14 +25,17 @@ use Cake\TestSuite\TestCase,
 
 
 class TestStringOutput extends ConsoleOutput {
+
 	public $output = '';
 
 	protected function _write($message) {
 		$this->output .= $message;
 	}
+
 }
 
 class CommandListShellTest extends TestCase {
+
 /**
  * setUp method
  *
@@ -85,7 +88,6 @@ class CommandListShellTest extends TestCase {
 
 		$expected = "/welcome \[.*TestPluginTwo.*\]/";
 		$this->assertRegExp($expected, $output);
-
 
 		$expected = "/acl \[.*CORE.*\]/";
 		$this->assertRegExp($expected, $output);

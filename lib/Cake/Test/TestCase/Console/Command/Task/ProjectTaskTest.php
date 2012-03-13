@@ -91,11 +91,11 @@ class ProjectTaskTest extends TestCase {
 			'Console' . DS . 'Templates',
 			'Console' . DS . 'Command' . DS . 'Task',
 			'Controller',
-			'Controller' . DS. 'Component',
+			'Controller' . DS . 'Component',
 			'Locale',
 			'Model',
-			'Model' . DS. 'Behavior',
-			'Model' . DS. 'Datasource',
+			'Model' . DS . 'Behavior',
+			'Model' . DS . 'Datasource',
 			'Plugin',
 			'Test',
 			'Test' . DS . 'TestCase',
@@ -139,10 +139,10 @@ class ProjectTaskTest extends TestCase {
 		$this->Task->execute();
 
 		$this->assertTrue(is_dir($this->Task->args[0]), 'No project dir');
-		$File = new File($path . DS  . 'webroot' . DS . 'index.php');
+		$File = new File($path . DS . 'webroot' . DS . 'index.php');
 		$contents = $File->read();
 		$this->assertRegExp('/define\(\'CAKE_CORE_INCLUDE_PATH\', .*?DS/', $contents);
-		$File = new File($path . DS  . 'webroot' . DS . 'test.php');
+		$File = new File($path . DS . 'webroot' . DS . 'test.php');
 		$contents = $File->read();
 		$this->assertRegExp('/define\(\'CAKE_CORE_INCLUDE_PATH\', .*?DS/', $contents);
 	}
@@ -165,10 +165,10 @@ class ProjectTaskTest extends TestCase {
 		$this->Task->execute();
 
 		$this->assertTrue(is_dir($this->Task->args[0]), 'No project dir');
-		$contents = file_get_contents($path . DS  . 'webroot' . DS . 'index.php');
+		$contents = file_get_contents($path . DS . 'webroot' . DS . 'index.php');
 		$this->assertRegExp('#//define\(\'CAKE_CORE_INCLUDE_PATH#', $contents);
 
-		$contents = file_get_contents($path . DS  . 'webroot' . DS . 'test.php');
+		$contents = file_get_contents($path . DS . 'webroot' . DS . 'test.php');
 		$this->assertRegExp('#//define\(\'CAKE_CORE_INCLUDE_PATH#', $contents);
 
 		ini_set('include_path', $restore);
@@ -339,7 +339,7 @@ class ProjectTaskTest extends TestCase {
 		$this->Task->execute();
 		$this->assertTrue(is_dir($path), 'No project dir');
 		$this->assertTrue(is_dir($path . DS . 'Controller'), 'No controllers dir ');
-		$this->assertTrue(is_dir($path . DS . 'Controller' . DS .'Component'), 'No components dir ');
+		$this->assertTrue(is_dir($path . DS . 'Controller' . DS . 'Component'), 'No components dir ');
 		$this->assertTrue(is_dir($path . DS . 'Model'), 'No models dir');
 		$this->assertTrue(is_dir($path . DS . 'View'), 'No views dir');
 		$this->assertTrue(is_dir($path . DS . 'View' . DS . 'Helper'), 'No helpers dir');

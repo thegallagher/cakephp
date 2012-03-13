@@ -28,6 +28,7 @@ use Cake\TestSuite\TestCase,
  * @package       Cake.Test.Case.Controller.Component
  */
 class AclComponentTest extends TestCase {
+
 /**
  * setUp method
  *
