@@ -42,7 +42,6 @@ class DataTestFixture extends TestFixture {
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 		'count' => array('type' => 'integer', 'default' => 0),
 		'float' => array('type' => 'float', 'default' => 0),
-		//'timestamp' => array('type' => 'timestamp', 'default' => null, 'null' => true),
 		'created' => array('type' => 'datetime', 'default' => null),
 		'updated' => array('type' => 'datetime', 'default' => null)
 	);

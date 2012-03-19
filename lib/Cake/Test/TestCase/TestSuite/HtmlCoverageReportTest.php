@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\TestSuite;
 use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Coverage\HtmlCoverageReport,
@@ -24,6 +25,7 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\Plugin;
 
 class HtmlCoverageReportTest extends TestCase {
+
 /**
  * setUp
  *
@@ -130,7 +132,6 @@ class HtmlCoverageReportTest extends TestCase {
 		}
 	}
 
-
 /**
  * Test that coverage works with phpunit 3.6 as the data formats from coverage are totally different.
  *
@@ -200,7 +201,6 @@ class HtmlCoverageReportTest extends TestCase {
 			4 => array(array('id' => __NAMESPACE__ . '\HtmlCoverageReportTest::testOther')),
 			5 => -1
 		);
-
 
 		$result = $this->Coverage->generateDiff('myfile.php', $file, $coverage);
 

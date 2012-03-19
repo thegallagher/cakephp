@@ -381,7 +381,7 @@ class RssHelperTest extends TestCase {
 				'url' => 'http://example.com/foo?a=1&b=2',
 				'convertEntities' => false
 			),
-			'description' =>  array(
+			'description' => array(
 				'value' => 'descriptive words',
 				'cdata' => true,
 			),

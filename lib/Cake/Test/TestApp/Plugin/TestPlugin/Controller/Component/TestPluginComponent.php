@@ -20,5 +20,7 @@ namespace TestPlugin\Controller\Component;
 use Cake\Core\Object;
 
 class TestPluginComponentComponent extends Object {
+
 	public $components = array('TestPlugin.TestPluginOtherComponent');
+
 }

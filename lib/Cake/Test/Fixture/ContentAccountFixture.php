@@ -32,6 +32,7 @@ class ContentAccountFixture extends TestFixture {
  * @var string 'Aco'
  */
 	public $name = 'ContentAccount';
+
 	public $table = 'ContentAccounts';
 
 /**
@@ -41,8 +42,8 @@ class ContentAccountFixture extends TestFixture {
  */
 	public $fields = array(
 		'iContentAccountsId' => array('type' => 'integer', 'key' => 'primary'),
-		'iContentId'		=> array('type' => 'integer'),
-		'iAccountId'		=> array('type' => 'integer')
+		'iContentId' => array('type' => 'integer'),
+		'iAccountId' => array('type' => 'integer')
 	);
 
 /**

@@ -1798,8 +1798,14 @@ class Model extends Object implements EventListener {
 						$newValues[$row] = $values;
 						unset($values);
 					} elseif (isset($row[$this->hasAndBelongsToMany[$assoc]['associationForeignKey']])) {
+						if (!empty($row[$this->{$join}->primaryKey])) {
+							$newJoins[] = $row[$this->hasAndBelongsToMany[$assoc]['associationForeignKey']];
+						}
 						$newData[] = $row;
 					} elseif (isset($row[$join]) && isset($row[$join][$this->hasAndBelongsToMany[$assoc]['associationForeignKey']])) {
+						if (!empty($row[$join][$this->{$join}->primaryKey])) {
+							$newJoins[] = $row[$join][$this->hasAndBelongsToMany[$assoc]['associationForeignKey']];
+						}
 						$newData[] = $row[$join];
 					}
 				}
@@ -1833,8 +1839,10 @@ class Model extends Object implements EventListener {
 				if (!empty($newData)) {
 					foreach ($newData as $data) {
 						$data[$this->hasAndBelongsToMany[$assoc]['foreignKey']] = $id;
-						$this->{$join}->create($data);
-						$this->{$join}->save();
+						if (empty($data[$this->{$join}->primaryKey])) {
+							$this->{$join}->create();
+						}
+						$this->{$join}->save($data);
 					}
 				}
 

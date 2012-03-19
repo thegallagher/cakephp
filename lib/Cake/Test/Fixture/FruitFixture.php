@@ -42,7 +42,7 @@ class FruitFixture extends TestFixture {
 		'id' => array('type' => 'string', 'length' => 36, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'length' => 255),
 		'color' => array('type' => 'string', 'length' => 13),
-		'shape' => array('type' => 'string', 'length' =>  255),
+		'shape' => array('type' => 'string', 'length' => 255),
 		'taste' => array('type' => 'string', 'length' => 255)
 	);
 

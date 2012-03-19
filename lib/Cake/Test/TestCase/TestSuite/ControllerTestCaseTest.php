@@ -37,6 +37,7 @@ require_once dirname(dirname(__FILE__)) . DS . 'Model' . DS . 'models.php';
  * @package       Cake.Test.Case.TestSuite
  */
 class AppController extends Controller {
+
 /**
  * helpers property
  *
@@ -44,6 +45,7 @@ class AppController extends Controller {
  * @access public
  */
 	public $helpers = array('Html');
+
 /**
  * uses property
  *
@@ -51,6 +53,7 @@ class AppController extends Controller {
  * @access public
  */
 	public $uses = array('ControllerPost');
+
 /**
  * components property
  *
@@ -232,7 +235,6 @@ class ControllerTestCaseTest extends TestCase {
 			->will($this->returnValue(false));
 		$this->assertTrue($Tests->TestPluginComment->save(array()));
 		$this->assertFalse($Tests->TestPluginComment->save(array()));
-
 	}
 
 /**
@@ -490,7 +492,7 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertContains('This is the TestsAppsController index view', $result);
 		$this->assertContains('first call', $result);
 		$this->assertContains('</html>', $result);
-	
+
 		$result = $this->Case->testAction('/tests_apps/index', array(
 			'data' => array('var' => 'second call'),
 			'method' => 'get',

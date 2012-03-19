@@ -24,6 +24,7 @@ use Cake\TestSuite\TestCase,
 	Cake\View\Helper\PrototypeEngineHelper;
 
 class PrototypeEngineHelperTest extends TestCase {
+
 /**
  * setUp
  *

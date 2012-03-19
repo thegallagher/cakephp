@@ -64,7 +64,7 @@ class JsonViewTest extends TestCase {
 		$View = new JsonView($Controller);
 		$output = $View->render(false);
 
-		$this->assertIdentical(json_encode(array('no' =>$data['no'], 'user' => $data['user'])), $output);
+		$this->assertIdentical(json_encode(array('no' => $data['no'], 'user' => $data['user'])), $output);
 		$this->assertIdentical('application/json', $Response->type());
 	}
 

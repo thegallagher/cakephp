@@ -1,9 +1,6 @@
 <?php
-/* SVN FILE: $Id$ */
 /**
  * Test App Comment Model
- *
- *
  *
  * PHP 5
  *
@@ -25,6 +22,9 @@
 namespace TestPlugin\Model;
 
 class TestPluginComment extends TestPluginAppModel {
+
 	public $useTable = 'test_plugin_comments';
+
 	public $name = 'TestPluginComment';
+
 }

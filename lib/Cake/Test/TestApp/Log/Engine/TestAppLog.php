@@ -22,6 +22,5 @@ use Cake\Log\LogInterface;
 class TestAppLog implements LogInterface {
 
 	public function write($type, $message) {
-
 	}
 }

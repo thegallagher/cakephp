@@ -29,9 +29,11 @@ use Cake\TestSuite\Fixture\TestFixture;
 class PrefixTestFixture extends TestFixture {
 
 	public $name = 'PrefixTest';
+
 	public $table = 'prefix_prefix_tests';
 
 	public $fields = array(
 		'id' => array('type' => 'integer', 'key' => 'primary'),
 	);
+
 }

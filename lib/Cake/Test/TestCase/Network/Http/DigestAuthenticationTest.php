@@ -161,8 +161,8 @@ class DigestAuthenticationTest extends TestCase {
 		$this->assertTrue(strpos($this->HttpSocket->request['header']['Authorization'], 'nc=00000003') > 0);
 		$this->assertEquals($auth['nc'], 4);
 		$responsePos = strpos($this->HttpSocket->request['header']['Authorization'], 'response=');
-		$response2 = substr($this->HttpSocket->request['header']['Authorization'], $responsePos + 10, 32);
-		$this->assertNotEquals($response, $response2);
+		$responseB = substr($this->HttpSocket->request['header']['Authorization'], $responsePos + 10, 32);
+		$this->assertNotEquals($response, $responseB);
 	}
 
 /**

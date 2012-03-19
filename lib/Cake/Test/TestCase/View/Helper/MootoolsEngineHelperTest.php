@@ -25,6 +25,7 @@ use Cake\TestSuite\TestCase,
 	Cake\View\Helper\MootoolsEngineHelper;
 
 class MootoolsEngineHelperTest extends TestCase {
+
 /**
  * setUp
  *

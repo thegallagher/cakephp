@@ -217,12 +217,10 @@ class PaginatorHelperTest extends TestCase {
 		$result = $this->Paginator->sort('title', 'Title', array('direction' => 'asc'));
 		$this->assertRegExp('/\/accounts\/index\/param\/page:1\/sort:title\/direction:asc" class="desc">Title<\/a>$/', $result);
 
-
 		$this->Paginator->request->params['paging']['Article']['options']['order'] = array('Article.title' => 'asc');
 		$this->Paginator->request->params['paging']['Article']['options']['sort'] = null;
 		$result = $this->Paginator->sort('title', 'Title', array('direction' => 'asc'));
 		$this->assertRegExp('/\/accounts\/index\/param\/page:1\/sort:title\/direction:desc" class="asc">Title<\/a>$/', $result);
-
 
 		$this->Paginator->request->params['paging']['Article']['options']['order'] = array('Article.title' => 'asc');
 		$this->Paginator->request->params['paging']['Article']['options']['sort'] = null;
@@ -334,7 +332,6 @@ class PaginatorHelperTest extends TestCase {
 			'/a'
 		);
 		$this->assertTags($result, $expected);
-
 
 		$this->Paginator->request->params['paging']['Article']['options']['order'] = array('Article.title' => 'asc');
 		$result = $this->Paginator->sort('Article.title', 'Title');
@@ -1349,7 +1346,6 @@ class PaginatorHelperTest extends TestCase {
 		);
 		$this->assertTags($result, $expected);
 
-
 		$this->Paginator->request->params['paging'] = array(
 			'Client' => array(
 				'page' => 14,
@@ -1422,7 +1418,7 @@ class PaginatorHelperTest extends TestCase {
 			array('span' => array('class' => 'page-link')), array('a' => array('href' => '/index/page:9')), '9', '/a', '/span',
 		);
 		$this->assertTags($result, $expected);
-		
+
 		$result = $this->Paginator->numbers(array('first' => 1, 'currentClass' => 'active'));
 		$expected = array(
 			array('span' => array()), array('a' => array('href' => '/index/page:1')), '1', '/a', '/span',
@@ -1444,7 +1440,7 @@ class PaginatorHelperTest extends TestCase {
 			array('span' => array()), array('a' => array('href' => '/index/page:9')), '9', '/a', '/span',
 		);
 		$this->assertTags($result, $expected);
-		
+
 		$result = $this->Paginator->numbers(array('first' => 1, 'class' => 'page-link', 'currentClass' => 'active'));
 		$expected = array(
 			array('span' => array('class' => 'page-link')), array('a' => array('href' => '/index/page:1')), '1', '/a', '/span',
@@ -1703,7 +1699,6 @@ class PaginatorHelperTest extends TestCase {
 			array('span' => array('class' => 'page-link')), array('a' => array('href' => '/index/page:4/sort:Client.name/direction:DESC')), '4', '/a', '/span',
 		);
 		$this->assertTags($result, $expected);
-
 
 		$this->Paginator->request->params['paging'] = array(
 			'Client' => array(

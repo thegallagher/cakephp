@@ -19,7 +19,9 @@
 namespace TestApp\Controller;
 
 class TestsAppsController extends AppController {
+
 	public $name = 'TestsApps';
+
 	public $uses = array();
 
 	public function index() {
@@ -42,4 +44,5 @@ class TestsAppsController extends AppController {
 	public function redirect_to() {
 		$this->redirect('http://cakephp.org');
 	}
+
 }

@@ -55,6 +55,7 @@ class CacheTestController extends Controller {
 		$this->set('batman', 'bruce wayne');
 		$this->set('spiderman', 'peter parker');
 	}
+
 }
 
 /**
@@ -90,7 +91,7 @@ class CacheHelperTest extends TestCase {
 		Configure::write('Cache.check', true);
 		Configure::write('Cache.disable', false);
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		), App::RESET);
 	}
 
@@ -386,7 +387,6 @@ class CacheHelperTest extends TestCase {
 		$this->assertTrue(file_exists($filename));
 		@unlink($filename);
 
-
 		$this->Controller->cache_parsing();
 		$this->Controller->cacheAction = array(
 			'cache_parsing' => 21600
@@ -403,7 +403,6 @@ class CacheHelperTest extends TestCase {
 		$filename = CACHE . 'views' . DS . 'cachetest_cache_parsing.php';
 		$this->assertTrue(file_exists($filename));
 		@unlink($filename);
-
 
 		$this->Controller->cache_parsing();
 		$this->Controller->request->addParams(array(

@@ -16,7 +16,9 @@
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace TestPlugin\Model;
 use Cake\TestSuite\Fixture\TestModel;
 
-class TestPluginAppModel extends TestModel {}
+class TestPluginAppModel extends TestModel {
+}

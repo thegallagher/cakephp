@@ -32,7 +32,8 @@ class UnderscoreFieldFixture extends TestFixture {
  * @var string 'UnderscoreField'
  */
 	public $name = 'UnderscoreField';
-	/**
+
+/**
  * fields property
  *
  * @var array
@@ -45,7 +46,8 @@ class UnderscoreFieldFixture extends TestFixture {
 		'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
 		'another_field' => array('type' => 'integer', 'length' => 3),
 	);
-	/**
+
+/**
  * records property
  *
  * @var array

@@ -34,13 +34,6 @@ class SessionFixture extends TestFixture {
 	public $name = 'Session';
 
 /**
- * table property.
- *
- * @var string
- */
-	// public $table = 'sessions';
-
-/**
  * fields property
  *
  * @var array

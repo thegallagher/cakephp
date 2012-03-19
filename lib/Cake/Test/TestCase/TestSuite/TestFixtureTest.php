@@ -158,15 +158,23 @@ class TestFixtureDefaultImportFixture extends TestFixture {
  * @package       Cake.Test.Case.TestSuite
  */
 class FixtureImportTestModel extends Model {
+
 	public $name = 'FixtureImport';
+
 	public $useTable = 'fixture_tests';
+
 	public $useDbConfig = 'test';
+
 }
 
 class FixturePrefixTest extends Model {
+
 	public $name = 'FixturePrefix';
+
 	public $useTable = '_tests';
+
 	public $tablePrefix = 'fixture';
+
 	public $useDbConfig = 'test';
 }
 
@@ -221,9 +229,9 @@ class TestFixtureTest extends TestCase {
 		$this->assertEquals($Fixture->primaryKey, 'my_random_key');
 	}
 
-
 /**
- * test that init() correctly sets the fixture table when the connection or model have prefixes defined.
+ * test that init() correctly sets the fixture table when the connection 
+ * or model have prefixes defined.
  *
  * @return void
  */
@@ -361,7 +369,6 @@ class TestFixtureTest extends TestCase {
 		$Source = new TestFixtureTestFixture();
 		$Source->create($newTestSuiteDb);
 		$Source->insert($newTestSuiteDb);
-
 
 		$Fixture = new TestFixtureDefaultImportFixture();
 		$Fixture->fields = $Fixture->records = null;

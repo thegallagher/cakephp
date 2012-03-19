@@ -24,6 +24,7 @@ use Cake\TestSuite\TestCase,
 	Cake\View\View;
 
 class JqueryEngineHelperTest extends TestCase {
+
 /**
  * setUp
  *

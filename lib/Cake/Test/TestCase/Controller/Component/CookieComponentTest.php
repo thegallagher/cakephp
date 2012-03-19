@@ -164,7 +164,6 @@ class CookieComponentTest extends TestCase {
  */
 	public function testReadPlainCookieData() {
 		$this->_setCookieData();
-
 		$data = $this->Cookie->read('Plain_array');
 		$expected = array('name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!');
 		$this->assertEquals($data, $expected);
@@ -172,6 +171,26 @@ class CookieComponentTest extends TestCase {
 		$data = $this->Cookie->read('Plain_multi_cookies');
 		$expected = array('name' => 'CakePHP', 'version' => '1.2.0.x', 'tag' => 'CakePHP Rocks!');
 		$this->assertEquals($data, $expected);
+	}
+
+/**
+ * test read() after switching the cookie name.
+ *
+ * @return void
+ */
+	public function testReadWithNameSwitch() {
+		$_COOKIE = array(
+			'CakeTestCookie' => array(
+				'key' => 'value'
+			),
+			'OtherTestCookie' => array(
+				'key' => 'other value'
+			)
+		);
+		$this->assertEquals('value', $this->Cookie->read('key'));
+
+		$this->Cookie->name = 'OtherTestCookie';
+		$this->assertEquals('other value', $this->Cookie->read('key'));
 	}
 
 /**

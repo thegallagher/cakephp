@@ -99,6 +99,7 @@ class HelperTestComment extends Model {
 		);
 		return $this->_schema;
 	}
+
 }
 
 /**
@@ -129,6 +130,7 @@ class HelperTestTag extends Model {
 		);
 		return $this->_schema;
 	}
+
 }
 
 /**
@@ -157,9 +159,11 @@ class HelperTestPostsTag extends Model {
 		);
 		return $this->_schema;
 	}
+
 }
 
 class TestHelper extends Helper {
+
 /**
  * Helpers for this helper.
  *
@@ -179,6 +183,7 @@ class TestHelper extends Helper {
 	public function parseAttributes($options, $exclude = null, $insertBefore = ' ', $insertAfter = null) {
 		return $this->_parseAttributes($options, $exclude, $insertBefore, $insertAfter);
 	}
+
 }
 
 /**
@@ -650,12 +655,12 @@ class HelperTest extends TestCase {
  * @return void
  */
 	public function testAssetTimestampPluginsAndThemes() {
-		$_timestamp = Configure::read('Asset.timestamp');
+		$timestamp = Configure::read('Asset.timestamp');
 		Configure::write('Asset.timestamp', 'force');
 		App::build(array(
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
 		));
-		Plugin::load(array('TestPlugin'));;
+		Plugin::load(array('TestPlugin'));
 
 		$result = $this->Helper->assetTimestamp('/test_plugin/css/test_plugin_asset.css');
 		$this->assertRegExp('#/test_plugin/css/test_plugin_asset.css\?[0-9]+$#', $result, 'Missing timestamp plugin');
@@ -670,7 +675,7 @@ class HelperTest extends TestCase {
 		$this->assertRegExp('#/theme/test_theme/js/non_existant.js\?$#', $result, 'No error on missing file');
 
 		App::build();
-		Configure::write('Asset.timestamp', $_timestamp);
+		Configure::write('Asset.timestamp', $timestamp);
 	}
 
 /**
@@ -840,7 +845,7 @@ class HelperTest extends TestCase {
 
 		$this->Helper->request->data['My']['title'] = 'My Title';
 		$result = $this->Helper->value('My.title');
-		$this->assertEquals($result,'My Title');
+		$this->assertEquals($result, 'My Title');
 	}
 
 	public function testWebrootPaths() {
@@ -852,7 +857,7 @@ class HelperTest extends TestCase {
 		$this->Helper->theme = 'test_theme';
 
 		App::build(array(
-			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View'. DS)
+			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS)
 		));
 
 		$result = $this->Helper->webroot('/img/cake.power.gif');
@@ -928,10 +933,11 @@ class HelperTest extends TestCase {
  */
 	public function testLazyLoadingUsesReferences() {
 		$Helper = new TestHelper($this->View);
-		$result1 = $Helper->Html;
-		$result2 = $Helper->Html;
+		$resultA = $Helper->Html;
+		$resultB = $Helper->Html;
 
-		$result1->testprop = 1;
-		$this->assertEquals($result1->testprop, $result2->testprop);
+		$resultA->testprop = 1;
+		$this->assertEquals($resultA->testprop, $resultB->testprop);
 	}
+
 }

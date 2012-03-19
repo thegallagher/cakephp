@@ -689,7 +689,7 @@ class BasicsTest extends TestCase {
 		ob_start();
 		debug('this-is-a-test', false);
 		$result = ob_get_clean();
-$expectedText = <<<EXPECTED
+		$expectedText = <<<EXPECTED
 %s (line %d)
 ########## DEBUG ##########
 'this-is-a-test'
@@ -701,7 +701,7 @@ EXPECTED;
 		ob_start();
 		debug('<div>this-is-a-test</div>', true);
 		$result = ob_get_clean();
-$expectedHtml = <<<EXPECTED
+		$expectedHtml = <<<EXPECTED
 <div class="cake-debug-output">
 <span><strong>%s</strong> (line <strong>%d</strong>)</span>
 <pre class="cake-debug">
@@ -713,9 +713,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', true, true);
+		debug('<div>this-is-a-test</div>', true, true);
 		$result = ob_get_clean();
-$expected = <<<EXPECTED
+		$expected = <<<EXPECTED
 <div class="cake-debug-output">
 <span><strong>%s</strong> (line <strong>%d</strong>)</span>
 <pre class="cake-debug">
@@ -727,9 +727,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', true, false);
+		debug('<div>this-is-a-test</div>', true, false);
 		$result = ob_get_clean();
-$expected = <<<EXPECTED
+		$expected = <<<EXPECTED
 <div class="cake-debug-output">
 
 <pre class="cake-debug">
@@ -741,9 +741,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', null);
+		debug('<div>this-is-a-test</div>', null);
 		$result = ob_get_clean();
-$expectedHtml = <<<EXPECTED
+		$expectedHtml = <<<EXPECTED
 <div class="cake-debug-output">
 <span><strong>%s</strong> (line <strong>%d</strong>)</span>
 <pre class="cake-debug">
@@ -751,7 +751,7 @@ $expectedHtml = <<<EXPECTED
 </pre>
 </div>
 EXPECTED;
-$expectedText = <<<EXPECTED
+		$expectedText = <<<EXPECTED
 %s (line %d)
 ########## DEBUG ##########
 '<div>this-is-a-test</div>'
@@ -765,9 +765,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', null, false);
+		debug('<div>this-is-a-test</div>', null, false);
 		$result = ob_get_clean();
-$expectedHtml = <<<EXPECTED
+		$expectedHtml = <<<EXPECTED
 <div class="cake-debug-output">
 
 <pre class="cake-debug">
@@ -775,7 +775,7 @@ $expectedHtml = <<<EXPECTED
 </pre>
 </div>
 EXPECTED;
-$expectedText = <<<EXPECTED
+		$expectedText = <<<EXPECTED
 
 ########## DEBUG ##########
 '<div>this-is-a-test</div>'
@@ -789,9 +789,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', false);
+		debug('<div>this-is-a-test</div>', false);
 		$result = ob_get_clean();
-$expected = <<<EXPECTED
+		$expected = <<<EXPECTED
 %s (line %d)
 ########## DEBUG ##########
 '<div>this-is-a-test</div>'
@@ -801,9 +801,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', false, true);
+		debug('<div>this-is-a-test</div>', false, true);
 		$result = ob_get_clean();
-$expected = <<<EXPECTED
+		$expected = <<<EXPECTED
 %s (line %d)
 ########## DEBUG ##########
 '<div>this-is-a-test</div>'
@@ -813,9 +813,9 @@ EXPECTED;
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			debug('<div>this-is-a-test</div>', false, false);
+		debug('<div>this-is-a-test</div>', false, false);
 		$result = ob_get_clean();
-$expected = <<<EXPECTED
+		$expected = <<<EXPECTED
 
 ########## DEBUG ##########
 '<div>this-is-a-test</div>'
@@ -832,13 +832,13 @@ EXPECTED;
  */
 	public function testPr() {
 		ob_start();
-			pr('this is a test');
+		pr('this is a test');
 		$result = ob_get_clean();
 		$expected = "<pre>this is a test</pre>";
 		$this->assertEquals($expected, $result);
 
 		ob_start();
-			pr(array('this' => 'is', 'a' => 'test'));
+		pr(array('this' => 'is', 'a' => 'test'));
 		$result = ob_get_clean();
 		$expected = "<pre>Array\n(\n    [this] => is\n    [a] => test\n)\n</pre>";
 		$this->assertEquals($expected, $result);

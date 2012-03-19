@@ -18,4 +18,5 @@
  */
 namespace TestApp\Lib;
 
-class Library {}
+class Library {
+}

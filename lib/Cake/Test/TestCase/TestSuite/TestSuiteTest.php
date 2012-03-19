@@ -24,24 +24,6 @@ use Cake\TestSuite\TestCase,
 class TestSuiteTest extends TestCase {
 
 /**
- * setUp
- *
- * @return void
- */
-	public function setUp() {
-		parent::setUp();
-	}
-
-/**
- * tearDown
- *
- * @return void
- */
-	public function tearDown() {
-		parent::tearDown();
-	}
-
-/**
  * testAddTestDirectory
  * 
  * @return void

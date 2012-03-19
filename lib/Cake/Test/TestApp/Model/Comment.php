@@ -21,6 +21,9 @@
 namespace TestApp\Model;
 
 class Comment extends AppModel {
+
 	public $useTable = 'comments';
+
 	public $name = 'Comment';
+
 }

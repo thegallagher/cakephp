@@ -1,7 +1,4 @@
 <?php
-/* SVN FILE: $Id$ */
-namespace Cake\Test\Fixture;
-use Cake\TestSuite\Fixture\TestFixture;
 /**
  * Short description for file.
  *
@@ -24,12 +21,17 @@ use Cake\TestSuite\Fixture\TestFixture;
  * @lastmodified  $Date$
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+namespace Cake\Test\Fixture;
+use Cake\TestSuite\Fixture\TestFixture;
+
 /**
  * Short description for class.
  *
  * @package       Cake.Test.Fixture
  */
 class TranslateWithPrefixFixture extends TestFixture {
+
 /**
  * name property
  *

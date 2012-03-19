@@ -2674,7 +2674,7 @@ class I18nTest extends TestCase {
 	private function __domainCategoryPlural($domain = 'test_plugin', $category = 3) {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
-			$plurals[] =  sprintf(__dcn($domain, '%d = 1', '%d = 0 or > 1', (float)$number, $category), (float)$number);
+			$plurals[] = sprintf(__dcn($domain, '%d = 1', '%d = 0 or > 1', (float)$number, $category), (float)$number);
 		}
 		return $plurals;
 	}
@@ -2697,7 +2697,7 @@ class I18nTest extends TestCase {
 	private function __domainPlural($domain = 'test_plugin') {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
-			$plurals[] =  sprintf(__dn($domain, '%d = 1', '%d = 0 or > 1', (float)$number), (float)$number );
+			$plurals[] = sprintf(__dn($domain, '%d = 1', '%d = 0 or > 1', (float)$number), (float)$number );
 		}
 		return $plurals;
 	}
@@ -2730,7 +2730,7 @@ class I18nTest extends TestCase {
 	private function __plural() {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
-			$plurals[] =  sprintf(__n('%d = 1', '%d = 0 or > 1', (float)$number), (float)$number);
+			$plurals[] = sprintf(__n('%d = 1', '%d = 0 or > 1', (float)$number), (float)$number);
 		}
 		return $plurals;
 	}
@@ -2753,7 +2753,7 @@ class I18nTest extends TestCase {
 	private function __pluralFromCore() {
 		$plurals = array();
 		for ($number = 0; $number <= 25; $number++) {
-			$plurals[] =  sprintf(__n('%d = 1 (from core)', '%d = 0 or > 1 (from core)', (float)$number), (float)$number );
+			$plurals[] = sprintf(__n('%d = 1 (from core)', '%d = 0 or > 1 (from core)', (float)$number), (float)$number );
 		}
 		return $plurals;
 	}

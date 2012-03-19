@@ -2,8 +2,6 @@
 /**
  * Test Plugin Auth User Model
  *
- *
- *
  * PHP 5
  *
  * CakePHP : Rapid Development Framework (http://cakephp.org)
@@ -18,6 +16,7 @@
  * @since         CakePHP v 1.2.0.4487
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace TestPlugin\Model;
 
 class TestPluginAuthUser extends TestPluginAppModel {

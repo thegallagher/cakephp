@@ -90,7 +90,7 @@ class AssertTagsTestCase extends TestCase {
 		$this->assertTags($input, $pattern);
 	}
 
- /**
+/**
  * testBadAssertTags
  *
  * @return void

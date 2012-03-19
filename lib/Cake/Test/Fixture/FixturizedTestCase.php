@@ -56,6 +56,7 @@ class FixturizedTestCase extends TestCase {
  * test that a fixtures are unoaded even if the test throws exceptions
  *
  * @return void
+ * @throws Exception
  */
 	public function testThrowException() {
 		throw new \Exception();

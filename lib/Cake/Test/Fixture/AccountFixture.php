@@ -32,6 +32,7 @@ class AccountFixture extends TestFixture {
  * @var string 'Aco'
  */
 	public $name = 'Account';
+
 	public $table = 'Accounts';
 
 /**

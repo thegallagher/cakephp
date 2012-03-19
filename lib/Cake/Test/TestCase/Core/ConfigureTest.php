@@ -359,5 +359,5 @@ class ConfigureTest extends TestCase {
 		$reader = new \StdClass();
 		Configure::config('test', $reader);
 	}
-}
 
+}

@@ -19,6 +19,7 @@
 namespace TestPlugin\Controller;
 
 class TestPluginController extends TestPluginAppController {
+
 	public $uses = array();
 
 	public function index() {
@@ -28,4 +29,5 @@ class TestPluginController extends TestPluginAppController {
 	public function add() {
 		$this->autoRender = false;
 	}
+
 }

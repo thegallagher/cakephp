@@ -87,6 +87,7 @@ class TestHttpResponse extends HttpResponse {
  * @package       Cake.Test.Case.Network.Http
  */
 class HttpResponseTest extends TestCase {
+
 /**
  * This function sets up a HttpResponse
  *
@@ -493,7 +494,7 @@ class HttpResponseTest extends TestCase {
 			$unescapedToken = $this->HttpResponse->unescapeToken($token);
 			$expectedToken = 'My-special-' . $char . '-Token';
 
-			$this->assertEquals($unescapedToken, $expectedToken, 'Test token unescaping for ASCII '.ord($char));
+			$this->assertEquals($unescapedToken, $expectedToken, 'Test token unescaping for ASCII ' . ord($char));
 		}
 
 		$token = 'Extreme-":"Token-"	"-""""@"-test';
@@ -521,14 +522,13 @@ class HttpResponseTest extends TestCase {
 		);
 		$this->HttpResponse->body = 'This is a test!';
 		$this->HttpResponse->raw = "HTTP/1.1 200 OK\r\nServer: CakePHP\r\nContEnt-Type: text/plain\r\n\r\nThis is a test!";
-
-		$expected1 = "HTTP/1.1 200 OK\r\n";
-		$this->assertEquals($this->HttpResponse['raw']['status-line'], $expected1);
-		$expected2 = "Server: CakePHP\r\nContEnt-Type: text/plain\r\n";
-		$this->assertEquals($this->HttpResponse['raw']['header'], $expected2);
-		$expected3 = 'This is a test!';
-		$this->assertEquals($this->HttpResponse['raw']['body'], $expected3);
-		$expected = $expected1 . $expected2 . "\r\n" . $expected3;
+		$expectedOne = "HTTP/1.1 200 OK\r\n";
+		$this->assertEquals($this->HttpResponse['raw']['status-line'], $expectedOne);
+		$expectedTwo = "Server: CakePHP\r\nContEnt-Type: text/plain\r\n";
+		$this->assertEquals($this->HttpResponse['raw']['header'], $expectedTwo);
+		$expectedThree = 'This is a test!';
+		$this->assertEquals($this->HttpResponse['raw']['body'], $expectedThree);
+		$expected = $expectedOne . $expectedTwo . "\r\n" . $expectedThree;
 		$this->assertEquals($this->HttpResponse['raw']['response'], $expected);
 
 		$expected = 'HTTP/1.1';

@@ -31,12 +31,15 @@ use Cake\TestSuite\TestCase,
 	Cake\Core\Configure;
 
 class JsEncodingObject {
+
 	protected $_title = 'Old thing';
 
 	private $__noshow = 'Never ever';
+
 }
 
 class OptionEngineHelper extends JsBaseEngineHelper {
+
 	protected $_optionMap = array(
 		'request' => array(
 			'complete' => 'success',
@@ -63,17 +66,39 @@ class OptionEngineHelper extends JsBaseEngineHelper {
 		return $this->_parseOptions($options, $safe);
 	}
 
-	public function get($selector) {}
-	public function event($type, $callback, $options = array()) {}
-	public function domReady($functionBody) {}
-	public function each($callback) {}
-	public function effect($name, $options = array()) {}
-	public function request($url, $options = array()) {}
-	public function drag($options = array()) {}
-	public function drop($options = array()) {}
-	public function sortable($options = array()) {}
-	public function slider($options = array()) {}
-	public function serializeForm($options = array()) {}
+	public function get($selector) {
+	}
+
+	public function event($type, $callback, $options = array()) {
+	}
+
+	public function domReady($functionBody) {
+	}
+
+	public function each($callback) {
+	}
+
+	public function effect($name, $options = array()) {
+	}
+
+	public function request($url, $options = array()) {
+	}
+
+	public function drag($options = array()) {
+	}
+
+	public function drop($options = array()) {
+	}
+
+	public function sortable($options = array()) {
+	}
+
+	public function slider($options = array()) {
+	}
+
+	public function serializeForm($options = array()) {
+	}
+
 }
 
 /**
@@ -82,6 +107,7 @@ class OptionEngineHelper extends JsBaseEngineHelper {
  * @package       Cake.Test.Case.View.Helper
  */
 class JsHelperTest extends TestCase {
+
 /**
  * Regexp for CDATA start block
  *
@@ -95,7 +121,6 @@ class JsHelperTest extends TestCase {
  * @var string
  */
 	public $cDataEnd = 'preg:/[^\]]*\]\]\>[\s\r\n]*/';
-
 
 /**
  * setUp method
@@ -694,6 +719,7 @@ class JsHelperTest extends TestCase {
 		$this->assertEquals($result[1], 'alert("hey you!");');
 		$this->assertEquals($result[2], 'confirm("Are you sure?");');
 	}
+
 }
 
 /**
@@ -702,6 +728,7 @@ class JsHelperTest extends TestCase {
  * @package       Cake.Test.Case.View.Helper
  */
 class JsBaseEngineTest extends TestCase {
+
 /**
  * setUp method
  *
@@ -817,7 +844,6 @@ class JsBaseEngineTest extends TestCase {
  * @return void
  */
 	public function testObject() {
-
 		$object = array('title' => 'New thing', 'indexes' => array(5, 6, 7, 8));
 		$result = $this->JsEngine->object($object);
 		$expected = '{"title":"New thing","indexes":[5,6,7,8]}';

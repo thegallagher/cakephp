@@ -19,8 +19,11 @@
 namespace TestApp\Controller;
 
 class TestsAppsPostsController extends AppController {
+
 	public $name = 'TestsAppsPosts';
+
 	public $uses = array('Post');
+
 	public $viewPath = 'TestsApps';
 
 	public function add() {
