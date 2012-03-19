@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *	Licensed under The Open Group Test Suite License
  *	Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Model.Datasource
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -843,4 +843,27 @@ class DboSourceTest extends CakeTestCase {
 		$log = $db->getLog();
 		$this->assertEquals($expected, $log['log'][0]);
 	}
+	
+/**
+ * Test build statement with some fields missing 
+ * 
+ * @return void
+ */
+	public function testBuildStatementDefaults() {
+		$conn = $this->getMock('MockPDO');
+		$db = new DboTestSource;
+		$db->setConnection($conn);
+		$subQuery = $db->buildStatement(
+			array(
+				'fields' => array('DISTINCT(AssetsTag.asset_id)'),
+				'table' => "assets_tags",
+				'alias'=>"AssetsTag",                                          
+				'conditions' => array("Tag.name"=>'foo bar'),
+				'limit' => null,         
+				'group' => "AssetsTag.asset_id"
+			),
+			$this->Model
+		);
+	}
+	
 }

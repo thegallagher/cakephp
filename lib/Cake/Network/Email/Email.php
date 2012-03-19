@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Network.Email
  * @since         CakePHP(tm) v 2.0.0
@@ -458,6 +458,37 @@ class Email {
 	public function addBcc($email, $name = null) {
 		return $this->_addEmail('_bcc', $email, $name);
 	}
+
+/**
+ * Charset setter/getter
+ *
+ * @param string $charset
+ * @return string $this->charset
+ */
+	public function charset($charset = null) {
+		if ($charset === null) {
+			return $this->charset;
+		}
+		$this->charset = $charset;
+		if (empty($this->headerCharset)) {
+			$this->headerCharset = $charset;
+		}
+		return $this->charset;
+	}
+
+/**
+ * HeaderCharset setter/getter
+ *
+ * @param string $charset
+ * @return string $this->charset
+ */
+	public function headerCharset($charset = null) {
+		if ($charset === null) {
+			return $this->headerCharset;
+		}
+		return $this->headerCharset = $charset;
+	}
+
 
 /**
  * Set email
@@ -1112,6 +1143,9 @@ class Email {
 		if ($internalEncoding) {
 			$restore = mb_internal_encoding();
 			mb_internal_encoding($this->_appCharset);
+		}
+		if (empty($this->headerCharset)) {
+			$this->headerCharset = $this->charset;
 		}
 		$return = mb_encode_mimeheader($text, $this->headerCharset, 'B');
 		if ($internalEncoding) {

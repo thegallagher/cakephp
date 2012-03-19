@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Test.Case.Routing.Route
  * @since         CakePHP(tm) v 2.0
@@ -30,6 +30,7 @@ use Cake\TestSuite\TestCase,
  * @package       Cake.Test.Case.Routing.Route
  **/
 class RouteTest extends TestCase {
+
 /**
  * setUp method
  *
@@ -199,7 +200,6 @@ class RouteTest extends TestCase {
 		$this->assertEquals($result['day'], '01');
 		$this->assertEquals($result['pass'][0], 'title-of-post');
 
-
 		$route = new Route(
 			"/:extra/page/:slug/*",
 			array('controller' => 'pages', 'action' => 'view', 'extra' => null),
@@ -258,14 +258,12 @@ class RouteTest extends TestCase {
 		$result = $route->match(array('controller' => 'pages', 'action' => 'display', 'about'));
 		$this->assertFalse($result);
 
-
 		$route = new Route('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 		$result = $route->match(array('controller' => 'pages', 'action' => 'display', 'home'));
 		$this->assertEquals($result, '/pages/home');
 
 		$result = $route->match(array('controller' => 'pages', 'action' => 'display', 'about'));
 		$this->assertEquals($result, '/pages/about');
-
 
 		$route = new Route('/blog/:action', array('controller' => 'posts'));
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view'));
@@ -280,11 +278,9 @@ class RouteTest extends TestCase {
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view', 'id' => 2));
 		$this->assertFalse($result);
 
-
 		$route = new Route('/foo/:controller/:action', array('action' => 'index'));
 		$result = $route->match(array('controller' => 'posts', 'action' => 'view'));
 		$this->assertEquals($result, '/foo/posts/view');
-
 
 		$route = new Route('/:plugin/:id/*', array('controller' => 'posts', 'action' => 'view'));
 		$result = $route->match(array('plugin' => 'test', 'controller' => 'posts', 'action' => 'view', 'id' => '1'));
@@ -298,7 +294,6 @@ class RouteTest extends TestCase {
 
 		$result = $route->match(array('plugin' => 'fo', 'controller' => 'posts', 'action' => 'edit', 'id' => 1));
 		$this->assertFalse($result);
-
 
 		$route = new Route('/admin/subscriptions/:action/*', array(
 			'controller' => 'subscribe', 'admin' => true, 'prefix' => 'admin'
@@ -866,8 +861,7 @@ class RouteTest extends TestCase {
  * Test the /** special type on parsing - UTF8.
  *
  * @return void
- */	
-	
+ */
 	public function testParseTrailingUTF8() {
 		$route = new CakeRoute( '/category/**', array('controller' => 'categories','action' => 'index'));
 		$result = $route->parse('/category/%D9%85%D9%88%D8%A8%D8%A7%DB%8C%D9%84');
@@ -878,6 +872,6 @@ class RouteTest extends TestCase {
 			'named' => array()
 		);
 		$this->assertEquals($expected, $result);
+	}
 
-	}	
 }

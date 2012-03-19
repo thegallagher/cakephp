@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Model
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -316,7 +316,8 @@ class ModelDeleteTest extends BaseModelTest {
 
 		$TestModel->recursive = -1;
 		$result = $TestModel->find('all', array(
-			'fields' => array('id', 'user_id', 'title', 'published')
+			'fields' => array('id', 'user_id', 'title', 'published'),
+			'order' => array('Article.id' => 'ASC')
 		));
 
 		$expected = array(
@@ -363,7 +364,8 @@ class ModelDeleteTest extends BaseModelTest {
 
 		$TestModel->recursive = -1;
 		$result = $TestModel->find('all', array(
-			'fields' => array('id', 'user_id', 'title', 'published')
+			'fields' => array('id', 'user_id', 'title', 'published'),
+			'order' => array('Article.id' => 'ASC')
 		));
 		$expected = array(
 			array('Article' => array(
@@ -398,7 +400,8 @@ class ModelDeleteTest extends BaseModelTest {
 
 		$TestModel->recursive = -1;
 		$result = $TestModel->find('all', array(
-			'fields' => array('id', 'user_id', 'title', 'published')
+			'fields' => array('id', 'user_id', 'title', 'published'),
+			'order' => array('Article.id' => 'ASC')
 		));
 		$expected = array(
 			array('Article' => array(
@@ -559,7 +562,7 @@ class ModelDeleteTest extends BaseModelTest {
 			'ArticlesTag', 'Comment', 'User', 'Attachment'
 		);
 		$Bidding = new Bidding();
-		$result = $Bidding->find('all');
+		$result = $Bidding->find('all', array('order' => array('Bidding.id' => 'ASC')));
 		$expected = array(
 			array(
 				'Bidding' => array('id' => 1, 'bid' => 'One', 'name' => 'Bid 1'),
@@ -581,7 +584,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 
 		$Bidding->delete(4, true);
-		$result = $Bidding->find('all');
+		$result = $Bidding->find('all', array('order' => array('Bidding.id' => 'ASC')));
 		$expected = array(
 			array(
 				'Bidding' => array('id' => 1, 'bid' => 'One', 'name' => 'Bid 1'),
@@ -599,7 +602,7 @@ class ModelDeleteTest extends BaseModelTest {
 		$this->assertEquals($expected, $result);
 
 		$Bidding->delete(2, true);
-		$result = $Bidding->find('all');
+		$result = $Bidding->find('all', array('order' => array('Bidding.id' => 'ASC')));
 		$expected = array(
 			array(
 				'Bidding' => array('id' => 1, 'bid' => 'One', 'name' => 'Bid 1'),

@@ -7,12 +7,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc.
+ * Copyright 2005-2012, Cake Software Foundation, Inc.
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc.
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc.
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Model
  * @since         CakePHP(tm) v 2.1
@@ -63,6 +63,7 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
  */
 	protected function _checkConfigs() {
 		$config = ConnectionManager::enumConnectionObjects();
+		$this->skipIf($this->db instanceof Sqlite, 'This test is not compatible with Sqlite.');
 		$this->skipIf(
 			!isset($config['test']) || !isset($config['test2']),
 			 'Primary and secondary test databases not configured, skipping cross-database join tests.'
@@ -95,7 +96,6 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
  */
 	public function testHabtmFind() {
 		$this->loadFixtures('Player', 'Guild', 'GuildsPlayer');
-
 		$Player = ClassRegistry::init('Player');
 
 		$players = $Player->find('all', array(
@@ -130,7 +130,6 @@ class ModelCrossSchemaHabtmTest extends BaseModelTest {
  */
 	public function testHabtmSave() {
 		$this->loadFixtures('Player', 'Guild', 'GuildsPlayer');
-
 		$Player = ClassRegistry::init('Player');
 		$players = $Player->find('count');
 		$this->assertEquals(4, $players);

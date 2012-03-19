@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Utility
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -365,6 +365,19 @@ class SetTest extends TestCase {
 			array('employees' => array(array('name' => array()))),
 			array('employees' => array(array('name' => array())))
 		);
+		$this->assertEquals($expected, $result);
+
+		$menus = array(
+			'blogs' => array('title' => 'Blogs', 'weight' => 3),
+			'comments' => array('title' => 'Comments', 'weight' => 2),
+			'users' => array('title' => 'Users', 'weight' => 1),
+			);
+		$expected = array(
+			'users' => array('title' => 'Users', 'weight' => 1),
+			'comments' => array('title' => 'Comments', 'weight' => 2),
+			'blogs' => array('title' => 'Blogs', 'weight' => 3),
+			);
+		$result = Set::sort($menus, '{[a-z]+}.weight', 'ASC');
 		$this->assertEquals($expected, $result);
 	}
 
@@ -3115,6 +3128,52 @@ class SetTest extends TestCase {
 			'1.Author.user' => 'larry', '1.Author.password' => null
 		);
 		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * Tests Set::expand
+ *
+ * @return void
+ */
+	public function testExpand() {
+		$data = array('My', 'Array', 'To', 'Flatten');
+		$flat = Set::flatten($data);
+		$result = Set::expand($flat);
+		$this->assertEqual($data, $result);
+
+		$data = array(
+			'0.Post.id' => '1', '0.Post.author_id' => '1', '0.Post.title' => 'First Post', '0.Author.id' => '1',
+			'0.Author.user' => 'nate', '0.Author.password' => 'foo', '1.Post.id' => '2', '1.Post.author_id' => '3',
+			'1.Post.title' => 'Second Post', '1.Post.body' => 'Second Post Body', '1.Author.id' => '3',
+			'1.Author.user' => 'larry', '1.Author.password' => null
+		);
+		$result = Set::expand($data);
+		$expected = array(
+			array(
+				'Post' => array('id' => '1', 'author_id' => '1', 'title' => 'First Post'),
+				'Author' => array('id' => '1', 'user' => 'nate', 'password' => 'foo'),
+			),
+			array(
+				'Post' => array('id' => '2', 'author_id' => '3', 'title' => 'Second Post', 'body' => 'Second Post Body'),
+				'Author' => array('id' => '3', 'user' => 'larry', 'password' => null),
+			)
+		);
+		$this->assertEqual($result, $expected);
+
+		$data = array(
+			'0/Post/id' => 1,
+			'0/Post/name' => 'test post'
+		);
+		$result = Set::expand($data, '/');
+		$expected = array(
+			array(
+				'Post' => array(
+					'id' => 1,
+					'name' => 'test post'
+				)
+			)
+		);
+		$this->assertEqual($result, $expected);
 	}
 
 /**

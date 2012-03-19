@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  *	Licensed under The Open Group Test Suite License
  *	Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Routing
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -692,7 +692,6 @@ class RouterTest extends TestCase {
 		$expected = '/magazine/admin/users/login';
 		$this->assertEquals($expected, $result);
 
-
 		Router::reload();
 		$request = new Request();
 		$request->addParams(array(
@@ -728,7 +727,6 @@ class RouterTest extends TestCase {
 		$expected = '/admin/pages/add';
 		$this->assertEquals($expected, $result);
 
-
 		Router::reload();
 		Router::parse('/');
 		$request = new Request();
@@ -763,7 +761,6 @@ class RouterTest extends TestCase {
 		$expected = '/admin/pages/edit/284';
 		$this->assertEquals($expected, $result);
 
-
 		Router::reload();
 		Router::parse('/');
 
@@ -781,7 +778,6 @@ class RouterTest extends TestCase {
 		$expected = '/admin/pages/add';
 		$this->assertEquals($expected, $result);
 
-
 		Router::reload();
 		Router::parse('/');
 
@@ -798,7 +794,6 @@ class RouterTest extends TestCase {
 		$result = Router::url(array('plugin' => null, 'controller' => 'pages', 'action' => 'edit', 284));
 		$expected = '/admin/pages/edit/284';
 		$this->assertEquals($expected, $result);
-
 
 		Router::reload();
 		Router::connect('/admin/posts/*', array('controller' => 'posts', 'action' => 'index', 'admin' => true));
@@ -1063,7 +1058,6 @@ class RouterTest extends TestCase {
 		Router::connect('/about', array('controller' => 'pages', 'action' => 'view', 'about'));
 		Router::parse('/en/red/posts/view/5');
 
-
 		$request = new Request();
 		Router::setRequestInfo(
 			$request->addParams(array(
@@ -1326,7 +1320,7 @@ class RouterTest extends TestCase {
 		$result = Router::url(array('controller' => 'posts', 'action' => 'index', '0', '?' => array('var' => 'test', 'var2' => 'test2', 'more' => 'test data')));
 		$this->assertEquals($expected, $result);
 
-// Test bug #4614
+		// Test bug #4614
 		$restore = ini_get('arg_separator.output');
 		ini_set('arg_separator.output', '&amp;');
 		$result = Router::url(array('controller' => 'posts', 'action' => 'index', '0', '?' => array('var' => 'test', 'var2' => 'test2', 'more' => 'test data')));
@@ -2500,7 +2494,7 @@ class RouterTest extends TestCase {
 			array('action' => 'edit',	'method' => 'POST', 	'id' => true)
 		);
 		$this->assertEquals($default, $exepcted);
-		
+
 		$custom = array(
 			array('action' => 'index',	'method' => 'GET',		'id' => false),
 			array('action' => 'view',	'method' => 'GET',		'id' => true),
@@ -2511,7 +2505,7 @@ class RouterTest extends TestCase {
 		);
 		Router::resourceMap($custom);
 		$this->assertEquals($custom, Router::resourceMap());
-		
+
 		Router::resourceMap($default);
 	}
 

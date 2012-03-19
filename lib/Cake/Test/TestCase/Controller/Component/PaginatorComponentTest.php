@@ -7,12 +7,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Controller.Component
  * @since         CakePHP(tm) v 2.0
@@ -855,7 +855,7 @@ class PaginatorComponentTest extends TestCase {
 	}
 
 /**
- * test paginate() and custom find with returning otehr query on count operation,
+ * test paginate() and custom find with returning other query on count operation,
  * to make sure the correct count is returned.
  *
  * @return void
@@ -877,20 +877,20 @@ class PaginatorComponentTest extends TestCase {
 		$expected = array(
 			array(
 				'PaginatorCustomPost' => array(
-					'author_id' => '3',
-					'total_posts' => '1'
-				),
-				'Author' => array(
-					'user' => 'larry',
-				)
-			),
-			array(
-				'PaginatorCustomPost' => array(
 					'author_id' => '1',
 					'total_posts' => '2'
 				),
 				'Author' => array(
-					'user' => 'mariano'
+					'user' => 'mariano',
+				)
+			),
+			array(
+				'PaginatorCustomPost' => array(
+					'author_id' => '2',
+					'total_posts' => '1'
+				),
+				'Author' => array(
+					'user' => 'nate'
 				)
 			)
 		);

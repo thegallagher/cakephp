@@ -5,17 +5,18 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Core
  * @since         CakePHP(tm) v 1.2.0.5432
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Test\TestCase\Core;
 use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Fixture\TestModel,
@@ -76,64 +77,66 @@ class TestObject extends Object {
  * twoParamMethod method
  *
  * @param mixed $param
- * @param mixed $param2
+ * @param mixed $paramTwo
  * @return void
  */
-	public function twoParamMethod($param, $param2) {
-		$this->methodCalls[] = array('twoParamMethod' => array($param, $param2));
+	public function twoParamMethod($param, $paramTwo) {
+		$this->methodCalls[] = array('twoParamMethod' => array($param, $paramTwo));
 	}
 
 /**
  * threeParamMethod method
  *
  * @param mixed $param
- * @param mixed $param2
- * @param mixed $param3
+ * @param mixed $paramTwo
+ * @param mixed $paramThree
  * @return void
  */
-	public function threeParamMethod($param, $param2, $param3) {
-		$this->methodCalls[] = array('threeParamMethod' => array($param, $param2, $param3));
+	public function threeParamMethod($param, $paramTwo, $paramThree) {
+		$this->methodCalls[] = array('threeParamMethod' => array($param, $paramTwo, $paramThree));
 	}
-	/**
+
+/**
  * fourParamMethod method
  *
  * @param mixed $param
- * @param mixed $param2
- * @param mixed $param3
- * @param mixed $param4
+ * @param mixed $paramTwo
+ * @param mixed $paramThree
+ * @param mixed $paramFour
  * @return void
  */
-	public function fourParamMethod($param, $param2, $param3, $param4) {
-		$this->methodCalls[] = array('fourParamMethod' => array($param, $param2, $param3, $param4));
+	public function fourParamMethod($param, $paramTwo, $paramThree, $paramFour) {
+		$this->methodCalls[] = array('fourParamMethod' => array($param, $paramTwo, $paramThree, $paramFour));
 	}
-	/**
+
+/**
  * fiveParamMethod method
  *
  * @param mixed $param
- * @param mixed $param2
- * @param mixed $param3
- * @param mixed $param4
- * @param mixed $param5
+ * @param mixed $paramTwo
+ * @param mixed $paramThree
+ * @param mixed $paramFour
+ * @param mixed $paramFive
  * @return void
  */
-	public function fiveParamMethod($param, $param2, $param3, $param4, $param5) {
-		$this->methodCalls[] = array('fiveParamMethod' => array($param, $param2, $param3, $param4, $param5));
+	public function fiveParamMethod($param, $paramTwo, $paramThree, $paramFour, $paramFive) {
+		$this->methodCalls[] = array('fiveParamMethod' => array($param, $paramTwo, $paramThree, $paramFour, $paramFive));
 	}
 
 /**
  * crazyMethod method
  *
  * @param mixed $param
- * @param mixed $param2
- * @param mixed $param3
- * @param mixed $param4
- * @param mixed $param5
- * @param mixed $param6
- * @param mixed $param7
+ * @param mixed $paramTwo
+ * @param mixed $paramThree
+ * @param mixed $paramFour
+ * @param mixed $paramFive
+ * @param mixed $paramSix
+ * @param mixed $paramSeven
  * @return void
  */
-	public function crazyMethod($param, $param2, $param3, $param4, $param5, $param6, $param7 = null) {
-		$this->methodCalls[] = array('crazyMethod' => array($param, $param2, $param3, $param4, $param5, $param6, $param7));
+	public function crazyMethod($param, $paramTwo, $paramThree, $paramFour, $paramFive, $paramSix, $paramSeven = null) {
+		$this->methodCalls[] = array('crazyMethod' => array($param, $paramTwo, $paramThree, $paramFour, $paramFive, $paramSix, $paramSeven));
 	}
 
 /**
@@ -154,6 +157,7 @@ class TestObject extends Object {
 	public function set($properties = array()) {
 		return parent::_set($properties);
 	}
+
 }
 
 /**
@@ -162,8 +166,11 @@ class TestObject extends Object {
  * @package       Cake.Test.Case.Core
  */
 class ObjectTestModel extends TestModel {
+
 	public $useTable = false;
+
 	public $name = 'ObjectTestModel';
+
 }
 
 /**
@@ -418,7 +425,7 @@ class ObjectTest extends TestCase {
 			'Model' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Model' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'View' . DS),
 			'Controller' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Controller' . DS),
-			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin'. DS)
+			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
 		Plugin::load(array('TestPlugin'));
 

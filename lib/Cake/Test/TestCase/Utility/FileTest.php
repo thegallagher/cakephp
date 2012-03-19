@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Utility
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -78,7 +78,7 @@ class FileTest extends TestCase {
 			'dirname' => dirname(__FILE__),
 			'basename' => basename(__FILE__),
 			'extension' => 'php',
-			'filename' =>'FileTest',
+			'filename' => 'FileTest',
 			'filesize' => filesize($file),
 			'mime' => 'text/x-php'
 		);
@@ -181,7 +181,7 @@ class FileTest extends TestCase {
 		$this->assertEquals($expecting, $result);
 
 		$result = $this->File->offset();
-		$expecting = 5+3;
+		$expecting = 5 + 3;
 		$this->assertSame($result, $expecting);
 	}
 
@@ -232,7 +232,7 @@ class FileTest extends TestCase {
  * @return void
  */
 	public function testCreate() {
-		$tmpFile = TMP.'tests' . DS . 'cakephp.file.test.tmp';
+		$tmpFile = TMP . 'tests' . DS . 'cakephp.file.test.tmp';
 		$File = new File($tmpFile, true, 0777);
 		$this->assertTrue($File->exists());
 	}

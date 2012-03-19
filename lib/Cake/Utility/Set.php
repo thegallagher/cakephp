@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
  * @package       Cake.Utility
  * @since         CakePHP(tm) v 1.2.0
@@ -1036,6 +1036,36 @@ class Set {
 	}
 
 /**
+ * Expand/unflattens an string to an array
+ *
+ * For example, unflattens an array that was collapsed with `Set::flatten()`
+ * into a multi-dimensional array. So, `array('0.Foo.Bar' => 'Far')` becomes
+ * `array(array('Foo' => array('Bar' => 'Far')))`.
+ *
+ * @param array $data Flattened array
+ * @param string $separator The delimiter used
+ * @return array
+ */
+	public static function expand($data, $separator = '.') {
+		$result = array();
+		foreach ($data as $flat => $value) {
+			$keys = explode($separator, $flat);
+			$keys = array_reverse($keys);
+			$child = array(
+				$keys[0] => $value
+			);
+			array_shift($keys);
+			foreach ($keys as $k) {
+				$child = array(
+					$k => $child
+				);
+			}
+			$result = Set::merge($result, $child);
+		}
+		return $result;
+	}
+
+/**
  * Flattens an array for sorting
  *
  * @param array $results
@@ -1088,10 +1118,14 @@ class Set {
 		$keys = array_unique($keys);
 
 		foreach ($keys as $k) {
-			if (!$numeric) {
-				$sorted[$originalKeys[$k]] = $data[$originalKeys[$k]];
-			} else {
+			if ($numeric) {
 				$sorted[] = $data[$k];
+			} else {
+				if (isset($originalKeys[$k])) {
+					$sorted[$originalKeys[$k]] = $data[$originalKeys[$k]];
+				} else {
+					$sorted[$k] = $data[$k];
+				}
 			}
 		}
 		return $sorted;

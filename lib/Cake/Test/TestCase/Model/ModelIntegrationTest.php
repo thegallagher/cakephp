@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.Model
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -717,6 +717,7 @@ class ModelIntegrationTest extends BaseModelTest {
  */
 	public function testHABTMKeepExistingWithThreeDbs() {
 		$config = ConnectionManager::enumConnectionObjects();
+		$this->skipIf($this->db instanceof Sqlite, 'This test is not compatible with Sqlite.');
 		$this->skipIf(
 			!isset($config['test']) || !isset($config['test2']) || !isset($config['test_database_three']),
 			'Primary, secondary, and tertiary test databases not configured, skipping test.  To run this test define $test, $test2, and $test_database_three in your database configuration.'
@@ -835,7 +836,7 @@ class ModelIntegrationTest extends BaseModelTest {
 				array('hour' => '', 'min' => '', 'sec' => ''),
 				''
 			),
-			// set and empty merdian 
+			// set and empty merdian
 			array(
 				array('hour' => '1', 'min' => '00', 'meridian' => ''),
 				''

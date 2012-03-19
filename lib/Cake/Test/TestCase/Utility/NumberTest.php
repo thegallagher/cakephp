@@ -5,12 +5,12 @@
  * PHP 5
  *
  * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
- * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice
  *
- * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://book.cakephp.org/view/1196/Testing CakePHP(tm) Tests
  * @package       Cake.Test.Case.View.Helper
  * @since         CakePHP(tm) v 1.2.0.4206
@@ -109,7 +109,7 @@ class NumberTest extends TestCase {
 		$expected = '100 100 100,00€';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->currency(1000.45, NULL, array('after' => 'øre', 'before' => 'Kr. ', 'decimals' => ',', 'thousands' => '.'));
+		$result = $this->Number->currency(1000.45, null, array('after' => 'øre', 'before' => 'Kr. ', 'decimals' => ',', 'thousands' => '.'));
 		$expected = 'Kr. 1.000,45';
 		$this->assertEquals($expected, $result);
 
@@ -117,7 +117,7 @@ class NumberTest extends TestCase {
 		$expected = '50c';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->currency(0.5, NULL, array('after' => 'øre'));
+		$result = $this->Number->currency(0.5, null, array('after' => 'øre'));
 		$expected = '50øre';
 		$this->assertEquals($expected, $result);
 
@@ -248,7 +248,6 @@ class NumberTest extends TestCase {
 		$result = $this->Number->currency($value, 'GBP', array('negative' => '-'));
 		$expected = '-&#163;100,100,100.00';
 		$this->assertEquals($expected, $result);
-
 	}
 
 /**
@@ -401,39 +400,39 @@ class NumberTest extends TestCase {
 		$expected = '1 KB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*512);
+		$result = $this->Number->toReadableSize(1024 * 512);
 		$expected = '512 KB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024-1);
+		$result = $this->Number->toReadableSize(1024 * 1024 - 1);
 		$expected = '1.00 MB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*512);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 512);
 		$expected = '512.00 MB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024-1);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 - 1);
 		$expected = '1.00 GB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024*512);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 * 512);
 		$expected = '512.00 GB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024*1024-1);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 * 1024 - 1);
 		$expected = '1.00 TB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024*1024*512);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 * 1024 * 512);
 		$expected = '512.00 TB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024*1024*1024-1);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 * 1024 * 1024 - 1);
 		$expected = '1024.00 TB';
 		$this->assertEquals($expected, $result);
 
-		$result = $this->Number->toReadableSize(1024*1024*1024*1024*1024*1024);
+		$result = $this->Number->toReadableSize(1024 * 1024 * 1024 * 1024 * 1024 * 1024);
 		$expected = (1024 * 1024) . '.00 TB';
 		$this->assertEquals($expected, $result);
 	}
@@ -460,4 +459,5 @@ class NumberTest extends TestCase {
 		$expected = '0.0000%';
 		$this->assertEquals($expected, $result);
 	}
+
 }
