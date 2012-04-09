@@ -572,6 +572,7 @@ class Router {
 		if (empty(self::$_initialState)) {
 			self::$_initialState = get_class_vars(get_called_class());
 			self::_setPrefixes();
+			self::$_routes = new RouteCollection();
 			return;
 		}
 		foreach (self::$_initialState as $key => $val) {

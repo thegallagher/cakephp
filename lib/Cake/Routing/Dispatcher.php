@@ -131,7 +131,7 @@ class Dispatcher {
  * @return Cake\Network\Request The request object with routing params set.
  */
 	public function parseParams(Request $request, $additionalParams = array()) {
-		if (count(Router::$routes) == 0) {
+		if (Router::getRequest(false) === $request) {
 			$namedExpressions = Router::getNamedExpressions();
 			extract($namedExpressions);
 			$this->_loadRoutes();
