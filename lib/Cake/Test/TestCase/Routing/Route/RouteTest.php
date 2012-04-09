@@ -18,11 +18,11 @@
  */
 namespace Cake\Test\TestCase\Routing\Route;
 
-use Cake\TestSuite\TestCase,
-	Cake\Routing\Route\Route,
-	Cake\Routing\Router,
-	Cake\Core\Configure,
-	Cake\Core\App;
+use Cake\TestSuite\TestCase;
+use Cake\Routing\Route\Route;
+use Cake\Routing\Router;
+use Cake\Core\Configure;
+use Cake\Core\App;
 
 /**
  * Test case for Route
@@ -597,6 +597,47 @@ class RouteTest extends TestCase {
 			'pass' => array('موبایل'),
 		);
 		$this->assertEquals($expected, $result);
+	}
+
+/**
+ * test getName();
+ *
+ * @return void
+ */
+	public function testGetName() {
+		$route = new Route('/:controller/:action');
+		$this->assertEquals('_controller::_action', $route->getName());
+
+		$route = new Route('/articles/:action', array('controller' => 'posts'));
+		$this->assertEquals('posts::_action', $route->getName());
+
+		$route = new Route('/articles/list', array('controller' => 'posts', 'action' => 'index'));
+		$this->assertEquals('posts::index', $route->getName());
+	}
+
+/**
+ * Test getName() with plugins.
+ *
+ * @return void
+ */
+	public function testGetNamePlugins() {
+		$route = new Route(
+			'/a/:controller/:action',
+			array('plugin' => 'asset')
+		);
+		$this->assertEquals('asset._controller::_action', $route->getName());
+
+		$route = new Route(
+			'/a/assets/:action',
+			array('plugin' => 'asset', 'controller' => 'assets')
+		);
+		$this->assertEquals('asset.assets::_action', $route->getName());
+
+		$route = new Route(
+			'/assets/get',
+			array('plugin' => 'asset', 'controller' => 'assets', 'action' => 'get')
+		);
+		$this->assertEquals('asset.assets::get', $route->getName());
 	}
 
 }
