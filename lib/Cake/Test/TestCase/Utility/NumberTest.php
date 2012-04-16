@@ -112,7 +112,7 @@ class NumberTest extends TestCase {
 		$this->assertEquals($expected, $result);
 
 		$value = '13371337.1337';
-		$result = CakeNumber::format($value, array(
+		$result = Number::format($value, array(
 			'thousands'	=> '- |-| /-\ >< () |2 -',
 			'decimals'	=> '- £€€† -',
 			'before'	=> ''

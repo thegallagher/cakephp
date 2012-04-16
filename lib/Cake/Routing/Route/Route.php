@@ -14,7 +14,7 @@
 namespace Cake\Routing\Route;
 
 use Cake\Routing\Router,
-	Cake\Utility\Set;
+	Cake\Utility\Hash;
 
 /**
  * A single Route used by the Router to connect requests to

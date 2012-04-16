@@ -665,11 +665,11 @@ class AuthComponentTest extends TestCase {
 			'controller' => 'something', 'action' => 'else',
 		);
 
-		$CakeResponse = new CakeResponse();
+		$response = new Response();
 		$Controller = $this->getMock(
 			'Controller',
 			array('on', 'redirect'),
-			array($CakeRequest, $CakeResponse)
+			array($CakeRequest, $response)
 		);
 
 		$expected = Router::url($this->Auth->loginRedirect, true);

@@ -13,9 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 namespace Cake\Test\TestCase\Utility;
-use Cake\Utility\Hash;
+use Cake\TestSuite\TestCase,
+	Cake\Utility\Hash;
 
-class HashTest extends CakeTestCase {
+class HashTest extends TestCase {
 
 	public static function articleData() {
 		return array(

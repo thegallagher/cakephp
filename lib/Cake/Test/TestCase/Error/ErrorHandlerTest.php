@@ -291,7 +291,7 @@ class ErrorHandlerTest extends TestCase {
 
 		$log = file(LOGS . 'error.log');
 		$this->assertContains(__FILE__, $log[0], 'missing filename');
-		$this->assertContains('[FatalErrorException] Something wrong', $log[1], 'message missing.');
+		$this->assertContains('[Cake\Error\FatalErrorException] Something wrong', $log[1], 'message missing.');
 	}
 
 }

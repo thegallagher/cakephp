@@ -21,7 +21,7 @@ use Cake\Core\Object,
 	Cake\Routing\Router,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Inflector,
-	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Utility\ObjectCollection;
 
 /**

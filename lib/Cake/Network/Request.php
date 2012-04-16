@@ -17,7 +17,7 @@
  */
 namespace Cake\Network;
 use Cake\Core\Configure,
-	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Error;
 
 /**

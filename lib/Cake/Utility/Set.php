@@ -52,7 +52,7 @@ class Set {
 		if (!is_array($args[0])) {
 			$args[0] = (array)$args[0];
 		}
-		return call_user_func_array('Hash::merge', $args);
+		return call_user_func_array(__NAMESPACE__ . '\Hash::merge', $args);
 	}
 
 /**

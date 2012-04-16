@@ -328,7 +328,7 @@ object(Cake\View\View) {
 	hasRendered => false
 	uuids => array()
 	request => null
-	response => object(CakeResponse) {}
+	response => object(Cake\Network\Response) {}
 	elementCache => 'default'
 	int => (int) 2
 	float => (float) 1.333

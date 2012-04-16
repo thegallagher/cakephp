@@ -18,7 +18,8 @@
  */
 namespace Cake\Core;
 use Cake\Cache\Cache,
-	Cake\Utility\Inflector;
+	Cake\Utility\Inflector,
+	Cake\Error\ErrorHandler;
 
 /**
  * App is responsible for path management, class location and class loading.

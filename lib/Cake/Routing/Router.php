@@ -23,6 +23,7 @@ use Cake\Core\Configure,
 	Cake\Network\Response,
 	Cake\Routing\Route\Route,
 	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Utility\Inflector,
 	Cake\Error;
 
@@ -1086,7 +1087,7 @@ class Router {
  * `$this->params['ext']`, and is used by the RequestHandler component to
  * automatically switch to alternate layouts and templates, and load helpers
  * corresponding to the given content, i.e. RssHelper. Switching layouts and helpers
- * requires that the chosen extension has a defined mime type in `CakeResponse`
+ * requires that the chosen extension has a defined mime type in `Cake\Network\Response`
  *
  * A list of valid extension can be passed to this method, i.e. Router::parseExtensions('rss', 'xml');
  * If no parameters are given, anything after the first . (dot) after the last / in the URL will be

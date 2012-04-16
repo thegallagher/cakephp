@@ -23,7 +23,7 @@ use Cake\View\Helper,
 	Cake\I18n\Multibyte,
 	Cake\Core\App,
 	Cake\Core\Configure,
-	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Error;
 
 /**

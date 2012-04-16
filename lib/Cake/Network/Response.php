@@ -383,7 +383,7 @@ class Response {
 	}
 
 /**
- * Sets the cookies that have been added via static method CakeResponse::addCookie()
+ * Sets the cookies that have been added via static method Cake\Network\Response::addCookie()
  * before any other output is sent to the client.
  * Will set the cookies in the order they have been set.
  * 

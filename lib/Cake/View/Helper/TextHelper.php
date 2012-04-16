@@ -22,7 +22,7 @@ namespace Cake\View\Helper;
 use Cake\View\Helper,
 	Cake\View\View,
 	Cake\Core\App,
-	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Error;
 
 /**

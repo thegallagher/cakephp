@@ -863,7 +863,7 @@ class RouteTest extends TestCase {
  * @return void
  */
 	public function testParseTrailingUTF8() {
-		$route = new CakeRoute( '/category/**', array('controller' => 'categories','action' => 'index'));
+		$route = new Route( '/category/**', array('controller' => 'categories','action' => 'index'));
 		$result = $route->parse('/category/%D9%85%D9%88%D8%A8%D8%A7%DB%8C%D9%84');
 		$expected = array(
 			'controller' => 'categories',
