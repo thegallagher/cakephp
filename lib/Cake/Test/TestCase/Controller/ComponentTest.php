@@ -41,24 +41,13 @@ class ComponentTest extends TestCase {
  * @return void
  */
 	public function setUp() {
-		$this->_appNamespace = Configure::read('App.namespace');
+		parent::setUp();
 		Configure::write('App.namespace', 'TestApp');
 
 		$this->_pluginPaths = App::path('plugins');
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		));
-	}
-
-/**
- * tearDown method
- *
- * @return void
- */
-	public function tearDown() {
-		Configure::write('App.namespace', $this->_appNamespace);
-		App::build();
-		ClassRegistry::flush();
 	}
 
 /**

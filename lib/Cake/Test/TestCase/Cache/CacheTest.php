@@ -36,6 +36,7 @@ class CacheTest extends TestCase {
  * @return void
  */
 	public function setUp() {
+		parent::setUp();
 		$this->_cacheDisable = Configure::read('Cache.disable');
 		Configure::write('Cache.disable', false);
 
@@ -49,6 +50,7 @@ class CacheTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
+		parent::tearDown();
 		Configure::write('Cache.disable', $this->_cacheDisable);
 		Cache::config('default', $this->_defaultCacheConfig['settings']);
 	}

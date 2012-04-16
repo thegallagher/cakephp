@@ -34,6 +34,7 @@ class PluginTest extends TestCase {
  * @return void
  */
 	public function setUp() {
+		parent::setUp();
 		App::build(array(
 			'Plugin' => array(CAKE . 'Test' . DS . 'TestApp' . DS . 'Plugin' . DS)
 		), App::RESET);
@@ -46,9 +47,8 @@ class PluginTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		App::build();
+		parent::tearDown();
 		Plugin::unload();
-		Configure::delete('PluginTest');
 	}
 
 /**

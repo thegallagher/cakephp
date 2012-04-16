@@ -57,8 +57,6 @@ class RequestHandlerComponentTest extends TestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->_server = $_SERVER;
-		$this->_appNamespace = Configure::read('App.namespace');
 		Configure::write('App.namespace', 'TestApp');
 		$this->_init();
 	}
@@ -88,8 +86,6 @@ class RequestHandlerComponentTest extends TestCase {
 		if (!headers_sent()) {
 			header('Content-type: text/html'); //reset content type.
 		}
-		$_SERVER = $this->_server;
-		Configure::write('App.namespace', $this->_appNamespace);
 		call_user_func_array('Cake\Routing\Router::parseExtensions', $this->_extensions);
 	}
 

@@ -39,6 +39,7 @@ class ConsoleOutputTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
+		parent::tearDown();
 		unset($this->output);
 	}
 

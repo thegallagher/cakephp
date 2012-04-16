@@ -432,9 +432,8 @@ class ControllerTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		Plugin::unload();
-		App::build();
 		parent::tearDown();
+		Plugin::unload();
 	}
 
 /**

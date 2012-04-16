@@ -70,9 +70,6 @@ class AuthComponentTest extends TestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->_server = $_SERVER;
-		$this->_env = $_ENV;
-		$this->_ns = Configure::read('App.namespace');
 
 		Configure::write('Security.salt', 'YJfIxfs2guVoUubWDYhG93b0qyJfIxfs2guwvniR2G0FgaC9mi');
 		Configure::write('Security.cipherSeed', 770011223369876);
@@ -105,9 +102,6 @@ class AuthComponentTest extends TestCase {
  */
 	public function tearDown() {
 		parent::tearDown();
-		$_SERVER = $this->_server;
-		$_ENV = $this->_env;
-		Configure::write('App.namespace', $this->_ns);
 
 		TestAuthComponent::clearUser();
 		$this->Auth->Session->delete('Auth');

@@ -122,8 +122,8 @@ class ObjectCollectionTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Objects);
 		parent::tearDown();
+		unset($this->Objects);
 	}
 
 /**

@@ -40,6 +40,7 @@ class TestShellTest extends TestCase {
  * @return void
  */
 	public function setUp() {
+		parent::setUp();
 		$out = $this->getMock('Cake\Console\ConsoleOutput', array(), array(), '', false);
 		$in = $this->getMock('Cake\Console\ConsoleInput', array(), array(), '', false);
 
@@ -57,6 +58,7 @@ class TestShellTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
+		parent::tearDown();
 		unset($this->Dispatch, $this->Shell);
 	}
 

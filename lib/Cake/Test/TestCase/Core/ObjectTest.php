@@ -193,8 +193,8 @@ class ObjectTest extends TestCase {
  * @return void
  */
 	public function setUp() {
+		parent::setUp();
 		$this->object = new TestObject();
-		$this->appNS = Configure::read('App.namespace');
 		Configure::write('App.namespace', 'TestApp');
 	}
 
@@ -204,10 +204,9 @@ class ObjectTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		App::build();
+		parent::tearDown();
 		Plugin::unload();
 		unset($this->object);
-		Configure::write('App.namespace', $this->appNS);
 	}
 
 /**

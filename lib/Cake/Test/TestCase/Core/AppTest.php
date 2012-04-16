@@ -34,6 +34,7 @@ class AppTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
+		parent::tearDown();
 		Plugin::unload();
 	}
 

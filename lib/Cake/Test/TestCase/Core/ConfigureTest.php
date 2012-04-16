@@ -39,9 +39,7 @@ class ConfigureTest extends TestCase {
  * @return void
  */
 	public function setUp() {
-		$this->_cacheDisable = Configure::read('Cache.disable');
-		$this->_debug = Configure::read('debug');
-
+		parent::setUp();
 		Configure::write('Cache.disable', true);
 		App::build();
 		App::objects('plugin', null, true);
@@ -53,6 +51,7 @@ class ConfigureTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
+		parent::tearDown();
 		if (file_exists(TMP . 'cache' . DS . 'persistent' . DS . 'cake_core_core_paths')) {
 			unlink(TMP . 'cache' . DS . 'persistent' . DS . 'cake_core_core_paths');
 		}
@@ -71,8 +70,6 @@ class ConfigureTest extends TestCase {
 		if (file_exists(TMP . 'cache' . DS . 'persistent' . DS . 'test.php')) {
 			unlink(TMP . 'cache' . DS . 'persistent' . DS . 'test.php');
 		}
-		Configure::write('debug', $this->_debug);
-		Configure::write('Cache.disable', $this->_cacheDisable);
 		Configure::drop('test');
 	}
 
@@ -360,4 +357,15 @@ class ConfigureTest extends TestCase {
 		Configure::config('test', $reader);
 	}
 
+/**
+ * Test that clear wipes all values.
+ *
+ * @return void
+ */
+	public function testClear() {
+		Configure::write('test', 'value');
+		$this->assertTrue(Configure::clear());
+		$this->assertNull(Configure::read('debug'));
+		$this->assertNull(Configure::read('test'));
+	}
 }

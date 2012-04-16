@@ -47,8 +47,8 @@ class ComponentCollectionTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		unset($this->Components);
 		parent::tearDown();
+		unset($this->Components);
 	}
 
 /**
