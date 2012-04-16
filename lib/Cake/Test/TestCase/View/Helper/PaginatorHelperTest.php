@@ -364,13 +364,13 @@ class PaginatorHelperTest extends TestCase {
 		$this->assertEquals('Article.title', $result);
 
 		$result = $this->Paginator->sortKey('Article', array('order' => 'Article.title'));
-		$this->assertEquals($result, 'Article.title');
+		$this->assertEquals('Article.title', $result);
 
 		$result = $this->Paginator->sortKey('Article', array('sort' => 'Article.title'));
-		$this->assertEquals($result, 'Article.title');
+		$this->assertEquals('Article.title', $result);
 
 		$result = $this->Paginator->sortKey('Article', array('sort' => 'Article'));
-		$this->assertEquals($result, 'Article');
+		$this->assertEquals('Article', $result);
 	}
 
 /**
@@ -557,20 +557,20 @@ class PaginatorHelperTest extends TestCase {
 		$this->assertTags($result, $expected);
 
 		$result = $this->Paginator->url();
-		$this->assertEquals($result, '/index/page:1');
+		$this->assertEquals('/index/page:1', $result);
 
 		$this->Paginator->request->params['paging']['Article']['options']['page'] = 2;
 		$result = $this->Paginator->url();
-		$this->assertEquals($result, '/index/page:2');
+		$this->assertEquals('/index/page:2', $result);
 
 		$options = array('order' => array('Article' => 'desc'));
 		$result = $this->Paginator->url($options);
-		$this->assertEquals($result, '/index/page:2/sort:Article/direction:desc');
+		$this->assertEquals('/index/page:2/sort:Article/direction:desc', $result);
 
 		$this->Paginator->request->params['paging']['Article']['options']['page'] = 3;
 		$options = array('order' => array('Article.name' => 'desc'));
 		$result = $this->Paginator->url($options);
-		$this->assertEquals($result, '/index/page:3/sort:Article.name/direction:desc');
+		$this->assertEquals('/index/page:3/sort:Article.name/direction:desc', $result);
 	}
 
 /**
@@ -2334,7 +2334,7 @@ class PaginatorHelperTest extends TestCase {
 			->will($this->returnValue('I am a link'));
 
 		$result = $this->Paginator->link('test', array('controller' => 'posts'), array('update' => '#content'));
-		$this->assertEquals($result, 'I am a link');
+		$this->assertEquals('I am a link', $result);
 	}
 
 /**

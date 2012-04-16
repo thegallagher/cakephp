@@ -15,11 +15,13 @@
  * @since         CakePHP(tm) v 1.2.0.5012
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Console\Command\Task;
 use Cake\Console\Shell,
 	Cake\Core\Plugin,
 	Cake\Core\App,
 	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Utility\Inflector,
 	Cake\Utility\Folder,
 	Cake\Utility\File;
@@ -433,7 +435,7 @@ class ExtractTask extends Shell {
 			return;
 		}
 
-		$dims = Set::countDim($rules);
+		$dims = Hash::dimensions($rules);
 		if ($dims == 1 || ($dims == 2 && isset($rules['message']))) {
 			$rules = array($rules);
 		}

@@ -18,11 +18,12 @@
  * @since         CakePHP v 1.2.0.4487
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Model\Behavior;
 use Cake\Model\ModelBehavior,
 	Cake\Model\Model,
 	Cake\Utility\ClassRegistry,
-	Cake\Utility\Set;
+	Cake\Utility\Hash;
 
 /**
  * ACL behavior
@@ -135,7 +136,7 @@ class AclBehavior extends ModelBehavior {
 			$types = array($types);
 		}
 		foreach ($types as $type) {
-			$node = Set::extract($this->node($model, null, $type), "0.{$type}.id");
+			$node = Hash::extract($this->node($model, null, $type), "0.{$type}.id");
 			if (!empty($node)) {
 				$model->{$type}->delete($node);
 			}

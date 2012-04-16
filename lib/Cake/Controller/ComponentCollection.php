@@ -98,7 +98,8 @@ class ComponentCollection extends ObjectCollection implements EventListener {
 		$componentClass = App::classname($plugin . $name, 'Controller/Component', 'Component');
 		if (!$componentClass) {
 			throw new Error\MissingComponentException(array(
-				'class' => $component
+				'class' => $component,
+				'plugin' => substr($plugin, 0, -1)
 			));
 		}
 		$this->_loaded[$alias] = new $componentClass($this, $settings);

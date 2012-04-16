@@ -44,7 +44,7 @@ use Cake\Core\Configure,
  *
  * Options:
  *
- * - `handler` - callback - The callback to handle errors. You can set this to any callback type,
+ * - `handler` - callback - The callback to handle errors. You can set this to any callable type,
  *    including anonymous functions.
  * - `level` - int - The level of errors you are interested in capturing.
  * - `trace` - boolean - Include stack traces for errors in log files.

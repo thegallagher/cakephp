@@ -111,7 +111,7 @@ class ControllerPost extends TestModel {
 	public function find($type = 'first', $options = array()) {
 		if ($type == 'popular') {
 			$conditions = array($this->name . '.' . $this->primaryKey . ' > ' => '1');
-			$options = Set::merge($options, compact('conditions'));
+			$options = Hash::merge($options, compact('conditions'));
 			return parent::find('all', $options);
 		}
 		return parent::find($type, $options);
@@ -296,6 +296,7 @@ class TestController extends ControllerTestAppController {
 		return 'I am from the controller.';
 	}
 
+	//@codingStandardsIgnoreStart
 	protected function protected_m() {
 	}
 
@@ -304,6 +305,7 @@ class TestController extends ControllerTestAppController {
 
 	public function _hidden() {
 	}
+	//@codingStandardsIgnoreEnd
 
 	public function admin_add() {
 	}
@@ -498,7 +500,7 @@ class ControllerTest extends TestCase {
 		$this->assertTrue(is_a($Controller->ControllerPost, 'ControllerPost'));
 		$this->assertTrue(is_a($Controller->ControllerComment, 'ControllerComment'));
 
-		$this->assertEquals($Controller->ControllerComment->name, 'Comment');
+		$this->assertEquals('Comment', $Controller->ControllerComment->name);
 
 		unset($Controller);
 
@@ -524,8 +526,8 @@ class ControllerTest extends TestCase {
 		$Controller->uses = array('NameTest');
 		$Controller->constructClasses();
 
-		$this->assertEquals($Controller->NameTest->name, 'Name');
-		$this->assertEquals($Controller->NameTest->alias, 'Name');
+		$this->assertEquals('Name', $Controller->NameTest->name);
+		$this->assertEquals('Name', $Controller->NameTest->alias);
 
 		unset($Controller);
 	}
@@ -607,13 +609,13 @@ class ControllerTest extends TestCase {
 		$Controller->viewVars = array();
 		$expected = array('ModelName' => 'name', 'ModelName2' => 'name2');
 		$Controller->set(array('ModelName', 'ModelName2'), array('name', 'name2'));
-		$this->assertSame($Controller->viewVars, $expected);
+		$this->assertSame($expected, $Controller->viewVars);
 
 		$Controller->viewVars = array();
 		$Controller->set(array(3 => 'three', 4 => 'four'));
 		$Controller->set(array(1 => 'one', 2 => 'two'));
 		$expected = array(3 => 'three', 4 => 'four', 1 => 'one', 2 => 'two');
-		$this->assertEquals($Controller->viewVars, $expected);
+		$this->assertEquals($expected, $Controller->viewVars);
 	}
 
 /**
@@ -901,9 +903,9 @@ class ControllerTest extends TestCase {
 					? array_merge($appVars['uses'], $testVars['uses'])
 					: $testVars['uses'];
 
-		$this->assertEquals(count(array_diff_key($TestController->helpers, array_flip($helpers))), 0);
-		$this->assertEquals(count(array_diff($TestController->uses, $uses)), 0);
-		$this->assertEquals(count(array_diff_assoc(Set::normalize($TestController->components), Set::normalize($components))), 0);
+		$this->assertEquals(0, count(array_diff_key($TestController->helpers, array_flip($helpers))));
+		$this->assertEquals(0, count(array_diff($TestController->uses, $uses)));
+		$this->assertEquals(count(array_diff_assoc(Hash::normalize($TestController->components), Hash::normalize($components))), 0);
 
 		$expected = array('ControllerComment', 'ControllerAlias', 'ControllerPost');
 		$this->assertEquals($expected, $TestController->uses, '$uses was merged incorrectly, ControllerTestAppController models should be last.');
@@ -945,7 +947,7 @@ class ControllerTest extends TestCase {
 		$expected = array('foo');
 		$TestController->components = array('Cookie' => $expected);
 		$TestController->constructClasses();
-		$this->assertEquals($TestController->components['Cookie'], $expected);
+		$this->assertEquals($expected, $TestController->components['Cookie']);
 	}
 
 /**
@@ -979,12 +981,12 @@ class ControllerTest extends TestCase {
 
 		$Controller = new Controller($request);
 		$result = $Controller->referer(null, true);
-		$this->assertEquals($result, '/posts/index');
+		$this->assertEquals('/posts/index', $result);
 
 		$Controller = new Controller($request);
 		$request->setReturnValue('referer', '/', array(true));
 		$result = $Controller->referer(array('controller' => 'posts', 'action' => 'index'), true);
-		$this->assertEquals($result, '/posts/index');
+		$this->assertEquals('/posts/index', $result);
 
 		$request = $this->getMock('Cake\Network\Request');
 
@@ -994,11 +996,11 @@ class ControllerTest extends TestCase {
 
 		$Controller = new Controller($request);
 		$result = $Controller->referer();
-		$this->assertEquals($result, 'http://localhost/posts/index');
+		$this->assertEquals('http://localhost/posts/index', $result);
 
 		$Controller = new Controller(null);
 		$result = $Controller->referer();
-		$this->assertEquals($result, '/');
+		$this->assertEquals('/', $result);
 	}
 
 /**
@@ -1029,7 +1031,7 @@ class ControllerTest extends TestCase {
 		$TestController = new TestController($request);
 		$TestController->constructClasses();
 		$this->assertFalse($TestController->validateErrors());
-		$this->assertEquals($TestController->validate(), 0);
+		$this->assertEquals(0, $TestController->validate());
 
 		$TestController->ControllerComment->invalidate('some_field', 'error_message');
 		$TestController->ControllerComment->invalidate('some_field2', 'error_message2');
@@ -1039,7 +1041,7 @@ class ControllerTest extends TestCase {
 		$result = $TestController->validateErrors($comment);
 		$expected = array('some_field' => array('error_message'), 'some_field2' => array('error_message2'));
 		$this->assertSame($expected, $result);
-		$this->assertEquals($TestController->validate($comment), 2);
+		$this->assertEquals(2, $TestController->validate($comment));
 	}
 
 /**
@@ -1278,14 +1280,14 @@ class ControllerTest extends TestCase {
 		$Controller->params['url'] = array();
 		$Controller->constructClasses();
 		$expected = array('page' => 1, 'limit' => 20, 'maxLimit' => 100, 'paramType' => 'named');
-		$this->assertEquals($Controller->paginate, $expected);
+		$this->assertEquals($expected, $Controller->paginate);
 
-		$results = Set::extract($Controller->paginate('ControllerPost'), '{n}.ControllerPost.id');
-		$this->assertEquals($results, array(1, 2, 3));
+		$results = Hash::extract($Controller->paginate('ControllerPost'), '{n}.ControllerPost.id');
+		$this->assertEquals(array(1, 2, 3), $results);
 
 		$Controller->passedArgs = array();
 		$Controller->paginate = array('limit' => '-1');
-		$this->assertEquals($Controller->paginate, array('limit' => '-1'));
+		$this->assertEquals(array('limit' => '-1'), $Controller->paginate);
 		$Controller->paginate('ControllerPost');
 		$this->assertSame($Controller->params['paging']['ControllerPost']['page'], 1);
 		$this->assertSame($Controller->params['paging']['ControllerPost']['pageCount'], 3);

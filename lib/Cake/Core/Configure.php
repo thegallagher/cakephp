@@ -12,9 +12,11 @@
  * @since         CakePHP(tm) v 1.0.0.2363
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Core;
 use Cake\Cache\Cache,
 	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Configure\ConfigReaderInterface,
 	Cake\Configure\PhpReader;
 
@@ -129,12 +131,7 @@ class Configure {
 		}
 
 		foreach ($config as $name => $value) {
-			$pointer = &self::$_values;
-			foreach (explode('.', $name) as $key) {
-				$pointer = &$pointer[$key];
-			}
-			$pointer = $value;
-			unset($pointer);
+			self::$_values = Hash::insert(self::$_values, $name, $value);
 		}
 
 		if (isset($config['debug']) && function_exists('ini_set')) {
@@ -165,18 +162,7 @@ class Configure {
 		if ($var === null) {
 			return self::$_values;
 		}
-		if (isset(self::$_values[$var])) {
-			return self::$_values[$var];
-		}
-		$pointer = &self::$_values;
-		foreach (explode('.', $var) as $key) {
-			if (isset($pointer[$key])) {
-				$pointer = &$pointer[$key];
-			} else {
-				return null;
-			}
-		}
-		return $pointer;
+		return Hash::get(self::$_values, $var);
 	}
 
 /**
@@ -195,11 +181,7 @@ class Configure {
 	public static function delete($var = null) {
 		$keys = explode('.', $var);
 		$last = array_pop($keys);
-		$pointer = &self::$_values;
-		foreach ($keys as $key) {
-			$pointer = &$pointer[$key];
-		}
-		unset($pointer[$last]);
+		self::$_values = Hash::remove(self::$_values, $var);
 	}
 
 /**
@@ -287,7 +269,7 @@ class Configure {
 			$keys = array_keys($values);
 			foreach ($keys as $key) {
 				if (($c = self::read($key)) && is_array($values[$key]) && is_array($c)) {
-					$values[$key] = Set::merge($c, $values[$key]);
+					$values[$key] = Hash::merge($c, $values[$key]);
 				}
 			}
 		}

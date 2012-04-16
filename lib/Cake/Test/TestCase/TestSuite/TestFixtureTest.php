@@ -220,13 +220,13 @@ class TestFixtureTest extends TestCase {
 		$Fixture = new TestFixtureTestFixture();
 		unset($Fixture->table);
 		$Fixture->init();
-		$this->assertEquals($Fixture->table, 'fixture_tests');
-		$this->assertEquals($Fixture->primaryKey, 'id');
+		$this->assertEquals('fixture_tests', $Fixture->table);
+		$this->assertEquals('id', $Fixture->primaryKey);
 
 		$Fixture = new TestFixtureTestFixture();
 		$Fixture->primaryKey = 'my_random_key';
 		$Fixture->init();
-		$this->assertEquals($Fixture->primaryKey, 'my_random_key');
+		$this->assertEquals('my_random_key', $Fixture->primaryKey);
 	}
 
 /**
@@ -245,7 +245,7 @@ class TestFixtureTest extends TestCase {
 
 		$Fixture = new TestFixtureTestFixture();
 		$expected = array('id', 'name', 'created');
-		$this->assertEquals(array_keys($Fixture->fields), $expected);
+		$this->assertEquals($expected, array_keys($Fixture->fields));
 
 		$config = $db->config;
 		$config['prefix'] = 'fixture_test_suite_';
@@ -261,8 +261,8 @@ class TestFixtureTest extends TestCase {
 		$Fixture->fields = $Fixture->records = $Fixture->table = null;
 		$Fixture->import = array('model' => 'FixtureImportTestModel', 'connection' => 'test');
 		$Fixture->init();
-		$this->assertEquals(array_keys($Fixture->fields), array('id', 'name', 'created'));
-		$this->assertEquals($Fixture->table, 'fixture_tests');
+		$this->assertEquals(array('id', 'name', 'created'), array_keys($Fixture->fields));
+		$this->assertEquals('fixture_tests', $Fixture->table);
 
 		$keys = array_flip(ClassRegistry::keys());
 		$this->assertFalse(array_key_exists('fixtureimporttestmodel', $keys));
@@ -294,8 +294,8 @@ class TestFixtureTest extends TestCase {
 		$Fixture->import = array('model' => 'FixtureImportTestModel', 'connection' => 'test');
 
 		$Fixture->init();
-		$this->assertEquals(array_keys($Fixture->fields), array('id', 'name', 'created'));
-		$this->assertEquals($Fixture->table, 'fixture_tests');
+		$this->assertEquals(array('id', 'name', 'created'), array_keys($Fixture->fields));
+		$this->assertEquals('fixture_tests', $Fixture->table);
 
 		$Source->drop($db);
 		$db->config['prefix'] = $backPrefix;
@@ -319,7 +319,7 @@ class TestFixtureTest extends TestCase {
 		$Fixture->fields = $Fixture->records = null;
 		$Fixture->import = array('model' => 'FixturePrefixTest', 'connection' => 'test', 'records' => false);
 		$Fixture->init();
-		$this->assertEquals($Fixture->table, 'fixture_tests');
+		$this->assertEquals('fixture_tests', $Fixture->table);
 
 		$keys = array_flip(ClassRegistry::keys());
 		$this->assertFalse(array_key_exists('fixtureimporttestmodel', $keys));
@@ -346,7 +346,7 @@ class TestFixtureTest extends TestCase {
 		$Fixture->fields = $Fixture->records = null;
 		$Fixture->import = array('model' => 'FixtureImportTestModel', 'connection' => 'new_test_suite');
 		$Fixture->init();
-		$this->assertEquals(array_keys($Fixture->fields), array('id', 'name', 'created'));
+		$this->assertEquals(array('id', 'name', 'created'), array_keys($Fixture->fields));
 
 		$keys = array_flip(ClassRegistry::keys());
 		$this->assertFalse(array_key_exists('fixtureimporttestmodel', $keys));
@@ -376,7 +376,7 @@ class TestFixtureTest extends TestCase {
 			'model' => 'FixtureImportTestModel', 'connection' => 'new_test_suite', 'records' => true
 		);
 		$Fixture->init();
-		$this->assertEquals(array_keys($Fixture->fields), array('id', 'name', 'created'));
+		$this->assertEquals(array('id', 'name', 'created'), array_keys($Fixture->fields));
 		$this->assertFalse(empty($Fixture->records[0]), 'No records loaded on importing fixture.');
 		$this->assertTrue(isset($Fixture->records[0]['name']), 'No name loaded for first record');
 

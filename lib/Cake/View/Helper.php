@@ -279,10 +279,10 @@ class Helper extends Object {
  *
  * @param string|array Path string or url array
  * @param array $options Options array. Possible keys:
- * 	`fullBase` Return full url with domain name
- * 	`pathPrefix` Path prefix for relative urls
- * 	`ext` Asset extension to append
- * 	`plugin` False value will prevent parsing path as a plugin
+ *   `fullBase` Return full url with domain name
+ *   `pathPrefix` Path prefix for relative urls
+ *   `ext` Asset extension to append
+ *   `plugin` False value will prevent parsing path as a plugin
  * @return string Generated url
  */
 	public function assetUrl($path, $options = array()) {
@@ -305,7 +305,7 @@ class Helper extends Object {
 			if (isset($plugin)) {
 				$path = Inflector::underscore($plugin) . '/' . $path;
 			}
-			$path = $this->assetTimestamp($this->webroot($path));
+			$path = h($this->assetTimestamp($this->webroot($path)));
 
 			if (!empty($options['fullBase'])) {
 				$path = $this->url('/', true) . $path;
@@ -480,7 +480,7 @@ class Helper extends Object {
 		if ($setScope === true) {
 			$this->_modelScope = $entity;
 		}
-		$parts = array_values(Set::filter(explode('.', $entity), true));
+		$parts = array_values(Hash::filter(explode('.', $entity)));
 		if (empty($parts)) {
 			return;
 		}
@@ -682,7 +682,7 @@ class Helper extends Object {
 
 		$entity = $this->entity();
 		if (!empty($data) && !empty($entity)) {
-			$result = Set::extract(implode('.', $entity), $data);
+			$result = Hash::get($data, implode('.', $entity));
 		}
 
 		$habtmKey = $this->field();

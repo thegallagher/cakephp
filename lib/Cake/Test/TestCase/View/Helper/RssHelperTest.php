@@ -611,7 +611,12 @@ class RssHelperTest extends TestCase {
 		$File = new File($tmpFile, true);
 
 		$this->assertTrue($File->write('123'), 'Could not write to ' . $tmpFile);
-		clearstatcache(true, $tmpFile);
+
+		if (50300 <= PHP_VERSION_ID) {
+			clearstatcache(true, $tmpFile);
+		} else {
+			clearstatcache();
+		}
 
 		$item = array(
 			'title' => array(
@@ -641,6 +646,13 @@ class RssHelperTest extends TestCase {
 			)
 		);
 		$result = $this->Rss->item(null, $item);
+		if (!function_exists('finfo_open') &&
+			(function_exists('mime_content_type') && false === mime_content_type($tmpFile))
+		) {
+			$type = false;
+		} else {
+			$type = 'text/plain';
+		}
 		$expected = array(
 			'<item',
 			'<title',
@@ -655,7 +667,7 @@ class RssHelperTest extends TestCase {
 			'enclosure' => array(
 				'url' => $this->Rss->url('/tests/cakephp.file.test.tmp', true),
 				'length' => filesize($tmpFile),
-				'type' => 'text/plain'
+				'type' => $type
 			),
 			'<pubDate',
 			date('r', strtotime('2008-05-31 12:00:00')),

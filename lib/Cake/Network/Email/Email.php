@@ -184,6 +184,13 @@ class Email {
 	protected $_viewVars = array();
 
 /**
+ * Theme for the View
+ *
+ * @var array
+ */
+	protected $_theme = null;
+
+/**
  * Helpers to be used in the render
  *
  * @var array
@@ -489,7 +496,6 @@ class Email {
 		return $this->headerCharset = $charset;
 	}
 
-
 /**
  * Set email
  *
@@ -773,6 +779,20 @@ class Email {
 			return $this->_viewVars;
 		}
 		$this->_viewVars = array_merge($this->_viewVars, (array)$viewVars);
+		return $this;
+	}
+
+/**
+ * Theme to use when rendering
+ *
+ * @param string $theme
+ * @return mixed
+ */
+	public function theme($theme = null) {
+		if ($theme === null) {
+			return $this->_theme;
+		}
+		$this->_theme = $theme;
 		return $this;
 	}
 
@@ -1075,7 +1095,7 @@ class Email {
 		$simpleMethods = array(
 			'from', 'sender', 'to', 'replyTo', 'readReceipt', 'returnPath', 'cc', 'bcc',
 			'messageId', 'subject', 'viewRender', 'viewVars', 'attachments',
-			'transport', 'emailFormat'
+			'transport', 'emailFormat', 'theme',
 		);
 		foreach ($simpleMethods as $method) {
 			if (isset($config[$method])) {
@@ -1120,6 +1140,7 @@ class Email {
 		$this->_template = '';
 		$this->_viewRender = 'View';
 		$this->_viewVars = array();
+		$this->_theme = null;
 		$this->_helpers = array('Html');
 		$this->_textMessage = '';
 		$this->_htmlMessage = '';
@@ -1127,6 +1148,8 @@ class Email {
 		$this->_emailFormat = 'text';
 		$this->_transportName = 'Mail';
 		$this->_transportClass = null;
+		$this->charset = 'utf-8';
+		$this->headerCharset = null;
 		$this->_attachments = array();
 		$this->_config = array();
 		return $this;
@@ -1360,7 +1383,7 @@ class Email {
 
 		$msg = array();
 
-		$contentIds = array_filter((array)Set::classicExtract($this->_attachments, '{s}.contentId'));
+		$contentIds = array_filter((array)Hash::extract($this->_attachments, '{s}.contentId'));
 		$hasInlineAttachments = count($contentIds) > 0;
 		$hasAttachments = !empty($this->_attachments);
 		$hasMultipleTypes = count($rendered) > 1;
@@ -1479,6 +1502,9 @@ class Email {
 			$View->plugin = $templatePlugin;
 		} elseif ($layoutPlugin) {
 			$View->plugin = $layoutPlugin;
+		}
+		if ($this->_theme) {
+			$View->theme = $this->_theme;
 		}
 
 		foreach ($types as $type) {

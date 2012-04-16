@@ -147,8 +147,8 @@ class ControllerTestCaseTest extends TestCase {
 			$this->markTestSkipped('AppController exists, cannot run.');
 		}
 		$Posts = $this->Case->generate(__NAMESPACE__ . '\PostsController');
-		$this->assertEquals($Posts->name, 'Posts');
-		$this->assertEquals($Posts->modelClass, 'Post');
+		$this->assertEquals('Posts', $Posts->name);
+		$this->assertEquals('Post', $Posts->modelClass);
 		$this->assertNull($Posts->response->send());
 
 		$Posts = $this->Case->generate('Posts', array(
@@ -166,7 +166,7 @@ class ControllerTestCaseTest extends TestCase {
 		$this->assertInstanceOf('Post', $Posts->Post);
 		$this->assertNull($Posts->Post->save(array()));
 		$this->assertNull($Posts->Post->find('all'));
-		$this->assertEquals($Posts->Post->useTable, 'posts');
+		$this->assertEquals('posts', $Posts->Post->useTable);
 		$this->assertNull($Posts->RequestHandler->isAjax());
 
 		$Posts = $this->Case->generate('Posts', array(
@@ -200,7 +200,7 @@ class ControllerTestCaseTest extends TestCase {
 		$Posts->Auth->Session->expects($this->any())
 			->method('write')
 			->will($this->returnValue('written!'));
-		$this->assertEquals($Posts->Auth->Session->write('something'), 'written!');
+		$this->assertEquals('written!', $Posts->Auth->Session->write('something'));
 	}
 
 /**
@@ -215,7 +215,7 @@ class ControllerTestCaseTest extends TestCase {
 				'TestPlugin.Plugins'
 			)
 		));
-		$this->assertEquals($Tests->name, 'Tests');
+		$this->assertEquals('Tests', $Tests->name);
 		$this->assertInstanceOf('TestPlugin\Controller\Component\PluginsComponent', $Tests->Plugins);
 
 		$result = ClassRegistry::init('TestPlugin.TestPluginComment');
@@ -293,7 +293,7 @@ class ControllerTestCaseTest extends TestCase {
 
 		include CAKE . 'Test' . DS . 'TestApp' . DS . 'Config' . DS . 'routes.php';
 		$result = $this->Case->testAction('/some_alias');
-		$this->assertEquals($result, 5);
+		$this->assertEquals(5, $result);
 	}
 
 /**
@@ -316,19 +316,19 @@ class ControllerTestCaseTest extends TestCase {
 		$this->Case->autoMock = true;
 
 		$result = $this->Case->testAction('/tests_apps/some_method');
-		$this->assertEquals($result, 5);
+		$this->assertEquals(5, $result);
 
 		$data = array('var' => 'set');
 		$result = $this->Case->testAction('/tests_apps_posts/post_var', array(
 			'data' => $data,
 			'return' => 'vars'
 		));
-		$this->assertEquals($result['data'], $data);
+		$this->assertEquals($data, $result['data']);
 
 		$result = $this->Case->testAction('/tests_apps/set_action', array(
 			'return' => 'view'
 		));
-		$this->assertEquals($result, 'This is the TestsAppsController index view string');
+		$this->assertEquals('This is the TestsAppsController index view string', $result);
 
 		$result = $this->Case->testAction('/tests_apps/set_action', array(
 			'return' => 'contents'
@@ -361,7 +361,7 @@ class ControllerTestCaseTest extends TestCase {
 		$expected = array(
 			'named' => 'param'
 		);
-		$this->assertEquals($this->Case->controller->request->named, $expected);
+		$this->assertEquals($expected, $this->Case->controller->request->named);
 		$this->assertEquals($this->Case->controller->data, $data);
 
 		$result = $this->Case->testAction('/tests_apps_posts/post_var', array(
@@ -372,11 +372,11 @@ class ControllerTestCaseTest extends TestCase {
 				'pork' => 'and beans',
 			)
 		));
-		$this->assertEquals(array_keys($result['data']), array('name', 'pork'));
+		$this->assertEquals(array('name', 'pork'), array_keys($result['data']));
 
 		$result = $this->Case->testAction('/tests_apps_posts/add', array('return' => 'vars'));
 		$this->assertTrue(array_key_exists('posts', $result));
-		$this->assertEquals(count($result['posts']), 4);
+		$this->assertEquals(4, count($result['posts']));
 		$this->assertTrue($this->Case->controller->request->is('post'));
 	}
 
@@ -393,20 +393,20 @@ class ControllerTestCaseTest extends TestCase {
 				'lackof' => 'creativity'
 			)
 		));
-		$this->assertEquals($this->Case->controller->request->query['some'], 'var');
-		$this->assertEquals($this->Case->controller->request->query['lackof'], 'creativity');
+		$this->assertEquals('var', $this->Case->controller->request->query['some']);
+		$this->assertEquals('creativity', $this->Case->controller->request->query['lackof']);
 
 		$result = $this->Case->testAction('/tests_apps_posts/url_var/var1:value1/var2:val2', array(
 			'return' => 'vars',
 			'method' => 'get',
 		));
-		$this->assertEquals(array_keys($result['params']['named']), array('var1', 'var2'));
+		$this->assertEquals(array('var1', 'var2'), array_keys($result['params']['named']));
 
 		$result = $this->Case->testAction('/tests_apps_posts/url_var/gogo/val2', array(
 			'return' => 'vars',
 			'method' => 'get',
 		));
-		$this->assertEquals($result['params']['pass'], array('gogo', 'val2'));
+		$this->assertEquals(array('gogo', 'val2'), $result['params']['pass']);
 
 		$result = $this->Case->testAction('/tests_apps_posts/url_var', array(
 			'return' => 'vars',
@@ -454,19 +454,19 @@ class ControllerTestCaseTest extends TestCase {
  */
 	public function testNoMocking() {
 		$result = $this->Case->testAction('/tests_apps/some_method');
-		$this->Case->assertEquals($result, 5);
+		$this->Case->assertEquals(5, $result);
 
 		$data = array('var' => 'set');
 		$result = $this->Case->testAction('/tests_apps_posts/post_var', array(
 			'data' => $data,
 			'return' => 'vars'
 		));
-		$this->assertEquals($result['data'], $data);
+		$this->assertEquals($data, $result['data']);
 
 		$result = $this->Case->testAction('/tests_apps/set_action', array(
 			'return' => 'view'
 		));
-		$this->assertEquals($result, 'This is the TestsAppsController index view string');
+		$this->assertEquals('This is the TestsAppsController index view string', $result);
 
 		$result = $this->Case->testAction('/tests_apps/set_action', array(
 			'return' => 'contents'
@@ -519,6 +519,21 @@ class ControllerTestCaseTest extends TestCase {
 		$options = array('method' => 'get');
 		$this->Case->testAction('/tests_apps/redirect_to', $options);
 		$this->Case->testAction('/tests_apps/redirect_to', $options);
+	}
+
+/**
+ * Tests that Components storing response or request objects internally during construct
+ * will always have a fresh reference to those object available
+ *
+ * @return void
+ * @see http://cakephp.lighthouseapp.com/projects/42648-cakephp/tickets/2705-requesthandler-weird-behavior
+ */
+	public function testComponentsSameRequestAndResponse() {
+		$this->Case->generate('TestsApps');
+		$options = array('method' => 'get');
+		$this->Case->testAction('/tests_apps/index', $options);
+		$this->assertSame($this->Case->controller->response, $this->Case->controller->RequestHandler->response);
+		$this->assertSame($this->Case->controller->request, $this->Case->controller->RequestHandler->request);
 	}
 
 }

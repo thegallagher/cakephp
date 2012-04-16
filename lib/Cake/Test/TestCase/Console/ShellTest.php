@@ -57,14 +57,16 @@ class ShellTestShell extends Shell {
 		$this->stopped = $status;
 	}
 
-	public function do_something() {
+	protected function _secret() {
 	}
 
-	protected function _secret() {
+	//@codingStandardsIgnoreStart
+	public function do_something() {
 	}
 
 	protected function no_access() {
 	}
+	//@codingStandardsIgnoreEnd
 
 	public function mergeVars($properties, $class, $normalize = true) {
 		return $this->_mergeVars($properties, $class, $normalize);
@@ -146,7 +148,7 @@ class ShellTest extends TestCase {
  * @return void
  */
 	public function testConstruct() {
-		$this->assertEquals($this->Shell->name, 'ShellTestShell');
+		$this->assertEquals('ShellTestShell', $this->Shell->name);
 		$this->assertInstanceOf('Cake\Console\ConsoleInput', $this->Shell->stdin);
 		$this->assertInstanceOf('Cake\Console\ConsoleOutput', $this->Shell->stdout);
 		$this->assertInstanceOf('Cake\Console\ConsoleOutput', $this->Shell->stderr);
@@ -167,7 +169,7 @@ class ShellTest extends TestCase {
 		$this->assertEquals($expected, $this->Shell->tasks);
 
 		$expected = array('Fixture' => null, 'DbConfig' => array('one', 'two'));
-		$this->assertEquals($expected, Set::normalize($this->Shell->tasks), 'Normalized results are wrong.');
+		$this->assertEquals($expected, Hash::normalize($this->Shell->tasks), 'Normalized results are wrong.');
 		$this->assertEquals(array('Comment', 'Posts'), $this->Shell->uses, 'Merged models are wrong.');
 	}
 
@@ -188,7 +190,7 @@ class ShellTest extends TestCase {
 
 		$this->assertTrue(isset($this->Shell->TestPluginPost));
 		$this->assertInstanceOf('TestPlugin\Model\TestPluginPost', $this->Shell->TestPluginPost);
-		$this->assertEquals($this->Shell->modelClass, 'TestPluginPost');
+		$this->assertEquals('TestPluginPost', $this->Shell->modelClass);
 		Plugin::unload('TestPlugin');
 
 		$this->Shell->uses = array('TestApp\Model\Comment');
@@ -231,22 +233,22 @@ class ShellTest extends TestCase {
 			->will($this->returnValue('0'));
 
 		$result = $this->Shell->in('Just a test?', array('y', 'n'), 'n');
-		$this->assertEquals($result, 'n');
+		$this->assertEquals('n', $result);
 
 		$result = $this->Shell->in('Just a test?', array('y', 'n'), 'n');
-		$this->assertEquals($result, 'Y');
+		$this->assertEquals('Y', $result);
 
 		$result = $this->Shell->in('Just a test?', 'y,n', 'n');
-		$this->assertEquals($result, 'y');
+		$this->assertEquals('y', $result);
 
 		$result = $this->Shell->in('Just a test?', 'y/n', 'n');
-		$this->assertEquals($result, 'y');
+		$this->assertEquals('y', $result);
 
 		$result = $this->Shell->in('Just a test?', 'y', 'y');
-		$this->assertEquals($result, 'y');
+		$this->assertEquals('y', $result);
 
 		$result = $this->Shell->in('Just a test?', array(0, 1, 2), '0');
-		$this->assertEquals($result, '0');
+		$this->assertEquals('0', $result);
 	}
 
 /**
@@ -258,7 +260,7 @@ class ShellTest extends TestCase {
 		$this->Shell->interactive = false;
 
 		$result = $this->Shell->in('Just a test?', 'y/n', 'n');
-		$this->assertEquals($result, 'n');
+		$this->assertEquals('n', $result);
 	}
 
 /**
@@ -373,7 +375,7 @@ class ShellTest extends TestCase {
 		}
 		$this->assertEquals($this->Shell->nl(), $newLine);
 		$this->assertEquals($this->Shell->nl(true), $newLine);
-		$this->assertEquals($this->Shell->nl(false), "");
+		$this->assertEquals("", $this->Shell->nl(false));
 		$this->assertEquals($this->Shell->nl(2), $newLine . $newLine);
 		$this->assertEquals($this->Shell->nl(1), $newLine);
 	}
@@ -494,33 +496,33 @@ class ShellTest extends TestCase {
  */
 	public function testShortPath() {
 		$path = $expected = DS . 'tmp' . DS . 'ab' . DS . 'cd';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = $expected = DS . 'tmp' . DS . 'ab' . DS . 'cd' . DS;
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = $expected = DS . 'tmp' . DS . 'ab' . DS . 'index.php';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = DS . 'tmp' . DS . 'ab' . DS . DS . 'cd';
 		$expected = DS . 'tmp' . DS . 'ab' . DS . 'cd';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = 'tmp' . DS . 'ab';
 		$expected = 'tmp' . DS . 'ab';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = 'tmp' . DS . 'ab';
 		$expected = 'tmp' . DS . 'ab';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = APP;
 		$expected = DS . basename(APP) . DS;
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 
 		$path = APP . 'index.php';
 		$expected = DS . basename(APP) . DS . 'index.php';
-		$this->assertEquals($this->Shell->shortPath($path), $expected);
+		$this->assertEquals($expected, $this->Shell->shortPath($path));
 	}
 
 /**

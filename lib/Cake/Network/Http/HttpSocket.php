@@ -157,7 +157,7 @@ class HttpSocket extends Socket {
 				$this->_configUri($config['request']['uri']);
 				unset($config['request']['uri']);
 			}
-			$this->config = Set::merge($this->config, $config);
+			$this->config = Hash::merge($this->config, $config);
 		}
 		parent::__construct($this->config);
 	}
@@ -275,7 +275,7 @@ class HttpSocket extends Socket {
 		}
 		$request['uri'] = $this->url($request['uri']);
 		$request['uri'] = $this->_parseUri($request['uri'], true);
-		$this->request = Set::merge($this->request, array_diff_key($this->config['request'], array('cookies' => true)), $request);
+		$this->request = Hash::merge($this->request, array_diff_key($this->config['request'], array('cookies' => true)), $request);
 
 		$this->_configUri($this->request['uri']);
 
@@ -448,7 +448,7 @@ class HttpSocket extends Socket {
 			$uri = $this->_buildUri($uri);
 		}
 
-		$request = Set::merge(array('method' => 'GET', 'uri' => $uri), $request);
+		$request = Hash::merge(array('method' => 'GET', 'uri' => $uri), $request);
 		return $this->request($request);
 	}
 
@@ -470,7 +470,7 @@ class HttpSocket extends Socket {
  * @return mixed Result of request, either false on failure or the response to the request.
  */
 	public function post($uri = null, $data = array(), $request = array()) {
-		$request = Set::merge(array('method' => 'POST', 'uri' => $uri, 'body' => $data), $request);
+		$request = Hash::merge(array('method' => 'POST', 'uri' => $uri, 'body' => $data), $request);
 		return $this->request($request);
 	}
 
@@ -483,7 +483,7 @@ class HttpSocket extends Socket {
  * @return mixed Result of request
  */
 	public function put($uri = null, $data = array(), $request = array()) {
-		$request = Set::merge(array('method' => 'PUT', 'uri' => $uri, 'body' => $data), $request);
+		$request = Hash::merge(array('method' => 'PUT', 'uri' => $uri, 'body' => $data), $request);
 		return $this->request($request);
 	}
 
@@ -496,7 +496,7 @@ class HttpSocket extends Socket {
  * @return mixed Result of request
  */
 	public function delete($uri = null, $data = array(), $request = array()) {
-		$request = Set::merge(array('method' => 'DELETE', 'uri' => $uri, 'body' => $data), $request);
+		$request = Hash::merge(array('method' => 'DELETE', 'uri' => $uri, 'body' => $data), $request);
 		return $this->request($request);
 	}
 
@@ -637,8 +637,8 @@ class HttpSocket extends Socket {
 				'uri' => array_intersect_key($uri, $this->config['request']['uri'])
 			)
 		);
-		$this->config = Set::merge($this->config, $config);
-		$this->config = Set::merge($this->config, array_intersect_key($this->config['request']['uri'], $this->config));
+		$this->config = Hash::merge($this->config, $config);
+		$this->config = Hash::merge($this->config, array_intersect_key($this->config['request']['uri'], $this->config));
 		return true;
 	}
 

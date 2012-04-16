@@ -247,17 +247,17 @@ class ObjectTest extends TestCase {
  */
 	public function testSet() {
 		$this->object->set('a string');
-		$this->assertEquals($this->object->firstName, 'Joel');
+		$this->assertEquals('Joel', $this->object->firstName);
 
 		$this->object->set(array('firstName'));
-		$this->assertEquals($this->object->firstName, 'Joel');
+		$this->assertEquals('Joel', $this->object->firstName);
 
 		$this->object->set(array('firstName' => 'Ashley'));
-		$this->assertEquals($this->object->firstName, 'Ashley');
+		$this->assertEquals('Ashley', $this->object->firstName);
 
 		$this->object->set(array('firstName' => 'Joel', 'lastName' => 'Moose'));
-		$this->assertEquals($this->object->firstName, 'Joel');
-		$this->assertEquals($this->object->lastName, 'Moose');
+		$this->assertEquals('Joel', $this->object->firstName);
+		$this->assertEquals('Moose', $this->object->lastName);
 	}
 
 /**
@@ -267,7 +267,7 @@ class ObjectTest extends TestCase {
  */
 	public function testToString() {
 		$result = strtolower($this->object->toString());
-		$this->assertEquals($result, strtolower(__NAMESPACE__) . '\testobject');
+		$this->assertEquals(strtolower(__NAMESPACE__) . '\testobject', $result);
 	}
 
 /**
@@ -353,6 +353,10 @@ class ObjectTest extends TestCase {
 		$this->assertFalse($result);
 
 		$result = $this->object->requestAction('/request_action/test_request_action');
+		$expected = 'This is a test';
+		$this->assertEquals($expected, $result);
+
+		$result = $this->object->requestAction(FULL_BASE_URL . '/request_action/test_request_action');
 		$expected = 'This is a test';
 		$this->assertEquals($expected, $result);
 
@@ -489,20 +493,20 @@ class ObjectTest extends TestCase {
  */
 	public function testRequestActionParamParseAndPass() {
 		$result = $this->object->requestAction('/request_action/params_pass');
-		$this->assertEquals($result->url, 'request_action/params_pass');
-		$this->assertEquals($result['controller'], 'request_action');
-		$this->assertEquals($result['action'], 'params_pass');
-		$this->assertEquals($result['plugin'], null);
+		$this->assertEquals('request_action/params_pass', $result->url);
+		$this->assertEquals('request_action', $result['controller']);
+		$this->assertEquals('params_pass', $result['action']);
+		$this->assertEquals(null, $result['plugin']);
 
 		$result = $this->object->requestAction('/request_action/params_pass/sort:desc/limit:5');
 		$expected = array('sort' => 'desc', 'limit' => 5,);
-		$this->assertEquals($result['named'], $expected);
+		$this->assertEquals($expected, $result['named']);
 
 		$result = $this->object->requestAction(
 			array('controller' => 'request_action', 'action' => 'params_pass'),
 			array('named' => array('sort' => 'desc', 'limit' => 5))
 		);
-		$this->assertEquals($result['named'], $expected);
+		$this->assertEquals($expected, $result['named']);
 	}
 
 /**

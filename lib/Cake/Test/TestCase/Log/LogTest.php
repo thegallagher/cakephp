@@ -107,7 +107,7 @@ class LogTest extends TestCase {
 		$this->assertTrue(file_exists(LOGS . 'error.log'));
 
 		$result = Log::configured();
-		$this->assertEquals($result, array('default'));
+		$this->assertEquals(array('default'), $result);
 		unlink(LOGS . 'error.log');
 	}
 
@@ -122,7 +122,7 @@ class LogTest extends TestCase {
 			'path' => LOGS
 		));
 		$result = Log::configured();
-		$this->assertEquals($result, array('file'));
+		$this->assertEquals(array('file'), $result);
 
 		if (file_exists(LOGS . 'error.log')) {
 			@unlink(LOGS . 'error.log');
@@ -146,11 +146,11 @@ class LogTest extends TestCase {
 			'path' => LOGS
 		));
 		$result = Log::configured();
-		$this->assertEquals($result, array('file'));
+		$this->assertEquals(array('file'), $result);
 
 		Log::drop('file');
 		$result = Log::configured();
-		$this->assertEquals($result, array());
+		$this->assertEquals(array(), $result);
 	}
 
 /**

@@ -23,7 +23,7 @@ namespace Cake\View\Helper;
 use Cake\View\Helper,
 	Cake\View\View,
 	Cake\Core\App,
-	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Error;
 
 /**
@@ -57,7 +57,7 @@ class NumberHelper extends Helper {
  * @throws CakeException When the engine class could not be found.
  */
 	public function __construct(View $View, $settings = array()) {
-		$settings += array('engine' => 'Cake\Utility\Number');
+		$settings = Hash::merge(array('engine' => 'Cake\Utility\Number'), $settings);
 		parent::__construct($View, $settings);
 		$engineClass = App::classname($settings['engine'], 'Utility');
 		if ($engineClass) {

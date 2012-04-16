@@ -53,8 +53,6 @@ class ErrorHandlerTest extends TestCase {
 		$request = new Request(null, false);
 		$request->base = '';
 		Router::setRequestInfo($request);
-		$this->_debug = Configure::read('debug');
-		$this->_error = Configure::read('Error');
 		Configure::write('debug', 2);
 	}
 
@@ -64,9 +62,6 @@ class ErrorHandlerTest extends TestCase {
  * @return void
  */
 	public function tearDown() {
-		Configure::write('debug', $this->_debug);
-		Configure::write('Error', $this->_error);
-		App::build();
 		if ($this->_restoreError) {
 			restore_error_handler();
 		}
@@ -100,7 +95,6 @@ class ErrorHandlerTest extends TestCase {
 		return array(
 			array(E_USER_NOTICE, 'Notice'),
 			array(E_USER_WARNING, 'Warning'),
-			array(E_USER_ERROR, 'Fatal Error'),
 		);
 	}
 
@@ -154,7 +148,7 @@ class ErrorHandlerTest extends TestCase {
 		$out .= '';
 
 		$result = file(LOGS . 'debug.log');
-		$this->assertEquals(count($result), 1);
+		$this->assertEquals(1, count($result));
 		$this->assertRegExp(
 			'/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2} (Notice|Debug): Notice \(8\): Undefined variable:\s+out in \[.+ line \d+\]$/',
 			$result[0]
@@ -205,7 +199,7 @@ class ErrorHandlerTest extends TestCase {
 	}
 
 /**
- * test handleException generating a page.
+ * test handleException generating log.
  *
  * @return void
  */
@@ -245,8 +239,59 @@ class ErrorHandlerTest extends TestCase {
 		ob_start();
 		ErrorHandler::handleException($error);
 		$result = ob_get_clean();
-		$this->assertEquals($result, 'Rendered by test plugin');
+		$this->assertEquals('Rendered by test plugin', $result);
 		Plugin::unload();
+	}
+
+/**
+ * test handleFatalError generating a page.
+ *
+ * @return void
+ */
+	public function testHandleFatalErrorPage() {
+		$this->skipIf(file_exists(APP . 'app_error.php'), 'App error exists cannot run.');
+
+		$originalDebugLevel = Configure::read('debug');
+		$line = __LINE__;
+
+		ob_start();
+		Configure::write('debug', 1);
+		ErrorHandler::handleFatalError(E_ERROR, 'Something wrong', __FILE__, $line);
+		$result = ob_get_clean();
+		$this->assertContains('Something wrong', $result, 'message missing.');
+		$this->assertContains(__FILE__, $result, 'filename missing.');
+		$this->assertContains((string)$line, $result, 'line missing.');
+
+		ob_start();
+		Configure::write('debug', 0);
+		ErrorHandler::handleFatalError(E_ERROR, 'Something wrong', __FILE__, $line);
+		$result = ob_get_clean();
+		$this->assertNotContains('Something wrong', $result, 'message must not appear.');
+		$this->assertNotContains(__FILE__, $result, 'filename must not appear.');
+		$this->assertContains('An Internal Error Has Occurred', $result);
+
+		Configure::write('debug', $originalDebugLevel);
+	}
+
+/**
+ * test handleException generating log.
+ *
+ * @return void
+ */
+	public function testHandleFatalErrorLog() {
+		$this->skipIf(file_exists(APP . 'app_error.php'), 'App error exists cannot run.');
+
+		if (file_exists(LOGS . 'error.log')) {
+			unlink(LOGS . 'error.log');
+		}
+
+		ob_start();
+		ErrorHandler::handleFatalError(E_ERROR, 'Something wrong', __FILE__, __LINE__);
+		ob_clean();
+
+		$log = file(LOGS . 'error.log');
+		$this->assertContains(__FILE__, $log[0], 'missing filename');
+		$this->assertContains('[FatalErrorException] Something wrong', $log[1], 'message missing.');
 	}
 
 }

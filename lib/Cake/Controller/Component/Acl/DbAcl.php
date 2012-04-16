@@ -18,6 +18,7 @@ use Cake\Core\Object,
 	Cake\Controller\Component,
 	Cake\Utility\ClassRegistry,
 	Cake\Controller\Component\Acl\AclInterface,
+	Cake\Utility\Hash,
 	Cake\Utility\Set;
 
 /**

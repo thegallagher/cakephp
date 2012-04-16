@@ -590,7 +590,7 @@ class DispatcherTest extends TestCase {
 		$Dispatcher = new Dispatcher();
 
 		$test = $Dispatcher->parseParams(new Request("/"));
-		$this->assertEquals($test['data']['testdata'], "My Posted Content");
+		$this->assertEquals("My Posted Content", $test['data']['testdata']);
 	}
 
 /**
@@ -687,7 +687,7 @@ class DispatcherTest extends TestCase {
 		$this->assertRegExp('/display/', $result['action']);
 		$this->assertTrue(isset($result['url']['sleep']));
 		$this->assertTrue(isset($result['url']['coffee']));
-		$this->assertEquals($result['url']['coffee'], 'life');
+		$this->assertEquals('life', $result['url']['coffee']);
 	}
 
 /**
@@ -804,7 +804,7 @@ class DispatcherTest extends TestCase {
 
 		$url = new Request('test_dispatch_pages/camelCased/something. .');
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertEquals($controller->params['pass'][0], 'something. .', 'Period was chopped off. %s');
+		$this->assertEquals('something. .', $controller->params['pass'][0], 'Period was chopped off. %s');
 	}
 
 /**
@@ -841,7 +841,7 @@ class DispatcherTest extends TestCase {
 		Router::reload();
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
-		$this->assertEquals($controller->name, 'TestDispatchPages');
+		$this->assertEquals('TestDispatchPages', $controller->name);
 
 		$this->assertSame($controller->passedArgs, array('param' => 'value', 'param2' => 'value2'));
 		$this->assertTrue($controller->params['admin']);
@@ -879,7 +879,7 @@ class DispatcherTest extends TestCase {
 			'controller' => 'some_pages', 'action' => 'display'
 		);
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch ' . $key . ' %');
+			$this->assertEquals($value, $result[$key], 'Value mismatch ' . $key . ' %');
 		}
 
 		$this->assertSame($controller->plugin, 'MyPlugin');
@@ -946,7 +946,7 @@ class DispatcherTest extends TestCase {
 		$this->assertSame($controller->plugin, 'MyPlugin');
 		$this->assertSame($controller->name, 'MyPlugin');
 		$this->assertSame($controller->action, 'add');
-		$this->assertEquals($controller->params['named'], array('param' => 'value', 'param2' => 'value2'));
+		$this->assertEquals(array('param' => 'value', 'param2' => 'value2'), $controller->params['named']);
 
 		Router::reload();
 		require CAKE . 'Config' . DS . 'routes.php';
@@ -966,7 +966,7 @@ class DispatcherTest extends TestCase {
 		$this->assertSame($controller->action, 'index');
 
 		$expected = $pluginUrl;
-		$this->assertEquals($controller->params['controller'], $expected);
+		$this->assertEquals($expected, $controller->params['controller']);
 
 		Configure::write('Routing.prefixes', array('admin'));
 
@@ -979,17 +979,17 @@ class DispatcherTest extends TestCase {
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
 
-		$this->assertEquals($controller->params['plugin'], 'my_plugin');
-		$this->assertEquals($controller->params['controller'], 'my_plugin');
-		$this->assertEquals($controller->params['action'], 'admin_add');
-		$this->assertEquals($controller->params['pass'], array(5));
-		$this->assertEquals($controller->params['named'], array('param' => 'value', 'param2' => 'value2'));
+		$this->assertEquals('my_plugin', $controller->params['plugin']);
+		$this->assertEquals('my_plugin', $controller->params['controller']);
+		$this->assertEquals('admin_add', $controller->params['action']);
+		$this->assertEquals(array(5), $controller->params['pass']);
+		$this->assertEquals(array('param' => 'value', 'param2' => 'value2'), $controller->params['named']);
 		$this->assertSame($controller->plugin, 'MyPlugin');
 		$this->assertSame($controller->name, 'MyPlugin');
 		$this->assertSame($controller->action, 'admin_add');
 
 		$expected = array(0 => 5, 'param' => 'value', 'param2' => 'value2');
-		$this->assertEquals($controller->passedArgs, $expected);
+		$this->assertEquals($expected, $controller->passedArgs);
 
 		Configure::write('Routing.prefixes', array('admin'));
 		Plugin::load('ArticlesTest', array('path' => '/fake/path'));
@@ -1014,7 +1014,7 @@ class DispatcherTest extends TestCase {
 			'return' => 1
 		);
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($controller->request[$key], $expected[$key], 'Value mismatch ' . $key);
+			$this->assertEquals($expected[$key], $controller->request[$key], 'Value mismatch ' . $key);
 		}
 	}
 
@@ -1035,9 +1035,9 @@ class DispatcherTest extends TestCase {
 		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertEquals($controller->params['controller'], 'my_plugin');
-		$this->assertEquals($controller->params['plugin'], 'my_plugin');
-		$this->assertEquals($controller->params['action'], 'index');
+		$this->assertEquals('my_plugin', $controller->params['controller']);
+		$this->assertEquals('my_plugin', $controller->params['plugin']);
+		$this->assertEquals('index', $controller->params['action']);
 		$this->assertFalse(isset($controller->params['pass'][0]));
 	}
 
@@ -1064,24 +1064,24 @@ class DispatcherTest extends TestCase {
 		$response = $this->getMock('Cake\Network\Response');
 
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertEquals($controller->params['controller'], 'test_plugin');
-		$this->assertEquals($controller->params['plugin'], 'test_plugin');
-		$this->assertEquals($controller->params['action'], 'index');
+		$this->assertEquals('test_plugin', $controller->params['controller']);
+		$this->assertEquals('test_plugin', $controller->params['plugin']);
+		$this->assertEquals('index', $controller->params['action']);
 		$this->assertFalse(isset($controller->params['pass'][0]));
 
 		$url = new Request('/test_plugin/tests/index');
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertEquals($controller->params['controller'], 'tests');
-		$this->assertEquals($controller->params['plugin'], 'test_plugin');
-		$this->assertEquals($controller->params['action'], 'index');
+		$this->assertEquals('tests', $controller->params['controller']);
+		$this->assertEquals('test_plugin', $controller->params['plugin']);
+		$this->assertEquals('index', $controller->params['action']);
 		$this->assertFalse(isset($controller->params['pass'][0]));
 
 		$url = new Request('/test_plugin/tests/index/some_param');
 		$controller = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertEquals($controller->params['controller'], 'tests');
-		$this->assertEquals($controller->params['plugin'], 'test_plugin');
-		$this->assertEquals($controller->params['action'], 'index');
-		$this->assertEquals($controller->params['pass'][0], 'some_param');
+		$this->assertEquals('tests', $controller->params['controller']);
+		$this->assertEquals('test_plugin', $controller->params['plugin']);
+		$this->assertEquals('index', $controller->params['action']);
+		$this->assertEquals('some_param', $controller->params['pass'][0]);
 
 		App::build();
 	}
@@ -1142,9 +1142,9 @@ class DispatcherTest extends TestCase {
 		$this->assertTrue(class_exists('TestPluginAppController'));
 		$this->assertTrue(class_exists('PluginsComponent'));
 
-		$this->assertEquals($result->params['controller'], 'tests');
-		$this->assertEquals($result->params['plugin'], 'test_plugin');
-		$this->assertEquals($result->params['action'], 'index');
+		$this->assertEquals('tests', $result->params['controller']);
+		$this->assertEquals('test_plugin', $result->params['plugin']);
+		$this->assertEquals('index', $result->params['action']);
 
 		App::build();
 	}
@@ -1428,7 +1428,7 @@ class DispatcherTest extends TestCase {
 
 		$cached = preg_replace('/<!--+[^<>]+-->/', '', $cached);
 
-		$this->assertTextEquals($cached, $out);
+		$this->assertTextEquals($out, $cached);
 
 		$filename = $this->__cachePath($request->here());
 		unlink($filename);
@@ -1449,7 +1449,7 @@ class DispatcherTest extends TestCase {
 		$result = $dispatcher->parseParams(new Request('/posts'));
 		$expected = array('pass' => array(), 'named' => array(), 'plugin' => null, 'controller' => 'posts', 'action' => 'add', '[method]' => 'POST');
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch for ' . $key . ' %s');
+			$this->assertEquals($value, $result[$key], 'Value mismatch for ' . $key . ' %s');
 		}
 
 		$_SERVER['REQUEST_METHOD'] = 'GET';
@@ -1466,7 +1466,7 @@ class DispatcherTest extends TestCase {
 			'[method]' => 'PUT'
 		);
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch for ' . $key . ' %s');
+			$this->assertEquals($value, $result[$key], 'Value mismatch for ' . $key . ' %s');
 		}
 
 		unset($_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE']);
@@ -1475,7 +1475,7 @@ class DispatcherTest extends TestCase {
 		$result = $dispatcher->parseParams(new Request('/posts/5'));
 		$expected = array('pass' => array('5'), 'named' => array(), 'id' => '5', 'plugin' => null, 'controller' => 'posts', 'action' => 'view', '[method]' => 'GET');
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch for ' . $key . ' %s');
+			$this->assertEquals($value, $result[$key], 'Value mismatch for ' . $key . ' %s');
 		}
 
 		$_POST['_method'] = 'PUT';
@@ -1483,7 +1483,7 @@ class DispatcherTest extends TestCase {
 		$result = $dispatcher->parseParams(new Request('/posts/5'));
 		$expected = array('pass' => array('5'), 'named' => array(), 'id' => '5', 'plugin' => null, 'controller' => 'posts', 'action' => 'edit', '[method]' => 'PUT');
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch for ' . $key . ' %s');
+			$this->assertEquals($value, $result[$key], 'Value mismatch for ' . $key . ' %s');
 		}
 
 		$_POST['_method'] = 'POST';
@@ -1497,7 +1497,7 @@ class DispatcherTest extends TestCase {
 			'[method]' => 'POST', 'data' => array('extra' => 'data', 'Post' => array('title' => 'New Post')),
 		);
 		foreach ($expected as $key => $value) {
-			$this->assertEquals($result[$key], $value, 'Value mismatch for ' . $key . ' %s');
+			$this->assertEquals($value, $result[$key], 'Value mismatch for ' . $key . ' %s');
 		}
 
 		unset($_POST['_method']);

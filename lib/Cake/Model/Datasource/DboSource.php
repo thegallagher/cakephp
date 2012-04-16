@@ -145,7 +145,7 @@ class DboSource extends DataSource {
 /**
  * Caches serialized results of executed queries
  *
- * @var array Maximum number of queries in the queries log.
+ * @var array Cache of results from executed sql queries.
  */
 	protected $_queryCache = array();
 
@@ -206,7 +206,7 @@ class DboSource extends DataSource {
  * Default fields that are used by the DBO
  *
  * @var array
- */	
+ */
 	protected $_queryDefaults = array(
 		'conditions' => array(),
 		'fields' => null,
@@ -947,7 +947,7 @@ class DboSource extends DataSource {
 		if (is_object($model)) {
 			$schemaName = $model->schemaName;
 			$table = $model->tablePrefix . $model->table;
-		} elseif (!empty($this->config['prefix']) && strpos($model, $this->config['prefix']) === false) {
+		} elseif (!empty($this->config['prefix']) && strpos($model, $this->config['prefix']) !== 0) {
 			$table = $this->config['prefix'] . strval($model);
 		} else {
 			$table = strval($model);
@@ -1138,7 +1138,7 @@ class DboSource extends DataSource {
  * @return array Array of results that have been filtered through $model->afterFind
  */
 	protected function _filterResults(&$results, Model $model, $filtered = array()) {
-		$current = current($results);
+		$current = reset($results);
 		if (!is_array($current)) {
 			return array();
 		}
@@ -1176,7 +1176,7 @@ class DboSource extends DataSource {
  * @return mixed
  * @throws CakeException when results cannot be created.
  */
-	public function queryAssociation(Model $model, &$linkModel, $type, $association, $assocData, &$queryData, $external = false, &$resultSet, $recursive, $stack) {
+	public function queryAssociation(Model $model, &$linkModel, $type, $association, $assocData, &$queryData, $external, &$resultSet, $recursive, $stack) {
 		if ($query = $this->generateAssociationQuery($model, $linkModel, $type, $association, $assocData, $queryData, $external, $resultSet)) {
 			if (!is_array($resultSet)) {
 				throw new Error\Exception(__d('cake_dev', 'Error in Model %s', get_class($model)));
@@ -1362,7 +1362,7 @@ class DboSource extends DataSource {
 					}
 				}
 			}
-			$result = Set::pushDiff($result, array($association => $merged));
+			$result = Hash::mergeDiff($result, array($association => $merged));
 		}
 	}
 
@@ -1417,7 +1417,7 @@ class DboSource extends DataSource {
 						if ($mergeKeys[0] === $dataKeys[0] || $mergeKeys === $dataKeys) {
 							$data[$association][$association] = $merge[0][$association];
 						} else {
-							$diff = Set::diff($dataAssocTmp, $mergeAssocTmp);
+							$diff = Hash::diff($dataAssocTmp, $mergeAssocTmp);
 							$data[$association] = array_merge($merge[0][$association], $diff);
 						}
 					} elseif ($selfJoin && array_key_exists($association, $merge[0])) {
@@ -1461,7 +1461,7 @@ class DboSource extends DataSource {
  * @param array $resultSet
  * @return mixed
  */
-	public function generateAssociationQuery(Model $model, $linkModel, $type, $association = null, $assocData = array(), &$queryData, $external = false, &$resultSet) {
+	public function generateAssociationQuery(Model $model, $linkModel, $type, $association, $assocData, &$queryData, $external, &$resultSet) {
 		$queryData = $this->_scrubQueryData($queryData);
 		$assocData = $this->_scrubQueryData($assocData);
 		$modelAlias = $model->alias;
@@ -1676,7 +1676,8 @@ class DboSource extends DataSource {
 			$data['conditions'] = trim($this->conditions($data['conditions'], true, false));
 		}
 		if (!empty($data['table'])) {
-			$data['table'] = $this->fullTableName($data['table']);
+			$schema = !(is_string($data['table']) && strpos($data['table'], '(') === 0);
+			$data['table'] = $this->fullTableName($data['table'], true, $schema);
 		}
 		return $this->renderJoinStatement($data);
 	}
@@ -1861,6 +1862,8 @@ class DboSource extends DataSource {
 
 			if ($quoteValues) {
 				$update .= $this->value($value, $model->getColumnType($field));
+			} elseif ($model->getColumnType($field) == 'boolean' && (is_int($value) || is_bool($value))) {
+				$update .= $this->boolean($value, true);
 			} elseif (!$alias) {
 				$update .= str_replace($quotedAlias . '.', '', str_replace(
 					$model->alias . '.', '', $value
@@ -1940,7 +1943,7 @@ class DboSource extends DataSource {
 				return false;
 			}
 			$conditions = $this->conditions(array(
-				$model->primaryKey => Set::extract($idList, "{n}.{$model->alias}.{$model->primaryKey}")
+				$model->primaryKey => Hash::extract($idList, "{n}.{$model->alias}.{$model->primaryKey}")
 			));
 		}
 		return $conditions;
@@ -2262,7 +2265,7 @@ class DboSource extends DataSource {
 					} else {
 						if (strpos($fields[$i], ',') === false) {
 							$build = explode('.', $fields[$i]);
-							if (!Set::numeric($build)) {
+							if (!Hash::numeric($build)) {
 								$fields[$i] = $this->name(implode('.', $build));
 							}
 						}
@@ -2274,7 +2277,7 @@ class DboSource extends DataSource {
 							$field[1] = $this->name($alias . '.' . $field[1]);
 						} else {
 							$field[0] = explode('.', $field[1]);
-							if (!Set::numeric($field[0])) {
+							if (!Hash::numeric($field[0])) {
 								$field[0] = implode('.', array_map(array(&$this, 'name'), $field[0]));
 								$fields[$i] = preg_replace('/\(' . $field[1] . '\)/', '(' . $field[0] . ')', $fields[$i], 1);
 							}

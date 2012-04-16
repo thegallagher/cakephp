@@ -21,6 +21,7 @@ use Cake\Console\Shell,
 	Cake\Core\Configure,
 	Cake\Controller\ComponentCollection,
 	Cake\Controller\Component\AclComponent,
+	Cake\Utility\Hash,
 	Cake\Utility\Set;
 
 /**
@@ -560,8 +561,9 @@ class AclShell extends Shell {
 				$identifier = var_export($identifier, true);
 			}
 			$this->error(__d('cake_console', 'Could not find node using reference "%s"', $identifier));
+			return;
 		}
-		return Set::extract($node, "0.{$class}.id");
+		return Hash::get($node, "0.{$class}.id");
 	}
 
 /**

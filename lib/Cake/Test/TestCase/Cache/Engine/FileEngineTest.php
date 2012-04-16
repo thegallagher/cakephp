@@ -65,11 +65,11 @@ class FileEngineTest extends TestCase {
  */
 	public function testCacheDirChange() {
 		$result = Cache::config('sessions', array('engine' => 'File', 'path' => TMP . 'sessions'));
-		$this->assertEquals($result['settings'], Cache::settings('sessions'));
+		$this->assertEquals(Cache::settings('sessions'), $result['settings']);
 
 		$result = Cache::config('sessions', array('engine' => 'File', 'path' => TMP . 'tests'));
-		$this->assertEquals($result['settings'], Cache::settings('sessions'));
-		$this->assertNotEquals($result['settings'], Cache::settings('default'));
+		$this->assertEquals(Cache::settings('sessions'), $result['settings']);
+		$this->assertNotEquals(Cache::settings('default'), $result['settings']);
 	}
 
 /**
@@ -87,7 +87,7 @@ class FileEngineTest extends TestCase {
 
 		$result = Cache::read('test', 'file_test');
 		$expecting = '';
-		$this->assertEquals($result, $expecting);
+		$this->assertEquals($expecting, $result);
 
 		$data = 'this is a test of the emergency broadcasting system';
 		$result = Cache::write('test', $data, 'file_test');
@@ -95,7 +95,7 @@ class FileEngineTest extends TestCase {
 
 		$result = Cache::read('test', 'file_test');
 		$expecting = $data;
-		$this->assertEquals($result, $expecting);
+		$this->assertEquals($expecting, $result);
 
 		Cache::delete('test', 'file_test');
 	}
@@ -110,11 +110,11 @@ class FileEngineTest extends TestCase {
 		$result = Cache::read('rw', 'file_test');
 
 		Cache::write('rw', 'second write', 'file_test');
-		$result2 = Cache::read('rw', 'file_test');
+		$resultB = Cache::read('rw', 'file_test');
 
 		Cache::delete('rw', 'file_test');
 		$this->assertEquals('first write', $result);
-		$this->assertEquals('second write', $result2);
+		$this->assertEquals('second write', $resultB);
 	}
 
 /**
@@ -242,15 +242,15 @@ class FileEngineTest extends TestCase {
 			'duration' => DAY
 		));
 
-		$data1 = $data2 = $expected = 'content to cache';
-		$FileOne->write('prefix_one_key_one', $data1, DAY);
-		$FileTwo->write('prefix_two_key_two', $data2, DAY);
+		$dataOne = $dataTwo = $expected = 'content to cache';
+		$FileOne->write('prefix_one_key_one', $dataOne, DAY);
+		$FileTwo->write('prefix_two_key_two', $dataTwo, DAY);
 
-		$this->assertEquals($FileOne->read('prefix_one_key_one'), $expected);
-		$this->assertEquals($FileTwo->read('prefix_two_key_two'), $expected);
+		$this->assertEquals($expected, $FileOne->read('prefix_one_key_one'));
+		$this->assertEquals($expected, $FileTwo->read('prefix_two_key_two'));
 
 		$FileOne->clear(false);
-		$this->assertEquals($FileTwo->read('prefix_two_key_two'), $expected, 'secondary config was cleared by accident.');
+		$this->assertEquals($expected, $FileTwo->read('prefix_two_key_two'), 'secondary config was cleared by accident.');
 		$FileTwo->clear(false);
 	}
 
@@ -265,7 +265,7 @@ class FileEngineTest extends TestCase {
 		$this->assertTrue(file_exists(CACHE . 'cake_views_countries_something'));
 
 		$result = Cache::read('views.countries.something', 'file_test');
-		$this->assertEquals($result, 'here');
+		$this->assertEquals('here', $result);
 
 		$result = Cache::clear(false, 'file_test');
 		$this->assertTrue($result);

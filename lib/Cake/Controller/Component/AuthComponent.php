@@ -18,6 +18,7 @@
  * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Controller\Component;
 use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
@@ -29,6 +30,7 @@ use Cake\Controller\Component,
 	Cake\Utility\Debugger,
 	Cake\Utility\Set,
 	Cake\Utility\Security,
+	Cake\Utility\Hash,
 	Cake\Core\App,
 	Cake\Core\Configure,
 	Cake\Error;
@@ -337,7 +339,11 @@ class AuthComponent extends Component {
 		}
 
 		$this->flash($this->authError);
-		$controller->redirect($controller->referer('/'), null, true);
+		$default = '/';
+		if (!empty($this->loginRedirect)) {
+			$default = $this->loginRedirect;
+		}
+		$controller->redirect($controller->referer($default), null, true);
 		return false;
 	}
 
@@ -399,7 +405,7 @@ class AuthComponent extends Component {
 			return;
 		}
 		$this->_authorizeObjects = array();
-		$config = Set::normalize($this->authorize);
+		$config = Hash::normalize((array)$this->authorize);
 		$global = array();
 		if (isset($config[AuthComponent::ALL])) {
 			$global = $config[AuthComponent::ALL];
@@ -655,7 +661,7 @@ class AuthComponent extends Component {
 			return;
 		}
 		$this->_authenticateObjects = array();
-		$config = Set::normalize($this->authenticate);
+		$config = Hash::normalize((array)$this->authenticate);
 		$global = array();
 		if (isset($config[AuthComponent::ALL])) {
 			$global = $config[AuthComponent::ALL];

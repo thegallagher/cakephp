@@ -140,10 +140,12 @@ class UpgradeShell extends Shell {
 			list($plugins) = $Folder->read();
 			foreach ($plugins as $plugin) {
 				chdir($cwd . DS . 'plugins' . DS . $plugin);
+				$this->out(__d('cake_console', 'Upgrading locations for plugin %s', $plugin));
 				$this->locations();
 			}
 			$this->_files = array();
 			chdir($cwd);
+			$this->out(__d('cake_console', 'Upgrading locations for app directory'));
 		}
 		$moves = array(
 			'config' => 'Config',
@@ -237,7 +239,8 @@ class UpgradeShell extends Shell {
 		$helpers = array_merge($pluginHelpers, $helpers);
 		foreach ($helpers as $helper) {
 			$helper = preg_replace('/Helper$/', '', $helper);
-			$oldHelper = strtolower(substr($helper, 0, 1)) . substr($helper, 1);
+			$oldHelper = $helper;
+			$oldHelper{0} = strtolower($oldHelper{0});
 			$patterns[] = array(
 				"\${$oldHelper} to \$this->{$helper}",
 				"/\\\${$oldHelper}->/",

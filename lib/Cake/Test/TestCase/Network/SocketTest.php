@@ -131,16 +131,16 @@ class SocketTest extends TestCase {
 	public function testSocketHost() {
 		$this->Socket = new Socket();
 		$this->Socket->connect();
-		$this->assertEquals($this->Socket->address(), '127.0.0.1');
+		$this->assertEquals('127.0.0.1', $this->Socket->address());
 		$this->assertEquals(gethostbyaddr('127.0.0.1'), $this->Socket->host());
-		$this->assertEquals($this->Socket->lastError(), null);
+		$this->assertEquals(null, $this->Socket->lastError());
 		$this->assertTrue(in_array('127.0.0.1', $this->Socket->addresses()));
 
 		$this->Socket = new Socket(array('host' => '127.0.0.1'));
 		$this->Socket->connect();
-		$this->assertEquals($this->Socket->address(), '127.0.0.1');
+		$this->assertEquals('127.0.0.1', $this->Socket->address());
 		$this->assertEquals(gethostbyaddr('127.0.0.1'), $this->Socket->host());
-		$this->assertEquals($this->Socket->lastError(), null);
+		$this->assertEquals(null, $this->Socket->lastError());
 		$this->assertTrue(in_array('127.0.0.1', $this->Socket->addresses()));
 	}
 
@@ -162,13 +162,13 @@ class SocketTest extends TestCase {
 	public function testSocketReading() {
 		$this->Socket = new Socket(array('timeout' => 5));
 		$this->Socket->connect();
-		$this->assertEquals($this->Socket->read(26), null);
+		$this->assertEquals(null, $this->Socket->read(26));
 
 		$config = array('host' => 'google.com', 'port' => 80, 'timeout' => 1);
 		$this->Socket = new Socket($config);
 		$this->assertTrue($this->Socket->connect());
-		$this->assertEquals($this->Socket->read(26), null);
-		$this->assertEquals($this->Socket->lastError(), '2: ' . __d('cake_dev', 'Connection timed out'));
+		$this->assertEquals(null, $this->Socket->read(26));
+		$this->assertEquals('2: ' . __d('cake_dev', 'Connection timed out'), $this->Socket->lastError());
 	}
 
 /**
@@ -184,7 +184,7 @@ class SocketTest extends TestCase {
 		$config = array('host' => '127.0.0.1', 'timeout' => 0.00001);
 		$this->Socket = new Socket($config);
 		$this->assertFalse($this->Socket->read(1024 * 1024));
-		$this->assertEquals($this->Socket->lastError(), '2: ' . __d('cake_dev', 'Connection timed out'));
+		$this->assertEquals('2: ' . __d('cake_dev', 'Connection timed out'), $this->Socket->lastError());
 	}
 
 /**
@@ -195,7 +195,7 @@ class SocketTest extends TestCase {
 	public function testLastError() {
 		$this->Socket = new Socket();
 		$this->Socket->setLastError(4, 'some error here');
-		$this->assertEquals($this->Socket->lastError(), '4: some error here');
+		$this->assertEquals('4: some error here', $this->Socket->lastError());
 	}
 
 /**

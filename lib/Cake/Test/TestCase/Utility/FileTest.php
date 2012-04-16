@@ -82,6 +82,11 @@ class FileTest extends TestCase {
 			'filesize' => filesize($file),
 			'mime' => 'text/x-php'
 		);
+		if (!function_exists('finfo_open') && (!function_exists('mime_content_type') ||
+				function_exists('mime_content_type') && false === mime_content_type($this->File->pwd()))) {
+			$expecting['mime'] = false;
+		}
+
 		$this->assertEquals($expecting, $result);
 
 		$result = $this->File->ext();
@@ -139,7 +144,7 @@ class FileTest extends TestCase {
 		$this->File->lock = true;
 		$result = $this->File->read();
 		$expecting = file_get_contents(__FILE__);
-		$this->assertEquals($result, trim($expecting));
+		$this->assertEquals(trim($expecting), $result);
 		$this->File->lock = null;
 
 		$data = $expecting;
@@ -475,9 +480,14 @@ class FileTest extends TestCase {
  * @return void
  */
 	public function testMime() {
+		$this->skipIf(!function_exists('finfo_open') && !function_exists('mime_content_type'), 'Not able to read mime type');
 		$path = CAKE . 'Test' . DS . 'TestApp' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif';
 		$file = new File($path);
-		$this->assertEquals('image/gif', $file->mime());
+		$expected = 'image/gif';
+		if (function_exists('mime_content_type') && false === mime_content_type($file->pwd())) {
+			$expected = false;
+		}
+		$this->assertEquals($expected, $file->mime());
 	}
 
 /**

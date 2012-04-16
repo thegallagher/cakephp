@@ -18,6 +18,7 @@
  * @since         CakePHP(tm) v 0.10.0.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Model;
 use Cake\Core\Object,
 	Cake\Core\Configure,
@@ -26,6 +27,7 @@ use Cake\Core\Object,
 	Cake\Utility\Inflector,
 	Cake\Utility\Xml,
 	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Event\EventListener,
 	Cake\Event\EventManager,
 	Cake\Event\Event,
@@ -1734,7 +1736,7 @@ class Model extends Object implements EventListener {
 				$this->getEventManager()->dispatch($event);
 			}
 			if (!empty($this->data)) {
-				$success = Set::merge($success, $this->data);
+				$success = Hash::merge($success, $this->data);
 			}
 			$this->data = false;
 			$this->_clearCache();
@@ -1825,7 +1827,7 @@ class Model extends Object implements EventListener {
 						'fields' => $associationForeignKey,
 					));
 
-					$oldLinks = Set::extract($links, "{n}.{$associationForeignKey}");
+					$oldLinks = Hash::extract($links, "{n}.{$associationForeignKey}");
 					if (!empty($oldLinks)) {
 						if ($keepExisting && !empty($newJoins)) {
 							$conditions[$associationForeignKey] = array_diff($oldLinks, $newJoins);
@@ -1999,7 +2001,7 @@ class Model extends Object implements EventListener {
  */
 	public function saveAll($data = null, $options = array()) {
 		$options = array_merge(array('validate' => 'first'), $options);
-		if (Set::numeric(array_keys($data))) {
+		if (Hash::numeric(array_keys($data))) {
 			if ($options['validate'] === 'only') {
 				return $this->validateMany($data, $options);
 			}
@@ -2048,6 +2050,7 @@ class Model extends Object implements EventListener {
 			if ((!$validates && $options['atomic']) || (!$options['atomic'] && in_array(false, $validates, true))) {
 				return $validates;
 			}
+			$options['validate'] = true;
 		}
 
 		if ($options['atomic']) {
@@ -2178,6 +2181,7 @@ class Model extends Object implements EventListener {
 			if ((!$validates && $options['atomic']) || (!$options['atomic'] && in_array(false, $validates, true))) {
 				return $validates;
 			}
+			$options['validate'] = true;
 		}
 		if ($options['atomic']) {
 			$db = $this->getDataSource();
@@ -2199,10 +2203,11 @@ class Model extends Object implements EventListener {
 					$validates = ($saved === true || (is_array($saved) && !in_array(false, $saved, true)));
 				}
 				if ($validates) {
-					if (!empty($data[$this->alias])) {
-						$data[$this->alias][$this->belongsTo[$association]['foreignKey']] = $this->{$association}->id;
+					$key = $this->belongsTo[$association]['foreignKey'];
+					if (isset($data[$this->alias])) {
+						$data[$this->alias][$key] = $this->{$association}->id;
 					} else {
-						$data[$this->belongsTo[$association]['foreignKey']] = $this->{$association}->id;
+						$data = array_merge(array($key => $this->{$association}->id), $data, array($key => $this->{$association}->id));
 					}
 				} else {
 					$validationErrors[$association] = $this->{$association}->validationErrors;
@@ -2222,9 +2227,14 @@ class Model extends Object implements EventListener {
 			}
 			if (isset($associations[$association])) {
 				$type = $associations[$association];
+				$key = $this->{$type}[$association]['foreignKey'];
 				switch ($type) {
 					case 'hasOne':
-						$values[$this->{$type}[$association]['foreignKey']] = $this->id;
+						if (isset($values[$association])) {
+							$values[$association][$key] = $this->id;
+						} else {
+							$values = array_merge(array($key => $this->id), $values, array($key => $this->id));
+						}
 						$validates = $this->{$association}->create(null) !== null;
 						$saved = false;
 						if ($validates) {
@@ -2242,7 +2252,11 @@ class Model extends Object implements EventListener {
 					break;
 					case 'hasMany':
 						foreach ($values as $i => $value) {
-							$values[$i][$this->{$type}[$association]['foreignKey']] = $this->id;
+							if (isset($values[$i][$association])) {
+								$values[$i][$association][$key] = $this->id;
+							} else {
+								$values[$i] = array_merge(array($key => $this->id), $value, array($key => $this->id));
+							}
 						}
 						$_return = $this->{$association}->saveMany($values, array_merge($options, array('atomic' => false)));
 						if (in_array(false, $_return, true)) {
@@ -2508,7 +2522,7 @@ class Model extends Object implements EventListener {
 				return false;
 			}
 
-			$ids = Set::extract($ids, "{n}.{$this->alias}.{$this->primaryKey}");
+			$ids = Hash::extract($ids, "{n}.{$this->alias}.{$this->primaryKey}");
 			if (empty($ids)) {
 				return true;
 			}
@@ -2747,7 +2761,7 @@ class Model extends Object implements EventListener {
 			}
 			$db = $this->getDataSource();
 			$query['order'] = false;
-			if (!method_exists($db, 'calculate') || !method_exists($db, 'expression')) {
+			if (!method_exists($db, 'calculate')) {
 				return $query;
 			}
 			if (!empty($query['fields']) && is_array($query['fields'])) {
@@ -2757,7 +2771,7 @@ class Model extends Object implements EventListener {
 			}
 			if (empty($query['fields'])) {
 				$query['fields'] = $db->calculate($this, 'count');
-			} elseif (is_string($query['fields']) && !preg_match('/count/i', $query['fields'])) {
+			} elseif (method_exists($db, 'expression') && is_string($query['fields']) && !preg_match('/count/i', $query['fields'])) {
 				$query['fields'] = $db->calculate($this, 'count', array(
 					$db->expression($query['fields']), 'count'
 				));
@@ -2831,7 +2845,7 @@ class Model extends Object implements EventListener {
 				return array();
 			}
 			$lst = $query['list'];
-			return Set::combine($results, $lst['keyPath'], $lst['valuePath'], $lst['groupPath']);
+			return Hash::combine($results, $lst['keyPath'], $lst['valuePath'], $lst['groupPath']);
 		}
 	}
 
@@ -2867,8 +2881,8 @@ class Model extends Object implements EventListener {
 			unset($query['conditions'][$field . ' <']);
 			$return = array();
 			if (isset($results[0])) {
-				$prevVal = Set::extract('/' . str_replace('.', '/', $field), $results[0]);
-				$query['conditions'][$field . ' >='] = $prevVal[0];
+				$prevVal = Hash::get($results[0], $field);
+				$query['conditions'][$field . ' >='] = $prevVal;
 				$query['conditions'][$field . ' !='] = $value;
 				$query['limit'] = 2;
 			} else {
@@ -2877,14 +2891,14 @@ class Model extends Object implements EventListener {
 				$query['limit'] = 1;
 			}
 			$query['order'] = $field . ' ASC';
-			$return2 = $this->find('all', $query);
+			$neighbors = $this->find('all', $query);
 			if (!array_key_exists('prev', $return)) {
-				$return['prev'] = $return2[0];
+				$return['prev'] = $neighbors[0];
 			}
-			if (count($return2) === 2) {
-				$return['next'] = $return2[1];
-			} elseif (count($return2) === 1 && !$return['prev']) {
-				$return['next'] = $return2[0];
+			if (count($neighbors) === 2) {
+				$return['next'] = $neighbors[1];
+			} elseif (count($neighbors) === 1 && !$return['prev']) {
+				$return['next'] = $neighbors[0];
 			} else {
 				$return['next'] = null;
 			}
@@ -2909,9 +2923,9 @@ class Model extends Object implements EventListener {
 			if (isset($query['parent'])) {
 				$parent = $query['parent'];
 			}
-			return Set::nest($results, array(
-				'idPath' => '/' . $this->alias . '/' . $this->primaryKey,
-				'parentPath' => '/' . $this->alias . '/' . $parent
+			return Hash::nest($results, array(
+				'idPath' => '{n}.' . $this->alias . '.' . $this->primaryKey,
+				'parentPath' => '{n}.' . $this->alias . '.' . $parent
 			));
 		}
 	}
@@ -3004,7 +3018,7 @@ class Model extends Object implements EventListener {
  * Returns a resultset for a given SQL statement. Custom SQL queries should be performed with this method.
  *
  * @param string $sql,... SQL statement
- * @return array Resultset
+ * @return mixed Resultset array or boolean indicating success / failure depending on the query executed
  * @link http://book.cakephp.org/2.0/en/models/retrieving-your-data.html#model-query
  */
 	public function query($sql) {

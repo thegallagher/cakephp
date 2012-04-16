@@ -24,6 +24,8 @@ class TestsAppsController extends AppController {
 
 	public $uses = array();
 
+	public $components = array('RequestHandler');
+
 	public function index() {
 		$var = '';
 		if (isset($this->request->query['var'])) {

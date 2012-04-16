@@ -67,6 +67,9 @@ class FixtureManager {
  * @return void
  */
 	public function fixturize($test) {
+		if (!$this->_initialized) {
+			ClassRegistry::config(array('ds' => 'test', 'testing' => true));
+		}
 		if (empty($test->fixtures) || !empty($this->_processed[get_class($test)])) {
 			$test->db = $this->_db;
 			return;
@@ -95,7 +98,6 @@ class FixtureManager {
 		$db = ConnectionManager::getDataSource('test');
 		$db->cacheSources = false;
 		$this->_db = $db;
-		ClassRegistry::config(array('ds' => 'test', 'testing' => true));
 		$this->_initialized = true;
 	}
 

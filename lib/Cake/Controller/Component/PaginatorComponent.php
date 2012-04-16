@@ -16,10 +16,12 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Controller\Component;
 use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
 	Cake\Utility\Set,
+	Cake\Utility\Hash,
 	Cake\Error;
 
 /**
@@ -199,7 +201,7 @@ class PaginatorComponent extends Component {
 			'pageCount' => $pageCount,
 			'order' => $order,
 			'limit' => $limit,
-			'options' => Set::diff($options, $defaults),
+			'options' => Hash::diff($options, $defaults),
 			'paramType' => $options['paramType']
 		);
 		if (!isset($this->Controller->request['paging'])) {

@@ -147,7 +147,7 @@ class ExceptionRenderer {
  * @return Controller
  */
 	protected function _getController($exception) {
-		if (!$request = Router::getRequest(false)) {
+		if (!$request = Router::getRequest(true)) {
 			$request = new Request();
 		}
 		$response = new Response(array('charset' => Configure::read('App.encoding')));

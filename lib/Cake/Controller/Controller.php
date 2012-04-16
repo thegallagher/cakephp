@@ -12,6 +12,7 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Controller;
 use Cake\Core\Object,
 	Cake\Core\Configure,
@@ -269,7 +270,7 @@ class Controller extends Object implements EventListener {
 	public $methods = array();
 
 /**
- * This controller's primary model class name, the Inflector::classify()'ed version of
+ * This controller's primary model class name, the Inflector::singularize()'ed version of
  * the controller's $name property.
  *
  * Example: For a controller named 'Comments', the modelClass would be 'Comment'
@@ -371,9 +372,6 @@ class Controller extends Object implements EventListener {
 			foreach ($this->uses as $modelClass) {
 				list($plugin, $class) = pluginSplit($modelClass, true);
 				if ($name === $class) {
-					if (!$plugin) {
-						$plugin = $this->plugin ? $this->plugin . '.' : null;
-					}
 					return $this->loadModel($modelClass);
 				}
 			}

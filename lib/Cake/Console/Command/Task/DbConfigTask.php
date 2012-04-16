@@ -301,7 +301,7 @@ class DbConfigTask extends Shell {
 		}
 
 		foreach ($oldConfigs as $key => $oldConfig) {
-			foreach ($configs as $key1 => $config) {
+			foreach ($configs as $k => $config) {
 				if ($oldConfig['name'] == $config['name']) {
 					unset($oldConfigs[$key]);
 				}

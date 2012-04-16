@@ -16,6 +16,7 @@
  * @since         CakePHP(tm) v 2.0
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Model\Datasource\Session;
 use Cake\Core\Configure,
 	Cake\Utility\ClassRegistry;
@@ -80,10 +81,6 @@ class DatabaseSession implements SessionHandlerInterface {
  * @return boolean Success
  */
 	public function close() {
-		$probability = mt_rand(1, 150);
-		if ($probability <= 3) {
-			$this->gc();
-		}
 		return true;
 	}
 
@@ -146,15 +143,21 @@ class DatabaseSession implements SessionHandlerInterface {
 	}
 
 /**
+ * Writes and closes a session
+ * 
+ * @return void 
+ */
+	protected function _writeSession() {
+		session_write_close();
+	}
+
+/**
  * Closes the session before the objects handling it become unavailable
  *
  * @return void
  */
 	public function __destruct() {
-		try {
-			session_write_close();
-		} catch (\Exception $e) {
-		}
+		$this->_writeSession();
 	}
 
 }

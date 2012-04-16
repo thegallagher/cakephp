@@ -89,7 +89,7 @@ class ConfigureTest extends TestCase {
 		$this->assertEquals($expected, $result);
 
 		$result = Configure::read('level1.level2.level3_2');
-		$this->assertEquals($result, 'something_else');
+		$this->assertEquals('something_else', $result);
 
 		$result = Configure::read('debug');
 		$this->assertTrue($result >= 0);
@@ -112,12 +112,12 @@ class ConfigureTest extends TestCase {
 		$writeResult = Configure::write('SomeName.someKey', 'myvalue');
 		$this->assertTrue($writeResult);
 		$result = Configure::read('SomeName.someKey');
-		$this->assertEquals($result, 'myvalue');
+		$this->assertEquals('myvalue', $result);
 
 		$writeResult = Configure::write('SomeName.someKey', null);
 		$this->assertTrue($writeResult);
 		$result = Configure::read('SomeName.someKey');
-		$this->assertEquals($result, null);
+		$this->assertEquals(null, $result);
 
 		$expected = array('One' => array('Two' => array('Three' => array('Four' => array('Five' => 'cool')))));
 		$writeResult = Configure::write('Key', $expected);
@@ -148,11 +148,11 @@ class ConfigureTest extends TestCase {
 	public function testDebugSettingDisplayErrors() {
 		Configure::write('debug', 0);
 		$result = ini_get('display_errors');
-		$this->assertEquals($result, 0);
+		$this->assertEquals(0, $result);
 
 		Configure::write('debug', 2);
 		$result = ini_get('display_errors');
-		$this->assertEquals($result, 1);
+		$this->assertEquals(1, $result);
 	}
 
 /**
@@ -163,7 +163,7 @@ class ConfigureTest extends TestCase {
 	public function testDelete() {
 		Configure::write('SomeName.someKey', 'myvalue');
 		$result = Configure::read('SomeName.someKey');
-		$this->assertEquals($result, 'myvalue');
+		$this->assertEquals('myvalue', $result);
 
 		Configure::delete('SomeName.someKey');
 		$result = Configure::read('SomeName.someKey');
@@ -172,10 +172,10 @@ class ConfigureTest extends TestCase {
 		Configure::write('SomeName', array('someKey' => 'myvalue', 'otherKey' => 'otherValue'));
 
 		$result = Configure::read('SomeName.someKey');
-		$this->assertEquals($result, 'myvalue');
+		$this->assertEquals('myvalue', $result);
 
 		$result = Configure::read('SomeName.otherKey');
-		$this->assertEquals($result, 'otherValue');
+		$this->assertEquals('otherValue', $result);
 
 		Configure::delete('SomeName');
 
@@ -270,13 +270,13 @@ class ConfigureTest extends TestCase {
 		$this->assertTrue($result);
 		$expected = '/test_app/plugins/test_plugin/config/load.php';
 		$config = Configure::read('plugin_load');
-		$this->assertEquals($config, $expected);
+		$this->assertEquals($expected, $config);
 
 		$result = Configure::load('TestPlugin.more.load', 'test');
 		$this->assertTrue($result);
 		$expected = '/test_app/plugins/test_plugin/config/more.load.php';
 		$config = Configure::read('plugin_more_load');
-		$this->assertEquals($config, $expected);
+		$this->assertEquals($expected, $config);
 		Plugin::unload();
 	}
 

@@ -55,7 +55,7 @@ class TimeHelper extends Helper {
  * @throws CakeException When the engine class could not be found.
  */
 	public function __construct(View $View, $settings = array()) {
-		$settings += array('engine' => 'Cake\Utility\Time');
+		$settings = Hash::merge(array('engine' => 'Cake\Utility\Time'), $settings);
 		parent::__construct($View, $settings);
 		$engineClass = App::classname($settings['engine'], 'Utility');
 		if ($engineClass) {

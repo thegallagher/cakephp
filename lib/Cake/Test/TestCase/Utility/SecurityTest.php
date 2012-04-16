@@ -131,22 +131,22 @@ class SecurityTest extends TestCase {
 		}
 		$key = 'my_key';
 		$result = Security::cipher($txt, $key);
-		$this->assertEquals(Security::cipher($result, $key), $txt);
+		$this->assertEquals($txt, Security::cipher($result, $key));
 
 		$txt = '';
 		$key = 'my_key';
 		$result = Security::cipher($txt, $key);
-		$this->assertEquals(Security::cipher($result, $key), $txt);
+		$this->assertEquals($txt, Security::cipher($result, $key));
 
 		$txt = 123456;
 		$key = 'my_key';
 		$result = Security::cipher($txt, $key);
-		$this->assertEquals(Security::cipher($result, $key), $txt);
+		$this->assertEquals($txt, Security::cipher($result, $key));
 
 		$txt = '123456';
 		$key = 'my_key';
 		$result = Security::cipher($txt, $key);
-		$this->assertEquals(Security::cipher($result, $key), $txt);
+		$this->assertEquals($txt, Security::cipher($result, $key));
 	}
 
 /**

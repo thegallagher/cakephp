@@ -84,6 +84,9 @@ class Object {
 		$data = isset($extra['data']) ? $extra['data'] : null;
 		unset($extra['data']);
 
+		if (is_string($url) && strpos($url, FULL_BASE_URL) === 0) {
+			$url = Router::normalize(str_replace(FULL_BASE_URL, '', $url));
+		}
 		if (is_string($url)) {
 			$request = new Request($url);
 		} elseif (is_array($url)) {
@@ -94,7 +97,6 @@ class Object {
 		if (isset($data)) {
 			$request->data = $data;
 		}
-
 		$dispatcher = new Dispatcher();
 		$result = $dispatcher->dispatch($request, new Response(), $extra);
 		Router::popRequest();
@@ -182,7 +184,7 @@ class Object {
  *
  * @param array $properties The name of the properties to merge.
  * @param string $class The class to merge the property with.
- * @param boolean $normalize Set to true to run the properties through Set::normalize() before merging.
+ * @param boolean $normalize Set to true to run the properties through Hash::normalize() before merging.
  * @return void
  */
 	protected function _mergeVars($properties, $class, $normalize = true) {
@@ -195,10 +197,10 @@ class Object {
 				$this->{$var} != $classProperties[$var]
 			) {
 				if ($normalize) {
-					$classProperties[$var] = Set::normalize($classProperties[$var]);
-					$this->{$var} = Set::normalize($this->{$var});
+					$classProperties[$var] = Hash::normalize($classProperties[$var]);
+					$this->{$var} = Hash::normalize($this->{$var});
 				}
-				$this->{$var} = Set::merge($classProperties[$var], $this->{$var});
+				$this->{$var} = Hash::merge($classProperties[$var], $this->{$var});
 			}
 		}
 	}

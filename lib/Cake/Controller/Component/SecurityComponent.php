@@ -21,11 +21,11 @@ use Cake\Controller\Component,
 	Cake\Controller\ComponentCollection,
 	Cake\Controller\Controller,
 	Cake\Network\Request,
+	Cake\Utility\Hash,
 	Cake\Utility\Security,
 	Cake\Utility\Set,
 	Cake\Core\Configure,
 	Cake\Error;
-
 
 /**
  * The Security Component creates an easy way to integrate tighter security in 
@@ -449,7 +449,7 @@ class SecurityComponent extends Component {
 		$unlocked = explode('|', $unlocked);
 
 		$lockedFields = array();
-		$fields = Set::flatten($check);
+		$fields = Hash::flatten($check);
 		$fieldList = array_keys($fields);
 		$multi = array();
 

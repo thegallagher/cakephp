@@ -185,7 +185,7 @@ class ObjectCollectionTest extends TestCase {
 		$result = $this->Objects->set('Second', new SecondGenericObject($this->Objects));
 		$this->assertInstanceOf(__NAMESPACE__ . '\SecondGenericObject', $result['Second'], 'set failed');
 
-		$this->assertEquals(count($result), 2);
+		$this->assertEquals(2, count($result));
 	}
 
 /**

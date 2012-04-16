@@ -118,10 +118,10 @@ class AclShellTest extends TestCase {
 		$expected = array('model' => 'Model', 'foreign_key' => 'foreignKey');
 
 		$result = $this->Task->parseIdentifier('mySuperUser');
-		$this->assertEquals($result, 'mySuperUser');
+		$this->assertEquals('mySuperUser', $result);
 
 		$result = $this->Task->parseIdentifier('111234');
-		$this->assertEquals($result, '111234');
+		$this->assertEquals('111234', $result);
 	}
 
 /**
@@ -140,9 +140,9 @@ class AclShellTest extends TestCase {
 		$Aro = ClassRegistry::init('Aro');
 		$Aro->cacheQueries = false;
 		$result = $Aro->read();
-		$this->assertEquals($result['Aro']['model'], 'User');
-		$this->assertEquals($result['Aro']['foreign_key'], 1);
-		$this->assertEquals($result['Aro']['parent_id'], null);
+		$this->assertEquals('User', $result['Aro']['model']);
+		$this->assertEquals(1, $result['Aro']['foreign_key']);
+		$this->assertEquals(null, $result['Aro']['parent_id']);
 		$id = $result['Aro']['id'];
 
 		$this->Task->args = array('aro', 'User.1', 'User.3');
@@ -150,19 +150,19 @@ class AclShellTest extends TestCase {
 
 		$Aro = ClassRegistry::init('Aro');
 		$result = $Aro->read();
-		$this->assertEquals($result['Aro']['model'], 'User');
-		$this->assertEquals($result['Aro']['foreign_key'], 3);
-		$this->assertEquals($result['Aro']['parent_id'], $id);
+		$this->assertEquals('User', $result['Aro']['model']);
+		$this->assertEquals(3, $result['Aro']['foreign_key']);
+		$this->assertEquals($id, $result['Aro']['parent_id']);
 
 		$this->Task->args = array('aro', 'root', 'somealias');
 		$this->Task->create();
 
 		$Aro = ClassRegistry::init('Aro');
 		$result = $Aro->read();
-		$this->assertEquals($result['Aro']['alias'], 'somealias');
-		$this->assertEquals($result['Aro']['model'], null);
-		$this->assertEquals($result['Aro']['foreign_key'], null);
-		$this->assertEquals($result['Aro']['parent_id'], null);
+		$this->assertEquals('somealias', $result['Aro']['alias']);
+		$this->assertEquals(null, $result['Aro']['model']);
+		$this->assertEquals(null, $result['Aro']['foreign_key']);
+		$this->assertEquals(null, $result['Aro']['parent_id']);
 	}
 
 /**
@@ -192,7 +192,7 @@ class AclShellTest extends TestCase {
 
 		$Aro = ClassRegistry::init('Aro');
 		$result = $Aro->read(null, 4);
-		$this->assertEquals($result['Aro']['parent_id'], null);
+		$this->assertEquals(null, $result['Aro']['parent_id']);
 	}
 
 /**
@@ -209,7 +209,7 @@ class AclShellTest extends TestCase {
 		$node = $this->Task->Acl->Aro->read(null, $node[0]['Aro']['id']);
 
 		$this->assertFalse(empty($node['Aco'][0]));
-		$this->assertEquals($node['Aco'][0]['Permission']['_create'], 1);
+		$this->assertEquals(1, $node['Aco'][0]['Permission']['_create']);
 	}
 
 /**
@@ -227,7 +227,7 @@ class AclShellTest extends TestCase {
 		$node = $this->Task->Acl->Aro->node(array('model' => 'AuthUser', 'foreign_key' => 2));
 		$node = $this->Task->Acl->Aro->read(null, $node[0]['Aro']['id']);
 		$this->assertFalse(empty($node['Aco'][0]));
-		$this->assertEquals($node['Aco'][0]['Permission']['_create'], -1);
+		$this->assertEquals(-1, $node['Aco'][0]['Permission']['_create']);
 	}
 
 /**
@@ -278,7 +278,7 @@ class AclShellTest extends TestCase {
 		$node = $this->Task->Acl->Aro->node(array('model' => 'AuthUser', 'foreign_key' => 2));
 		$node = $this->Task->Acl->Aro->read(null, $node[0]['Aro']['id']);
 		$this->assertFalse(empty($node['Aco'][0]));
-		$this->assertEquals($node['Aco'][0]['Permission']['_create'], 0);
+		$this->assertEquals(0, $node['Aco'][0]['Permission']['_create']);
 	}
 
 /**

@@ -12,12 +12,14 @@
  * @link          http://cakephp.org CakePHP(tm) Project
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 namespace Cake\Controller\Component\Auth;
 use Cake\Controller\ComponentCollection,
 	Cake\Utility\ClassRegistry,
 	Cake\Utility\Set,
 	Cake\Network\Request,
 	Cake\Network\Response,
+	Cake\Utility\Hash,
 	Cake\Utility\Security;
 
 /**
@@ -63,7 +65,7 @@ abstract class BaseAuthenticate {
  */
 	public function __construct(ComponentCollection $collection, $settings) {
 		$this->_Collection = $collection;
-		$this->settings = Set::merge($this->settings, $settings);
+		$this->settings = Hash::merge($this->settings, $settings);
 	}
 
 /**

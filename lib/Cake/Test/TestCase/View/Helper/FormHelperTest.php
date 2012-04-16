@@ -111,14 +111,20 @@ class Contact extends TestModel {
 		'non_existing' => array(),
 		'idontexist' => array(),
 		'imrequired' => array('rule' => array('between', 5, 30), 'allowEmpty' => false),
+		'imrequiredonupdate' => array('notEmpty' => array('rule' => 'alphaNumeric', 'on' => 'update')),
+		'imrequiredoncreate' => array('required' => array('rule' => 'alphaNumeric', 'on' => 'create')),
+		'imrequiredonboth' => array(
+			'required' => array('rule' => 'alphaNumeric', 'allowEmpty' => true),
+			'check' => array('rule' => 'alphaNumeric')
+		),
 		'string_required' => 'notEmpty',
 		'imalsorequired' => array('rule' => 'alphaNumeric', 'allowEmpty' => false),
 		'imrequiredtoo' => array('rule' => 'notEmpty'),
 		'required_one' => array('required' => array('rule' => array('notEmpty'))),
 		'imnotrequired' => array('required' => false, 'rule' => 'alphaNumeric', 'allowEmpty' => true),
 		'imalsonotrequired' => array(
-			'alpha' => array('rule' => 'alphaNumeric','allowEmpty' => true),
-			'between' => array('rule' => array('between', 5, 30)),
+			'alpha' => array('rule' => 'alphaNumeric', 'allowEmpty' => true),
+			'between' => array('rule' => array('between', 5, 30), 'allowEmpty' => true),
 		),
 		'imnotrequiredeither' => array('required' => true, 'rule' => array('between', 5, 30), 'allowEmpty' => true),
 	);
@@ -624,7 +630,8 @@ class TestMail extends TestModel {
  * FormHelperTest class
  *
  * @package	   cake
- * @package       Cake.Test.Case.View.Helper
+ * @subpackage       Cake.Test.Case.View.Helper
+ * @property FormHelper $Form
  */
 class FormHelperTest extends TestCase {
 
@@ -732,7 +739,7 @@ class FormHelperTest extends TestCase {
 	public function testCreateClearingFields() {
 		$this->Form->fields = array('model_id');
 		$this->Form->create('Contact');
-		$this->assertEquals($this->Form->fields, array());
+		$this->assertEquals(array(), $this->Form->fields);
 	}
 
 /**
@@ -753,23 +760,23 @@ class FormHelperTest extends TestCase {
  */
 	public function testDuplicateFieldNameResolution() {
 		$result = $this->Form->create('ValidateUser');
-		$this->assertEquals($this->Form->entity(), array('ValidateUser'));
+		$this->assertEquals(array('ValidateUser'), $this->Form->entity());
 
 		$result = $this->Form->input('ValidateItem.name');
-		$this->assertEquals($this->Form->entity(), array('ValidateItem', 'name'));
+		$this->assertEquals(array('ValidateItem', 'name'), $this->Form->entity());
 
 		$result = $this->Form->input('ValidateUser.name');
-		$this->assertEquals($this->Form->entity(), array('ValidateUser', 'name'));
+		$this->assertEquals(array('ValidateUser', 'name'), $this->Form->entity());
 		$this->assertRegExp('/name="data\[ValidateUser\]\[name\]"/', $result);
 		$this->assertRegExp('/type="text"/', $result);
 
 		$result = $this->Form->input('ValidateItem.name');
-		$this->assertEquals($this->Form->entity(), array('ValidateItem', 'name'));
+		$this->assertEquals(array('ValidateItem', 'name'), $this->Form->entity());
 		$this->assertRegExp('/name="data\[ValidateItem\]\[name\]"/', $result);
 		$this->assertRegExp('/<textarea/', $result);
 
 		$result = $this->Form->input('name');
-		$this->assertEquals($this->Form->entity(), array('ValidateUser', 'name'));
+		$this->assertEquals(array('ValidateUser', 'name'), $this->Form->entity());
 		$this->assertRegExp('/name="data\[ValidateUser\]\[name\]"/', $result);
 		$this->assertRegExp('/type="text"/', $result);
 	}
@@ -781,7 +788,7 @@ class FormHelperTest extends TestCase {
  */
 	public function testNoCheckboxLocking() {
 		$this->Form->request['_Token'] = array('key' => 'foo');
-		$this->assertSame($this->Form->fields, array());
+		$this->assertSame(array(), $this->Form->fields);
 
 		$this->Form->checkbox('check', array('value' => '1'));
 		$this->assertSame($this->Form->fields, array('check'));
@@ -1345,14 +1352,14 @@ class FormHelperTest extends TestCase {
  */
 	public function testFormSecuredFileInput() {
 		$this->Form->request['_Token'] = array('key' => 'testKey');
-		$this->assertEquals($this->Form->fields, array());
+		$this->assertEquals(array(), $this->Form->fields);
 
 		$result = $this->Form->file('Attachment.file');
 		$expected = array(
 			'Attachment.file.name', 'Attachment.file.type', 'Attachment.file.tmp_name',
 			'Attachment.file.error', 'Attachment.file.size'
 		);
-		$this->assertEquals($this->Form->fields, $expected);
+		$this->assertEquals($expected, $this->Form->fields);
 	}
 
 /**
@@ -1362,16 +1369,16 @@ class FormHelperTest extends TestCase {
  */
 	public function testFormSecuredMultipleSelect() {
 		$this->Form->request['_Token'] = array('key' => 'testKey');
-		$this->assertEquals($this->Form->fields, array());
+		$this->assertEquals(array(), $this->Form->fields);
 		$options = array('1' => 'one', '2' => 'two');
 
 		$this->Form->select('Model.select', $options);
 		$expected = array('Model.select');
-		$this->assertEquals($this->Form->fields, $expected);
+		$this->assertEquals($expected, $this->Form->fields);
 
 		$this->Form->fields = array();
 		$this->Form->select('Model.select', $options, array('multiple' => true));
-		$this->assertEquals($this->Form->fields, $expected);
+		$this->assertEquals($expected, $this->Form->fields);
 	}
 
 /**
@@ -1381,12 +1388,12 @@ class FormHelperTest extends TestCase {
  */
 	public function testFormSecuredRadio() {
 		$this->Form->request['_Token'] = array('key' => 'testKey');
-		$this->assertEquals($this->Form->fields, array());
+		$this->assertEquals(array(), $this->Form->fields);
 		$options = array('1' => 'option1', '2' => 'option2');
 
 		$this->Form->radio('Test.test', $options);
 		$expected = array('Test.test');
-		$this->assertEquals($this->Form->fields, $expected);
+		$this->assertEquals($expected, $this->Form->fields);
 	}
 
 /**
@@ -1630,7 +1637,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->error(
 			'OpenidUrl.openid_not_registered', 'Error, not registered', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Error, not registered');
+		$this->assertEquals('Error, not registered', $result);
 
 		unset($this->UserForm->OpenidUrl, $this->UserForm);
 	}
@@ -1669,17 +1676,17 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->error(
 			'ValidateUser.email', 'Invalid email', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid email');
+		$this->assertEquals('Invalid email', $result);
 
 		$result = $this->Form->error(
 			'ValidateProfile.full_name', 'Invalid name', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid name');
+		$this->assertEquals('Invalid name', $result);
 
 		$result = $this->Form->error(
 			'ValidateProfile.city', 'Invalid city', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid city');
+		$this->assertEquals('Invalid city', $result);
 
 		unset($this->ValidateUser->ValidateProfile);
 		unset($this->ValidateUser);
@@ -1722,12 +1729,12 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->error(
 			'ValidateUser.email', 'Invalid email', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid email');
+		$this->assertEquals('Invalid email', $result);
 
 		$result = $this->Form->error(
 			'ValidateProfile.full_name', 'Invalid name', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid name');
+		$this->assertEquals('Invalid name', $result);
 
 		$result = $this->Form->error(
 			'ValidateProfile.city', 'Invalid city', array('wrap' => false)
@@ -1736,7 +1743,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->error(
 			'ValidateItem.description', 'Invalid description', array('wrap' => false)
 		);
-		$this->assertEquals($result, 'Invalid description');
+		$this->assertEquals('Invalid description', $result);
 
 		unset($this->ValidateUser->ValidateProfile->ValidateItem);
 		unset($this->ValidateUser->ValidateProfile);
@@ -3001,11 +3008,11 @@ class FormHelperTest extends TestCase {
 		$this->assertTags($result, array('div' => array('class' => 'error-message'), 'Error in field Field', '/div'));
 
 		$result = $this->Form->error('Contact.field', null, array('wrap' => false));
-		$this->assertEquals($result, 'Error in field Field');
+		$this->assertEquals('Error in field Field', $result);
 
 		$Contact->validationErrors['field'] = array("This field contains invalid input");
 		$result = $this->Form->error('Contact.field', null, array('wrap' => false));
-		$this->assertEquals($result, 'This field contains invalid input');
+		$this->assertEquals('This field contains invalid input', $result);
 
 		$Contact->validationErrors['field'] = array("This field contains invalid input");
 		$result = $this->Form->error('Contact.field', null, array('wrap' => 'span'));
@@ -3015,13 +3022,13 @@ class FormHelperTest extends TestCase {
 		$this->assertTags($result, array('span' => array('class' => 'error-message'), 'There is an error fool!', '/span'));
 
 		$result = $this->Form->error('Contact.field', "<strong>Badness!</strong>", array('wrap' => false));
-		$this->assertEquals($result, '&lt;strong&gt;Badness!&lt;/strong&gt;');
+		$this->assertEquals('&lt;strong&gt;Badness!&lt;/strong&gt;', $result);
 
 		$result = $this->Form->error('Contact.field', "<strong>Badness!</strong>", array('wrap' => false, 'escape' => true));
-		$this->assertEquals($result, '&lt;strong&gt;Badness!&lt;/strong&gt;');
+		$this->assertEquals('&lt;strong&gt;Badness!&lt;/strong&gt;', $result);
 
 		$result = $this->Form->error('Contact.field', "<strong>Badness!</strong>", array('wrap' => false, 'escape' => false));
-		$this->assertEquals($result, '<strong>Badness!</strong>');
+		$this->assertEquals('<strong>Badness!</strong>', $result);
 
 		$Contact->validationErrors['field'] = array("email");
 		$result = $this->Form->error('Contact.field', array('attributes' => array('class' => 'field-error'), 'email' => 'No good!'));
@@ -3558,6 +3565,72 @@ class FormHelperTest extends TestCase {
 			'/label'
 		);
 		$this->assertTags($result, $expected);
+	}
+
+
+/**
+ * test adding an empty option for radio buttons
+ *
+ * @return void
+ */
+	public function testRadioAddEmptyOption() {
+		$result = $this->Form->input('Model.1.field', array(
+			'type' => 'radio',
+			'options' => array('option A'),
+			'empty' => true,
+			'hiddenField' => false
+		));
+		$expected = array(
+			'div' => array('class' => 'input radio'),
+				'fieldset' => array(),
+					'legend' => array(),
+						'Field',
+					'/legend',
+					array('input' => array('type' => 'radio', 'name' => 'data[Model][1][field]', 'value' => '', 'id' => 'Model1Field')),
+					array('label' => array('for' => 'Model1Field')),
+						__('empty'),
+					'/label',
+					array('input' => array('type' => 'radio', 'name' => 'data[Model][1][field]', 'value' => '0', 'id' => 'Model1Field0')),
+					array('label' => array('for' => 'Model1Field0')),
+						'option A',
+					'/label',
+				'/fieldset',
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Model.1.field', array(
+			'type' => 'radio',
+			'options' => array('option A'),
+			'empty' => 'CustomEmptyLabel',
+			'hiddenField' => false
+		));
+		$expected = array(
+			'div' => array('class' => 'input radio'),
+				'fieldset' => array(),
+					'legend' => array(),
+						'Field',
+					'/legend',
+					array('input' => array('type' => 'radio', 'name' => 'data[Model][1][field]', 'value' => '', 'id' => 'Model1Field')),
+					array('label' => array('for' => 'Model1Field')),
+						'CustomEmptyLabel',
+					'/label',
+					array('input' => array('type' => 'radio', 'name' => 'data[Model][1][field]', 'value' => '0', 'id' => 'Model1Field0')),
+					array('label' => array('for' => 'Model1Field0')),
+						'option A',
+					'/label',
+				'/fieldset',
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+		
+		$result = $this->Form->input('Model.1.field', array(
+			'type' => 'radio',
+			'options' => array('option A'),
+			'empty' => false,
+			'hiddenField' => false
+		));
+		$this->assertTextNotContains('"Model1Field"', $result);
 	}
 
 /**
@@ -4187,13 +4260,13 @@ class FormHelperTest extends TestCase {
  */
 	public function testSelectMultipleCheckboxSecurity() {
 		$this->Form->request['_Token'] = array('key' => 'testKey');
-		$this->assertEquals($this->Form->fields, array());
+		$this->assertEquals(array(), $this->Form->fields);
 
 		$result = $this->Form->select(
 			'Model.multi_field', array('1' => 'first', '2' => 'second', '3' => 'third'),
 			array('multiple' => 'checkbox')
 		);
-		$this->assertEquals($this->Form->fields, array('Model.multi_field'));
+		$this->assertEquals(array('Model.multi_field'), $this->Form->fields);
 
 		$result = $this->Form->secure($this->Form->fields);
 		$key = 'f7d573650a295b94e0938d32b323fde775e5f32b%3A';
@@ -6594,7 +6667,8 @@ class FormHelperTest extends TestCase {
 			'inputDefaults' => array(
 				'div' => false,
 				'label' => false,
-				'error' => array('attributes' => array('wrap' => 'small', 'class' => 'error'))
+				'error' => array('attributes' => array('wrap' => 'small', 'class' => 'error')),
+				'format' => array('before', 'label', 'between', 'input', 'after', 'error')
 			)
 		));
 		$result = $this->Form->input('username');
@@ -6612,14 +6686,24 @@ class FormHelperTest extends TestCase {
 		);
 		$this->assertTags($result, $expected);
 
-		$User = ClassRegistry::getObject('User');
-		$User->validationErrors['username'] = array('empty');
-		$result = $this->Form->input('username', array('div' => true, 'label' => 'username', 'error' => array('empty' => __('Required'))));
+		$result = $this->Form->input('username', array('label' => 'Username', 'format' => array('input', 'label')));
 		$expected = array(
-			'div' => array('class' => 'input text error'),
-			'label' => array('for' => 'UserUsername'), 'username', '/label',
-			'input' => array('class' => 'form-error', 'type' => 'text', 'name' => 'data[User][username]', 'id' => 'UserUsername'),
-			'small' => array('class' => 'error'), 'Required', '/small',
+			'input' => array('type' => 'text', 'name' => 'data[User][username]', 'id' => 'UserUsername'),
+			'label' => array('for' => 'UserUsername'), 'Username', '/label',
+		);
+		$this->assertTags($result, $expected);
+
+		$this->Form->create('User', array(
+			'inputDefaults' => array(
+				'div' => false,
+				'label' => array('class' => 'nice', 'for' => 'changed'),
+			)
+		));
+		$result = $this->Form->input('username', array('div' => true));
+		$expected = array(
+			'div' => array('class' => 'input text'),
+			'label' => array('for' => 'changed', 'class' => 'nice'), 'Username', '/label',
+			'input' => array('type' => 'text', 'name' => 'data[User][username]', 'id' => 'UserUsername'),
 			'/div'
 		);
 		$this->assertTags($result, $expected);
@@ -6869,7 +6953,7 @@ class FormHelperTest extends TestCase {
 
 		$result = $this->Form->input('Contact.non_existing');
 		$expected = array(
-			'div' => array('class' => 'input text required'),
+			'div' => array('class' => 'input text'),
 			'label' => array('for' => 'ContactNonExisting'),
 			'Non Existing',
 			'/label',
@@ -7354,7 +7438,7 @@ class FormHelperTest extends TestCase {
  * @return void
  */
 	public function testFormEnd() {
-		$this->assertEquals($this->Form->end(), '</form>');
+		$this->assertEquals('</form>', $this->Form->end());
 
 		$result = $this->Form->end('');
 		$expected = array(
@@ -7865,5 +7949,135 @@ class FormHelperTest extends TestCase {
 		$this->Form->validationErrors['Thing']['field'] = 'Badness!';
 		$result = $this->Form->error('Thing.field', null, array('wrap' => false));
 		$this->assertEquals('Badness!', $result);
+	}
+
+/**
+ * Tests that the 'on' key validates as expected on create
+ *
+ * @return void
+ */
+	public function testRequiredOnCreate() {
+		$this->Form->create('Contact');
+
+		$result = $this->Form->input('Contact.imrequiredonupdate');
+		$expected = array(
+			'div' => array('class' => 'input text'),
+			'label' => array('for' => 'ContactImrequiredonupdate'),
+			'Imrequiredonupdate',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredonupdate]',
+				'id' => 'ContactImrequiredonupdate'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequiredoncreate');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequiredoncreate'),
+			'Imrequiredoncreate',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredoncreate]',
+				'id' => 'ContactImrequiredoncreate'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequiredonboth');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequiredonboth'),
+			'Imrequiredonboth',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredonboth]',
+				'id' => 'ContactImrequiredonboth'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequired');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequired'),
+			'Imrequired',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequired]',
+				'id' => 'ContactImrequired'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+	}
+
+/**
+ * Tests that the 'on' key validates as expected on update
+ *
+ * @return void
+ */
+	public function testRequiredOnUpdate() {
+		$this->Form->request->data['Contact']['id'] = 1;
+		$this->Form->create('Contact');
+
+		$result = $this->Form->input('Contact.imrequiredonupdate');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequiredonupdate'),
+			'Imrequiredonupdate',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredonupdate]',
+				'id' => 'ContactImrequiredonupdate'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+		$result = $this->Form->input('Contact.imrequiredoncreate');
+		$expected = array(
+			'div' => array('class' => 'input text'),
+			'label' => array('for' => 'ContactImrequiredoncreate'),
+			'Imrequiredoncreate',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredoncreate]',
+				'id' => 'ContactImrequiredoncreate'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequiredonboth');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequiredonboth'),
+			'Imrequiredonboth',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequiredonboth]',
+				'id' => 'ContactImrequiredonboth'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('Contact.imrequired');
+		$expected = array(
+			'div' => array('class' => 'input text required'),
+			'label' => array('for' => 'ContactImrequired'),
+			'Imrequired',
+			'/label',
+			'input' => array(
+				'type' => 'text', 'name' => 'data[Contact][imrequired]',
+				'id' => 'ContactImrequired'
+			),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
 	}
 }
