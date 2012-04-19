@@ -13,7 +13,7 @@
  */
 namespace Cake\Routing\Route;
 
-use Cake\Routing\Router,
+use Cake\Routing\Router;
 
 /**
  * A single Route used by the Router to connect requests to
