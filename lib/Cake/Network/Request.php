@@ -607,10 +607,19 @@ class Request implements \ArrayAccess {
 /**
  * Get the host that the request was handled on.
  *
- * @return void
+ * @return string
  */
 	public function host() {
 		return env('HTTP_HOST');
+	}
+
+/**
+ * Get the port the request was handled on.
+ *
+ * @return string
+ */
+	public function port() {
+		return env('SERVER_PORT');
 	}
 
 /**
