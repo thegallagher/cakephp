@@ -626,7 +626,7 @@ class HelperTest extends TestCase {
 		$this->assertEquals(FULL_BASE_URL . '/foo.jpg', $result);
 
 		$result = $this->Helper->assetUrl('style', array('ext' => '.css'));
-		$this->assertEqual('style.css', $result);
+		$this->assertEquals('style.css', $result);
 
 		$result = $this->Helper->assetUrl('foo.jpg?one=two&three=four');
 		$this->assertEquals('foo.jpg?one=two&amp;three=four', $result);
@@ -642,10 +642,10 @@ class HelperTest extends TestCase {
 		Plugin::load('TestPlugin');
 
 		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css'));
-		$this->assertEqual('test_plugin/style.css', $result);
+		$this->assertEquals('test_plugin/style.css', $result);
 
 		$result = $this->Helper->assetUrl('TestPlugin.style', array('ext' => '.css', 'plugin' => false));
-		$this->assertEqual('TestPlugin.style.css', $result);
+		$this->assertEquals('TestPlugin.style.css', $result);
 
 		Plugin::unload('TestPlugin');
 	}

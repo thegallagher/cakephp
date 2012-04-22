@@ -2163,7 +2163,8 @@ class RouterTest extends TestCase {
 
 		$expected = array(
 			'plugin' => null, 'controller' => false, 'action' => false,
-			'param1' => '1', 'param2' => '2'
+			'named' => array(), 'pass' => array(),
+			'param1' => '1', 'param2' => '2',
 		);
 		$this->assertEquals(Router::getParams(), $expected);
 		$this->assertEquals(Router::getParam('controller'), false);
@@ -2174,7 +2175,10 @@ class RouterTest extends TestCase {
 
 		$params = array('controller' => 'pages', 'action' => 'display');
 		Router::setRequestInfo(array($params, $paths));
-		$expected = array('plugin' => null, 'controller' => 'pages', 'action' => 'display');
+		$expected = array(
+			'plugin' => null, 'controller' => 'pages', 'action' => 'display',
+			'named' => array(), 'pass' => array(),
+		);
 		$this->assertEquals(Router::getParams(), $expected);
 		$this->assertEquals(Router::getParams(true), $expected);
 	}
@@ -2553,8 +2557,8 @@ class RouterTest extends TestCase {
 		$routeClass = '\TestDefaultRouteClass';
 		Router::defaultRouteClass($routeClass);
 
-		$this->assertEqual($routeClass, Router::defaultRouteClass());
-		$this->assertEqual($routeClass, Router::defaultRouteClass(null));
+		$this->assertEquals($routeClass, Router::defaultRouteClass());
+		$this->assertEquals($routeClass, Router::defaultRouteClass(null));
 	}
 
 /**

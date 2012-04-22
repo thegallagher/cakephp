@@ -5229,6 +5229,38 @@ class ModelWriteTest extends BaseModelTest {
 	}
 
 /**
+ * testSaveAssociatedHasManyEmpty method
+ *
+ * @return void
+ */
+	public function testSaveAssociatedHasManyEmpty() {
+		$this->loadFixtures('Article', 'Comment');
+		$TestModel = new Article();
+		$TestModel->belongsTo = $TestModel->hasAndBelongsToMany = array();
+		$TestModel->validate = $TestModel->Comment->validate = array('user_id' => array('notEmpty' => array('rule' => 'notEmpty', 'required' => true)));
+
+		//empty hasMany data is ignored in save
+		$result = $TestModel->saveAssociated(array(
+			'Article' => array('title' => 'title', 'user_id' => 1),
+			'Comment' => array()
+		), array('validate' => true));
+		$this->assertTrue($result);
+
+		$result = $TestModel->saveAssociated(array(
+			'Article' => array('title' => 'title', 'user_id' => 1),
+			'Comment' => array()
+		), array('validate' => true, 'atomic' => false));
+		$this->assertEquals(array('Article' => true), $result);
+
+		//empty primary data is not ignored
+		$result = $TestModel->saveAssociated(array('Article' => array()), array('validate' => true));
+		$this->assertFalse($result);
+
+		$result = $TestModel->saveAssociated(array('Article' => array()), array('validate' => true, 'atomic' => false));
+		$this->assertEquals(array('Article' => false), $result);
+	}
+
+/**
  * testSaveAssociatedHasManyValidation method
  *
  * @return void
@@ -6338,7 +6370,7 @@ class ModelWriteTest extends BaseModelTest {
 		$TestModel = new Post();
 
 		$result = $TestModel->find('all');
-		$this->assertEqual(3, count($result));
+		$this->assertEquals(3, count($result));
 		$this->assertFalse(isset($result[3]));
 		$ts = date('Y-m-d H:i:s');
 
@@ -6379,7 +6411,7 @@ class ModelWriteTest extends BaseModelTest {
 			),
 		);
 		$this->assertEquals($expected, $result[3]);
-		$this->assertEqual(4, count($result));
+		$this->assertEquals(4, count($result));
 		$this->assertEquals('', $result[3]['Post']['body']);
 		$this->assertEquals('working', $result[3]['Author']['test']);
 
@@ -6510,7 +6542,7 @@ class ModelWriteTest extends BaseModelTest {
 		$TestModel->recursive = 2;
 
 		$result = $TestModel->find('all');
-		$this->assertEqual(3, count($result));
+		$this->assertEquals(3, count($result));
 		$this->assertFalse(isset($result[3]));
 		$ts = date('Y-m-d H:i:s');
 

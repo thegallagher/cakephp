@@ -141,6 +141,14 @@ class Email {
 	protected $_messageId = true;
 
 /**
+ * Domain for messageId generation.
+ * Needs to be manually set for CLI mailing as env('HTTP_HOST') is empty
+ *
+ * @var string
+ */
+	protected $_domain = null;
+
+/**
  * The subject of the email
  *
  * @var string
@@ -308,6 +316,11 @@ class Email {
 		if ($this->_appCharset !== null) {
 			$this->charset = $this->_appCharset;
 		}
+		$this->_domain = env('HTTP_HOST');
+		if (empty($this->_domain)) {
+			$this->_domain = php_uname('n');
+		}
+
 		if ($config) {
 			$this->config($config);
 		}
@@ -689,7 +702,7 @@ class Email {
 		}
 		if ($this->_messageId !== false) {
 			if ($this->_messageId === true) {
-				$headers['Message-ID'] = '<' . str_replace('-', '', String::UUID()) . '@' . env('HTTP_HOST') . '>';
+				$headers['Message-ID'] = '<' . str_replace('-', '', String::UUID()) . '@' . $this->_domain . '>';
 			} else {
 				$headers['Message-ID'] = $this->_messageId;
 			}
@@ -882,6 +895,20 @@ class Email {
 			}
 			$this->_messageId = $message;
 		}
+		return $this;
+	}
+
+/**
+ * Domain as top level (the part after @)
+ *
+ * @param string $domain Manually set the domain for CLI mailing
+ * @return mixed
+ */
+	public function domain($domain = null) {
+		if ($domain === null) {
+			return $this->_domain;
+		}
+		$this->_domain = $domain;
 		return $this;
 	}
 
@@ -1094,7 +1121,7 @@ class Email {
 		}
 		$simpleMethods = array(
 			'from', 'sender', 'to', 'replyTo', 'readReceipt', 'returnPath', 'cc', 'bcc',
-			'messageId', 'subject', 'viewRender', 'viewVars', 'attachments',
+			'messageId', 'domain', 'subject', 'viewRender', 'viewVars', 'attachments',
 			'transport', 'emailFormat', 'theme',
 		);
 		foreach ($simpleMethods as $method) {

@@ -239,7 +239,7 @@ class TestTaskTest extends TestCase {
 	}
 
 /**
- * endTest method
+ * tearDown method
  *
  * @return void
  */
@@ -437,7 +437,7 @@ class TestTaskTest extends TestCase {
 		$result = $this->Task->bake('Model', 'TestTaskArticle');
 
 		$this->assertContains("App::uses('TestTaskArticle', 'Model')", $result);
-		$this->assertContains('class TestTaskArticleTestCase extends TestCase', $result);
+		$this->assertContains('class TestTaskArticleTest extends TestCase', $result);
 
 		$this->assertContains('function setUp()', $result);
 		$this->assertContains("\$this->TestTaskArticle = ClassRegistry::init('TestTaskArticle')", $result);
@@ -470,7 +470,7 @@ class TestTaskTest extends TestCase {
 		$result = $this->Task->bake('Controller', 'TestTaskComments');
 
 		$this->assertContains("App::uses('TestTaskCommentsController', 'Controller')", $result);
-		$this->assertContains('class TestTaskCommentsControllerTestCase extends TestCase', $result);
+		$this->assertContains('class TestTaskCommentsControllerTest extends TestCase', $result);
 
 		$this->assertContains('class TestTestTaskCommentsController extends TestTaskCommentsController', $result);
 		$this->assertContains('public $autoRender = false', $result);
@@ -657,7 +657,7 @@ class TestTaskTest extends TestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTestCase extends TestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->execute();
 	}
@@ -673,7 +673,7 @@ class TestTaskTest extends TestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTestCase extends TestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->expects($this->any())->method('isLoadableClass')->will($this->returnValue(true));
 		$this->Task->execute();
@@ -690,7 +690,7 @@ class TestTaskTest extends TestCase {
 		$this->Task->expects($this->once())->method('createFile')
 			->with(
 				$this->anything(),
-				$this->stringContains('class TestTaskTagTestCase extends TestCase')
+				$this->stringContains('class TestTaskTagTest extends TestCase')
 			);
 		$this->Task->expects($this->any())->method('isLoadableClass')->will($this->returnValue(true));
 		$this->Task->execute();

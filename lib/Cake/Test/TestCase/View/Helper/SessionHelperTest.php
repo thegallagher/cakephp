@@ -172,7 +172,7 @@ class SessionHelperTest extends TestCase {
 			'params' => array('title' => 'Notice!', 'name' => 'Alert!')
 		));
 		$expected = "<div id=\"notificationLayout\">\n\t<h1>Alert!</h1>\n\t<h3>Notice!</h3>\n\t<p>This is a calling</p>\n</div>";
-		$this->assertEquals($expected, $result);
+		$this->assertTextEquals($expected, $result);
 	}
 
 /**

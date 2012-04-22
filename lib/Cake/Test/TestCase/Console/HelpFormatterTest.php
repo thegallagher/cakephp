@@ -65,7 +65,7 @@ four  this is help text this
       <comment>(optional)</comment>
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Generated help is too wide');
+		$this->assertTextEquals($expected, $result, 'Generated help is too wide');
 	}
 
 /**
@@ -100,7 +100,7 @@ type          Resource type. <comment>(choices: aco|aro)</comment>
 other_longer  Another argument. <comment>(optional)</comment>
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Help does not match');
+		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
 /**
@@ -135,7 +135,7 @@ model  The model to make.
 epilog text
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Help is wrong.');
+		$this->assertTextEquals($expected, $result, 'Help is wrong.');
 	}
 
 /**
@@ -166,7 +166,7 @@ To see help on a subcommand use <info>`cake mycommand [subcommand] --help`</info
 --test      A test option.
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Help is not correct.');
+		$this->assertTextEquals($expected, $result, 'Help is not correct.');
 	}
 
 /**
@@ -195,7 +195,7 @@ cake mycommand [-h] [--test] [-c default]
                   default)</comment>
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Help does not match');
+		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
 /**
@@ -226,7 +226,7 @@ model         The model to make.
 other_longer  Another argument. <comment>(optional)</comment>
 
 TEXT;
-		$this->assertEquals($expected, $result, 'Help does not match');
+		$this->assertTextEquals($expected, $result, 'Help does not match');
 	}
 
 /**

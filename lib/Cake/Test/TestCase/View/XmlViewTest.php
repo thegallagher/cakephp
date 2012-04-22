@@ -48,7 +48,7 @@ class XmlViewTest extends TestCase {
 
 		$expected = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . '<users><user>user1</user><user>user2</user></users>';
 		$this->assertTextEquals($expected, trim($output));
-		$this->assertIdentical('application/xml', $Response->type());
+		$this->assertSame('application/xml', $Response->type());
 	}
 
 /**
@@ -69,8 +69,8 @@ class XmlViewTest extends TestCase {
 		$expected = array(
 			'response' => array('no' => $data['no'], 'user' => $data['user'])
 		);
-		$this->assertIdentical(Xml::build($expected)->asXML(), $output);
-		$this->assertIdentical('application/xml', $Response->type());
+		$this->assertSame(Xml::build($expected)->asXML(), $output);
+		$this->assertSame('application/xml', $Response->type());
 	}
 
 /**
@@ -104,8 +104,8 @@ class XmlViewTest extends TestCase {
 		$output = $View->render('index');
 
 		$expected = '<?xml version="1.0" encoding="UTF-8"?><users><user>user1</user><user>user2</user></users>';
-		$this->assertIdentical($expected, str_replace(array("\r", "\n"), '', $output));
-		$this->assertIdentical('application/xml', $Response->type());
+		$this->assertSame($expected, str_replace(array("\r", "\n"), '', $output));
+		$this->assertSame('application/xml', $Response->type());
 		$this->assertInstanceOf('Cake\View\HelperCollection', $View->Helpers);
 	}
 

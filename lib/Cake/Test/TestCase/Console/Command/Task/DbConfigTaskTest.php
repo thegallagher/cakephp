@@ -46,7 +46,7 @@ class DbConfigTaskTest extends TestCase {
 	}
 
 /**
- * endTest method
+ * tearDown method
  *
  * @return void
  */

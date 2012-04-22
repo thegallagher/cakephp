@@ -40,7 +40,7 @@ class MediaViewTest extends TestCase {
 	}
 
 /**
- * endTest method
+ * tearDown method
  *
  * @return void
  */

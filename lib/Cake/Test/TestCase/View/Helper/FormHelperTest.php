@@ -1508,12 +1508,12 @@ class FormHelperTest extends TestCase {
 		$this->Form->setEntity('Contact.1.email');
 		$result = $this->Form->tagIsInvalid();
 		$expected = false;
-		$this->assertIdentical($expected, $result);
+		$this->assertSame($expected, $result);
 
 		$this->Form->setEntity('Contact.0.name');
 		$result = $this->Form->tagIsInvalid();
 		$expected = false;
-		$this->assertIdentical($expected, $result);
+		$this->assertSame($expected, $result);
 	}
 
 /**
@@ -3567,7 +3567,6 @@ class FormHelperTest extends TestCase {
 		$this->assertTags($result, $expected);
 	}
 
-
 /**
  * test adding an empty option for radio buttons
  *
@@ -3623,7 +3622,7 @@ class FormHelperTest extends TestCase {
 			'/div'
 		);
 		$this->assertTags($result, $expected);
-		
+
 		$result = $this->Form->input('Model.1.field', array(
 			'type' => 'radio',
 			'options' => array('option A'),
@@ -6063,7 +6062,7 @@ class FormHelperTest extends TestCase {
 	public function testPostButton() {
 		$result = $this->Form->postButton('Hi', '/controller/action');
 		$this->assertTags($result, array(
-			'form' => array('method' => 'post', 'action' => '/controller/action', 'accept-charset' => 'utf-8', 'style' => 'display:none;'),
+			'form' => array('method' => 'post', 'action' => '/controller/action', 'accept-charset' => 'utf-8'),
 			'div' => array('style' => 'display:none;'),
 			'input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST'),
 			'/div',
@@ -6089,7 +6088,6 @@ class FormHelperTest extends TestCase {
 		$expected = array(
 			'form' => array(
 				'method' => 'post', 'action' => '/posts/delete/1', 'accept-charset' => 'utf-8',
-				'style' => 'display:none;'
 			),
 			array('div' => array('style' => 'display:none;')),
 			array('input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST')),

@@ -645,8 +645,8 @@ class ViewTest extends TestCase {
 		$this->assertEquals('this is the plugin element using params[plugin]', $result);
 
 		$result = $this->View->element('test_plugin.plugin_element');
-		$this->assertPattern('/Not Found:/', $result);
-		$this->assertPattern('/test_plugin.plugin_element/', $result);
+		$this->assertRegExp('/Not Found:/', $result);
+		$this->assertRegExp('/test_plugin.plugin_element/', $result);
 
 		$this->View->plugin = 'TestPlugin';
 		$result = $this->View->element('test_plugin_element');
@@ -1010,6 +1010,23 @@ class ViewTest extends TestCase {
 	}
 
 /**
+ * Test render()ing a file in a subdir from a custom viewPath
+ * in a plugin.
+ *
+ * @return void
+ */
+	public function testGetViewFileNameSubdirWithPluginAndViewPath() {
+		$this->PostsController->plugin = 'TestPlugin';
+		$this->PostsController->viewPath = 'Elements';
+		$this->PostsController->name = 'Posts';
+		$View = new TestView($this->PostsController);
+
+		$expected = CAKE . 'Test' . DS . 'test_app' . DS . 'Plugin' . DS . 'TestPlugin' .
+			DS . 'View' . DS . 'Elements' . DS . 'sub_dir' . DS . 'sub_element.ctp';
+		$this->assertEquals($expected, $View->getViewFileName('sub_dir/sub_element'));
+	}
+
+/**
  * test that view vars can replace the local helper variables
  * and not overwrite the $this->Helper references
  *
@@ -1038,7 +1055,7 @@ class ViewTest extends TestCase {
 		$this->assertRegExp('/Posts(\/|\\\)index.ctp/', $result);
 
 		$result = $View->getViewFileName('TestPlugin.index');
-		$this->assertPattern('/Posts(\/|\\\)index.ctp/', $result);
+		$this->assertRegExp('/Posts(\/|\\\)index.ctp/', $result);
 
 		$result = $View->getViewFileName('/Pages/home');
 		$this->assertRegExp('/Pages(\/|\\\)home.ctp/', $result);

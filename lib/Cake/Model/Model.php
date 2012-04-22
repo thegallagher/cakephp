@@ -1327,7 +1327,9 @@ class Model extends Object implements EventListener {
 		$cols = $this->schema();
 		$model = null;
 
-		$column = str_replace(array($db->startQuote, $db->endQuote), '', $column);
+		$startQuote = isset($db->startQuote) ? $db->startQuote : null;
+		$endQuote = isset($db->endQuote) ? $db->endQuote : null;
+		$column = str_replace(array($startQuote, $endQuote), '', $column);
 
 		if (strpos($column, '.')) {
 			list($model, $column) = explode('.', $column);
@@ -2042,6 +2044,9 @@ class Model extends Object implements EventListener {
 
 		if (empty($data) && $options['validate'] !== false) {
 			$result = $this->save($data, $options);
+			if (!$options['atomic']) {
+				return array(!empty($result));
+			}
 			return !empty($result);
 		}
 
@@ -2050,7 +2055,7 @@ class Model extends Object implements EventListener {
 			if ((!$validates && $options['atomic']) || (!$options['atomic'] && in_array(false, $validates, true))) {
 				return $validates;
 			}
-			$options['validate'] = true;
+			$options['validate'] = false;
 		}
 
 		if ($options['atomic']) {
@@ -2173,6 +2178,9 @@ class Model extends Object implements EventListener {
 
 		if (empty($data) && $options['validate'] !== false) {
 			$result = $this->save($data, $options);
+			if (!$options['atomic']) {
+				return array(!empty($result));
+			}
 			return !empty($result);
 		}
 
@@ -2181,7 +2189,7 @@ class Model extends Object implements EventListener {
 			if ((!$validates && $options['atomic']) || (!$options['atomic'] && in_array(false, $validates, true))) {
 				return $validates;
 			}
-			$options['validate'] = true;
+			$options['validate'] = false;
 		}
 		if ($options['atomic']) {
 			$db = $this->getDataSource();
@@ -2191,7 +2199,8 @@ class Model extends Object implements EventListener {
 		$return = array();
 		$validates = true;
 		foreach ($data as $association => $values) {
-			if (isset($associations[$association]) && $associations[$association] === 'belongsTo') {
+			$notEmpty = !empty($values[$association]) || (!isset($values[$association]) && !empty($values));
+			if (isset($associations[$association]) && $associations[$association] === 'belongsTo' && $notEmpty) {
 				$validates = $this->{$association}->create(null) !== null;
 				$saved = false;
 				if ($validates) {
@@ -2225,7 +2234,8 @@ class Model extends Object implements EventListener {
 			if (!$validates) {
 				break;
 			}
-			if (isset($associations[$association])) {
+			$notEmpty = !empty($values[$association]) || (!isset($values[$association]) && !empty($values));
+			if (isset($associations[$association]) && $notEmpty) {
 				$type = $associations[$association];
 				$key = $this->{$type}[$association]['foreignKey'];
 				switch ($type) {
@@ -3377,7 +3387,7 @@ class Model extends Object implements EventListener {
  * Sets the DataSource to which this model is bound.
  *
  * @param string $dataSource The name of the DataSource, as defined in app/Config/database.php
- * @return boolean True on success
+ * @return void
  * @throws MissingConnectionException
  */
 	public function setDataSource($dataSource = null) {

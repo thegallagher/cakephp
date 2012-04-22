@@ -29,7 +29,7 @@ use Cake\TestSuite\TestCase,
  *
  * @package       Cake.Test.Case.Routing.Route
  */
-class PluginShortRouteTestCase extends TestCase {
+class PluginShortRouteTest extends TestCase {
 
 /**
  * setUp method

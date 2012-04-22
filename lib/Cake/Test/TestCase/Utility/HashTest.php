@@ -2090,7 +2090,7 @@ class HashTest extends TestCase {
 		$data = array('My', 'Array', 'To', 'Flatten');
 		$flat = Hash::flatten($data);
 		$result = Hash::expand($flat);
-		$this->assertEqual($data, $result);
+		$this->assertEquals($data, $result);
 
 		$data = array(
 			'0.Post.id' => '1', '0.Post.author_id' => '1', '0.Post.title' => 'First Post', '0.Author.id' => '1',
@@ -2109,7 +2109,7 @@ class HashTest extends TestCase {
 				'Author' => array('id' => '3', 'user' => 'larry', 'password' => null),
 			)
 		);
-		$this->assertEqual($result, $expected);
+		$this->assertEquals($expected, $result);
 
 		$data = array(
 			'0/Post/id' => 1,
@@ -2124,7 +2124,7 @@ class HashTest extends TestCase {
 				)
 			)
 		);
-		$this->assertEqual($result, $expected);
+		$this->assertEquals($result, $expected);
 	}
 
 }

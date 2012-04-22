@@ -115,7 +115,7 @@ class SchemaShellTest extends TestCase {
 	}
 
 /**
- * endTest method
+ * tearDown method
  *
  * @return void
  */

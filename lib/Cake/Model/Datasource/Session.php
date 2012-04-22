@@ -601,6 +601,8 @@ class Session {
 				$_SESSION = array();
 			}
 		} else {
+			// For IE<=8
+			session_cache_limiter("must-revalidate");
 			session_start();
 		}
 		return true;

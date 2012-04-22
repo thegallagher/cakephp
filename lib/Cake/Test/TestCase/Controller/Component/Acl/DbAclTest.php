@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-namespace Cake\Test\TestCase\Controller\Component;
+namespace Cake\Test\TestCase\Controller\Component\Acl;
 use Cake\TestSuite\TestCase,
 	Cake\TestSuite\Fixture\TestModel,
 	Cake\Controller\Component\AclComponent,
@@ -25,6 +25,8 @@ use Cake\TestSuite\TestCase,
 	Cake\Controller\ComponentCollection,
 	Cake\Model\AclNode,
 	Cake\Core\Configure;
+
+require_once dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'Model' . DS . 'models.php';
 
 /**
  * AclNodeTwoTestBase class

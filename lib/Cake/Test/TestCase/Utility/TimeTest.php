@@ -400,6 +400,27 @@ class TimeTest extends TestCase {
 	}
 
 /**
+ * testToServer method
+ *
+ * @return void
+ */
+	public function testToServer() {
+		$tzBackup = date_default_timezone_get();
+
+		date_default_timezone_set('UTC');
+		$serverTime = new DateTime('now');
+
+		$timezones = array('Europe/London', 'Europe/Brussels', 'UTC', 'America/Denver', 'America/Caracas', 'Asia/Kathmandu');
+		foreach ($timezones as $timezone) {
+			$result = $this->Time->toServer($serverTime->format('Y-m-d H:i:s'), $timezone, 'U');
+			$tz = new DateTimeZone($timezone);
+			$this->assertEquals($serverTime->format('U'), $result + $tz->getOffset($serverTime));
+		}
+
+		date_default_timezone_set($tzBackup);
+	}
+
+/**
  * testToAtom method
  *
  * @return void
@@ -423,6 +444,7 @@ class TimeTest extends TestCase {
 				$yourTime = new \DateTime('now', $yourTimezone);
 				$userOffset = $yourTimezone->getOffset($yourTime) / HOUR;
 				$this->assertEquals($yourTime->format('r'), $this->Time->toRss(time(), $userOffset));
+				$this->assertEquals($yourTime->format('r'), $this->Time->toRss(time(), $timezone));
 			}
 		}
 	}
@@ -628,6 +650,17 @@ class TimeTest extends TestCase {
 		$expected = time();
 		$result = $this->Time->fromString(time(), $yourTimezone);
 		$this->assertEquals($expected, $result);
+
+		$result = $this->Time->fromString(time(), $timezoneServer->getName());
+		$this->assertEquals($expected, $result);
+
+		$result = $this->Time->fromString(time(), $timezoneServer);
+		$this->assertEquals($expected, $result);
+
+		Configure::write('Config.timezone', $timezoneServer->getName());
+		$result = $this->Time->fromString(time());
+		$this->assertEquals($expected, $result);
+		Configure::delete('Config.timezone');
 	}
 
 /**
@@ -647,6 +680,11 @@ class TimeTest extends TestCase {
 		$this->assertEquals($expected, $result);
 
 		$timezone = date('Z', time());
+		$result = $this->Time->fromString('+1 hour', $timezone);
+		$expected = $this->Time->convert(strtotime('+1 hour'), $timezone);
+		$this->assertEquals($expected, $result);
+
+		$timezone = date_default_timezone_get();
 		$result = $this->Time->fromString('+1 hour', $timezone);
 		$expected = $this->Time->convert(strtotime('+1 hour'), $timezone);
 		$this->assertEquals($expected, $result);
