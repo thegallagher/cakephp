@@ -472,11 +472,16 @@ class Router {
 		if ($request instanceof Request) {
 			self::$_requests[] = $request;
 		} else {
-			$requestObj = new Request();
-			$request += array(array(), array());
-			$request[0] += array('controller' => false, 'action' => false, 'plugin' => null);
-			$requestObj->addParams($request[0])->addPaths($request[1]);
-			self::$_requests[] = $requestObj;
+			$requestData = $request;
+			$requestData += array(array(), array());
+			$requestData[0] += array(
+				'controller' => false,
+				'action' => false,
+				'plugin' => null
+			);
+			$request = new Request();
+			$request->addParams($requestData[0])->addPaths($requestData[1]);
+			self::$_requests[] = $request;
 		}
 	}
 
@@ -625,38 +630,51 @@ class Router {
  * @return string Full translated URL with base path.
  */
 	public static function url($url = null, $full = false) {
-		$params = array('plugin' => null, 'controller' => null, 'action' => 'index');
-
 		if (is_bool($full)) {
 			$escape = false;
 		} else {
 			extract($full + array('escape' => false, 'full' => false));
 		}
 
-		$path = array('base' => null);
-		if (!empty(self::$_requests)) {
-			$request = self::$_requests[count(self::$_requests) - 1];
+		// TODO refactor so there is less overhead
+		// incurred on each URL generated.
+		$request = self::getRequest(true);
+		if ($request) {
 			$params = $request->params;
-			$path = array('base' => $request->base, 'here' => $request->here);
+			$requestContext = array(
+				'_base' => $request->base,
+				'_port' => $request->port(),
+				'_scheme' => $request->scheme(),
+				'_host' => $request->host()
+			);
+			$here = $request->here;
+		} else {
+			$params = array(
+				'plugin' => null,
+				'controller' => null,
+				'action' => 'index'
+			);
+			$requestContext = array(
+				'_base' => '',
+				'_port' => 80,
+				'_scheme' => 'http',
+				'_host' => 'localhost',
+			);
+			$here = null;
 		}
 
-		$base = $path['base'];
 		$extension = $output = $q = $frag = null;
 
 		if (empty($url)) {
-			$output = isset($path['here']) ? $path['here'] : '/';
+			$output = isset($here) ? $here : '/';
 			if ($full && defined('FULL_BASE_URL')) {
 				$output = FULL_BASE_URL . $output;
 			}
 			return $output;
 		} elseif (is_array($url)) {
-			if (isset($url['base']) && $url['base'] === false) {
-				$base = null;
-				unset($url['base']);
-			}
-			if (isset($url['full_base']) && $url['full_base'] === true) {
+			if (isset($url['_full']) && $url['_full'] === true) {
 				$full = true;
-				unset($url['full_base']);
+				unset($url['_full']);
 			}
 			if (isset($url['?'])) {
 				$q = $url['?'];
@@ -670,6 +688,8 @@ class Router {
 				$extension = '.' . $url['ext'];
 				unset($url['ext']);
 			}
+
+			// Copy the current action if the controller is the current one.
 			if (empty($url['action'])) {
 				if (empty($url['controller']) || $params['controller'] === $url['controller']) {
 					$url['action'] = $params['action'];
@@ -690,9 +710,13 @@ class Router {
 				}
 			}
 
-			$url += array('controller' => $params['controller'], 'plugin' => $params['plugin']);
-			$output = self::$_routes->match($url, $params);
+			$url += array(
+				'controller' => $params['controller'],
+				'plugin' => $params['plugin']
+			);
+			$output = self::$_routes->match($url, $params, $requestContext);
 		} else {
+			// String urls.
 			if (
 				(strpos($url, '://') !== false ||
 				(strpos($url, 'javascript:') === 0) ||
@@ -718,8 +742,7 @@ class Router {
 		}
 		$protocol = preg_match('#^[a-z][a-z0-9+-.]*\://#i', $output);
 		if ($protocol === 0) {
-			$output = str_replace('//', '/', $base . '/' . $output);
-
+			$output = str_replace('//', '/', '/' . $output);
 			if ($full && defined('FULL_BASE_URL')) {
 				$output = FULL_BASE_URL . $output;
 			}
