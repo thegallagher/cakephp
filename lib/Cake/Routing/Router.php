@@ -521,53 +521,6 @@ class Router {
 	}
 
 /**
- * Gets parameter information
- *
- * @param boolean $current Get current request parameter, useful when using requestAction
- * @return array Parameter information
- */
-	public static function getParams($current = false) {
-		if ($current) {
-			return self::$_requests[count(self::$_requests) - 1]->params;
-		}
-		if (isset(self::$_requests[0])) {
-			return self::$_requests[0]->params;
-		}
-		return array();
-	}
-
-/**
- * Gets URL parameter by name
- *
- * @param string $name Parameter name
- * @param boolean $current Current parameter, useful when using requestAction
- * @return string Parameter value
- */
-	public static function getParam($name = 'controller', $current = false) {
-		$params = Router::getParams($current);
-		if (isset($params[$name])) {
-			return $params[$name];
-		}
-		return null;
-	}
-
-/**
- * Gets path information
- *
- * @param boolean $current Current parameter, useful when using requestAction
- * @return array
- */
-	public static function getPaths($current = false) {
-		if ($current) {
-			return self::$_requests[count(self::$_requests) - 1];
-		}
-		if (!isset(self::$_requests[0])) {
-			return array('base' => null);
-		}
-		return array('base' => self::$_requests[0]->base);
-	}
-
-/**
  * Reloads default Router settings.  Resets all class variables and
  * removes all connected routes.
  *
@@ -615,7 +568,7 @@ class Router {
  * - `base` - Set to false to remove the base path from the generated url. If your application
  *   is not in the root directory, this can be used to generate urls that are 'cake relative'.
  *   cake relative urls are required when using requestAction.
- * - `?` - Takes an array of query string parameters
+ * - `?` - Takes an array of query string parameters. (Deprecated)
  * - `#` - Allows you to set url hash fragments.
  * - `full_base` - If true the `FULL_BASE_URL` constant will be prepended to generated urls.
  *
@@ -633,7 +586,7 @@ class Router {
 		if (is_bool($full)) {
 			$escape = false;
 		} else {
-			extract($full + array('escape' => false, 'full' => false));
+			extract($full + array('escape' => false, '_full' => false));
 		}
 
 		// TODO refactor so there is less overhead
@@ -676,9 +629,11 @@ class Router {
 				$full = true;
 				unset($url['_full']);
 			}
+			// Compatibility for older versions.
 			if (isset($url['?'])) {
 				$q = $url['?'];
 				unset($url['?']);
+				$url = array_merge($url, $q);
 			}
 			if (isset($url['#'])) {
 				$frag = '#' . $url['#'];
@@ -750,39 +705,7 @@ class Router {
 				$output = rtrim($output, '/');
 			}
 		}
-		return $output . $extension . self::queryString($q, array(), $escape) . $frag;
-	}
-
-/**
- * Generates a well-formed querystring from $q
- *
- * @param string|array $q Query string Either a string of already compiled query string arguments or
- *    an array of arguments to convert into a query string.
- * @param array $extra Extra querystring parameters.
- * @param boolean $escape Whether or not to use escaped &
- * @return array
- */
-	public static function queryString($q, $extra = array(), $escape = false) {
-		if (empty($q) && empty($extra)) {
-			return null;
-		}
-		$join = '&';
-		if ($escape === true) {
-			$join = '&amp;';
-		}
-		$out = '';
-
-		if (is_array($q)) {
-			$q = array_merge($extra, $q);
-		} else {
-			$out = $q;
-			$q = $extra;
-		}
-		$out .= http_build_query($q, null, $join);
-		if (isset($out[0]) && $out[0] != '?') {
-			$out = '?' . $out;
-		}
-		return $out;
+		return $output . $extension . $frag;
 	}
 
 /**
