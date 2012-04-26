@@ -18,16 +18,16 @@
  */
 namespace Cake\Test\TestCase\Routing;
 
-use Cake\TestSuite\TestCase,
-	Cake\Core\App,
-	Cake\Core\Configure,
-	Cake\Core\Plugin,
-	Cake\Routing\Dispatcher,
-	Cake\Routing\Router,
-	Cake\Network\Request,
-	Cake\Network\Response,
-	Cake\Controller\Controller,
-	Cake\Utility\Inflector;
+use Cake\TestSuite\TestCase;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Routing\Dispatcher;
+use Cake\Routing\Router;
+use Cake\Network\Request;
+use Cake\Network\Response;
+use Cake\Controller\Controller;
+use Cake\Utility\Inflector;
 
 /**
  * A testing stub that doesn't send headers.
@@ -594,72 +594,6 @@ class DispatcherTest extends TestCase {
 	}
 
 /**
- * testParseParamsWithSingleZero method
- *
- * @return void
- */
-	public function testParseParamsWithSingleZero() {
-		$Dispatcher = new Dispatcher();
-		$test = $Dispatcher->parseParams(new Request("/testcontroller/testaction/1/0/23"));
-		$this->assertSame($test['controller'], 'testcontroller');
-		$this->assertSame($test['action'], 'testaction');
-		$this->assertSame($test['pass'][0], '1');
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][1]);
-		$this->assertSame($test['pass'][2], '23');
-	}
-
-/**
- * testParseParamsWithManySingleZeros method
- *
- * @return void
- */
-	public function testParseParamsWithManySingleZeros() {
-		$Dispatcher = new Dispatcher();
-		$test = $Dispatcher->parseParams(new Request("/testcontroller/testaction/0/0/0/0/0/0"));
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][0]);
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][1]);
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][2]);
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][3]);
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][4]);
-		$this->assertRegExp('/\\A(?:0)\\z/', $test['pass'][5]);
-	}
-
-/**
- * testParseParamsWithManyZerosInEachSectionOfUrl method
- *
- * @return void
- */
-	public function testParseParamsWithManyZerosInEachSectionOfUrl() {
-		$Dispatcher = new Dispatcher();
-		$request = new Request("/testcontroller/testaction/000/0000/00000/000000/000000/0000000");
-		$test = $Dispatcher->parseParams($request);
-		$this->assertRegExp('/\\A(?:000)\\z/', $test['pass'][0]);
-		$this->assertRegExp('/\\A(?:0000)\\z/', $test['pass'][1]);
-		$this->assertRegExp('/\\A(?:00000)\\z/', $test['pass'][2]);
-		$this->assertRegExp('/\\A(?:000000)\\z/', $test['pass'][3]);
-		$this->assertRegExp('/\\A(?:000000)\\z/', $test['pass'][4]);
-		$this->assertRegExp('/\\A(?:0000000)\\z/', $test['pass'][5]);
-	}
-
-/**
- * testParseParamsWithMixedOneToManyZerosInEachSectionOfUrl method
- *
- * @return void
- */
-	public function testParseParamsWithMixedOneToManyZerosInEachSectionOfUrl() {
-		$Dispatcher = new Dispatcher();
-
-		$request = new Request("/testcontroller/testaction/01/0403/04010/000002/000030/0000400");
-		$test = $Dispatcher->parseParams($request);
-		$this->assertRegExp('/\\A(?:01)\\z/', $test['pass'][0]);
-		$this->assertRegExp('/\\A(?:0403)\\z/', $test['pass'][1]);
-		$this->assertRegExp('/\\A(?:04010)\\z/', $test['pass'][2]);
-		$this->assertRegExp('/\\A(?:000002)\\z/', $test['pass'][3]);
-		$this->assertRegExp('/\\A(?:000030)\\z/', $test['pass'][4]);
-		$this->assertRegExp('/\\A(?:0000400)\\z/', $test['pass'][5]);
-	}
-
-/**
  * testQueryStringOnRoot method
  *
  * @return void
@@ -1138,9 +1072,9 @@ class DispatcherTest extends TestCase {
 		$url = new Request('/test_plugin/tests/index');
 		$response = $this->getMock('Cake\Network\Response');
 		$result = $Dispatcher->dispatch($url, $response, array('return' => 1));
-		$this->assertTrue(class_exists('TestsController'));
-		$this->assertTrue(class_exists('TestPluginAppController'));
-		$this->assertTrue(class_exists('PluginsComponent'));
+		$this->assertTrue(class_exists('TestPlugin\Controller\TestsController'));
+		$this->assertTrue(class_exists('TestPlugin\Controller\TestPluginAppController'));
+		$this->assertTrue(class_exists('TestPlugin\Controller\Component\PluginsComponent'));
 
 		$this->assertEquals('tests', $result->params['controller']);
 		$this->assertEquals('test_plugin', $result->params['plugin']);
