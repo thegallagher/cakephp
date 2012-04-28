@@ -134,6 +134,19 @@ class Router {
 	protected static $_requests = array();
 
 /**
+ * The top most request's context. Updated whenever
+ * requests are pushed/popped off the stack.
+ *
+ * @var array
+ */
+	protected static $_requestContext = array(
+		'_base' => '',
+		'_port' => 80,
+		'_scheme' => 'http',
+		'_host' => 'localhost',
+	);
+
+/**
  * Initial state is populated the first time reload() is called which is at the bottom
  * of this file.  This is a cheat as get_class_vars() returns the value of static vars even if they
  * have changed.
@@ -457,6 +470,16 @@ class Router {
 	}
 
 /**
+ * Set the route collection object Router should use.
+ *
+ * @param Cake\Routing\RouteCollection $routes
+ * @return void
+ */
+	public static function setRouteCollection(RouteCollection $routes) {
+		self::$_routes = $routes;
+	}
+
+/**
  * Takes parameter and path information back from the Dispatcher, sets these
  * parameters as the current request parameters that are merged with url arrays
  * created later in the request.
@@ -472,7 +495,7 @@ class Router {
  */
 	public static function setRequestInfo($request) {
 		if ($request instanceof Request) {
-			self::$_requests[] = $request;
+			self::pushRequest($request);
 		} else {
 			$requestData = $request;
 			$requestData += array(array(), array());
@@ -483,29 +506,60 @@ class Router {
 			);
 			$request = new Request();
 			$request->addParams($requestData[0])->addPaths($requestData[1]);
-			self::$_requests[] = $request;
+			self::pushRequest($request);
 		}
 	}
 
 /**
- * Set the route collection object Router should use.
+ * Push a request onto the request stack. Pushing a request
+ * sets the request context used when generating urls.
  *
- * @param Cake\Routing\RouteCollection $routes
+ * @param Cake\Network\Request $request
  * @return void
  */
-	public static function setRouteCollection(RouteCollection $routes) {
-		self::$_routes = $routes;
+	public static function pushRequest(Request $request) {
+		self::$_requests[] = $request;
+		self::_setRequestContext($request);
+	}
+
+/**
+ * Populate the request context used to generate URL's
+ * Generally set to the last/most recent request.
+ *
+ * @param Cake\Network\Request $request
+ * @return void
+ */
+	protected static function _setRequestcontext(Request $request) {
+		self::$_requestContext = array(
+			'_base' => $request->base,
+			'_port' => $request->port(),
+			'_scheme' => $request->scheme(),
+			'_host' => $request->host()
+		);
 	}
 
 /**
  * Pops a request off of the request stack.  Used when doing requestAction
  *
  * @return Cake\Network\Request The request removed from the stack.
- * @see Router::setRequestInfo()
+ * @see Router::pushRequest()
  * @see Object::requestAction()
  */
 	public static function popRequest() {
-		return array_pop(self::$_requests);
+		$removed = array_pop(self::$_requests);
+		$last = end(self::$_requests);
+		self::_setRequestContext($last);
+		reset(self::$_requests);
+		return $removed;
+	}
+
+/**
+ * Fetch the current request context.
+ *
+ * @return array An array with the current request context.
+ */
+	public function getRequestContext() {
+		return self::$_requestContext;
 	}
 
 /**
@@ -591,29 +645,15 @@ class Router {
 			extract($full + array('escape' => false, '_full' => false));
 		}
 
-		// TODO refactor so there is less overhead
-		// incurred on each URL generated.
 		$request = self::getRequest(true);
 		if ($request) {
 			$params = $request->params;
-			$requestContext = array(
-				'_base' => $request->base,
-				'_port' => $request->port(),
-				'_scheme' => $request->scheme(),
-				'_host' => $request->host()
-			);
 			$here = $request->here;
 		} else {
 			$params = array(
 				'plugin' => null,
 				'controller' => null,
 				'action' => 'index'
-			);
-			$requestContext = array(
-				'_base' => '',
-				'_port' => 80,
-				'_scheme' => 'http',
-				'_host' => 'localhost',
 			);
 			$here = null;
 		}
@@ -671,6 +711,7 @@ class Router {
 				'controller' => $params['controller'],
 				'plugin' => $params['plugin']
 			);
+			$requestContext = self::$_requestContext;
 			$output = self::$_routes->match($url, $params, $requestContext);
 		} else {
 			// String urls.
@@ -774,48 +815,6 @@ class Router {
 			return '/';
 		}
 		return $url;
-	}
-
-/**
- * Returns the route matching the current request URL.
- *
- * @return Cake\Routing\Route\Route Matching route object.
- * @todo Remove? Not really that useful.
- */
-	public static function &requestRoute() {
-		return self::$_currentRoute[0];
-	}
-
-/**
- * Returns the route matching the current request (useful for requestAction traces)
- *
- * @return Cake\Routing\Route\Route Matching route object.
- * @todo Remove? Not really that useful.
- */
-	public static function &currentRoute() {
-		return self::$_currentRoute[count(self::$_currentRoute) - 1];
-	}
-
-/**
- * Removes the plugin name from the base URL.
- *
- * @param string $base Base URL
- * @param string $plugin Plugin name
- * @return string base url with plugin name removed if present
- * @todo Remove? Not really that useful.
- */
-	public static function stripPlugin($base, $plugin = null) {
-		if ($plugin != null) {
-			$base = preg_replace('/(?:' . $plugin . ')/', '', $base);
-			$base = str_replace('//', '', $base);
-			$pos1 = strrpos($base, '/');
-			$char = strlen($base) - 1;
-
-			if ($pos1 === $char) {
-				$base = substr($base, 0, $char);
-			}
-		}
-		return $base;
 	}
 
 /**
