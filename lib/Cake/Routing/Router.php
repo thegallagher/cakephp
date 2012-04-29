@@ -134,19 +134,6 @@ class Router {
 	protected static $_requests = array();
 
 /**
- * The top most request's context. Updated whenever
- * requests are pushed/popped off the stack.
- *
- * @var array
- */
-	protected static $_requestContext = array(
-		'_base' => '',
-		'_port' => 80,
-		'_scheme' => 'http',
-		'_host' => 'localhost',
-	);
-
-/**
  * Initial state is populated the first time reload() is called which is at the bottom
  * of this file.  This is a cheat as get_class_vars() returns the value of static vars even if they
  * have changed.
@@ -519,23 +506,7 @@ class Router {
  */
 	public static function pushRequest(Request $request) {
 		self::$_requests[] = $request;
-		self::_setRequestContext($request);
-	}
-
-/**
- * Populate the request context used to generate URL's
- * Generally set to the last/most recent request.
- *
- * @param Cake\Network\Request $request
- * @return void
- */
-	protected static function _setRequestcontext(Request $request) {
-		self::$_requestContext = array(
-			'_base' => $request->base,
-			'_port' => $request->port(),
-			'_scheme' => $request->scheme(),
-			'_host' => $request->host()
-		);
+		self::$_routes->setContext($request);
 	}
 
 /**
@@ -548,18 +519,9 @@ class Router {
 	public static function popRequest() {
 		$removed = array_pop(self::$_requests);
 		$last = end(self::$_requests);
-		self::_setRequestContext($last);
+		self::$_routes->setContext($last);
 		reset(self::$_requests);
 		return $removed;
-	}
-
-/**
- * Fetch the current request context.
- *
- * @return array An array with the current request context.
- */
-	public function getRequestContext() {
-		return self::$_requestContext;
 	}
 
 /**
@@ -711,8 +673,7 @@ class Router {
 				'controller' => $params['controller'],
 				'plugin' => $params['plugin']
 			);
-			$requestContext = self::$_requestContext;
-			$output = self::$_routes->match($url, $params, $requestContext);
+			$output = self::$_routes->match($url, $params);
 		} else {
 			// String urls.
 			if (
