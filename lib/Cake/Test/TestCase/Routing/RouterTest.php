@@ -2014,9 +2014,14 @@ class RouterTest extends TestCase {
 		Router::setRouteCollection($routes);
 
 		Router::redirect('/blog', array('controller' => 'posts'), array('status' => 302));
-		$this->assertEquals(1, count($routes));
+		Router::connect('/:controller', array('action' => 'index'));
 
-		$routes->get(0)->response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
+		$this->assertEquals(2, count($routes));
+
+		$routes->get(0)->response = $this->getMock(
+			'Cake\Network\Response',
+			array('_sendHeader')
+		);
 		$routes->get(0)->stop = false;
 		$this->assertEquals(302, $routes->get(0)->options['status']);
 
@@ -2025,7 +2030,10 @@ class RouterTest extends TestCase {
 		$this->assertEquals(Router::url('/posts', true), $header['Location']);
 		$this->assertEquals(302, $routes->get(0)->response->statusCode());
 
-		$routes->get(0)->response = $this->getMock('Cake\Network\Response', array('_sendHeader'));
+		$routes->get(0)->response = $this->getMock(
+			'Cake\Network\Response',
+			array('_sendHeader')
+		);
 		Router::parse('/not-a-match');
 		$this->assertEquals(array(), $routes->get(0)->response->header());
 	}
