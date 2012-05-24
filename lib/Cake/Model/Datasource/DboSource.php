@@ -1315,29 +1315,36 @@ class DboSource extends DataSource {
 		$modelAlias = $model->alias;
 		$modelPK = $model->primaryKey;
 		$modelFK = $model->hasMany[$association]['foreignKey'];
+		
+		$map = array();
+		foreach ($merge as &$data) {
+			$key = $data[$association][$modelFK];
+			if (!isset($map[$key])) {
+				$map[$key] = array();
+			}
+			if (count($data) > 1) {
+				$data = array_merge($data[$association], $data);
+				unset($data[$association]);
+				foreach ($data as $key => $name) {
+					if (is_numeric($key)) {
+						$data[$association][] = $name;
+						unset($data[$key]);
+					}
+				}
+				$map[$key][] =& $data;
+			} else {
+				$map[$key][] =& $data[$association];
+			}
+		}
+		
 		foreach ($resultSet as &$result) {
 			if (!isset($result[$modelAlias])) {
 				continue;
 			}
-			$merged = array();
-			foreach ($merge as $data) {
-				if ($result[$modelAlias][$modelPK] === $data[$association][$modelFK]) {
-					if (count($data) > 1) {
-						$data = array_merge($data[$association], $data);
-						unset($data[$association]);
-						foreach ($data as $key => $name) {
-							if (is_numeric($key)) {
-								$data[$association][] = $name;
-								unset($data[$key]);
-							}
-						}
-						$merged[] = $data;
-					} else {
-						$merged[] = $data[$association];
-					}
-				}
+			if (!isset($map[$result[$modelAlias][$modelPK]])) {
+				$map[$result[$modelAlias][$modelPK]] = array();
 			}
-			$result = Set::pushDiff($result, array($association => $merged));
+			$result = Set::pushDiff($result, array($association => $map[$result[$modelAlias][$modelPK]]));
 		}
 	}
 
