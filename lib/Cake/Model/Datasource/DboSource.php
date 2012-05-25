@@ -1311,7 +1311,6 @@ class DboSource extends DataSource {
  * @param Model $linkModel Model being merged
  * @return void
  */
-	// Trigger travis
 	protected function _mergeHasMany(&$resultSet, $merge, $association, $model, $linkModel) {
 		$modelAlias = $model->alias;
 		$modelPK = $model->primaryKey;
