@@ -1318,10 +1318,11 @@ class DboSource extends DataSource {
 		
 		$map = array();
 		foreach ($merge as &$data) {
-			$key = $data[$association][$modelFK];
-			if (!isset($map[$key])) {
-				$map[$key] = array();
+			$id = $data[$association][$modelFK];
+			if (!isset($map[$id])) {
+				$map[$id] = array();
 			}
+			
 			if (count($data) > 1) {
 				$data = array_merge($data[$association], $data);
 				unset($data[$association]);
@@ -1331,9 +1332,9 @@ class DboSource extends DataSource {
 						unset($data[$key]);
 					}
 				}
-				$map[$key][] =& $data;
+				$map[$id][] = $data;
 			} else {
-				$map[$key][] =& $data[$association];
+				$map[$id][] = $data[$association];
 			}
 		}
 		
